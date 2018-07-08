@@ -20,6 +20,7 @@ import java.util.List;
 import zw.org.zvandiri.business.domain.InvestigationTest;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.TestType;
+import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 /**
  *
@@ -28,4 +29,6 @@ import zw.org.zvandiri.business.domain.util.TestType;
 public interface InvestigationTestService extends GenericService<InvestigationTest> {
     
 	public List<InvestigationTest> getByPatientAndTestType(Patient patient, TestType testType);
+        
+        public List<InvestigationTest> get(SearchDTO dto);
 }

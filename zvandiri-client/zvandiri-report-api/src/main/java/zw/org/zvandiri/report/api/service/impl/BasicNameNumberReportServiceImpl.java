@@ -21,6 +21,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.Settings;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
+import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.service.DetailedPatientReportService;
 import zw.org.zvandiri.business.service.PatientReportService;
 import zw.org.zvandiri.business.service.SettingsService;
@@ -55,9 +56,11 @@ public class BasicNameNumberReportServiceImpl implements BasicNameNumberReportSe
         map.put("OPT_OUT", detailedPatientReportService.getCount(dto));
         dto.setStatus(PatientChangeEvent.ACTIVE);
         dto.setMaxViralLoad(settings.getViralLoadMaxCount());
+        dto.setTestType(TestType.VIRAL_LOAD);
         map.put("VIRAL_LOAD_ABOVE_MINIMUM", patientReportService.getPatientLabResults(dto));
         dto.setMinCd4Count(settings.getCd4MinCount());
-        map.put("CD4_COUNT_ABOVE_MINIMUM", patientReportService.getPatientWithCd4Count(dto));
+        dto.setTestType(TestType.CD4_COUNT);
+        map.put("CD4_COUNT_ABOVE_MINIMUM", patientReportService.getPatientLabResults(dto));
         return map;
     }    
 }

@@ -27,13 +27,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import zw.org.zvandiri.business.service.DistrictService;
 import zw.org.zvandiri.business.service.FacilityService;
+import zw.org.zvandiri.business.service.PatientReportService;
 import zw.org.zvandiri.business.service.ProvinceService;
-import zw.org.zvandiri.business.service.ReferalReportService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
-import zw.org.zvandiri.report.api.service.ReferralReportAPIService;
 
 /**
  *
@@ -50,15 +49,13 @@ public class LaboratoryTestResultsController extends BaseController {
     @Resource
     private FacilityService facilityService;
     @Resource
-    private ReferalReportService referalReportService;
-    @Resource
     private OfficeExportService officeExportService;
     @Resource
-    private ReferralReportAPIService referralReportAPIService;
+    private PatientReportService patientReportService;
 
     public String setUpModel(ModelMap model, SearchDTO item) {
         item = getUserLevelObjectState(item);
-        model.addAttribute("pageTitle", APP_PREFIX + "External Referral Detailed Report");
+        model.addAttribute("pageTitle", APP_PREFIX + "Lab Results Reports");
         model.addAttribute("provinces", provinceService.getAll());
         if (item.getProvince() != null) {
             model.addAttribute("districts", districtService.getDistrictByProvince(item.getProvince()));
@@ -66,27 +63,27 @@ public class LaboratoryTestResultsController extends BaseController {
                 model.addAttribute("facilities", facilityService.getOptByDistrict(item.getDistrict()));
             }
         }
-        model.addAttribute("excelExport", "/report/referral/export/excel" + item.getQueryString(item.getInstance(item)));
-        model.addAttribute("items", referalReportService.get(item.getInstance(item)));
+        model.addAttribute("excelExport", "/report/test-results/export/excel" + item.getQueryString(item.getInstance(item)));
+        model.addAttribute("items", patientReportService.getPatientLabResultsList(item.getInstance(item)));
         model.addAttribute("item", item.getInstance(item));
         return "report/referralDetailedReport";
     }
 
-    @RequestMapping(value = "/detailed", method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_ZM') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
     public String getReferralReportIndex(ModelMap model) {
         return setUpModel(model, new SearchDTO());
     }
 
-    @RequestMapping(value = "/detailed", method = RequestMethod.POST)
+    @RequestMapping(value = "/index", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_ZM') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
     public String getReferralReportIndex(ModelMap model, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
         return setUpModel(model, item);
     }
     
-    @RequestMapping(value = "/export/excel", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/export/excel", method = RequestMethod.GET)
     public void getExcelExport(HttpServletResponse response, SearchDTO item) {
-        String name = DateUtil.getFriendlyFileName("Detailed_Referral_Report");
+        String name = DateUtil.getFriendlyFileName("Lab_Results");
         forceDownLoad(officeExportService.exportExcelFile(referralReportAPIService.getDefaultReport(item.getInstance(item)), name), name, response);
-    }
+    }*/
 }

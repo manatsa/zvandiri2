@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
+import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.service.DetailedPatientReportService;
 import zw.org.zvandiri.business.service.DistrictService;
 import zw.org.zvandiri.business.service.FacilityService;
@@ -86,9 +87,11 @@ public class DetailedReportController extends BaseController {
             model.addAttribute("items", post ? detailedPatientReportService.get(item.getInstance(item)) : null);
         } else {
             if (item.getMaxViralLoad() != null) {
-                model.addAttribute("items", patientReportService.getPatientWithViralLoadList(item.getInstance(item)));
+                item.setTestType(TestType.VIRAL_LOAD);
+                model.addAttribute("items", patientReportService.getPatientLabResultsList(item.getInstance(item)));
             } else {
-                model.addAttribute("items", patientReportService.getPatientWithCd4CountList(item.getInstance(item)));
+                item.setTestType(TestType.CD4_COUNT);
+                model.addAttribute("items", patientReportService.getPatientLabResultsList(item.getInstance(item)));
             }
         }
         model.addAttribute("item", item.getInstance(item));
@@ -118,9 +121,11 @@ public class DetailedReportController extends BaseController {
             items = detailedPatientReportService.get(item.getInstance(item));
         } else {
             if (item.getMaxViralLoad() != null) {
-                items = patientReportService.getPatientWithViralLoadList(item.getInstance(item));
+                item.setTestType(TestType.VIRAL_LOAD);
+                items = patientReportService.getPatientLabResultsList(item.getInstance(item));
             } else {
-                items = patientReportService.getPatientWithCd4CountList(item.getInstance(item));
+                item.setTestType(TestType.CD4_COUNT);
+                items = patientReportService.getPatientLabResultsList(item.getInstance(item));
             }
         }
         forceDownLoad(officeExportService.exportExcelFile(detailedReportService.get(items), name), name, response);

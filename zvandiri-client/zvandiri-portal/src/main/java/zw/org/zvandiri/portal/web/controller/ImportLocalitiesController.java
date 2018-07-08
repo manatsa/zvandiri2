@@ -137,7 +137,7 @@ public class ImportLocalitiesController {
         	test.setPatient(item.getPatient());
         	test.setResult(item.getResult());
         	test.setSource(item.getSource());
-        	test.setTestType(TestType.VITRAL_LOAD);
+        	test.setTestType(TestType.VIRAL_LOAD);
         	test.setTnd(item.getTnd());
         	test.setUuid(item.getUuid());
         	test.setVersion(item.getVersion());

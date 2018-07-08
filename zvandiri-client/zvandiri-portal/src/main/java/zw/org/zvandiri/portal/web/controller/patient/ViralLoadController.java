@@ -67,7 +67,7 @@ public class ViralLoadController extends BaseController {
             item = investigationTestService.get(itemId);
             return setUpModel(model, item);
         }
-        item = new InvestigationTest(patientService.get(patientId), TestType.VITRAL_LOAD);
+        item = new InvestigationTest(patientService.get(patientId), TestType.VIRAL_LOAD);
         return setUpModel(model, item);
     }
 

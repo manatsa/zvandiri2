@@ -88,6 +88,7 @@
                 <bean class="zw.org.zvandiri.portal.web.converter.NumberOfANCVisitConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.GestationalAgeConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.ArtStartedConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.TestTypeConverter"/>
             </set>
         </property>
     </bean> 

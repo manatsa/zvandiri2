@@ -18,6 +18,8 @@ package zw.org.zvandiri.business.service.impl;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,7 @@ import zw.org.zvandiri.business.repo.InvestigationTestRepo;
 import zw.org.zvandiri.business.service.InvestigationTestService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.UUIDGen;
+import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 /**
  *
@@ -41,6 +44,8 @@ public class InvestigationTestServiceImpl implements InvestigationTestService {
     private InvestigationTestRepo investigationTestRepo;
     @Resource
     private UserService userService;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public List<InvestigationTest> getAll() {
@@ -90,4 +95,10 @@ public class InvestigationTestServiceImpl implements InvestigationTestService {
     public List<InvestigationTest> getByPatientAndTestType(Patient patient, TestType testType) {
         return investigationTestRepo.findByPatientAndTestType(patient, testType);
     }
+
+    @Override
+    public List<InvestigationTest> get(SearchDTO dto) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }

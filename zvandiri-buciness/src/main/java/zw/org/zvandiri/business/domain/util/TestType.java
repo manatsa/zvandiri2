@@ -15,13 +15,15 @@
  */
 package zw.org.zvandiri.business.domain.util;
 
+import zw.org.zvandiri.business.util.StringUtils;
+
 /**
  *
  * @author jmuzinda
  */
 public enum TestType {
     
-    VITRAL_LOAD(1), CD4_COUNT(2);
+    VIRAL_LOAD(1), CD4_COUNT(2);
     
     private final Integer code;
     
@@ -40,5 +42,9 @@ public enum TestType {
             }
         }
         throw new IllegalStateException("Illegal parameter passed to method : "+ code);
+    }
+    
+    public String getName(){
+        return StringUtils.toCamelCase3(super.name());
     }
 }

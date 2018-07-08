@@ -1,0 +1,262 @@
+/*
+ * Copyright 2017 User.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package zw.org.zvandiri.portal.web.controller.report;
+
+import java.io.IOException;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
+import zw.org.zvandiri.business.service.DistrictService;
+import zw.org.zvandiri.business.service.FacilityService;
+import zw.org.zvandiri.business.service.ProvinceService;
+import zw.org.zvandiri.business.service.SettingsService;
+import zw.org.zvandiri.business.util.dto.SearchDTO;
+import static zw.org.zvandiri.portal.util.Graph_Prop.*;
+import zw.org.zvandiri.portal.web.controller.BaseController;
+import zw.org.zvandiri.report.api.ChartModelItem;
+import zw.org.zvandiri.report.api.service.AggregateVisualReportService;
+import zw.org.zvandiri.report.api.service.ContactLevelOfCareReportService;
+import zw.org.zvandiri.report.api.service.PatientGenderReportService;
+import zw.org.zvandiri.report.api.service.PatientReportAPIService;
+import zw.org.zvandiri.report.api.service.PatientStatusReportService;
+import zw.org.zvandiri.report.api.service.ReferralReportAPIService;
+
+/**
+ *
+ * @author User
+ */
+@Controller
+@RequestMapping("/report/graphs")
+public class GraphicalReportController extends BaseController{
+    
+    @Resource
+    private ReferralReportAPIService referralReportAPIService;
+    @Resource
+    private AggregateVisualReportService aggregateVisualReportService;
+    @Resource
+    private PatientGenderReportService patientGenderReportService;
+    @Resource
+    private PatientStatusReportService patientStatusReportService;
+    @Resource
+    private ContactLevelOfCareReportService contactLevelOfCareReportService;
+    @Resource
+    private PatientReportAPIService patientReportAPIService;
+    @Resource
+    private ProvinceService provinceService;
+    @Resource
+    private DistrictService districtService;
+    @Resource
+    private FacilityService facilityService;
+    @Resource
+    private SettingsService settingsService;
+    
+    public void setUpModel(ModelMap map, SearchDTO dto){
+        dto = getUserLevelObjectState(dto);
+        map.addAttribute("item", dto.getInstance(dto));
+        map.addAttribute("provinces", provinceService.getAll());
+        if (dto.getProvince() != null) {
+            map.addAttribute("districts", districtService.getDistrictByProvince(dto.getProvince()));
+        }
+        if(dto.getDistrict() != null){
+            map.addAttribute("facilities", facilityService.getOptByDistrict(dto.getDistrict()));
+        }
+        map.addAttribute("pageTitle", APP_PREFIX + "VISUAL REPORTS");
+    }
+    
+    @RequestMapping(value = "/referral-distribution", method = RequestMethod.GET)
+    public String showReferralChart(ModelMap map){
+        SearchDTO dto = new SearchDTO();
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Number Of External Referrals Past 6 Months");
+        map.addAttribute("report", "/referral-distribution-past-six-months/bar-graph" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/referral-distribution", method = RequestMethod.POST)
+    public String showReferralChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Number Of External Referrals Past 6 Months");
+        map.addAttribute("report", "/referral-distribution-past-six-months/bar-graph" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/referral-distribution-past-six-months/bar-graph", method = RequestMethod.GET)
+    public void displayReferralChart(HttpServletResponse response, SearchDTO dto) {
+        response.setContentType("image/png");
+        JFreeChart barGraph = null;        
+        try {
+            barGraph = aggregateVisualReportService.getDashReport(new ChartModelItem("", "Months", "Total", 1000.0, true), referralReportAPIService.getPeriodRange(dto), "Counts");
+            ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, GRAPH_WIDTH, GRAPH_HEIGHT);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    @RequestMapping(value = "/patient-gender-distribution", method = RequestMethod.GET)
+    public String showPatientGenderChart(ModelMap map){
+        SearchDTO dto = new SearchDTO();
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Distribution Of Patients By Gender");
+        map.addAttribute("report", "/patient-gender-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/patient-gender-distribution", method = RequestMethod.POST)
+    public String showPatientGenderChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Distribution Of Patients By Gender");
+        map.addAttribute("report", "/patient-gender-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/patient-gender-distribution/pie-chart", method = RequestMethod.GET)
+    public void displayPatientGenderPieChart(HttpServletResponse response, SearchDTO dto) {
+        response.setContentType("image/png");
+        JFreeChart barGraph = null;
+        try {
+            dto.setStatus(PatientChangeEvent.ACTIVE);
+            barGraph = aggregateVisualReportService.getDefaultPieChart(new ChartModelItem("", "", ""), patientGenderReportService.getDefaultPieData(dto), "Counts");
+            ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, GRAPH_WIDTH, GRAPH_HEIGHT);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    @RequestMapping(value = "/patient-status-distribution", method = RequestMethod.GET)
+    public String showPatientStatusChart(ModelMap map){
+        SearchDTO dto = new SearchDTO();
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Distribution Of Patients By Status");
+        map.addAttribute("report", "/patient-status-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/patient-status-distribution", method = RequestMethod.POST)
+    public String showPatientStatusChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Distribution Of Patients By Status");
+        map.addAttribute("report", "/patient-status-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/patient-status-distribution/pie-chart", method = RequestMethod.GET)
+    public void displayPatientStatusPieChart(HttpServletResponse response, SearchDTO dto) {
+        response.setContentType("image/png");
+        JFreeChart barGraph = null;
+        try {
+            barGraph = aggregateVisualReportService.getDefaultPieChart(new ChartModelItem("", "", ""), patientStatusReportService.getDefaultPieData(dto), "Counts");
+            ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, GRAPH_WIDTH, GRAPH_HEIGHT);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    @RequestMapping(value = "/contact-level-of-care", method = RequestMethod.GET)
+    public String showContactLevelOfCareChart(ModelMap map){
+        SearchDTO dto = new SearchDTO();
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Trends Of Contacts By Care Level");
+        map.addAttribute("report", "/contact-trend-by-care-level/trend" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/contact-level-of-care", method = RequestMethod.POST)
+    public String showContactLevelOfCareChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Trends Of Contacts By Care Level");
+        map.addAttribute("report", "/contact-trend-by-care-level/trend" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/contact-trend-by-care-level/trend", method = RequestMethod.GET)
+    public void displayTrend(HttpServletResponse response, SearchDTO dto) {
+        response.setContentType("image/png");
+        JFreeChart barGraph = null;
+        Integer maxItems = settingsService.getItem().getMaxNumContactIndex();
+        try {
+            barGraph = aggregateVisualReportService.getDefaultTrend(new ChartModelItem("", "", "Months", maxItems, true), contactLevelOfCareReportService.getTrendReport(dto.getInstance(dto)), "Stable");
+            ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, GRAPH_WIDTH, GRAPH_HEIGHT);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    @RequestMapping(value = "/contact-distribution", method = RequestMethod.GET)
+    public String showContactDistributionChart(ModelMap map){
+        SearchDTO dto = new SearchDTO();
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Number Of Contacts Past 6 Months");
+        map.addAttribute("report", "/contact-distribution-past-six-months/bar-graph" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/contact-distribution", method = RequestMethod.POST)
+    public String showContactDistributionChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Number Of Contacts Past 6 Months");
+        map.addAttribute("report", "/contact-distribution-past-six-months/bar-graph" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/contact-distribution-past-six-months/bar-graph", method = RequestMethod.GET)
+    public void displayChart(HttpServletResponse response, SearchDTO dto) {
+        response.setContentType("image/png");
+        JFreeChart barGraph = null;
+        try {
+            barGraph = aggregateVisualReportService.getDashReport(new ChartModelItem("", "Months", "Number", 1000.0, true), contactLevelOfCareReportService.getPeriodRange(dto.getInstance(dto)), "Counts");
+            ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, GRAPH_WIDTH, GRAPH_HEIGHT);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    @RequestMapping(value = "/patient-age-group-distribution", method = RequestMethod.GET)
+    public String showPatientAgeGroupDistributionChart(ModelMap map){
+        SearchDTO dto = new SearchDTO();
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Distribution Of Patients By Age Group");
+        map.addAttribute("report", "/patient-age-group-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/patient-age-group-distribution", method = RequestMethod.POST)
+    public String showPatientAgeGroupDistributionChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Distribution Of Patients By Age Group");
+        map.addAttribute("report", "/patient-age-group-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/patient-age-group-distribution/pie-chart", method = RequestMethod.GET)
+    public void displayFunctionalityGraph(HttpServletResponse response, SearchDTO dto) {
+        response.setContentType("image/png");
+        JFreeChart barGraph = null;
+        try {
+            dto.setStatus(PatientChangeEvent.ACTIVE);
+            barGraph = aggregateVisualReportService.getDefaultPieChart(new ChartModelItem("", "", ""), patientReportAPIService.getPieDefaultData(dto), "Counts");
+            ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, GRAPH_WIDTH, GRAPH_HEIGHT);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+}

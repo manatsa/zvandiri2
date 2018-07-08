@@ -1,0 +1,4 @@
+<div class="${message.msgType}<c:if test="${!message.exist}"> hidden</c:if>">
+<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+    ${message.message}
+</div>

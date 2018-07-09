@@ -103,7 +103,7 @@
                             </tr>
                             <tr>
                                 <td><a href="${page}/report/graphs/contact-care-level-distribution">Contact Distribution By Care Level</a></td>
-                                <td><a href="${page}/report/graphs/referral-distribution">Number of External Patient Referrals Past 6 Months</a></td>
+                                <td><a href="${page}/report/graphs/patient-contact-distribution">Patient Distribution By Contact</a></td>
                             </tr>
                         </tbody>
                     </table>

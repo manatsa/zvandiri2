@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Judge Muzinda.
+ * Copyright 2018 tasu.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,8 @@ import zw.org.zvandiri.report.api.GenericReportModel;
 
 /**
  *
- * @author Judge Muzinda
+ * @author tasu
  */
-public interface ContactLevelOfCareReportService extends GenericReportService<GenericReportModel> {
-    
-    public List<GenericReportModel> getPeriodRange(SearchDTO dto);
-    
-    public List<GenericReportModel> getTrendReport(SearchDTO dto);
-    
+public interface PatientContactReportService extends GenericReportService<GenericReportModel>{
     public List<GenericReportModel> getDefaultPieData(SearchDTO dto);
 }

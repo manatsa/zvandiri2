@@ -28,19 +28,19 @@
                             </div>
                             <div class="panel-body">  
                                 <div class="list-group">
-                                    <table class="table table-striped table-condensed table-hover" cellspacing="0">
+                                    <table class="table table-striped table-hover" cellspacing="0">
                                         <thead>
                                         <th></th>
-                                        <th>3 Months</th>
-                                        <th>6 Months</th>
-                                        <th>12 Months</th>
+                                        <th style="font-size: 13px;">3 Months</th>
+                                        <th style="font-size: 13px;">6 Months</th>
+                                        <th style="font-size: 13px;">12 Months</th>
                                         </thead>
                                         <tbody>
                                             <c:set var="count" value="0"/>
                                             <c:forEach var="d" items="${notifications}">
                                                 <c:if test="${count <= 8}">
                                                     <tr>
-                                                        <td><a href="${d.url}">${d.name}</a></td>
+                                                        <td>${d.name}</td>
                                                         <td>${d.num}</td>
                                                         <td>${d.num6Months}</td>
                                                         <td>${d.num12Months}</td>

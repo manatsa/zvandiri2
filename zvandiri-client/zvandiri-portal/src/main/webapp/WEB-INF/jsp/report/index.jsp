@@ -103,6 +103,13 @@
                                 <td><a href="${page}/report/graphs/patient-status-distribution">Patient Distribution By Status</a></td>
                                 <td><a href="${page}/report/graphs/referral-distribution">Number of External Patient Referrals Past 6 Months</a></td>
                             </tr>
+                            <tr>
+                                <td><a href="${page}/report/graphs/contact-care-level-distribution">Contact Distribution By Care Level</a></td>
+                                <td><a href="${page}/report/graphs/patient-contact-distribution">Patient Distribution By Contact</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="${page}/report/graphs/patient-viral-load-distribution">Patient Distribution By Viral Load</a></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

@@ -46,4 +46,8 @@ public interface PatientReportService {
     public List<Patient> getPatientLabResultsList(SearchDTO dto);
     
     public Long getPatientWithContact(SearchDTO dto);
+    
+    public Long getPatientWithViralLoad(SearchDTO dto);
+    
+     public Long getPatientWithoutViralLoad(SearchDTO dto);
 }

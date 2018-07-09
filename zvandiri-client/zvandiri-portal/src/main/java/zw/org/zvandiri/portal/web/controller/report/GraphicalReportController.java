@@ -36,9 +36,11 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.report.api.ChartModelItem;
 import zw.org.zvandiri.report.api.service.AggregateVisualReportService;
 import zw.org.zvandiri.report.api.service.ContactLevelOfCareReportService;
+import zw.org.zvandiri.report.api.service.PatientContactReportService;
 import zw.org.zvandiri.report.api.service.PatientGenderReportService;
 import zw.org.zvandiri.report.api.service.PatientReportAPIService;
 import zw.org.zvandiri.report.api.service.PatientStatusReportService;
+import zw.org.zvandiri.report.api.service.PatientViralLoadReportService;
 import zw.org.zvandiri.report.api.service.ReferralReportAPIService;
 
 /**
@@ -69,6 +71,10 @@ public class GraphicalReportController extends BaseController{
     private FacilityService facilityService;
     @Resource
     private SettingsService settingsService;
+    @Resource
+    private PatientContactReportService patientContactReportService;
+    @Resource
+    private PatientViralLoadReportService patientViralLoadReportService;
     
     public void setUpModel(ModelMap map, SearchDTO dto){
         dto = getUserLevelObjectState(dto);
@@ -259,4 +265,95 @@ public class GraphicalReportController extends BaseController{
             ex.printStackTrace();
         }
     }
+    
+    @RequestMapping(value = "/contact-care-level-distribution", method = RequestMethod.GET)
+    public String showContactCareLevelChart(ModelMap map){
+        SearchDTO dto = new SearchDTO();
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Distribution Of Contacts By Care Level");
+        map.addAttribute("report", "/contact-care-level-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/contact-care-level-distribution", method = RequestMethod.POST)
+    public String showContactCareLevelChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Distribution Of Contacts By Care Level");
+        map.addAttribute("report", "/contact-care-level-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/contact-care-level-distribution/pie-chart", method = RequestMethod.GET)
+    public void displayContactCareLevelPieChart(HttpServletResponse response, SearchDTO dto) {
+        response.setContentType("image/png");
+        JFreeChart barGraph = null;
+        try {
+            dto.setStatus(PatientChangeEvent.ACTIVE);
+            barGraph = aggregateVisualReportService.getDefaultPieChart(new ChartModelItem("", "", ""), contactLevelOfCareReportService.getDefaultPieData(dto), "Counts");
+            ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, GRAPH_WIDTH, GRAPH_HEIGHT);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    @RequestMapping(value = "/patient-contact-distribution", method = RequestMethod.GET)
+    public String showPatientContactChart(ModelMap map){
+        SearchDTO dto = new SearchDTO();
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Distribution Of Patients By Contact");
+        map.addAttribute("report", "/patient-contact-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/patient-contact-distribution", method = RequestMethod.POST)
+    public String showPatientContactChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Distribution Of Patients By Contact");
+        map.addAttribute("report", "/patient-contact-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/patient-contact-distribution/pie-chart", method = RequestMethod.GET)
+    public void displayPatientContactPieChart(HttpServletResponse response, SearchDTO dto) {
+        response.setContentType("image/png");
+        JFreeChart barGraph = null;
+        try {
+            dto.setStatus(PatientChangeEvent.ACTIVE);
+            barGraph = aggregateVisualReportService.getDefaultPieChart(new ChartModelItem("", "", ""), patientContactReportService.getDefaultPieData(dto), "Counts");
+            ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, GRAPH_WIDTH, GRAPH_HEIGHT);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    @RequestMapping(value = "/patient-viral-load-distribution", method = RequestMethod.GET)
+    public String showPatientViralLoadChart(ModelMap map){
+        SearchDTO dto = new SearchDTO();
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Distribution Of Patients By Viral Load");
+        map.addAttribute("report", "/patient-viral-load-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/patient-viral-load-distribution", method = RequestMethod.POST)
+    public String showPatientViralLoadChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Distribution Of Patients By Viral Load");
+        map.addAttribute("report", "/patient-viral-load-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/patient-viral-load-distribution/pie-chart", method = RequestMethod.GET)
+    public void displayPatientViralLoadPieChart(HttpServletResponse response, SearchDTO dto) {
+        response.setContentType("image/png");
+        JFreeChart barGraph = null;
+        try {
+            dto.setStatus(PatientChangeEvent.ACTIVE);
+            barGraph = aggregateVisualReportService.getDefaultPieChart(new ChartModelItem("", "", ""), patientViralLoadReportService.getDefaultPieData(dto), "Counts");
+            ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, GRAPH_WIDTH, GRAPH_HEIGHT);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
 }

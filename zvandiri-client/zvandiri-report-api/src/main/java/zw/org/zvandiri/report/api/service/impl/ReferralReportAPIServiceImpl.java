@@ -152,7 +152,7 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
                     sixMonths = patientReportService.getNewlyRegistered(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWELVE_MONTHS.getEnd()));
                     twelveMonths = patientReportService.getNewlyRegistered(dto).intValue();
-                    list.add(new BasicNameNumber(item, threeMonths, "beneficiary.htm", sixMonths, twelveMonths));
+                    list.add(new BasicNameNumber(item, threeMonths, sixMonths, twelveMonths));
                     i++;
                     continue;
                 case 1:
@@ -162,7 +162,7 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
                     sixMonths = patientReportService.getPatientWithContact(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWELVE_MONTHS.getEnd()));
                     twelveMonths = patientReportService.getPatientWithContact(dto).intValue();
-                    list.add(new BasicNameNumber(item, threeMonths, "beneficiary.htm", sixMonths, twelveMonths));
+                    list.add(new BasicNameNumber(item, threeMonths, sixMonths, twelveMonths));
                     i++;
                     continue;
                 case 2:
@@ -173,55 +173,59 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
                     sixMonths = catDetailReportService.getPatientAboutToGraduate(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(DateRangeItem.PAST_TWELVE_MONTHS.getEnd(), DateUtil.getDateFromAge(24)));
                     twelveMonths = catDetailReportService.getPatientAboutToGraduate(dto).intValue();
-                    list.add(new BasicNameNumber(item, threeMonths, "beneficiary.htm", sixMonths, twelveMonths));
+                    list.add(new BasicNameNumber(item, threeMonths, sixMonths, twelveMonths));
                     i++;
                     continue;
                 case 3:
                     dto.setReason(Reason.INTERNAL_REFERRAL);
                     dto.setYesNo(YesNo.NO);
+                    dto.setEndDate(new Date());
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THREE_MONTHS.getEnd()));
                     threeMonths = contactReportService.getCount(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_SIX_MONTHS.getEnd()));
                     sixMonths = contactReportService.getCount(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWELVE_MONTHS.getEnd()));
                     twelveMonths = contactReportService.getCount(dto).intValue();
-                    list.add(new BasicNameNumber(item, threeMonths, "beneficiary.htm", sixMonths, twelveMonths));
+                    list.add(new BasicNameNumber(item, threeMonths, sixMonths, twelveMonths));
                     i++;
                     continue;
                 case 4:
                     dto.setReason(Reason.INTERNAL_REFERRAL);
                     dto.setYesNo(YesNo.YES);
+                    dto.setEndDate(new Date());
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THREE_MONTHS.getEnd()));
                     threeMonths = contactReportService.getCount(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_SIX_MONTHS.getEnd()));
                     sixMonths = contactReportService.getCount(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWELVE_MONTHS.getEnd()));
                     twelveMonths = contactReportService.getCount(dto).intValue();
-                    list.add(new BasicNameNumber(item, threeMonths, "beneficiary.htm", sixMonths, twelveMonths));
+                    list.add(new BasicNameNumber(item, threeMonths, sixMonths, twelveMonths));
                     i++;
                     continue;
                 case 5:
                     dto.setReason(Reason.EXTERNAL_REFERRAL);
                     dto.setYesNo(YesNo.NO);
+                    dto.setEndDate(new Date());
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THREE_MONTHS.getEnd()));
                     threeMonths = contactReportService.getCount(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_SIX_MONTHS.getEnd()));
                     sixMonths = contactReportService.getCount(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWELVE_MONTHS.getEnd()));
                     twelveMonths = contactReportService.getCount(dto).intValue();
-                    list.add(new BasicNameNumber(item, threeMonths, "beneficiary.htm", sixMonths, twelveMonths));
+                    list.add(new BasicNameNumber(item, threeMonths, sixMonths, twelveMonths));
                     i++;
                     continue;
                 case 6:
                     dto.setReason(Reason.EXTERNAL_REFERRAL);
                     dto.setYesNo(YesNo.YES);
+                    dto.setEndDate(new Date());
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THREE_MONTHS.getEnd()));
                     threeMonths = contactReportService.getCount(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_SIX_MONTHS.getEnd()));
                     sixMonths = contactReportService.getCount(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWELVE_MONTHS.getEnd()));
                     twelveMonths = contactReportService.getCount(dto).intValue();
-                    list.add(new BasicNameNumber(item, threeMonths, "beneficiary.htm", sixMonths, twelveMonths));
+                    list.add(new BasicNameNumber(item, threeMonths, sixMonths, twelveMonths));
                     i++;
                     continue;
                 default:

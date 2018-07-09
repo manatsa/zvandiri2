@@ -50,4 +50,8 @@ public interface PatientReportService {
     public List<Patient> getPatientWithCd4CountList(SearchDTO dto);
     
     public Long getPatientWithContact(SearchDTO dto);
+    
+    public Long getPatientWithViralLoad(SearchDTO dto);
+    
+     public Long getPatientWithoutViralLoad(SearchDTO dto);
 }

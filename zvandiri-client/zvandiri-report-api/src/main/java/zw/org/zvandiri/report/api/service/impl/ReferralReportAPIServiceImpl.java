@@ -152,7 +152,7 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
                     sixMonths = patientReportService.getNewlyRegistered(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWELVE_MONTHS.getEnd()));
                     twelveMonths = patientReportService.getNewlyRegistered(dto).intValue();
-                    list.add(new BasicNameNumber(item, threeMonths, "beneficiary.htm", sixMonths, twelveMonths));
+                    list.add(new BasicNameNumber(item, threeMonths, sixMonths, twelveMonths));
                     i++;
                     continue;
                 case 1:
@@ -162,7 +162,7 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
                     sixMonths = patientReportService.getPatientWithContact(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWELVE_MONTHS.getEnd()));
                     twelveMonths = patientReportService.getPatientWithContact(dto).intValue();
-                    list.add(new BasicNameNumber(item, threeMonths, "beneficiary.htm", sixMonths, twelveMonths));
+                    list.add(new BasicNameNumber(item, threeMonths, sixMonths, twelveMonths));
                     i++;
                     continue;
                 case 2:
@@ -173,7 +173,7 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
                     sixMonths = catDetailReportService.getPatientAboutToGraduate(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(DateRangeItem.PAST_TWELVE_MONTHS.getEnd(), DateUtil.getDateFromAge(24)));
                     twelveMonths = catDetailReportService.getPatientAboutToGraduate(dto).intValue();
-                    list.add(new BasicNameNumber(item, threeMonths, "beneficiary.htm", sixMonths, twelveMonths));
+                    list.add(new BasicNameNumber(item, threeMonths, sixMonths, twelveMonths));
                     i++;
                     continue;
                 case 3:
@@ -186,7 +186,7 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
                     sixMonths = contactReportService.getCount(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWELVE_MONTHS.getEnd()));
                     twelveMonths = contactReportService.getCount(dto).intValue();
-                    list.add(new BasicNameNumber(item, threeMonths, "beneficiary.htm", sixMonths, twelveMonths));
+                    list.add(new BasicNameNumber(item, threeMonths, sixMonths, twelveMonths));
                     i++;
                     continue;
                 case 4:
@@ -199,7 +199,7 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
                     sixMonths = contactReportService.getCount(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWELVE_MONTHS.getEnd()));
                     twelveMonths = contactReportService.getCount(dto).intValue();
-                    list.add(new BasicNameNumber(item, threeMonths, "beneficiary.htm", sixMonths, twelveMonths));
+                    list.add(new BasicNameNumber(item, threeMonths, sixMonths, twelveMonths));
                     i++;
                     continue;
                 case 5:
@@ -212,7 +212,7 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
                     sixMonths = contactReportService.getCount(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWELVE_MONTHS.getEnd()));
                     twelveMonths = contactReportService.getCount(dto).intValue();
-                    list.add(new BasicNameNumber(item, threeMonths, "beneficiary.htm", sixMonths, twelveMonths));
+                    list.add(new BasicNameNumber(item, threeMonths, sixMonths, twelveMonths));
                     i++;
                     continue;
                 case 6:
@@ -225,7 +225,7 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
                     sixMonths = contactReportService.getCount(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWELVE_MONTHS.getEnd()));
                     twelveMonths = contactReportService.getCount(dto).intValue();
-                    list.add(new BasicNameNumber(item, threeMonths, "beneficiary.htm", sixMonths, twelveMonths));
+                    list.add(new BasicNameNumber(item, threeMonths, sixMonths, twelveMonths));
                     i++;
                     continue;
                 default:

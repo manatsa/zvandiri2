@@ -64,7 +64,7 @@ public class LaboratoryTestResultsController extends BaseController {
         model.addAttribute("excelExport", "/report/test-results/export/excel" + item.getQueryString(item.getInstance(item)));
         model.addAttribute("items", patientReportService.getPatientLabResultsList(item.getInstance(item)));
         model.addAttribute("item", item.getInstance(item));
-        return "report/referralDetailedReport";
+        return "report/detailedPatientReport";
     }
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)

@@ -13,6 +13,8 @@
                         <thead>
                         <th>Name</th>
                         <th>Age</th>
+                        <th>Viral Load</th>
+                        <th>CD4 Count</th>
                         <th>Date of Birth</th>
                         <th>Gender</th>
                         <th>Date Joined</th>
@@ -26,6 +28,8 @@
                         <tfoot>
                         <th>Name</th>
                         <th>Age</th>
+                        <th>Viral Load</th>
+                        <th>CD4 Count</th>
                         <th>Date of Birth</th>
                         <th>Gender</th>
                         <th>Date Joined</th>
@@ -41,6 +45,8 @@
                                 <tr>
                                     <td>${item.name}</td>
                                     <td>${item.age}</td>
+                                    <td>${item.viralLoad}</td>
+                                    <td>${item.cd4Count}</td>
                                     <td><spring:eval expression="item.dateOfBirth"/></td>
                                     <td>${item.gender.name}</td>
                                     <td><spring:eval expression="item.dateJoin"/></td>

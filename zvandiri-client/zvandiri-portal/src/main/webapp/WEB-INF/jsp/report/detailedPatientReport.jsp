@@ -10,10 +10,12 @@
             <%@include file="../template/searchPeriodFragment.jspf" %>
             <div class="row">
                 <div class="col-lg-12">
-                    <table class="table table-striped table-hover table-condensed display" cellspacing="0">
+                    <table id="tableList" class="display" cellspacing="0">
                         <thead>
                         <th>Name</th>
                         <th>Age</th>
+                        <th>Viral Load</th>
+                        <th>CD4 Count</th>
                         <th>Date of Birth</th>
                         <th>Gender</th>
                         <th>Date Joined</th>
@@ -27,6 +29,8 @@
                         <tfoot>
                         <th>Name</th>
                         <th>Age</th>
+                        <th>Viral Load</th>
+                        <th>CD4 Count</th>
                         <th>Date of Birth</th>
                         <th>Gender</th>
                         <th>Date Joined</th>
@@ -42,6 +46,8 @@
                                 <tr>
                                     <td>${item.name}</td>
                                     <td>${item.age}</td>
+                                    <td>${item.viralLoad}</td>
+                                    <td>${item.cd4Count}</td>
                                     <td><spring:eval expression="item.dateOfBirth"/></td>
                                     <td>${item.gender.name}</td>
                                     <td><spring:eval expression="item.dateJoin"/></td>
@@ -56,22 +62,17 @@
                         </tbody>
                     </table>
                 </div>
-                <p>Count: ${count}</p>
+                <div class="panel-footer">
+                    &nbsp;
                 </div>
-                <%--<div>
-                <tag:paginate max="15" offset="${offset}" count="${count}" uri="/zvandiri-portal/report/detailed/period" next="&raquo" previous="&laquo"/>
-            </div>--%>
-        <div class="panel-footer">
-            &nbsp;
+            </div>
         </div>
-    </div>
-</div>
 
-<%@include file="../template/footer.jspf" %>
-<script type="text/javascript">
-    $(".sidebar-nav").addClass("custom-side-bar-ref");
-    $("#page-wrapper").addClass("main-wrp");
-    // ensire toggle side bar is pointing right
-    $("span.toggle-span").addClass("fa-long-arrow-right");
-    $("span.toggle-span").removeClass("fa-long-arrow-left");
-</script>
+        <%@include file="../template/footer.jspf" %>
+        <script type="text/javascript">
+            $(".sidebar-nav").addClass("custom-side-bar-ref");
+            $("#page-wrapper").addClass("main-wrp");
+            // ensire toggle side bar is pointing right
+            $("span.toggle-span").addClass("fa-long-arrow-right");
+            $("span.toggle-span").removeClass("fa-long-arrow-left");
+        </script>

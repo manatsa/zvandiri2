@@ -41,19 +41,7 @@
                 <form:errors path="primaryClinic"/>
                 </p>
             </div> 
-        </td>
-        <td>
-            <div class="form-group">
-                <label>Support Group</label>
-                <form:select path="supportGroup" class="form-control">
-                    <form:option value="" label="--Select Item--"/>
-                    <form:options items="${supportGroups}" itemLabel="name" itemValue="id"/>
-                </form:select>
-                <p class="help-block">
-                <form:errors path="supportGroup"/>
-                </p>
-            </div> 
-        </td>
+        </td>        
         <td>
             <div class="form-group">
                 <label>Period</label>
@@ -104,20 +92,6 @@
         </td>
         <td>
             <div class="form-group">
-                <label>Records Per Page</label>
-                <form:select path="max" class="form-control">
-                    <form:option value="10" label="10"/>
-                    <form:option value="25" label="25"/>
-                    <form:option value="50" label="50"/>
-                    <form:option value="100" label="100"/>
-                </form:select>
-                <p class="help-block">
-                <form:errors path="max"/>
-                </p>
-            </div> 
-        </td>
-        <td>
-            <div class="form-group">
                 <label>&nbsp;</label><br/>
                 <button class="btn btn-primary" type="submit">Search</button>
             </div> 
@@ -125,7 +99,4 @@
         </tr>
         </tbody>
     </table>
-    <div>
-        <tag:paginate max="15" offset="${offset}" count="${count}" uri="/zvandiri-portal/report/detailed/period" next="&raquo" previous="&laquo"/>
-    </div>
 </form:form>

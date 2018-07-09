@@ -845,7 +845,7 @@ public class PatientReportServiceImpl implements PatientReportService {
             }
         }
         
-        if (dto.getMinCd4Count()!= null) {
+        if (dto.getMinCd4Count() != null) {
             if (position == 0) {
                 builder.append("v.result <:result");
                 position++;
@@ -926,6 +926,8 @@ public class PatientReportServiceImpl implements PatientReportService {
                 builder.append(" and (v.patient.dateJoined between :startDate and :endDate)");
             }
         }
+        System.out.println("\n\n\n\n ************************************* \n\n\n");
+        System.out.println(builder.toString());
         //builder.append(" order by v.dateTaken DESC");        
         TypedQuery query = entityManager.createQuery(builder.toString(), Patient.class);
         if (dto.getProvince() != null) {

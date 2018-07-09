@@ -278,14 +278,14 @@ public class PatientProcessResource {
         if (item.getEducationLevel() == null) {
             response.put("educationLevel", "Field is required");
         }
-        if (item.getEducation() != null && item.getEducation().getName().equalsIgnoreCase("Out of School")) {
+        /*if (item.getEducation() != null && item.getEducation().getName().equalsIgnoreCase("Out of School")) {
             if ((item.getEducationLevel() != null
                     && (item.getEducationLevel().getName().equalsIgnoreCase("N/A")
                     || item.getEducationLevel().getName().equalsIgnoreCase("Primary School")))
                     && item.getReasonForNotReachingOLevel() == null) {
                 response.put("reasonForNotReachingOLevel", "Field is required");
             }
-        }
+        }*/
         if (item.getReferer() == null) {
             response.put("referer", "Field is required");
         }

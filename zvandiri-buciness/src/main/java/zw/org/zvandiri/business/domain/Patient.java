@@ -38,13 +38,13 @@ import zw.org.zvandiri.business.util.DateUtil;
 @Entity
 public class Patient extends GenericPatient {
 
-     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     @JoinTable(name = "patient_disability_category", joinColumns = {
         @JoinColumn(name = "patient_id", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "disability_category_id", nullable = false)})
     private Set<DisabilityCategory> disabilityCategorys;
-     @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-     private Set<PatientHistory> patientHistories = new HashSet<>();
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Set<PatientHistory> patientHistories = new HashSet<>();
     @Transient
     private District district;
     @Transient
@@ -69,6 +69,10 @@ public class Patient extends GenericPatient {
     private String patientExist;
     @Transient
     private String mother;
+    @Formula("(Select i.result From investigation_test i where i.patient = id and i.test_type = 0 order by i.date_created desc limit 0,1)")
+    private Integer viralLoad;
+    @Formula("(Select i.result From investigation_test i where i.patient = id and i.test_type = 1 order by i.date_created desc limit 0,1)")
+    private Integer cd4Count;
 
     public District getDistrict() {
         return district;
@@ -101,11 +105,11 @@ public class Patient extends GenericPatient {
     public void setSupportGroupDistrict(District supportGroupDistrict) {
         this.supportGroupDistrict = supportGroupDistrict;
     }
-    
+
     public String getName() {
         return getFirstName() + (getMiddleName() != null && !getMiddleName().equals("") ? " " + getMiddleName() : "") + " " + getLastName();
     }
-    
+
     public Set<DisabilityCategory> getDisabilityCategorys() {
         return disabilityCategorys;
     }
@@ -148,9 +152,9 @@ public class Patient extends GenericPatient {
         }
         return DateUtil.getStringFromDate(getDateJoined());
     }
-    
-    public Boolean getPatientStatus(){
-        if(getStatus() == null || getStatus().equals(PatientChangeEvent.ACTIVE)){
+
+    public Boolean getPatientStatus() {
+        if (getStatus() == null || getStatus().equals(PatientChangeEvent.ACTIVE)) {
             return Boolean.TRUE;
         }
         return Boolean.FALSE;
@@ -177,14 +181,23 @@ public class Patient extends GenericPatient {
     }
 
     public String getMother() {
-        return getName() +" dob "+ DateUtil.zimDate(getDateOfBirth());
-    }    
-    
-    public Set<PatientHistory> getPatientHistories() {
-		return patientHistories;
-	}
+        return getName() + " dob " + DateUtil.zimDate(getDateOfBirth());
+    }
 
-	public void setPatientHistories(Set<PatientHistory> patientHistories) {
-		this.patientHistories = patientHistories;
-	}
+    public Set<PatientHistory> getPatientHistories() {
+        return patientHistories;
+    }
+
+    public void setPatientHistories(Set<PatientHistory> patientHistories) {
+        this.patientHistories = patientHistories;
+    }
+
+    public Integer getViralLoad() {
+        return viralLoad != null ? viralLoad : 0;
+    }
+
+    public Integer getCd4Count() {
+        return cd4Count != null ? cd4Count : 0;
+    }
+    
 }

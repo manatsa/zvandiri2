@@ -28,7 +28,8 @@ public enum DateRangeItem {
 
     PAST_ONE_WEEK(1, 7), PAST_TWO_WEEKS(1, 14), PAST_ONE_MONTH(1, 30),
     PAST_THREE_MONTHS(1, 90), PAST_SIX_MONTHS(1, 180), PAST_TWELVE_MONTHS(1, 365),
-    PAST_TWENTY_FOUR_MONTHS(1, 730), PAST_THIRTY_SIX_MONTHS(1, 1095);
+    PAST_TWENTY_FOUR_MONTHS(1, 730), PAST_THIRTY_SIX_MONTHS(1, 1095), 
+    ABOVE_THIRTY_SIX_MONTHS(1096, 30000);
 
     private final Integer start;
     private final Integer end;
@@ -64,6 +65,8 @@ public enum DateRangeItem {
                 return PAST_TWENTY_FOUR_MONTHS;
             case 1095:
                 return PAST_THIRTY_SIX_MONTHS;
+            case 30000:
+                return ABOVE_THIRTY_SIX_MONTHS;
             default:
                 throw new IllegalArgumentException("Illegal parameter passed to method :"+end);
         }

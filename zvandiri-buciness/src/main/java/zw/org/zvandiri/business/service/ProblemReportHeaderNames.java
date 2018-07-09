@@ -47,6 +47,11 @@ public interface ProblemReportHeaderNames {
         "# exiting the program",
         "# newly initiated on ART",
         "# currently on ART",
-        "# on ART for > 12 months"
+        "# on ART for 3 months",
+        "# on ART for 6 months",
+        "# on ART for 12 months",
+        "# on ART for 24 months",
+        "# on ART for 36 months",
+        "# on ART for > 36 months"
     };
 }

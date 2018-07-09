@@ -43,56 +43,90 @@ public class ArvHistReportServiceImpl implements ArvHistReportService {
 
     @Override
     public Long getNewlyInitiatedOnART(SearchDTO dto) {
-        
+
         // modify dates to be for past 3 months
         dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THREE_MONTHS.getEnd()));
         dto.setEndDate(new Date());
         StringBuilder builder = new StringBuilder("Select count(Distinct a.patient.id) from ArvHist a");
         int position = 0;
         builder.append(" where ");
-        if(dto.getProvince() != null){
-            if(position == 0){
+        if (dto.getProvince() != null) {
+            if (position == 0) {
                 builder.append("a.patient.primaryClinic.district.province=:province");
                 position++;
-            }else{
+            } else {
                 builder.append(" and a.patient.primaryClinic.district.province=:province");
             }
         }
-        if(dto.getDistrict() != null){
-            if(position == 0){
+        if (dto.getDistrict() != null) {
+            if (position == 0) {
                 builder.append("a.patient.primaryClinic.district=:district");
                 position++;
-            }else{
+            } else {
                 builder.append(" and a.patient.primaryClinic.district=:district");
             }
         }
-        if(dto.getPrimaryClinic() != null){
-            if(position == 0){
+        if (dto.getPrimaryClinic() != null) {
+            if (position == 0) {
                 builder.append("a.patient.primaryClinic=:primaryClinic");
                 position++;
-            }else{
+            } else {
                 builder.append(" and a.patient.primaryClinic=:primaryClinic");
             }
         }
-        if(dto.getStartDate() != null && dto.getEndDate() != null){
-            if(position == 0){
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+            if (position == 0) {
                 builder.append("a.startDate between :startDate and :endDate");
                 position++;
-            }else{
+            } else {
                 builder.append(" and a.startDate between :startDate and :endDate");
             }
         }
+        if (dto.getAgeGroup() != null) {
+            if (position == 0) {
+                builder.append("a.patient.dateOfBirth between :start and :end");
+                position++;
+            } else {
+                builder.append(" and a.patient.dateOfBirth between :start and :end");
+            }
+        }
+        if (dto.getGender() != null) {
+            if (position == 0) {
+                builder.append("a.patient.gender=:gender");
+                position++;
+            } else {
+                builder.append(" and a.patient.gender=:gender");
+            }
+        }
+        if (dto.getStatus() != null) {
+            if (position == 0) {
+                builder.append("a.patient.status=:status");
+                position++;
+            } else {
+                builder.append(" and a.patient.status=:status");
+            }
+        }
         TypedQuery query = entityManager.createQuery(builder.toString(), Long.class);
-        if(dto.getProvince() != null){
+        if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());
         }
-        if(dto.getDistrict() != null){
+        if (dto.getDistrict() != null) {
             query.setParameter("district", dto.getDistrict());
         }
-        if(dto.getPrimaryClinic() != null){
+        if (dto.getPrimaryClinic() != null) {
             query.setParameter("primaryClinic", dto.getPrimaryClinic());
         }
-        if(dto.getStartDate() != null && dto.getEndDate() != null){
+        if (dto.getGender() != null) {
+            query.setParameter("gender", dto.getGender());
+        }
+        if (dto.getAgeGroup() != null) {
+            query.setParameter("start", DateUtil.getDateFromAge(dto.getAgeGroup().getEnd()));
+            query.setParameter("end", DateUtil.getEndDate(dto.getAgeGroup().getStart()));
+        }
+        if (dto.getStatus() != null) {
+            query.setParameter("status", dto.getStatus());
+        }
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
             query.setParameter("startDate", dto.getStartDate());
             query.setParameter("endDate", dto.getEndDate());
         }
@@ -129,6 +163,30 @@ public class ArvHistReportServiceImpl implements ArvHistReportService {
                 builder.append(" and a.patient.primaryClinic=:primaryClinic");
             }
         }
+        if (dto.getAgeGroup() != null) {
+            if (position == 0) {
+                builder.append("a.patient.dateOfBirth between :start and :end");
+                position++;
+            } else {
+                builder.append(" and a.patient.dateOfBirth between :start and :end");
+            }
+        }
+        if (dto.getGender() != null) {
+            if (position == 0) {
+                builder.append("a.patient.gender=:gender");
+                position++;
+            } else {
+                builder.append(" and a.patient.gender=:gender");
+            }
+        }
+        if (dto.getStatus() != null) {
+            if (position == 0) {
+                builder.append("a.patient.status=:status");
+                position++;
+            } else {
+                builder.append(" and a.patient.status=:status");
+            }
+        }
         if (position == 0) {
             builder.append("a.active=:active");
             position++;
@@ -141,6 +199,16 @@ public class ArvHistReportServiceImpl implements ArvHistReportService {
         }
         if (dto.getDistrict() != null) {
             query.setParameter("district", dto.getDistrict());
+        }
+        if (dto.getGender() != null) {
+            query.setParameter("gender", dto.getGender());
+        }
+        if (dto.getAgeGroup() != null) {
+            query.setParameter("start", DateUtil.getDateFromAge(dto.getAgeGroup().getEnd()));
+            query.setParameter("end", DateUtil.getEndDate(dto.getAgeGroup().getStart()));
+        }
+        if (dto.getStatus() != null) {
+            query.setParameter("status", dto.getStatus());
         }
         if (dto.getPrimaryClinic() != null) {
             query.setParameter("primaryClinic", dto.getPrimaryClinic());
@@ -181,12 +249,36 @@ public class ArvHistReportServiceImpl implements ArvHistReportService {
                 builder.append(" and a.patient.primaryClinic=:primaryClinic");
             }
         }
-        if(dto.getStartDate() != null && dto.getEndDate() != null){
-            if(position == 0){
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+            if (position == 0) {
                 builder.append("a.startDate between :startDate and :endDate");
                 position++;
-            }else{
+            } else {
                 builder.append(" and a.startDate between :startDate and :endDate");
+            }
+        }
+        if (dto.getAgeGroup() != null) {
+            if (position == 0) {
+                builder.append("a.patient.dateOfBirth between :start and :end");
+                position++;
+            } else {
+                builder.append(" and a.patient.dateOfBirth between :start and :end");
+            }
+        }
+        if (dto.getGender() != null) {
+            if (position == 0) {
+                builder.append("a.patient.gender=:gender");
+                position++;
+            } else {
+                builder.append(" and a.patient.gender=:gender");
+            }
+        }
+        if (dto.getStatus() != null) {
+            if (position == 0) {
+                builder.append("a.patient.status=:status");
+                position++;
+            } else {
+                builder.append(" and a.patient.status=:status");
             }
         }
         if (position == 0) {
@@ -202,10 +294,20 @@ public class ArvHistReportServiceImpl implements ArvHistReportService {
         if (dto.getDistrict() != null) {
             query.setParameter("district", dto.getDistrict());
         }
+        if (dto.getGender() != null) {
+            query.setParameter("gender", dto.getGender());
+        }
+        if (dto.getAgeGroup() != null) {
+            query.setParameter("start", DateUtil.getDateFromAge(dto.getAgeGroup().getEnd()));
+            query.setParameter("end", DateUtil.getEndDate(dto.getAgeGroup().getStart()));
+        }
+        if (dto.getStatus() != null) {
+            query.setParameter("status", dto.getStatus());
+        }
         if (dto.getPrimaryClinic() != null) {
             query.setParameter("primaryClinic", dto.getPrimaryClinic());
         }
-        if(dto.getStartDate() != null && dto.getEndDate() != null){
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
             query.setParameter("startDate", dto.getStartDate());
             query.setParameter("endDate", dto.getEndDate());
         }
@@ -213,64 +315,64 @@ public class ArvHistReportServiceImpl implements ArvHistReportService {
         Long result = (Long) query.getSingleResult();
         return result == null ? 0 : result;
     }
-    
+
     @Override
-    public Long getNumberExitingProgram(SearchDTO dto){
+    public Long getNumberExitingProgram(SearchDTO dto) {
         StringBuilder builder = new StringBuilder("Select count(a) from ArvHist a");
         int position = 0;
         builder.append(" where ");
-        if(dto.getProvince() != null){
-            if(position == 0){
+        if (dto.getProvince() != null) {
+            if (position == 0) {
                 builder.append("a.patient.primaryClinic.district.province=:province");
                 position++;
-            }else{
+            } else {
                 builder.append(" and a.patient.primaryClinic.district.province=:province");
             }
         }
-        if(dto.getDistrict() != null){
-            if(position == 0){
+        if (dto.getDistrict() != null) {
+            if (position == 0) {
                 builder.append("a.patient.primaryClinic.district=:district");
                 position++;
-            }else{
+            } else {
                 builder.append(" and a.patient.primaryClinic.district=:district");
             }
         }
-        if(dto.getPrimaryClinic() != null){
-            if(position == 0){
+        if (dto.getPrimaryClinic() != null) {
+            if (position == 0) {
                 builder.append("a.patient.primaryClinic=:primaryClinic");
                 position++;
-            }else{
+            } else {
                 builder.append(" and a.patient.primaryClinic=:primaryClinic");
             }
         }
-        if(dto.getStartDate() != null && dto.getEndDate() != null){
-            if(position == 0){
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+            if (position == 0) {
                 builder.append("a.endDate between :startDate and :endDate");
                 position++;
-            }else{
+            } else {
                 builder.append(" and a.endDate between :startDate and :endDate");
             }
         }
         TypedQuery query = entityManager.createQuery(builder.toString(), Long.class);
-        if(dto.getProvince() != null){
+        if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());
         }
-        if(dto.getDistrict() != null){
+        if (dto.getDistrict() != null) {
             query.setParameter("district", dto.getDistrict());
         }
-        if(dto.getPrimaryClinic() != null){
+        if (dto.getPrimaryClinic() != null) {
             query.setParameter("primaryClinic", dto.getPrimaryClinic());
         }
-        if(dto.getStartDate() != null && dto.getEndDate() != null){
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
             query.setParameter("startDate", dto.getStartDate());
             query.setParameter("endDate", dto.getEndDate());
         }
         Long result = (Long) query.getSingleResult();
         return result == null ? 0 : result;
     }
-    
+
     @Override
-    public long count(){
+    public long count() {
         return arvHistRepo.count();
     }
 }

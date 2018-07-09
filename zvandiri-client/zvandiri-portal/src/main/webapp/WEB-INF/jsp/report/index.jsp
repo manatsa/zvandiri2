@@ -84,7 +84,9 @@
                                 <td>
                                     <a href="${page}/report/detailed/range.htm">Beneficiaries By Date Range</a>
                                 </td>
-                                <td>&nbsp;</td>
+                                <td>
+                                    <a href="${page}/report/test-results/index.htm">Laboratory Results Report</a>
+                                </td>
                             </tr>
                             <tr>
                                 <th colspan="2">Visual Reports</th>

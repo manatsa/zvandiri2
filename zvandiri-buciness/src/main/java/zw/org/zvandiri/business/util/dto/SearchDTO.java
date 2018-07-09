@@ -64,8 +64,8 @@ public class SearchDTO implements Serializable {
     private AgeGroup ageGroup;
     private LevelOfCare levelOfCare;
     private CareLevel careLevel;
-    private PatientChangeEvent status;
-    private PeriodType periodType = PeriodType.MONTHLY;
+    private PatientChangeEvent status = PatientChangeEvent.ACTIVE;
+    private PeriodType periodType;
     private QuarterPeriod quarterPeriod;
     private HalfYearPeriod halfYearPeriod;
     private YearPeriod yearPeriod;

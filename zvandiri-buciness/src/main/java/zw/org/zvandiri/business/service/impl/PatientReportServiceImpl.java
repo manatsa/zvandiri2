@@ -777,6 +777,14 @@ public class PatientReportServiceImpl implements PatientReportService {
                 builder.append(" and (v.patient.dateJoined between :startDate and :endDate)");
             }
         }
+        if (dto.getStatus() != null) {
+            if (position == 0) {
+                builder.append("v.patient.status=:status");
+                position++;
+            } else {
+                builder.append(" and v.patient.status=:status");
+            }
+        }
         builder.append(" order by v.dateTaken DESC");
         TypedQuery query = entityManager.createQuery(builder.toString(), Long.class);
         if (dto.getProvince() != null) {
@@ -817,12 +825,15 @@ public class PatientReportServiceImpl implements PatientReportService {
         if(dto.getMinCd4Count()!= null){
             query.setParameter("result", dto.getMinCd4Count());
         }
+        if(dto.getStatus() != null){
+            query.setParameter("status", dto.getStatus());
+        }
         return (Long) query.getSingleResult();
     }
 
     @Override
     public List<Patient> getPatientLabResultsList(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("Select Distinct v.patient from ViralLoad v");
+        StringBuilder builder = new StringBuilder("Select Distinct v.patient from InvestigationTest v");
         int position = 0;
         builder.append(" where ");
         if (dto.getMaxViralLoad()!= null) {

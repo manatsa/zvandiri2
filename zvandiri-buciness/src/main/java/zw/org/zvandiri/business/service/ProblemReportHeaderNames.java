@@ -26,27 +26,27 @@ public interface ProblemReportHeaderNames {
         "Province",
         "District",
         "Facility",
-        "Number of contacts",
-        "Number of patients",
-        "Number of newly registered patients",
-        "Number exiting the program",
-        "Number newly initiated on ART",
-        "Number currently on ART",
-        "Number on ART for 3 months",
-        "Number on ART for 6 months",
-        "Number on ART for 12 months",
-        "Number on ART for 24 months",
-        "Number on ART for 36 months",
-        "Number on ART for greater than 36 months"
+        "# of contacts",
+        "# of clients",
+        "# of newly registered clients",
+        "# exiting the program",
+        "# newly initiated on ART",
+        "# currently on ART",
+        "# on ART for 3 months",
+        "# on ART for 6 months",
+        "# on ART for 12 months",
+        "# on ART for 24 months",
+        "# on ART for 36 months",
+        "# on ART for > 36 months"
     };
     
     public String [] coreheaderNames = {
-        "Number of contacts",
-        "Number of patients",
-        "Number of newly registered patients",
-        "Number exiting the program",
-        "Number newly initiated on ART",
-        "Number currently on ART",
-        "Number on ART for greater than 12 months"
+        "# of contacts",
+        "# of clients",
+        "# of newly registered clients",
+        "# exiting the program",
+        "# newly initiated on ART",
+        "# currently on ART",
+        "# on ART for > 12 months"
     };
 }

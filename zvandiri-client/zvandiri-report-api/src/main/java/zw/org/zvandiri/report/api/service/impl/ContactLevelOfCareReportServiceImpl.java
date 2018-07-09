@@ -26,6 +26,7 @@ import zw.org.zvandiri.business.domain.Province;
 import zw.org.zvandiri.business.domain.SupportGroup;
 import zw.org.zvandiri.business.domain.util.CareLevel;
 import zw.org.zvandiri.business.service.ContactByLevelOfCareService;
+import zw.org.zvandiri.business.service.ContactReportService;
 import zw.org.zvandiri.business.service.DistrictService;
 import zw.org.zvandiri.business.service.FacilityService;
 import zw.org.zvandiri.business.service.PeriodService;
@@ -55,6 +56,8 @@ public class ContactLevelOfCareReportServiceImpl implements ContactLevelOfCareRe
     private SupportGroupService supportGroupService;
     @Resource
     private PeriodService periodService;
+    @Resource
+    private ContactReportService contactReportService;
 
     private List<GenericReportModel> getNationalReport(SearchDTO dto) {
         List<GenericReportModel> list = new ArrayList<>();
@@ -256,6 +259,32 @@ public class ContactLevelOfCareReportServiceImpl implements ContactLevelOfCareRe
             model.setRow(row);
             list.add(model);
         }
+        return list;
+    }
+    
+    @Override
+    public List<GenericReportModel> getDefaultPieData(SearchDTO dto) {
+        List<GenericReportModel> list = new ArrayList<>();
+        List<String> items = new ArrayList<>();
+        items.add("");
+        for (CareLevel item : CareLevel.values()) {
+            items.add(item.getName());
+        }
+        items.add("Total");
+        list.add(new GenericReportModel(items));
+        GenericReportModel model = new GenericReportModel();
+        List<String> row = new ArrayList<>();
+        Long rowCount = 0L;
+        row.add("Counts");
+        for (CareLevel item : CareLevel.values()) {
+            dto.setCareLevel(item);
+            Long itemCount = contactReportService.getCount(dto);
+            row.add(itemCount.toString());
+            rowCount += itemCount;
+        }
+        row.add(rowCount.toString());
+        model.setRow(row);
+        list.add(model);
         return list;
     }
     

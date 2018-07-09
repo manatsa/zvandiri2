@@ -41,6 +41,9 @@ public interface Notifications {
         "Number of new clients registered",
         "Number of clients with contacts",
         "Patient About To Graduate",
-        "Cumulative internal referrals initiated"
+        "Cumulative internal referrals initiated",
+        "Cumulative internal referrals confirmed",
+        "Cumulative external referrals initiated",
+        "Cumulative external referrals confirmed",
     };
 }

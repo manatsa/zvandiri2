@@ -179,6 +179,7 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
                 case 3:
                     dto.setReason(Reason.INTERNAL_REFERRAL);
                     dto.setYesNo(YesNo.NO);
+                    dto.setEndDate(new Date());
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THREE_MONTHS.getEnd()));
                     threeMonths = contactReportService.getCount(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_SIX_MONTHS.getEnd()));
@@ -191,6 +192,7 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
                 case 4:
                     dto.setReason(Reason.INTERNAL_REFERRAL);
                     dto.setYesNo(YesNo.YES);
+                    dto.setEndDate(new Date());
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THREE_MONTHS.getEnd()));
                     threeMonths = contactReportService.getCount(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_SIX_MONTHS.getEnd()));
@@ -203,6 +205,7 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
                 case 5:
                     dto.setReason(Reason.EXTERNAL_REFERRAL);
                     dto.setYesNo(YesNo.NO);
+                    dto.setEndDate(new Date());
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THREE_MONTHS.getEnd()));
                     threeMonths = contactReportService.getCount(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_SIX_MONTHS.getEnd()));
@@ -215,6 +218,7 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
                 case 6:
                     dto.setReason(Reason.EXTERNAL_REFERRAL);
                     dto.setYesNo(YesNo.YES);
+                    dto.setEndDate(new Date());
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THREE_MONTHS.getEnd()));
                     threeMonths = contactReportService.getCount(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_SIX_MONTHS.getEnd()));

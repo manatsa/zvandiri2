@@ -28,4 +28,6 @@ public interface ContactLevelOfCareReportService extends GenericReportService<Ge
     public List<GenericReportModel> getPeriodRange(SearchDTO dto);
     
     public List<GenericReportModel> getTrendReport(SearchDTO dto);
+    
+    public List<GenericReportModel> getDefaultPieData(SearchDTO dto);
 }

@@ -259,4 +259,35 @@ public class GraphicalReportController extends BaseController{
             ex.printStackTrace();
         }
     }
+    
+    @RequestMapping(value = "/contact-care-level-distribution", method = RequestMethod.GET)
+    public String showContactCareLevelChart(ModelMap map){
+        SearchDTO dto = new SearchDTO();
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Distribution Of Contacts By Care Level");
+        map.addAttribute("report", "/contact-care-level-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/contact-care-level-distribution", method = RequestMethod.POST)
+    public String showContactCareLevelChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Distribution Of Contacts By Care Level");
+        map.addAttribute("report", "/contact-care-level-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/contact-care-level-distribution/pie-chart", method = RequestMethod.GET)
+    public void displayContactCareLevelPieChart(HttpServletResponse response, SearchDTO dto) {
+        response.setContentType("image/png");
+        JFreeChart barGraph = null;
+        try {
+            dto.setStatus(PatientChangeEvent.ACTIVE);
+            barGraph = aggregateVisualReportService.getDefaultPieChart(new ChartModelItem("", "", ""), contactLevelOfCareReportService.getDefaultPieData(dto), "Counts");
+            ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, GRAPH_WIDTH, GRAPH_HEIGHT);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
 }

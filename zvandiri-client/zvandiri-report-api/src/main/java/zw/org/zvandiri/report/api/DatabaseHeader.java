@@ -81,12 +81,7 @@ public interface DatabaseHeader {
     };
     
     public final String [] CD4_COUNT_HEADER =  {
-        "ID", "Patient Name", "Region", "District","Primary Clinic", "Date Taken", 
-        "Count", "Source", "Next Lab Due"
-    };
-    
-    public final String [] VIRAL_LOAD_RESULTS_HEADER = {
-        "ID", "Patient Name", "Region", "District","Primary Clinic", "Date Taken", 
+        "ID", "Patient Name", "Region", "District","Primary Clinic", "Test Type", "Date Taken", 
         "Count", "Source", "Next Lab Due"
     };
     

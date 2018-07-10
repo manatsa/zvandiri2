@@ -174,7 +174,7 @@ public class PatientServiceImpl implements PatientService {
         Set<PatientDuplicateDTO> patientsWithPossibleDuplicates = new HashSet<>();
         for (Iterator<Patient> pi = patients.iterator(); pi.hasNext();) {
             Patient currentPatient = pi.next();
-            Set<Patient> estDuplicates = new HashSet<>(checkPatientDuplicate(currentPatient));
+            Set<Patient> estDuplicates = new HashSet(checkPatientDuplicate(currentPatient));
             estDuplicates.remove(currentPatient);
             if (!estDuplicates.isEmpty()) {
                 PatientDuplicateDTO patientWithDuplicates = PatientDuplicateDTO.getInstance(currentPatient);
@@ -206,12 +206,10 @@ public class PatientServiceImpl implements PatientService {
         patient.getSocialHists().addAll(patientToBeMerged.getSocialHists());
         patient.getSubstanceItems().addAll(patientToBeMerged.getSubstanceItems());
         patient.getFamilys().addAll(patientToBeMerged.getFamilys());
-        patient.getcD4Counts().addAll(patientToBeMerged.getcD4Counts());
         patient.getContacts().addAll(patientToBeMerged.getContacts());
-        patient.getViralLoads().addAll(patientToBeMerged.getViralLoads());
         patient.getEidTests().addAll(patientToBeMerged.getEidTests());
+        patient.getInvestigationTests().addAll(patientToBeMerged.getInvestigationTests());
         save(patient);
-        // remove patient history
         delete(patientToBeMerged);
     }
 

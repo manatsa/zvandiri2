@@ -147,11 +147,7 @@ public class GenericPatient extends BaseEntity {
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Set<Family> familys = new HashSet<>();
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private Set<CD4Count> cD4Counts = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Set<Contact> contacts = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private Set<ViralLoad> viralLoads = new HashSet<>();
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Set<EidTest> eidTests = new HashSet<>();
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
@@ -643,22 +639,6 @@ public class GenericPatient extends BaseEntity {
             return Boolean.TRUE;
         }
         return Boolean.FALSE;
-    }
-
-    public Set<CD4Count> getcD4Counts() {
-        return cD4Counts;
-    }
-
-    public void setcD4Counts(Set<CD4Count> cD4Counts) {
-        this.cD4Counts = cD4Counts;
-    }
-
-    public Set<ViralLoad> getViralLoads() {
-        return viralLoads;
-    }
-
-    public void setViralLoads(Set<ViralLoad> viralLoads) {
-        this.viralLoads = viralLoads;
     }
 
     public Set<EidTest> getEidTests() {

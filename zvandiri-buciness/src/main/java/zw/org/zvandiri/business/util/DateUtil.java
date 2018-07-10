@@ -174,7 +174,7 @@ public class DateUtil {
     }
 
     public static String getFriendlyFileName(String name) {
-        return name + "_" + getCurrentDate() + "-" + getCurrentMonth() + "-" + getCurrentYear();
+        return name + "_" + getCurrentDate() + "-" + (getCurrentMonth() + 1) + "-" + getCurrentYear();
     }
 
     public static String getPrintName(String name) {

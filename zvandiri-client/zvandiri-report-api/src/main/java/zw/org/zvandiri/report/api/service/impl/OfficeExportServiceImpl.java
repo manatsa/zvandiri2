@@ -29,33 +29,29 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.ArvHist;
-import zw.org.zvandiri.business.domain.CD4Count;
 import zw.org.zvandiri.business.domain.ChronicInfectionItem;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Dependent;
 import zw.org.zvandiri.business.domain.HivConInfectionItem;
+import zw.org.zvandiri.business.domain.InvestigationTest;
 import zw.org.zvandiri.business.domain.MentalHealthItem;
 import zw.org.zvandiri.business.domain.ObstercHist;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.Referral;
 import zw.org.zvandiri.business.domain.SocialHist;
 import zw.org.zvandiri.business.domain.SubstanceItem;
-import zw.org.zvandiri.business.domain.ViralLoad;
-import zw.org.zvandiri.business.service.ArvHistReportService;
 import zw.org.zvandiri.business.service.ArvHistService;
-import zw.org.zvandiri.business.service.CD4CountService;
 import zw.org.zvandiri.business.service.ChronicInfectionItemService;
 import zw.org.zvandiri.business.service.ContactService;
 import zw.org.zvandiri.business.service.DependentService;
-import zw.org.zvandiri.business.service.FamilyService;
 import zw.org.zvandiri.business.service.HivConInfectionItemService;
+import zw.org.zvandiri.business.service.InvestigationTestService;
 import zw.org.zvandiri.business.service.MentalHealthItemService;
 import zw.org.zvandiri.business.service.ObstercHistService;
 import zw.org.zvandiri.business.service.PatientService;
 import zw.org.zvandiri.business.service.ReferralService;
 import zw.org.zvandiri.business.service.SocialHistService;
 import zw.org.zvandiri.business.service.SubstanceItemService;
-import zw.org.zvandiri.business.service.ViralLoadService;
 import zw.org.zvandiri.report.api.DatabaseHeader;
 import zw.org.zvandiri.report.api.GenericReportModel;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
@@ -88,11 +84,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
     @Resource
     private SubstanceItemService substanceItemService;
     @Resource
-    private FamilyService familyService;
-    @Resource
-    private CD4CountService cD4CountService;
-    @Resource
-    private ViralLoadService viralLoadService;
+    private InvestigationTestService investigationTestService;
     @Resource
     private ArvHistService arvHistService;
 
@@ -727,7 +719,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
 
         /* start here **/
         // add patient dependants
-        HSSFSheet cd4CountDetails = workbook.createSheet("Patient_CD4_COUNT_RESULTS");
+        HSSFSheet cd4CountDetails = workbook.createSheet("Client_Lab_RESULTS");
         int cd4RowNum = 0;
         HSSFRow cd4Row = cd4CountDetails.createRow(dependantRowNum++);
         int cd4CellNum = 0;
@@ -735,8 +727,8 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell cell = cd4Row.createCell(cd4CellNum++);
             cell.setCellValue(title);
         }
-        List<CD4Count> cd4Counts = cD4CountService.getAll();
-        for (CD4Count cd4Count : cd4Counts) {
+        List<InvestigationTest> cd4Counts = investigationTestService.getAll();
+        for (InvestigationTest cd4Count : cd4Counts) {
             int count = 0;
             cd4Row = cd4CountDetails.createRow(cd4RowNum++);
             Cell id = cd4Row.createCell(count);
@@ -749,6 +741,8 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             district.setCellValue(cd4Count.getPatient().getPrimaryClinic().getDistrict().getName());
             Cell primaryClinic = cd4Row.createCell(++count);
             primaryClinic.setCellValue(cd4Count.getPatient().getPrimaryClinic().getName());
+            Cell testType = cd4Row.createCell(++count);
+            testType.setCellValue(cd4Count.getTestType().getName());
             Cell dateTaken = cd4Row.createCell(++count);
             if (cd4Count.getDateTaken() != null) {
                 dateTaken.setCellValue(cd4Count.getDateTaken());
@@ -769,50 +763,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             }
         }
 
-        // viral load
-        HSSFSheet viralLoadDetails = workbook.createSheet("Patient_VIRAL_LOAD");
-        int viralLoadRowNum = 0;
-        HSSFRow viralLoadRow = viralLoadDetails.createRow(viralLoadRowNum++);
-        int viralLoadCellNum = 0;
-        for (String title : DatabaseHeader.VIRAL_LOAD_RESULTS_HEADER) {
-            Cell cell = viralLoadRow.createCell(viralLoadCellNum++);
-            cell.setCellValue(title);
-        }
-        List<ViralLoad> viralLoads = viralLoadService.getAll();
-        for (ViralLoad viralLoad : viralLoads) {
-            int count = 0;
-            viralLoadRow = viralLoadDetails.createRow(viralLoadRowNum++);
-            Cell id = viralLoadRow.createCell(count);
-            id.setCellValue(viralLoad.getPatient().getId());
-            Cell patientName = viralLoadRow.createCell(++count);
-            patientName.setCellValue(viralLoad.getPatient().getName());
-            Cell province = viralLoadRow.createCell(++count);
-            province.setCellValue(viralLoad.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
-            Cell district = viralLoadRow.createCell(++count);
-            district.setCellValue(viralLoad.getPatient().getPrimaryClinic().getDistrict().getName());
-            Cell primaryClinic = viralLoadRow.createCell(++count);
-            primaryClinic.setCellValue(viralLoad.getPatient().getPrimaryClinic().getName());
-            Cell dateTaken = viralLoadRow.createCell(++count);
-            if (viralLoad.getDateTaken() != null) {
-                dateTaken.setCellValue(viralLoad.getDateTaken());
-                dateTaken.setCellStyle(cellStyle);
-            } else {
-                dateTaken.setCellValue("");
-            }
-            Cell viralLoadLoad = viralLoadRow.createCell(++count);
-            //viralLoad.getResult() != null ? viralLoad.getResult() : null
-            viralLoadLoad.setCellValue("");
-            Cell source = viralLoadRow.createCell(++count);
-            source.setCellValue(viralLoad.getSource() != null ? viralLoad.getSource().getName() : "");
-            Cell nextLabDate = viralLoadRow.createCell(++count);
-            if (viralLoad.getNextTestDate() != null) {
-                nextLabDate.setCellValue(viralLoad.getNextTestDate());
-                nextLabDate.setCellStyle(cellStyle);
-            } else {
-                nextLabDate.setCellValue("");
-            }
-        }
-
+        
         // arv history
         HSSFSheet arvHistDetails = workbook.createSheet("Patient_ARV_HISTORY");
         int arvHistRowNum = 0;

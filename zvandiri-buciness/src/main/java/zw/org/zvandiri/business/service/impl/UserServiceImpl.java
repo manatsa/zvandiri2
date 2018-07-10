@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserRepo userRepo;
-    
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -140,38 +140,34 @@ public class UserServiceImpl implements UserService {
     public List<User> getByUserType() {
         return userRepo.findByUserType(UserType.getZvandiriStaff());
     }
-    
+
     @Override
     public List<User> getUsers(SearchDTO dto) {
         StringBuilder builder = new StringBuilder("from User u ");
         int position = 0;
-        if (dto.getSearch(dto)) {
-            builder.append(" where ");
-            if (dto.getProvince() != null) {
-                if (position == 0) {
-                    builder.append("u.province=:province");
-                    position++;
-                } else {
-                    builder.append(" and u.province=:province");
-                }
+        if (dto.getProvince() != null) {
+            if (position == 0) {
+                builder.append(" where u.province=:province");
+                position++;
+            } else {
+                builder.append(" and u.province=:province");
             }
-            if (dto.getDistrict() != null) {
-                if (position == 0) {
-                    builder.append("u.district=:district");
-                    position++;
-                } else {
-                    builder.append(" and u.district=:district");
-                }
+        }
+        if (dto.getDistrict() != null) {
+            if (position == 0) {
+                builder.append("where u.district=:district");
+                position++;
+            } else {
+                builder.append(" and u.district=:district");
             }
-            if (dto.getUserType() != null) {
-                if (position == 0) {
-                    builder.append("u.userType=:userType");
-                    position++;
-                } else {
-                    builder.append(" and u.userType=:userType");
-                }
+        }
+        if (dto.getUserType() != null) {
+            if (position == 0) {
+                builder.append("where u.userType=:userType");
+                position++;
+            } else {
+                builder.append(" and u.userType=:userType");
             }
-            
         }
         builder.append(" order by u.lastName, u.firstName ASC");
         TypedQuery<User> query = entityManager.createQuery(builder.toString(), User.class);
@@ -184,9 +180,8 @@ public class UserServiceImpl implements UserService {
         if (dto.getUserType() != null) {
             query.setParameter("userType", dto.getUserType());
         }
-       
-       return query.getResultList();
+
+        return query.getResultList();
     }
-    
-    
+
 }

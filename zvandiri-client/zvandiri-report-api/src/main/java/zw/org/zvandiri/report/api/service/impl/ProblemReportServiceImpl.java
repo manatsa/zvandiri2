@@ -716,7 +716,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
     }
 
     private List<String> getProblemReport(List<String> row, SearchDTO dto) {
-        Long count = contactReportService.getCount(dto);
+        Long count = contactReportService.getCount(dto.getInstance(dto));
         row.add(count.toString());
         count = patientReportService.getCount(dto.getInstance(dto));
         row.add(count.toString());
@@ -744,7 +744,6 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         Date endDate = DateUtil.getDateDiffDate(-DateRangeItem.ABOVE_THIRTY_SIX_MONTHS.getStart());
         dto.setStartDate(startDate);
         dto.setEndDate(endDate);
-        arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto)).toString();
         count = arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto));
         row.add(count.toString());
         return row;

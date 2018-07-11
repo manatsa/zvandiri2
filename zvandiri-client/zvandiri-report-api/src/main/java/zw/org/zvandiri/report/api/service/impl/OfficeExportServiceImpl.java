@@ -580,7 +580,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         List<ObstercHist> obstercHists = obstercHistService.getAll();
         for (ObstercHist obstercHist : obstercHists) {
             int count = 0;
-            obsRow = obsDetails.createRow(mentalHealthRowNum++);
+            obsRow = obsDetails.createRow(obsCellNum++);
             Cell id = obsRow.createCell(count);
             id.setCellValue(obstercHist.getPatient().getId());
             Cell patientName = obsRow.createCell(++count);
@@ -721,7 +721,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         // add patient dependants
         HSSFSheet cd4CountDetails = workbook.createSheet("Client_Lab_RESULTS");
         int cd4RowNum = 0;
-        HSSFRow cd4Row = cd4CountDetails.createRow(dependantRowNum++);
+        HSSFRow cd4Row = cd4CountDetails.createRow(cd4RowNum++);
         int cd4CellNum = 0;
         for (String title : DatabaseHeader.CD4_COUNT_HEADER) {
             Cell cell = cd4Row.createCell(cd4CellNum++);
@@ -751,7 +751,8 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 dateTaken.setCellValue("");
             }
             Cell cd4Load = cd4Row.createCell(++count);
-            cd4Load.setCellValue(cd4Count.getResult() != null ? cd4Count.getResult() : null);
+            // cd4Count.getResult() != null ? cd4Count.getResult() : null
+            cd4Load.setCellValue(0);
             Cell source = cd4Row.createCell(++count);
             source.setCellValue(cd4Count.getSource() != null ? cd4Count.getSource().getName() : "");
             Cell nextLabDate = cd4Row.createCell(++count);

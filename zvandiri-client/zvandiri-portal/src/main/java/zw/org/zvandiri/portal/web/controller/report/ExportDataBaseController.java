@@ -62,7 +62,7 @@ public class ExportDataBaseController extends BaseController {
             }
         }
         model.addAttribute("excelExport", "/report/export-database/excel" + item.getQueryString(item.getInstance(item)));
-        model.addAttribute("item", item.getInstance(item));
+        model.addAttribute("item", item);
     }
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -71,10 +71,10 @@ public class ExportDataBaseController extends BaseController {
         return "report/exportDatabase";
     }
     
-    @RequestMapping(value = "/excel", method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_DATA_CLERK') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
-    public void getExcelExport(HttpServletResponse response) {
+    public void getExcelExport(HttpServletResponse response, @ModelAttribute("item") SearchDTO dto) {
         String name = DateUtil.getFriendlyFileName("Zvandiri_Database");
-        forceDownLoad(officeExportService.exportDatabase( name), name, response);
+        forceDownLoad(officeExportService.exportDatabase( name, dto), name, response);
     }
 }

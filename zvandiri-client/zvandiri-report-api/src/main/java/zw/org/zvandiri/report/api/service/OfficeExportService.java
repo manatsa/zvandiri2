@@ -18,6 +18,7 @@ package zw.org.zvandiri.report.api.service;
 import java.util.List;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.GenericReportModel;
 
 /**
@@ -30,5 +31,5 @@ public interface OfficeExportService {
 
     public Workbook exportExcelFile(List<GenericReportModel> rows, String name);
     
-    public Workbook exportDatabase(String name);
+    public Workbook exportDatabase(String name, SearchDTO dto);
 }

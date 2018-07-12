@@ -15,7 +15,9 @@
  */
 package zw.org.zvandiri.report.api.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.Resource;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -27,6 +29,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.hibernate.mapping.DependantValue;
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.ArvHist;
 import zw.org.zvandiri.business.domain.ChronicInfectionItem;
@@ -40,18 +43,8 @@ import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.Referral;
 import zw.org.zvandiri.business.domain.SocialHist;
 import zw.org.zvandiri.business.domain.SubstanceItem;
-import zw.org.zvandiri.business.service.ArvHistService;
-import zw.org.zvandiri.business.service.ChronicInfectionItemService;
-import zw.org.zvandiri.business.service.ContactService;
-import zw.org.zvandiri.business.service.DependentService;
-import zw.org.zvandiri.business.service.HivConInfectionItemService;
-import zw.org.zvandiri.business.service.InvestigationTestService;
-import zw.org.zvandiri.business.service.MentalHealthItemService;
-import zw.org.zvandiri.business.service.ObstercHistService;
-import zw.org.zvandiri.business.service.PatientService;
-import zw.org.zvandiri.business.service.ReferralService;
-import zw.org.zvandiri.business.service.SocialHistService;
-import zw.org.zvandiri.business.service.SubstanceItemService;
+import zw.org.zvandiri.business.service.DetailedPatientReportService;
+import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.DatabaseHeader;
 import zw.org.zvandiri.report.api.GenericReportModel;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
@@ -64,29 +57,7 @@ import zw.org.zvandiri.report.api.service.OfficeExportService;
 public class OfficeExportServiceImpl implements OfficeExportService {
 
     @Resource
-    private PatientService patientService;
-    @Resource
-    private ContactService contactService;
-    @Resource
-    private ReferralService referralService;
-    @Resource
-    private DependentService dependentService;
-    @Resource
-    private ChronicInfectionItemService chronicInfectionItemService;
-    @Resource
-    private HivConInfectionItemService hivConInfectionItemService;
-    @Resource
-    private MentalHealthItemService mentalHealthItemService;
-    @Resource
-    private ObstercHistService obstercHistService;
-    @Resource
-    private SocialHistService socialHistService;
-    @Resource
-    private SubstanceItemService substanceItemService;
-    @Resource
-    private InvestigationTestService investigationTestService;
-    @Resource
-    private ArvHistService arvHistService;
+    private DetailedPatientReportService detailedPatientReportService;
 
     @Override
     public Workbook exportExcelFile(List<GenericReportModel> rows, String name) {
@@ -123,7 +94,8 @@ public class OfficeExportServiceImpl implements OfficeExportService {
     }
 
     @Override
-    public Workbook exportDatabase(String name) {
+    public Workbook exportDatabase(String name, SearchDTO dto) {
+        
         HSSFWorkbook workbook = new HSSFWorkbook();
         CellStyle cellStyle = workbook.createCellStyle();
         CreationHelper createHelper = workbook.getCreationHelper();
@@ -138,9 +110,34 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell cell = header.createCell(cellNum++);
             cell.setCellValue(title);
         }
-        List<Patient> patients = patientService.getAll();
+        List<Patient> patients = detailedPatientReportService.get(dto.getInstance(dto));
+        Set<Referral> referrals = new HashSet<>();
+        Set<Contact> contacts = new HashSet<>();
+        Set<Dependent> dependents = new HashSet<>();
+        Set<ChronicInfectionItem> chronicInfectionItems = new HashSet<>();
+        Set<MentalHealthItem> mentalHealthItems = new HashSet<>();
+        Set<ObstercHist> obstercHists = new HashSet<>();
+        Set<SocialHist> socialHists = new HashSet<>();
+        Set<SubstanceItem> substanceItems = new HashSet<>();
+        Set<InvestigationTest> investigationTests = new HashSet<>();
+        Set<ArvHist> arvHists = new HashSet<>();
+        Set<HivConInfectionItem> hivConInfectionItems = new HashSet<>();
+
         for (Patient patient : patients) {
             int count = 0;
+
+            contacts.addAll(patient.getContacts());
+            referrals.addAll(patient.getReferrals());
+            dependents.addAll(patient.getDependents());
+            chronicInfectionItems.addAll(patient.getChronicInfectionItems());
+            hivConInfectionItems.addAll(patient.getHivConInfectionItems());
+            mentalHealthItems.addAll(patient.getMentalHealthItems());
+            obstercHists.addAll(patient.getObstercHists());
+            socialHists.addAll(patient.getSocialHists());
+            substanceItems.addAll(patient.getSubstanceItems());
+            investigationTests.addAll(patient.getInvestigationTests());
+            arvHists.addAll(patient.getArvHists());
+
             header = patientDetails.createRow(rowNum++);
             Cell id = header.createCell(count);
             id.setCellValue(patient.getId());
@@ -246,7 +243,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell cell = contactHeader.createCell(contactCellNum++);
             cell.setCellValue(title);
         }
-        List<Contact> contacts = contactService.getAll();
         for (Contact contact : contacts) {
             int count = 0;
             contactHeader = contactDetails.createRow(contactRowNum++);
@@ -306,7 +302,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell cell = referralRow.createCell(referralCellNum++);
             cell.setCellValue(title);
         }
-        List<Referral> referrals = referralService.getAll();
         for (Referral referral : referrals) {
             int count = 0;
             referralRow = referralDetails.createRow(referralRowNum++);
@@ -397,7 +392,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell cell = dependantRow.createCell(dependantCellNum++);
             cell.setCellValue(title);
         }
-        List<Dependent> dependents = dependentService.getAll();
         for (Dependent dependent : dependents) {
             int count = 0;
             dependantRow = dependantDetails.createRow(dependantRowNum++);
@@ -430,7 +424,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell cell = opportunisticInfectionRow.createCell(opportunisticInfectionCellNum++);
             cell.setCellValue(title);
         }
-        List<ChronicInfectionItem> chronicInfectionItems = chronicInfectionItemService.getAll();
         for (ChronicInfectionItem chronicInfectionItem : chronicInfectionItems) {
             int count = 0;
             opportunisticInfectionRow = opportunisticInfectionDetails.createRow(opportunisticInfectionRowNum++);
@@ -467,7 +460,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell cell = hivCoInfectionRow.createCell(hivCoInfectionCellNum++);
             cell.setCellValue(title);
         }
-        List<HivConInfectionItem> hivConInfectionItems = hivConInfectionItemService.getAll();
         for (HivConInfectionItem hivConInfectionItem : hivConInfectionItems) {
             int count = 0;
             hivCoInfectionRow = hivCoInfectionDetails.createRow(hivCoInfectionRowNum++);
@@ -504,7 +496,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell cell = mentalHealthRow.createCell(mentalHealthCellNum++);
             cell.setCellValue(title);
         }
-        List<MentalHealthItem> mentalHealthItems = mentalHealthItemService.getAll();
         for (MentalHealthItem mentalHealthItem : mentalHealthItems) {
             int count = 0;
             mentalHealthRow = hivCoInfectionDetails.createRow(mentalHealthRowNum++);
@@ -577,7 +568,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell cell = obsRow.createCell(obsCellNum++);
             cell.setCellValue(title);
         }
-        List<ObstercHist> obstercHists = obstercHistService.getAll();
         for (ObstercHist obstercHist : obstercHists) {
             int count = 0;
             obsRow = obsDetails.createRow(obsCellNum++);
@@ -628,7 +618,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell cell = socialHistRow.createCell(socialHistCellNum++);
             cell.setCellValue(title);
         }
-        List<SocialHist> socialHists = socialHistService.getAll();
         for (SocialHist socialHist : socialHists) {
             int count = 0;
             socialHistRow = socialHistDetails.createRow(socialHistRowNum++);
@@ -676,7 +665,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell cell = substanceUseRow.createCell(substanceUseCellNum++);
             cell.setCellValue(title);
         }
-        List<SubstanceItem> substanceItems = substanceItemService.getAll();
         for (SubstanceItem substanceItem : substanceItems) {
             int count = 0;
             substanceUseRow = substanceUseDetails.createRow(substanceUseRowNum++);
@@ -727,8 +715,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell cell = cd4Row.createCell(cd4CellNum++);
             cell.setCellValue(title);
         }
-        List<InvestigationTest> cd4Counts = investigationTestService.getAll();
-        for (InvestigationTest cd4Count : cd4Counts) {
+        for (InvestigationTest cd4Count : investigationTests) {
             int count = 0;
             cd4Row = cd4CountDetails.createRow(cd4RowNum++);
             Cell id = cd4Row.createCell(count);
@@ -764,7 +751,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             }
         }
 
-        
         // arv history
         HSSFSheet arvHistDetails = workbook.createSheet("Patient_ARV_HISTORY");
         int arvHistRowNum = 0;
@@ -774,7 +760,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell cell = arvHistRow.createCell(arvHistCellNum++);
             cell.setCellValue(title);
         }
-        List<ArvHist> arvHists = arvHistService.getAll();
         for (ArvHist arvHist : arvHists) {
             int count = 0;
             arvHistRow = arvHistDetails.createRow(arvHistRowNum++);

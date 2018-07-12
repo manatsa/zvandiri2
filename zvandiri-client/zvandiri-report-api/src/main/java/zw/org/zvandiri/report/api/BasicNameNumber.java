@@ -32,7 +32,7 @@ public class BasicNameNumber implements Serializable {
     public BasicNameNumber(String name, Integer num, Integer num6Months, Integer num12Months) {
         this.name = name;
         this.num = num;
-        this.num6Months = num12Months;
+        this.num6Months = num6Months;
         this.num12Months = num12Months;
     }
 
@@ -40,7 +40,7 @@ public class BasicNameNumber implements Serializable {
         this.name = name;
         this.num = num;
         this.url = url;
-        this.num6Months = num12Months;
+        this.num6Months = num6Months;
         this.num12Months = num12Months;
     }
 

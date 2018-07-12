@@ -24,6 +24,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.util.DateRangeItem;
 import zw.org.zvandiri.business.domain.util.HIVStatus;
 import zw.org.zvandiri.business.service.PatientReportService;
 import zw.org.zvandiri.business.util.DateUtil;

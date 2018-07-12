@@ -452,7 +452,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             currentStatus.setCellValue(chronicInfectionItem.getCurrentStatus() != null ? chronicInfectionItem.getCurrentStatus().getName() : "");
         }
         // add patient hiv-coinfections
-        HSSFSheet hivCoInfectionDetails = workbook.createSheet("Patient_HIV_CO_Infections");
+        /*HSSFSheet hivCoInfectionDetails = workbook.createSheet("Patient_HIV_CO_Infections");
         int hivCoInfectionRowNum = 0;
         HSSFRow hivCoInfectionRow = hivCoInfectionDetails.createRow(hivCoInfectionRowNum++);
         int hivCoInfectionCellNum = 0;
@@ -486,7 +486,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             medication.setCellValue(hivConInfectionItem.getMedication());
             Cell resolution = hivCoInfectionRow.createCell(++count);
             resolution.setCellValue(hivConInfectionItem.getResolution());
-        }
+        }*/
         // add patient mental health
         HSSFSheet mentalHealthDetails = workbook.createSheet("Patient_Mental_Health");
         int mentalHealthRowNum = 0;
@@ -498,7 +498,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         }
         for (MentalHealthItem mentalHealthItem : mentalHealthItems) {
             int count = 0;
-            mentalHealthRow = hivCoInfectionDetails.createRow(mentalHealthRowNum++);
+            mentalHealthRow = mentalHealthDetails.createRow(mentalHealthRowNum++);
             Cell id = mentalHealthRow.createCell(count);
             id.setCellValue(mentalHealthItem.getPatient().getId());
             Cell patientName = mentalHealthRow.createCell(++count);
@@ -738,8 +738,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 dateTaken.setCellValue("");
             }
             Cell cd4Load = cd4Row.createCell(++count);
-            // cd4Count.getResult() != null ? cd4Count.getResult() : null
-            cd4Load.setCellValue(0);
+            cd4Load.setCellValue(cd4Count.getResult() != null ? cd4Count.getResult() : 0);
             Cell source = cd4Row.createCell(++count);
             source.setCellValue(cd4Count.getSource() != null ? cd4Count.getSource().getName() : "");
             Cell nextLabDate = cd4Row.createCell(++count);

@@ -117,5 +117,10 @@ public class ObstercHist extends BaseEntity {
     public void setArtStarted(ArtStarted artStarted) {
         this.artStarted = artStarted;
     }
+
+    @Override
+    public String toString() {
+        return "ObstercHist{" + "patient=" + patient.getLastName() + ", pregnant=" + pregnant + ", numberOfANCVisit=" + numberOfANCVisit + ", breafFeedingCurrent=" + breafFeedingCurrent + ", pregCurrent=" + pregCurrent + ", gestationalAge=" + gestationalAge + ", artStarted=" + artStarted + ", children=" + children + '}';
+    }
     
 }

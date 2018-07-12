@@ -95,7 +95,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
 
     @Override
     public Workbook exportDatabase(String name, SearchDTO dto) {
-        
+
         HSSFWorkbook workbook = new HSSFWorkbook();
         CellStyle cellStyle = workbook.createCellStyle();
         CreationHelper createHelper = workbook.getCreationHelper();
@@ -453,40 +453,40 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         }
         // add patient hiv-coinfections
         /*HSSFSheet hivCoInfectionDetails = workbook.createSheet("Patient_HIV_CO_Infections");
-        int hivCoInfectionRowNum = 0;
-        HSSFRow hivCoInfectionRow = hivCoInfectionDetails.createRow(hivCoInfectionRowNum++);
-        int hivCoInfectionCellNum = 0;
-        for (String title : DatabaseHeader.HIV_CO_INFECTION_HEADER) {
-            Cell cell = hivCoInfectionRow.createCell(hivCoInfectionCellNum++);
-            cell.setCellValue(title);
-        }
-        for (HivConInfectionItem hivConInfectionItem : hivConInfectionItems) {
-            int count = 0;
-            hivCoInfectionRow = hivCoInfectionDetails.createRow(hivCoInfectionRowNum++);
-            Cell id = hivCoInfectionRow.createCell(count);
-            id.setCellValue(hivConInfectionItem.getPatient().getId());
-            Cell patientName = hivCoInfectionRow.createCell(++count);
-            patientName.setCellValue(hivConInfectionItem.getPatient().getName());
-            Cell province = hivCoInfectionRow.createCell(++count);
-            province.setCellValue(hivConInfectionItem.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
-            Cell district = hivCoInfectionRow.createCell(++count);
-            district.setCellValue(hivConInfectionItem.getPatient().getPrimaryClinic().getDistrict().getName());
-            Cell primaryClinic = hivCoInfectionRow.createCell(++count);
-            primaryClinic.setCellValue(hivConInfectionItem.getPatient().getPrimaryClinic().getName());
-            Cell infection = hivCoInfectionRow.createCell(++count);
-            infection.setCellValue(hivConInfectionItem.getHivCoInfection().getName());
-            Cell dateDiagnosed = hivCoInfectionRow.createCell(++count);
-            if (hivConInfectionItem.getInfectionDate() != null) {
-                dateDiagnosed.setCellValue(hivConInfectionItem.getInfectionDate());
-                dateDiagnosed.setCellStyle(cellStyle);
-            } else {
-                dateDiagnosed.setCellValue("");
-            }
-            Cell medication = hivCoInfectionRow.createCell(++count);
-            medication.setCellValue(hivConInfectionItem.getMedication());
-            Cell resolution = hivCoInfectionRow.createCell(++count);
-            resolution.setCellValue(hivConInfectionItem.getResolution());
-        }*/
+         int hivCoInfectionRowNum = 0;
+         HSSFRow hivCoInfectionRow = hivCoInfectionDetails.createRow(hivCoInfectionRowNum++);
+         int hivCoInfectionCellNum = 0;
+         for (String title : DatabaseHeader.HIV_CO_INFECTION_HEADER) {
+         Cell cell = hivCoInfectionRow.createCell(hivCoInfectionCellNum++);
+         cell.setCellValue(title);
+         }
+         for (HivConInfectionItem hivConInfectionItem : hivConInfectionItems) {
+         int count = 0;
+         hivCoInfectionRow = hivCoInfectionDetails.createRow(hivCoInfectionRowNum++);
+         Cell id = hivCoInfectionRow.createCell(count);
+         id.setCellValue(hivConInfectionItem.getPatient().getId());
+         Cell patientName = hivCoInfectionRow.createCell(++count);
+         patientName.setCellValue(hivConInfectionItem.getPatient().getName());
+         Cell province = hivCoInfectionRow.createCell(++count);
+         province.setCellValue(hivConInfectionItem.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+         Cell district = hivCoInfectionRow.createCell(++count);
+         district.setCellValue(hivConInfectionItem.getPatient().getPrimaryClinic().getDistrict().getName());
+         Cell primaryClinic = hivCoInfectionRow.createCell(++count);
+         primaryClinic.setCellValue(hivConInfectionItem.getPatient().getPrimaryClinic().getName());
+         Cell infection = hivCoInfectionRow.createCell(++count);
+         infection.setCellValue(hivConInfectionItem.getHivCoInfection().getName());
+         Cell dateDiagnosed = hivCoInfectionRow.createCell(++count);
+         if (hivConInfectionItem.getInfectionDate() != null) {
+         dateDiagnosed.setCellValue(hivConInfectionItem.getInfectionDate());
+         dateDiagnosed.setCellStyle(cellStyle);
+         } else {
+         dateDiagnosed.setCellValue("");
+         }
+         Cell medication = hivCoInfectionRow.createCell(++count);
+         medication.setCellValue(hivConInfectionItem.getMedication());
+         Cell resolution = hivCoInfectionRow.createCell(++count);
+         resolution.setCellValue(hivConInfectionItem.getResolution());
+         }*/
         // add patient mental health
         HSSFSheet mentalHealthDetails = workbook.createSheet("Patient_Mental_Health");
         int mentalHealthRowNum = 0;
@@ -600,14 +600,13 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     obstercHist.getGestationalAge() != null
                             ? obstercHist.getGestationalAge().getName() : ""
             );
-            Cell ancStarted = obsRow.createCell(++count);
-            ancStarted.setCellValue(
+            Cell artStarted = obsRow.createCell(++count);
+            artStarted.setCellValue(
                     obstercHist.getArtStarted() != null
                             ? obstercHist.getArtStarted().getName() : ""
             );
             Cell numChildren = obsRow.createCell(++count);
             numChildren.setCellValue(obstercHist.getChildren() != null ? obstercHist.getChildren() : 0);
-
         }
         // add patient social history
         HSSFSheet socialHistDetails = workbook.createSheet("Patient_Social_Hist");

@@ -50,7 +50,7 @@ public interface DatabaseHeader {
     
     public final String [] OBSTERIC_HIST_HEADER = {
         "ID", "Patient Name", "Region", "District","Primary Clinic", "Is Pregnant", "Currently Breast Feeding", 
-        "Currently Pregnant", "Number of ANC Visits", "Gestational Age of First Pregnancy", "Art Started"
+        "Currently Pregnant", "Number of ANC Visits", "Gestational Age of First Pregnancy", "Art Started", "Number of Children"
     };
     
     public final String [] CONTACT_HEADER = {

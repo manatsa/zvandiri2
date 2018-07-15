@@ -139,22 +139,22 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         items.addAll(Arrays.asList(ProblemReportHeaderNames.headerNames));
         list.add(new GenericReportModel(items));
         /*
-        "Province",
-        "District",
-        "Facility",
-        "# of contacts",
-        "# of clients",
-        "# of newly registered clients",
-        "# exiting the program",
-        "# newly initiated on ART",
-        "# currently on ART",
-        "# on ART for 3 months",
-        "# on ART for 6 months",
-        "# on ART for 12 months",
-        "# on ART for 24 months",
-        "# on ART for 36 months",
-        "# on ART for > 36 months"
-        */
+         "Province",
+         "District",
+         "Facility",
+         "# of contacts",
+         "# of clients",
+         "# of newly registered clients",
+         "# exiting the program",
+         "# newly initiated on ART",
+         "# currently on ART",
+         "# on ART for 3 months",
+         "# on ART for 6 months",
+         "# on ART for 12 months",
+         "# on ART for 24 months",
+         "# on ART for 36 months",
+         "# on ART for > 36 months"
+         */
         for (Province province : provinceService.getAll()) {
             dto.setProvince(province);
             int pos = 0;
@@ -702,7 +702,8 @@ public class ProblemReportServiceImpl implements ProblemReportService {
                 dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THREE_MONTHS.getEnd()));
                 return patientReportService.getNewlyRegistered(dto.getInstance(dto)).toString();
             case 4:
-                dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWELVE_MONTHS.getEnd()));
+                dto.setEndDate(DateUtil.getDateFromAge(23));
+                dto.setStartDate(DateUtil.getDateFromAge(24));
                 return patientReportService.getPatientAboutToGraduate(dto.getInstance(dto)).toString();
             case 5:
                 dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THREE_MONTHS.getEnd()));
@@ -744,7 +745,8 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THREE_MONTHS.getEnd()));
         count = patientReportService.getNewlyRegistered(dto.getInstance(dto));
         row.add(count.toString());
-        dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWELVE_MONTHS.getEnd()));
+        dto.setEndDate(DateUtil.getDateFromAge(23));
+        dto.setStartDate(DateUtil.getDateFromAge(24));
         count = patientReportService.getPatientAboutToGraduate(dto.getInstance(dto));
         row.add(count.toString());
         dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THREE_MONTHS.getEnd()));
@@ -763,6 +765,9 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         count = arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto));
         row.add(count.toString());
         dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWENTY_FOUR_MONTHS.getEnd()));
+        count = arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto));
+        row.add(count.toString());
+        dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THIRTY_SIX_MONTHS.getEnd()));
         count = arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto));
         row.add(count.toString());
         Date startDate = DateUtil.getDateDiffDate(-DateRangeItem.ABOVE_THIRTY_SIX_MONTHS.getEnd());

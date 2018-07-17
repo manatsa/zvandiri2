@@ -29,7 +29,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
-import org.hibernate.mapping.DependantValue;
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.ArvHist;
 import zw.org.zvandiri.business.domain.ChronicInfectionItem;
@@ -241,7 +240,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         int contactCellNum = 0;
         for (String title : DatabaseHeader.CONTACT_HEADER) {
             Cell cell = contactHeader.createCell(contactCellNum++);
-            cell.setCellValue(title);
+            cell.setCellValue(title);           
         }
         for (Contact contact : contacts) {
             int count = 0;
@@ -274,10 +273,11 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             subjective.setCellValue(contact.getSubjective());
             Cell objective = contactHeader.createCell(++count);
             objective.setCellValue(contact.getObjective());
+             
             Cell assessment = contactHeader.createCell(++count);
-            assessment.setCellValue(contact.getAssessments() != null
-                    && !contact.getAssessments().isEmpty()
-                            ? contact.getAssessments().toString() : null);
+            if (!contact.getAssessments().isEmpty()) {
+                assessment.setCellValue(contact.getAssessments().toString());
+            }
             Cell plan = contactHeader.createCell(++count);
             plan.setCellValue(contact.getPlan());
             Cell actionTaken = contactHeader.createCell(++count);
@@ -290,7 +290,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 lastClinicAppointmentDate.setCellValue("");
             }
 
-            Cell attendedClinicAppointment = contactHeader.createCell(13);
+            Cell attendedClinicAppointment = contactHeader.createCell(++count);
             attendedClinicAppointment.setCellValue(contact.getAttendedClinicAppointment() != null ? contact.getAttendedClinicAppointment().getName() : "");
         }
         // add referrals

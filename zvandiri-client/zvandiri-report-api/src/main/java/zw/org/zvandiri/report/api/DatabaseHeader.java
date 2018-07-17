@@ -75,9 +75,8 @@ public interface DatabaseHeader {
     
     public final String [] REFERRAL_HEADER = {
         "ID", "Patient Name", "Region", "District","Primary Clinic", "Referral Date", "Expected Visit Date", "Organisation", 
-        "Designation", "Attending Officer", "Date Attended", "Action Taken", 
-        "HIV Services Referred", "HIV Services Provided"
-            , "HIV & STI Services Referred", "HIV & STI Services Provided", "OI/ ART Services Referred", "OI/ ART Services Provided", "SRH Services Referred", "SRH Services Provided", "Laboratory Services Referred", "Laboratory Services Provided", "TB Services Referred", "TB Services Provided", "Psych Services Referred", "Psych Services Provided", "Legal Services Referred", "Legal Services Provided"
+        "Designation", "Attending Officer", "Date Attended", "Action Taken",
+        "HIV & STI Services Referred", "HIV & STI Services Provided", "OI/ ART Services Referred", "OI/ ART Services Provided", "SRH Services Referred", "SRH Services Provided", "Laboratory Services Referred", "Laboratory Services Provided", "TB Services Referred", "TB Services Provided", "Psych Services Referred", "Psych Services Provided", "Legal Services Referred", "Legal Services Provided"
     };
     
     public final String [] CD4_COUNT_HEADER =  {

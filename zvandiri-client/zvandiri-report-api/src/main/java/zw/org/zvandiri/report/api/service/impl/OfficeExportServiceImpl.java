@@ -305,9 +305,9 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         for (Referral referral : referrals) {
             int count = 0;
             referralRow = referralDetails.createRow(referralRowNum++);
-            Cell id = referralRow.createCell(0);
+            Cell id = referralRow.createCell(count);
             id.setCellValue(referral.getPatient().getId());
-            Cell patientName = referralRow.createCell(count);
+            Cell patientName = referralRow.createCell(++count);
             patientName.setCellValue(referral.getPatient().getName());
             Cell province = referralRow.createCell(++count);
             province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
@@ -340,6 +340,17 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             }
             Cell actionTaken = referralRow.createCell(++count);
             actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
+            /*
+            
+            "HIV Services Referred", "HIV Services Provided"
+            , "HIV & STI Services Referred", "HIV & STI Services Provided", 
+            "OI/ ART Services Referred", "OI/ ART Services Provided", "SRH Services Referred", 
+            "SRH Services Provided", "Laboratory Services Referred", 
+            "Laboratory Services Provided", "TB Services Referred", "TB Services Provided", 
+            "Psych Services Referred", "Psych Services Provided", "Legal Services Referred", 
+            "Legal Services Provided"
+            
+            */
             Cell hivReq = referralRow.createCell(++count);
             hivReq.setCellValue(!referral.getHivStiServicesReq().isEmpty()
                     ? referral.getHivStiServicesReq().toString() : null);
@@ -772,10 +783,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell primaryClinic = arvHistRow.createCell(++count);
             primaryClinic.setCellValue(arvHist.getPatient().getPrimaryClinic().getName());
 
-            /*
-             "ARV Medicine", 
-             "Start Date", "End Date"
-             */
             Cell arvHistMedicine = arvHistRow.createCell(++count);
             arvHistMedicine.setCellValue(arvHist.getMedicines());
             Cell startDate = arvHistRow.createCell(++count);

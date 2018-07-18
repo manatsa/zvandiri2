@@ -5,7 +5,7 @@
                 <a href="${page}/index.html"><i class="fa fa-dashboard fa-fw"></i> Home</a>
             </li>
             <li>
-                <a href="${page}/report/index.htm"><i class="fa fa-table fa-fw"></i> Reports</a>
+                <a href="${page}/report/index.htm"><i class="fa fa-bar-chart-o fa-fw"></i> Reports</a>
             </li>
             <sec:authorize access="
                            hasRole('ROLE_ZI') or 
@@ -23,6 +23,9 @@
             </sec:authorize>
             <li>
                 <a href="${page}/patient/index.htm"><i class="fa fa-table fa-fw"></i> Manage Client</a>
+            </li>
+            <li>
+                <a href="${page}/data/item.form"><i class="fa fa-gavel fa-fw"></i> Data Cleaning Tool</a>
             </li>
             <!--<li>
                 <a href="${page}/patient/contact/manager/item.list"><i class="fa fa-table fa-fw"></i> Manage Contacts</a>

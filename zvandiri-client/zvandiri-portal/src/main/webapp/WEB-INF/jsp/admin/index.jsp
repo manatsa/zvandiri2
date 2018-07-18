@@ -121,12 +121,6 @@
                     <a href="${page}/admin/reason-for-not-reaching-olevel/">Manage Reason For Not Reaching O-Level</a> 
                 </td>
             </tr>
-            <tr>
-                <td><a href="${page}/data/item.form">Check DataBase</a> </td>
-                <td>
-                    &nbsp;
-                </td>
-            </tr>
         </table>
     </div>
     <div>

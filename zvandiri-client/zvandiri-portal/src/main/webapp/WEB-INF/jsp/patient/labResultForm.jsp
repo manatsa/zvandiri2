@@ -27,16 +27,18 @@
                                     <form:errors path="dateTaken" class="alert-danger"/>
                                 </p>
                             </div>
-                            <div class="form-group">
-                                <label>Test Type</label>
-                                <form:select path="testType" class="form-control">
-                                    <form:option value="" label="--Select Item"/>
-                                    <form:options itemValue="code" itemLabel="name"/>
-                                </form:select>
-                                <p class="help-block">
-                                    <form:errors path="testType" class="alert-danger"/>
-                                </p>
-                            </div>
+                            <c:if test="${!eid}">
+                                <div class="form-group">
+                                    <label>Test Type</label>
+                                    <form:select path="testType" class="form-control">
+                                        <form:option value="" label="--Select Item"/>
+                                        <form:options itemValue="code" itemLabel="name"/>
+                                    </form:select>
+                                    <p class="help-block">
+                                        <form:errors path="testType" class="alert-danger"/>
+                                    </p>
+                                </div>
+                            </c:if>
                             <c:if test="${!eid}">
                                 <div class="form-group">
                                     <label>Count</label>

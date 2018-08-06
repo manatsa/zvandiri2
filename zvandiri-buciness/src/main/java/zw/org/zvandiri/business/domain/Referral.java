@@ -61,6 +61,8 @@ public class Referral extends BaseEntity {
     private String servicesAvailedError;
     @Transient
     private Set<String> servicesReceived;
+    @Transient
+    private Set<String> servicesRequested;
     @Enumerated
     private ReferralActionTaken actionTaken;
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
@@ -349,6 +351,18 @@ public class Referral extends BaseEntity {
         services.addAll(filterServices(tbAvailed));
         services.addAll(filterServices(psychAvailed));
         services.addAll(filterServices(legalAvailed));
+        return services;
+    }
+
+    public Set<String> getServicesRequested() {
+        Set<String> services = new HashSet<>();
+        services.addAll(filterServices(hivStiServicesReq));
+        services.addAll(filterServices(oiArtReq));
+        services.addAll(filterServices(srhReq));
+        services.addAll(filterServices(laboratoryReq));
+        services.addAll(filterServices(tbReq));
+        services.addAll(filterServices(psychReq));
+        services.addAll(filterServices(legalReq));
         return services;
     }
 

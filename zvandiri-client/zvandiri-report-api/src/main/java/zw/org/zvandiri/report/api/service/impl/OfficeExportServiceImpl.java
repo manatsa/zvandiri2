@@ -121,7 +121,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         Set<InvestigationTest> investigationTests = new HashSet<>();
         Set<ArvHist> arvHists = new HashSet<>();
         Set<HivConInfectionItem> hivConInfectionItems = new HashSet<>();
-
+        int numPatient = 0;
         for (Patient patient : patients) {
             int count = 0;
 
@@ -232,6 +232,11 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             } else {
                 dateStatusChanged.setCellValue("");
             }
+            numPatient++;
+            if(numPatient >= 65535) {
+                break;
+            }
+                    
         }
         // add contacts
         HSSFSheet contactDetails = workbook.createSheet("Patient_Contacts");

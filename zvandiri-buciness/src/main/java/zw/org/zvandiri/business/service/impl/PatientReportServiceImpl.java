@@ -1082,7 +1082,7 @@ public class PatientReportServiceImpl implements PatientReportService {
 
     @Override
     public Long getPatientWithViralLoad(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("Select count(Distinct v.patient) from ViralLoad v");
+        StringBuilder builder = new StringBuilder("Select count(Distinct v.patient) from InvestigationTest v");
         int position = 0;
         builder.append(" where ");
         if (dto.getMinCd4Count() != null) {
@@ -1205,7 +1205,7 @@ public class PatientReportServiceImpl implements PatientReportService {
 
     @Override
     public Long getPatientWithoutViralLoad(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("Select count(Distinct v.patient) from ViralLoad v");
+        StringBuilder builder = new StringBuilder("Select count(Distinct v.patient) from InvestigationTest v");
         int position = 0;
         builder.append(" where ");
         if (position == 0) {

@@ -57,7 +57,7 @@ public class ReferralReportController extends BaseController {
     @Resource
     private ReferralReportAPIService referralReportAPIService;
 
-    public String setUpModel(ModelMap model, SearchDTO item) {
+    public String setUpModel(ModelMap model, SearchDTO item, boolean post) {
         item = getUserLevelObjectState(item);
         model.addAttribute("pageTitle", APP_PREFIX + "External Referral Detailed Report");
         model.addAttribute("provinces", provinceService.getAll());
@@ -68,7 +68,9 @@ public class ReferralReportController extends BaseController {
             }
         }
         model.addAttribute("excelExport", "/report/referral/export/excel" + item.getQueryString(item.getInstance(item)));
-        model.addAttribute("items", referalReportService.get(item.getInstance(item)));
+        if (post) {
+            model.addAttribute("items", referalReportService.get(item.getInstance(item)));
+        }
         model.addAttribute("item", item.getInstance(item));
         return "report/referralDetailedReport";
     }
@@ -76,15 +78,15 @@ public class ReferralReportController extends BaseController {
     @RequestMapping(value = "/detailed", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_ZM') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
     public String getReferralReportIndex(ModelMap model) {
-        return setUpModel(model, new SearchDTO());
+        return setUpModel(model, new SearchDTO(), false);
     }
 
     @RequestMapping(value = "/detailed", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_ZM') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
     public String getReferralReportIndex(ModelMap model, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
-        return setUpModel(model, item);
+        return setUpModel(model, item, true);
     }
-    
+
     @RequestMapping(value = "/export/excel", method = RequestMethod.GET)
     public void getExcelExport(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Detailed_Referral_Report");

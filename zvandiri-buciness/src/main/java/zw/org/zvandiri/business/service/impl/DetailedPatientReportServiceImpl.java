@@ -41,7 +41,7 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
 
     @Override
     public List<Patient> get(SearchDTO dto, Integer firstResult) {
-        StringBuilder builder = new StringBuilder("from Patient p "+PatientInnerJoin.PATIENT_INNER_JOIN);
+        StringBuilder builder = new StringBuilder("from Patient p " + PatientInnerJoin.PATIENT_INNER_JOIN);
         int position = 0;
         if (dto.getSearch(dto)) {
             builder.append(" where ");
@@ -101,12 +101,20 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                     builder.append(" and p.period=:period");
                 }
             }
-            if (dto.getStatus()!= null) {
+            if (dto.getStatus() != null) {
                 if (position == 0) {
                     builder.append("p.status=:status");
                     position++;
                 } else {
                     builder.append(" and p.status=:status");
+                }
+            }
+            if (dto.getHei() != null) {
+                if (position == 0) {
+                    builder.append("p.hei=:hei");
+                    position++;
+                } else {
+                    builder.append(" and p.hei=:hei");
                 }
             }
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
@@ -142,8 +150,11 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         if (dto.getPeriod() != null) {
             query.setParameter("period", dto.getPeriod());
         }
-        if (dto.getStatus()!= null) {
+        if (dto.getStatus() != null) {
             query.setParameter("status", dto.getStatus());
+        }
+        if (dto.getHei() != null) {
+            query.setParameter("hei", dto.getHei());
         }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             query.setParameter("startDate", dto.getStartDate());
@@ -153,7 +164,7 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         query.setMaxResults(dto.getMax() != null ? dto.getMax() : 10);
         return query.getResultList();
     }
-    
+
     @Override
     public Long getCount(SearchDTO dto) {
         StringBuilder builder = new StringBuilder("Select count(p) from Patient p");
@@ -208,12 +219,20 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                     builder.append(" and p.dateOfBirth between :start and :end");
                 }
             }
-            if (dto.getStatus()!= null) {
+            if (dto.getStatus() != null) {
                 if (position == 0) {
                     builder.append("p.status=:status");
                     position++;
                 } else {
                     builder.append(" and p.status=:status");
+                }
+            }
+            if (dto.getHei() != null) {
+                if (position == 0) {
+                    builder.append("p.hei=:hei");
+                    position++;
+                } else {
+                    builder.append(" and p.hei=:hei");
                 }
             }
             if (dto.getPeriod() != null) {
@@ -256,15 +275,18 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         if (dto.getPeriod() != null) {
             query.setParameter("period", dto.getPeriod());
         }
-        if (dto.getStatus()!= null) {
+        if (dto.getStatus() != null) {
             query.setParameter("status", dto.getStatus());
+        }
+        if (dto.getHei() != null) {
+            query.setParameter("hei", dto.getHei());
         }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             query.setParameter("startDate", dto.getStartDate());
             query.setParameter("endDate", dto.getEndDate());
         }
         return query.getSingleResult();
-    }   
+    }
 
     @Override
     public Integer getNumResults(SearchDTO dto) {
@@ -273,10 +295,10 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
 
     @Override
     public List<Patient> get(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("from Patient p "+PatientInnerJoin.PATIENT_FULL_ASSOC_FETCH);
+        StringBuilder builder = new StringBuilder("from Patient p " + PatientInnerJoin.PATIENT_FULL_ASSOC_FETCH);
         int position = 0;
         String startDate = "dateJoined";
-        if(dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
+        if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
             startDate = "dateModified";
         }
         if (dto.getSearch(dto)) {
@@ -337,12 +359,20 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                     builder.append(" and p.period=:period");
                 }
             }
-            if (dto.getStatus()!= null) {
+            if (dto.getStatus() != null) {
                 if (position == 0) {
                     builder.append("p.status=:status");
                     position++;
                 } else {
                     builder.append(" and p.status=:status");
+                }
+            }
+            if (dto.getHei() != null) {
+                if (position == 0) {
+                    builder.append("p.hei=:hei");
+                    position++;
+                } else {
+                    builder.append(" and p.hei=:hei");
                 }
             }
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
@@ -357,7 +387,7 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                     builder.append(" between :startDate and :endDate)");
                 }
             }
-            if(dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
+            if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
                 if (position == 0) {
                     builder.append("p.status in (:statuses)");
                     position++;
@@ -390,17 +420,20 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         if (dto.getPeriod() != null) {
             query.setParameter("period", dto.getPeriod());
         }
-        if (dto.getStatus()!= null) {
+        if (dto.getStatus() != null) {
             query.setParameter("status", dto.getStatus());
+        }
+        if (dto.getHei() != null) {
+            query.setParameter("hei", dto.getHei());
         }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             query.setParameter("startDate", dto.getStartDate());
             query.setParameter("endDate", dto.getEndDate());
         }
-        if(dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
+        if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
             query.setParameter("statuses", dto.getStatuses());
         }
         return query.getResultList();
     }
-    
+
 }

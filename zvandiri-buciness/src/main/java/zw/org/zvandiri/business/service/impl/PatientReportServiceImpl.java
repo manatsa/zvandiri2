@@ -125,6 +125,14 @@ public class PatientReportServiceImpl implements PatientReportService {
                 builder.append(" and p.status=:status");
             }
         }
+        if (dto.getHei() != null) {
+            if (position == 0) {
+                builder.append("p.hei=:hei");
+                position++;
+            } else {
+                builder.append(" and p.hei=:hei");
+            }
+        }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             if (position == 0) {
                 builder.append("p.dateJoined between :startDate and :endDate");
@@ -158,6 +166,9 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
         if (dto.getStatus() != null) {
             query.setParameter("status", dto.getStatus());
+        }
+        if (dto.getHei() != null) {
+            query.setParameter("hei", dto.getHei());
         }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             query.setParameter("startDate", dto.getStartDate());
@@ -236,6 +247,14 @@ public class PatientReportServiceImpl implements PatientReportService {
                 builder.append(" and p.status=:status");
             }
         }
+        if (dto.getHei() != null) {
+            if (position == 0) {
+                builder.append("p.hei=:hei");
+                position++;
+            } else {
+                builder.append(" and p.hei=:hei");
+            }
+        }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             if (position == 0) {
                 builder.append("p.dateJoined between :startDate and :endDate");
@@ -270,6 +289,9 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
         if (dto.getStatus() != null) {
             query.setParameter("status", dto.getStatus());
+        }
+        if (dto.getHei() != null) {
+            query.setParameter("hei", dto.getHei());
         }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             query.setParameter("startDate", dto.getStartDate());
@@ -347,6 +369,14 @@ public class PatientReportServiceImpl implements PatientReportService {
                 builder.append(" and p.status=:status");
             }
         }
+        if (dto.getHei() != null) {
+            if (position == 0) {
+                builder.append("p.hei=:hei");
+                position++;
+            } else {
+                builder.append(" and p.hei=:hei");
+            }
+        }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             if (position == 0) {
                 builder.append("p not in (Select c.patient From Contact c where c.contactDate between :startDate and :endDate)");
@@ -381,6 +411,9 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
         if (dto.getStatus() != null) {
             query.setParameter("status", dto.getStatus());
+        }
+        if (dto.getHei() != null) {
+            query.setParameter("hei", dto.getHei());
         }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             query.setParameter("startDate", dto.getStartDate());
@@ -442,6 +475,14 @@ public class PatientReportServiceImpl implements PatientReportService {
                 builder.append(" and p.status=:status");
             }
         }
+        if (dto.getHei() != null) {
+            if (position == 0) {
+                builder.append("p.hei=:hei");
+                position++;
+            } else {
+                builder.append(" and p.hei=:hei");
+            }
+        }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             if (position == 0) {
                 builder.append("p.dateOfBirth between :startDate and :endDate");
@@ -469,6 +510,9 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
         if (dto.getStatus() != null) {
             query.setParameter("status", dto.getStatus());
+        }
+        if (dto.getHei() != null) {
+            query.setParameter("hei", dto.getHei());
         }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             query.setParameter("startDate", dto.getStartDate());
@@ -546,6 +590,14 @@ public class PatientReportServiceImpl implements PatientReportService {
                 builder.append(" and p.status=:status");
             }
         }
+        if (dto.getHei() != null) {
+            if (position == 0) {
+                builder.append("p.hei=:hei");
+                position++;
+            } else {
+                builder.append(" and p.hei=:hei");
+            }
+        }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             if (position == 0) {
                 builder.append("p not in (Select c.patient From Contact c where c.contactDate between :startDate and :endDate)");
@@ -580,6 +632,9 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
         if (dto.getStatus() != null) {
             query.setParameter("status", dto.getStatus());
+        }
+        if (dto.getHei() != null) {
+            query.setParameter("hei", dto.getHei());
         }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             query.setParameter("startDate", dto.getStartDate());
@@ -641,6 +696,15 @@ public class PatientReportServiceImpl implements PatientReportService {
                 builder.append(" and p.status=:status");
             }
         }
+        if (dto.getHei() != null) {
+            if (position == 0) {
+                builder.append("p.hei=:hei");
+                position++;
+            } else {
+                builder.append(" and p.hei=:hei");
+            }
+        }
+
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             if (position == 0) {
                 builder.append("p.dateOfBirth between :startDate and :endDate");
@@ -669,6 +733,9 @@ public class PatientReportServiceImpl implements PatientReportService {
         if (dto.getStatus() != null) {
             query.setParameter("status", dto.getStatus());
         }
+        if (dto.getHei() != null) {
+            query.setParameter("hei", dto.getHei());
+        }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             query.setParameter("startDate", dto.getStartDate());
             query.setParameter("endDate", dto.getEndDate());
@@ -689,163 +756,6 @@ public class PatientReportServiceImpl implements PatientReportService {
                 builder.append(" and v.result >:result");
             }
         }
-        if (dto.getMinCd4Count()!= null) {
-            if (position == 0) {
-                builder.append("v.result <:result");
-                position++;
-            } else {
-                builder.append(" and v.result <:result");
-            }
-        }
-        if (dto.getProvince() != null) {
-            if (position == 0) {
-                builder.append("v.patient.primaryClinic.district.province=:province");
-                position++;
-            } else {
-                builder.append(" and v.patient.primaryClinic.district.province=:province");
-            }
-        }
-        if (dto.getDistrict() != null) {
-            if (position == 0) {
-                builder.append("v.patient.primaryClinic.district=:district");
-                position++;
-            } else {
-                builder.append(" and v.patient.primaryClinic.district=:district");
-            }
-
-        }
-        if (dto.getPrimaryClinic() != null) {
-            if (position == 0) {
-                builder.append("v.patient.primaryClinic=:primaryClinic");
-                position++;
-            } else {
-                builder.append(" and v.patient.primaryClinic=:primaryClinic");
-            }
-        }
-        if (dto.getSupportGroup() != null) {
-            if (position == 0) {
-                builder.append("v.patient.supportGroup=:supportGroup");
-                position++;
-            } else {
-                builder.append(" and v.patient.supportGroup=:supportGroup");
-            }
-        }
-        if (dto.getGender() != null) {
-            if (position == 0) {
-                builder.append("v.patient..gender=:gender");
-                position++;
-            } else {
-                builder.append(" and v.patient.gender=:gender");
-            }
-        }
-        if (dto.getAgeGroup() != null) {
-            if (position == 0) {
-                builder.append("v.patient.dateOfBirth between :start and :end");
-                position++;
-            } else {
-                builder.append(" and v.patient.dateOfBirth between :start and :end");
-            }
-        }
-        if (dto.getPeriod() != null) {
-            if (position == 0) {
-                builder.append("v.patient.period=:period");
-                position++;
-            } else {
-                builder.append(" and v.patient.period=:period");
-            }
-        }
-        if (dto.getStatus() != null) {
-            if (position == 0) {
-                builder.append("v.patient.status=:status");
-                position++;
-            } else {
-                builder.append(" and v.patient.status=:status");
-            }
-        }
-        if (dto.getTestType() != null) {
-            if (position == 0) {
-                builder.append("v.testType=:testType");
-                position++;
-            } else {
-                builder.append(" and v.testType=:testType");
-            }
-        }
-        if (dto.getStartDate() != null && dto.getEndDate() != null) {
-            if (position == 0) {
-                builder.append("v.patient.dateJoined between :startDate and :endDate");
-                position++;
-            } else {
-                builder.append(" and (v.patient.dateJoined between :startDate and :endDate)");
-            }
-        }
-        if (dto.getStatus() != null) {
-            if (position == 0) {
-                builder.append("v.patient.status=:status");
-                position++;
-            } else {
-                builder.append(" and v.patient.status=:status");
-            }
-        }
-        builder.append(" order by v.dateTaken DESC");
-        TypedQuery query = entityManager.createQuery(builder.toString(), Long.class);
-        if (dto.getProvince() != null) {
-            query.setParameter("province", dto.getProvince());
-        }
-        if (dto.getDistrict() != null) {
-            query.setParameter("district", dto.getDistrict());
-        }
-        if (dto.getPrimaryClinic() != null) {
-            query.setParameter("primaryClinic", dto.getPrimaryClinic());
-        }
-        if (dto.getSupportGroup() != null) {
-            query.setParameter("supportGroup", dto.getSupportGroup());
-        }
-        if (dto.getGender() != null) {
-            query.setParameter("gender", dto.getGender());
-        }
-        if (dto.getAgeGroup() != null) {
-            query.setParameter("start", DateUtil.getDateFromAge(dto.getAgeGroup().getEnd()));
-            query.setParameter("end", DateUtil.getEndDate(dto.getAgeGroup().getStart()));
-        }
-        if (dto.getPeriod() != null) {
-            query.setParameter("period", dto.getPeriod());
-        }
-        if (dto.getStatus() != null) {
-            query.setParameter("status", dto.getStatus());
-        }
-        if (dto.getTestType() != null) {
-            query.setParameter("testType", dto.getTestType());
-        }
-        if (dto.getStartDate() != null && dto.getEndDate() != null) {
-            query.setParameter("startDate", dto.getStartDate());
-            query.setParameter("endDate", dto.getEndDate());
-        }
-        if (dto.getMaxViralLoad() != null) {
-            query.setParameter("result", dto.getMaxViralLoad());
-        }
-        if(dto.getMinCd4Count()!= null){
-            query.setParameter("result", dto.getMinCd4Count());
-        }
-        if(dto.getStatus() != null){
-            query.setParameter("status", dto.getStatus());
-        }
-        return (Long) query.getSingleResult();
-    }
-
-    @Override
-    public List<Patient> getPatientLabResultsList(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("Select Distinct v.patient from InvestigationTest v");
-        int position = 0;
-        builder.append(" where ");
-        if (dto.getMaxViralLoad() != null) {
-            if (position == 0) {
-                builder.append("v.result >:result");
-                position++;
-            } else {
-                builder.append(" and v.result >:result");
-            }
-        }
-        
         if (dto.getMinCd4Count() != null) {
             if (position == 0) {
                 builder.append("v.result <:result");
@@ -919,6 +829,22 @@ public class PatientReportServiceImpl implements PatientReportService {
                 builder.append(" and v.patient.status=:status");
             }
         }
+        if (dto.getHei() != null) {
+            if (position == 0) {
+                builder.append("v.patient.hei=:hei");
+                position++;
+            } else {
+                builder.append(" and v.patient.hei=:hei");
+            }
+        }
+        if (dto.getTestType() != null) {
+            if (position == 0) {
+                builder.append("v.testType=:testType");
+                position++;
+            } else {
+                builder.append(" and v.testType=:testType");
+            }
+        }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             if (position == 0) {
                 builder.append("v.patient.dateJoined between :startDate and :endDate");
@@ -927,8 +853,166 @@ public class PatientReportServiceImpl implements PatientReportService {
                 builder.append(" and (v.patient.dateJoined between :startDate and :endDate)");
             }
         }
-        System.out.println("\n\n\n\n ************************************* \n\n\n");
-        System.out.println(builder.toString());
+        if (dto.getStatus() != null) {
+            if (position == 0) {
+                builder.append("v.patient.status=:status");
+                position++;
+            } else {
+                builder.append(" and v.patient.status=:status");
+            }
+        }
+        builder.append(" order by v.dateTaken DESC");
+        TypedQuery query = entityManager.createQuery(builder.toString(), Long.class);
+        if (dto.getProvince() != null) {
+            query.setParameter("province", dto.getProvince());
+        }
+        if (dto.getDistrict() != null) {
+            query.setParameter("district", dto.getDistrict());
+        }
+        if (dto.getPrimaryClinic() != null) {
+            query.setParameter("primaryClinic", dto.getPrimaryClinic());
+        }
+        if (dto.getSupportGroup() != null) {
+            query.setParameter("supportGroup", dto.getSupportGroup());
+        }
+        if (dto.getGender() != null) {
+            query.setParameter("gender", dto.getGender());
+        }
+        if (dto.getAgeGroup() != null) {
+            query.setParameter("start", DateUtil.getDateFromAge(dto.getAgeGroup().getEnd()));
+            query.setParameter("end", DateUtil.getEndDate(dto.getAgeGroup().getStart()));
+        }
+        if (dto.getPeriod() != null) {
+            query.setParameter("period", dto.getPeriod());
+        }
+        if (dto.getStatus() != null) {
+            query.setParameter("status", dto.getStatus());
+        }
+        if (dto.getHei() != null) {
+            query.setParameter("hei", dto.getHei());
+        }
+        if (dto.getTestType() != null) {
+            query.setParameter("testType", dto.getTestType());
+        }
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+            query.setParameter("startDate", dto.getStartDate());
+            query.setParameter("endDate", dto.getEndDate());
+        }
+        if (dto.getMaxViralLoad() != null) {
+            query.setParameter("result", dto.getMaxViralLoad());
+        }
+        if (dto.getMinCd4Count() != null) {
+            query.setParameter("result", dto.getMinCd4Count());
+        }
+        if (dto.getStatus() != null) {
+            query.setParameter("status", dto.getStatus());
+        }
+        return (Long) query.getSingleResult();
+    }
+
+    @Override
+    public List<Patient> getPatientLabResultsList(SearchDTO dto) {
+        StringBuilder builder = new StringBuilder("Select Distinct v.patient from InvestigationTest v");
+        int position = 0;
+        builder.append(" where ");
+        if (dto.getMaxViralLoad() != null) {
+            if (position == 0) {
+                builder.append("v.result >:result");
+                position++;
+            } else {
+                builder.append(" and v.result >:result");
+            }
+        }
+
+        if (dto.getMinCd4Count() != null) {
+            if (position == 0) {
+                builder.append("v.result <:result");
+                position++;
+            } else {
+                builder.append(" and v.result <:result");
+            }
+        }
+        if (dto.getProvince() != null) {
+            if (position == 0) {
+                builder.append("v.patient.primaryClinic.district.province=:province");
+                position++;
+            } else {
+                builder.append(" and v.patient.primaryClinic.district.province=:province");
+            }
+        }
+        if (dto.getDistrict() != null) {
+            if (position == 0) {
+                builder.append("v.patient.primaryClinic.district=:district");
+                position++;
+            } else {
+                builder.append(" and v.patient.primaryClinic.district=:district");
+            }
+
+        }
+        if (dto.getPrimaryClinic() != null) {
+            if (position == 0) {
+                builder.append("v.patient.primaryClinic=:primaryClinic");
+                position++;
+            } else {
+                builder.append(" and v.patient.primaryClinic=:primaryClinic");
+            }
+        }
+        if (dto.getSupportGroup() != null) {
+            if (position == 0) {
+                builder.append("v.patient.supportGroup=:supportGroup");
+                position++;
+            } else {
+                builder.append(" and v.patient.supportGroup=:supportGroup");
+            }
+        }
+        if (dto.getGender() != null) {
+            if (position == 0) {
+                builder.append("v.patient..gender=:gender");
+                position++;
+            } else {
+                builder.append(" and v.patient.gender=:gender");
+            }
+        }
+        if (dto.getAgeGroup() != null) {
+            if (position == 0) {
+                builder.append("v.patient.dateOfBirth between :start and :end");
+                position++;
+            } else {
+                builder.append(" and v.patient.dateOfBirth between :start and :end");
+            }
+        }
+        if (dto.getPeriod() != null) {
+            if (position == 0) {
+                builder.append("v.patient.period=:period");
+                position++;
+            } else {
+                builder.append(" and v.patient.period=:period");
+            }
+        }
+        if (dto.getStatus() != null) {
+            if (position == 0) {
+                builder.append("v.patient.status=:status");
+                position++;
+            } else {
+                builder.append(" and v.patient.status=:status");
+            }
+        }
+        if (dto.getHei() != null) {
+            if (position == 0) {
+                builder.append("v.patient.hei=:hei");
+                position++;
+            } else {
+                builder.append(" and v.patient.hei=:hei");
+            }
+        }
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+            if (position == 0) {
+                builder.append("v.patient.dateJoined between :startDate and :endDate");
+                position++;
+            } else {
+                builder.append(" and (v.patient.dateJoined between :startDate and :endDate)");
+            }
+        }
         //builder.append(" order by v.dateTaken DESC");        
         TypedQuery query = entityManager.createQuery(builder.toString(), Patient.class);
         if (dto.getProvince() != null) {
@@ -956,13 +1040,16 @@ public class PatientReportServiceImpl implements PatientReportService {
         if (dto.getStatus() != null) {
             query.setParameter("status", dto.getStatus());
         }
+        if (dto.getHei() != null) {
+            query.setParameter("hei", dto.getHei());
+        }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             query.setParameter("startDate", dto.getStartDate());
             query.setParameter("endDate", dto.getEndDate());
         }
-        if(dto.getMaxViralLoad() != null){
+        if (dto.getMaxViralLoad() != null) {
             query.setParameter("result", dto.getMaxViralLoad());
-        }        
+        }
         if (dto.getMinCd4Count() != null) {
             query.setParameter("result", dto.getMinCd4Count());
         }
@@ -1038,6 +1125,14 @@ public class PatientReportServiceImpl implements PatientReportService {
                 builder.append(" and p.status=:status");
             }
         }
+        if (dto.getHei() != null) {
+            if (position == 0) {
+                builder.append("p.hei=:hei");
+                position++;
+            } else {
+                builder.append(" and p.hei=:hei");
+            }
+        }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             if (position == 0) {
                 builder.append("p in (Select c.patient From Contact c where c.contactDate between :startDate and :endDate)");
@@ -1072,6 +1167,9 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
         if (dto.getStatus() != null) {
             query.setParameter("status", dto.getStatus());
+        }
+        if (dto.getHei() != null) {
+            query.setParameter("hei", dto.getHei());
         }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             query.setParameter("startDate", dto.getStartDate());
@@ -1158,6 +1256,14 @@ public class PatientReportServiceImpl implements PatientReportService {
                 builder.append(" and v.patient.status=:status");
             }
         }
+        if (dto.getHei() != null) {
+            if (position == 0) {
+                builder.append("v.patient.hei=:hei");
+                position++;
+            } else {
+                builder.append(" and v.patient.hei=:hei");
+            }
+        }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             if (position == 0) {
                 builder.append("v.patient.dateJoined between :startDate and :endDate");
@@ -1192,6 +1298,9 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
         if (dto.getStatus() != null) {
             query.setParameter("status", dto.getStatus());
+        }
+        if (dto.getHei() != null) {
+            query.setParameter("hei", dto.getHei());
         }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             query.setParameter("startDate", dto.getStartDate());
@@ -1279,6 +1388,14 @@ public class PatientReportServiceImpl implements PatientReportService {
                 builder.append(" and v.patient.status=:status");
             }
         }
+        if (dto.getHei() != null) {
+            if (position == 0) {
+                builder.append("v.patient.hei=:hei");
+                position++;
+            } else {
+                builder.append(" and v.patient.hei=:hei");
+            }
+        }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             if (position == 0) {
                 builder.append("v.patient.dateJoined between :startDate and :endDate");
@@ -1313,6 +1430,9 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
         if (dto.getStatus() != null) {
             query.setParameter("status", dto.getStatus());
+        }
+        if (dto.getHei() != null) {
+            query.setParameter("hei", dto.getHei());
         }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             query.setParameter("startDate", dto.getStartDate());

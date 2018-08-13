@@ -1,5 +1,4 @@
 <%@include file="../template/header.jspf" %>
-<%@include file="../template/searchDateRangeNewFragment.jspf" %>
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
@@ -10,14 +9,10 @@
                 <div class="row">
                     <!--Start of top left panel -->
                     <div class="col-lg-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                ${reportTitle}
-                            </div>
-                            <div class="panel-body">
-                                <img class="img-responsive" src="${page}/report/graphs${report}"/>
-                            </div>  
-                        </div>
+                        <div class="panel-body">
+                            <%@include file="../template/searchDateRangeNewFragment.jspf" %>
+                            <img class="img-responsive" src="${page}/report/graphs${report}"/>
+                        </div>  
                     </div>
                 </div>
             </div>

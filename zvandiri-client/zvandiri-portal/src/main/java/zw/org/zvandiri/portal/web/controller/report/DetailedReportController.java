@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.domain.util.TestType;
+import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.DetailedPatientReportService;
 import zw.org.zvandiri.business.service.DistrictService;
 import zw.org.zvandiri.business.service.FacilityService;
@@ -67,9 +68,8 @@ public class DetailedReportController extends BaseController {
     @Resource
     private PatientReportService patientReportService;
 
-    public void setUpModel(ModelMap model, SearchDTO item, Boolean post) {
+    public void setUpModel(ModelMap model, SearchDTO item, Boolean post, Boolean hei) {
         item = getUserLevelObjectState(item);
-        model.addAttribute("pageTitle", APP_PREFIX + "Beneficiary Detailed Report");
         model.addAttribute("provinces", provinceService.getAll());
         model.addAttribute("periods", periodService.getAll());
         if (item.getProvince() != null) {
@@ -82,6 +82,9 @@ public class DetailedReportController extends BaseController {
         if (item.getStatus() == null) {
             item.setStatus(PatientChangeEvent.ACTIVE);
         }
+         if (hei){
+            item.setHei(YesNo.YES);
+        }
         model.addAttribute("excelExport", "/report/detailed/export/excel" + item.getQueryString(item.getInstance(item)));
         if (item.getMaxViralLoad() == null && item.getMinCd4Count() == null) {
             model.addAttribute("items", post ? detailedPatientReportService.get(item.getInstance(item)) : null);
@@ -93,23 +96,43 @@ public class DetailedReportController extends BaseController {
                 item.setTestType(TestType.CD4_COUNT);
                 model.addAttribute("items", patientReportService.getPatientLabResultsList(item.getInstance(item)));
             }
-        }
+        }      
         model.addAttribute("item", item.getInstance(item));
     }
 
     @RequestMapping(value = "/range", method = RequestMethod.GET)
     public String getRangeIndex(ModelMap model, SearchDTO dto) {
+        model.addAttribute("pageTitle", APP_PREFIX + "Client Detailed Report");
         Boolean post = Boolean.TRUE;
         if (dto.getStatus() != null && dto.getStatus().equals(PatientChangeEvent.ACTIVE) && (dto.getMaxViralLoad() == null && dto.getMinCd4Count() == null)) {
             post = Boolean.FALSE;
         }
-        setUpModel(model, dto, post);
+        setUpModel(model, dto, post, Boolean.FALSE);
         return "report/patientDateRangeReport";
     }
 
     @RequestMapping(value = "/range", method = RequestMethod.POST)
     public String getRangeIndexPost(ModelMap model, @ModelAttribute("item") @Valid SearchDTO item) {
-        setUpModel(model, item, Boolean.TRUE);
+        model.addAttribute("pageTitle", APP_PREFIX + "Client Detailed Report");
+        setUpModel(model, item, Boolean.TRUE, Boolean.FALSE);
+        return "report/patientDateRangeReport";
+    }
+    
+    @RequestMapping(value = "/hei", method = RequestMethod.GET)
+    public String getHeiIndex(ModelMap model, SearchDTO dto) {
+        Boolean post = Boolean.TRUE;
+        if (dto.getStatus() != null && dto.getStatus().equals(PatientChangeEvent.ACTIVE) && (dto.getMaxViralLoad() == null && dto.getMinCd4Count() == null)) {
+            post = Boolean.FALSE;
+        }
+        model.addAttribute("pageTitle", APP_PREFIX + "HEI Detailed Report");
+        setUpModel(model, dto, post, Boolean.TRUE);
+        return "report/patientDateRangeReport";
+    }
+
+    @RequestMapping(value = "/hei", method = RequestMethod.POST)
+    public String getHeiPost(ModelMap model, @ModelAttribute("item") @Valid SearchDTO item) {
+        model.addAttribute("pageTitle", APP_PREFIX + "HEI Detailed Report");
+        setUpModel(model, item, Boolean.TRUE, Boolean.TRUE);
         return "report/patientDateRangeReport";
     }
 

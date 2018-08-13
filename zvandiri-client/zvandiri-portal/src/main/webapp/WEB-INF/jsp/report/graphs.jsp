@@ -10,6 +10,7 @@
                     <!--Start of top left panel -->
                     <div class="col-lg-12">
                         <div class="panel-body">
+                            <a href="${page}/report/index.htm">&DoubleLeftArrow; Back To Reports DashBoard Home</a>
                             <%@include file="../template/searchDateRangeNewFragment.jspf" %>
                             <img class="img-responsive" src="${page}/report/graphs${report}"/>
                         </div>  

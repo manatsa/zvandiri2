@@ -1128,7 +1128,7 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
         if (dto.getGender() != null) {
             if (position == 0) {
-                builder.append("v.patient..gender=:gender");
+                builder.append("v.patient.gender=:gender");
                 position++;
             } else {
                 builder.append(" and v.patient.gender=:gender");
@@ -1249,7 +1249,7 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
         if (dto.getGender() != null) {
             if (position == 0) {
-                builder.append("v.patient..gender=:gender");
+                builder.append("v.patient.gender=:gender");
                 position++;
             } else {
                 builder.append(" and v.patient.gender=:gender");

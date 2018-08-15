@@ -45,8 +45,6 @@ public class DataEntryReportController extends BaseController{
     private DataEntryReportService dataEntryReportService;
     @Resource
     private ProvinceService provinceService;
-    @Resource
-    private HIVSelfTestingReportService hIVSelfTestingReportService;
 
     public void setUpModel(ModelMap model, SearchDTO item) {
         item = getUserLevelObjectState(item);
@@ -54,7 +52,7 @@ public class DataEntryReportController extends BaseController{
         model.addAttribute("provinces", provinceService.getAll());
         model.addAttribute("item", item.getInstance(item));
         model.addAttribute("excelExport", "/report/aggregate/data-entry/export/excel" + item.getQueryString(item.getInstance(item)));
-        model.addAttribute("items", hIVSelfTestingReportService.getDefaultReport(item.getInstance(item)));
+        model.addAttribute("items", dataEntryReportService.getDefaultReport(item.getInstance(item)));
     }
 
     @RequestMapping(value = "/data-entry", method = RequestMethod.GET)

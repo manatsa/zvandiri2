@@ -40,6 +40,7 @@ import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.domain.util.PeriodType;
 import zw.org.zvandiri.business.domain.util.Reason;
 import zw.org.zvandiri.business.domain.util.ReferralStatus;
+import zw.org.zvandiri.business.domain.util.Result;
 import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.domain.util.UserType;
 import zw.org.zvandiri.business.domain.util.YesNo;
@@ -83,11 +84,12 @@ public class SearchDTO implements Serializable {
     private UserType userType;
     private TestType testType;
     private Reason reason;
+    private Result result;
 
     public SearchDTO() {
     }
 
-    public SearchDTO(Period period, Province province, District district, Facility primaryClinic, SupportGroup supportGroup, Date startDate, Date endDate, Gender gender, AgeGroup ageGroup, PeriodType periodType, YearPeriod yearPeriod, HalfYearPeriod halfYearPeriod, QuarterPeriod quarterPeriod, LevelOfCare levelOfCare, PatientChangeEvent status, District supportGroupDistrict, CareLevel careLevel, Set<CrossTabOption> crossTabOptions, ReferralStatus referralStatus, YesNo yesNo, FollowUp followUp, User createdBy, Indicator indicator, Integer start, Integer max, Set<PatientChangeEvent> statuses, Integer maxViralLoad, Integer minCd4Count, UserType userType, TestType testType, Reason reason) {
+    public SearchDTO(Period period, Province province, District district, Facility primaryClinic, SupportGroup supportGroup, Date startDate, Date endDate, Gender gender, AgeGroup ageGroup, PeriodType periodType, YearPeriod yearPeriod, HalfYearPeriod halfYearPeriod, QuarterPeriod quarterPeriod, LevelOfCare levelOfCare, PatientChangeEvent status, District supportGroupDistrict, CareLevel careLevel, Set<CrossTabOption> crossTabOptions, ReferralStatus referralStatus, YesNo yesNo, FollowUp followUp, User createdBy, Indicator indicator, Integer start, Integer max, Set<PatientChangeEvent> statuses, Integer maxViralLoad, Integer minCd4Count, UserType userType, TestType testType, Reason reason, Result result) {
         this.period = period;
         this.province = province;
         this.district = district;
@@ -119,6 +121,7 @@ public class SearchDTO implements Serializable {
         this.userType = userType;
         this.testType = testType;
         this.reason = reason;
+        this.result = result;
     }
 
     public Period getPeriod() {
@@ -368,6 +371,14 @@ public class SearchDTO implements Serializable {
     public void setReason(Reason reason) {
         this.reason = reason;
     }
+
+    public Result getResult() {
+        return result;
+    }
+
+    public void setResult(Result result) {
+        this.result = result;
+    }
     
     public Boolean getSearch(SearchDTO dto) {
         if ((dto.getStatuses() != null && !dto.getStatuses().isEmpty()) ||dto.getProvince() != null || dto.getDistrict() != null ||
@@ -375,7 +386,7 @@ public class SearchDTO implements Serializable {
                 dto.getGender() != null || dto.getAgeGroup() != null || 
                 dto.getLevelOfCare() != null || dto.getCareLevel() != null || dto.getStatus() != null || 
                 dto.getReferralStatus() != null || dto.getYesNo() != null || 
-                dto.getFollowUp() != null || dto.getCreatedBy() != null || dto.getStart() != null || dto.getMax() != null || dto.getReason() != null) {
+                dto.getFollowUp() != null || dto.getCreatedBy() != null || dto.getStart() != null || dto.getMax() != null || dto.getReason() != null || dto.getResult() != null) {
             return Boolean.TRUE;
         }
         return Boolean.FALSE;
@@ -602,6 +613,15 @@ public class SearchDTO implements Serializable {
                 query.append(dto.getReason().getCode());
             }
         }
+        if(dto.getResult()!= null){
+            if(position == 0){
+                query.append("?result=");
+                query.append(dto.getResult().getCode());
+            }else{
+                query.append("&result=");
+                query.append(dto.getResult().getCode());
+            }
+        }
         return query.toString();
     }
 
@@ -622,7 +642,7 @@ public class SearchDTO implements Serializable {
                 dto.getIndicator(), dto.getStart(), dto.getMax(),
                 dto.getStatuses(),
                 dto.getMaxViralLoad(), dto.getMinCd4Count(), dto.getUserType(), 
-                dto.getTestType(), dto.getReason()
+                dto.getTestType(), dto.getReason(), dto.getResult()
         );
     }
 }

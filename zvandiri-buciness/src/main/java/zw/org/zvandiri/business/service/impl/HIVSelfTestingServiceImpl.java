@@ -79,16 +79,6 @@ public class HIVSelfTestingServiceImpl implements HIVSelfTestingService{
     }
     
     @Override
-    public Long getOnArt(YesNo onArt){
-        return repo.countByArtInitiation(onArt);
-    }
-    
-    @Override
-    public Long countByHIvSelfTesting(){
-        return repo.countByHIvSelfTesting();
-    }
-    
-    @Override
     public List<HIVSelfTesting> getByPerson(Person person){
         return repo.findByPerson(person);
     }

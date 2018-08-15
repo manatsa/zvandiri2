@@ -20,8 +20,9 @@ import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
+import zw.org.zvandiri.business.domain.util.Result;
 import zw.org.zvandiri.business.domain.util.YesNo;
-import zw.org.zvandiri.business.service.HIVSelfTestingService;
+import zw.org.zvandiri.business.service.SelfTestingReportService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.GenericReportModel;
 import zw.org.zvandiri.report.api.service.HIVSelfTestingReportService;
@@ -34,7 +35,7 @@ import zw.org.zvandiri.report.api.service.HIVSelfTestingReportService;
 public class HIVSelfTestingReportServiceImpl implements HIVSelfTestingReportService{
 
     @Resource
-    private HIVSelfTestingService personService;
+    private SelfTestingReportService reportService;
     
     @Override
     public List<GenericReportModel> getDefaultReport(SearchDTO dto) {
@@ -49,13 +50,16 @@ public class HIVSelfTestingReportServiceImpl implements HIVSelfTestingReportServ
         headerRow.addAll(Arrays.asList(headerNames));
         list.add(new GenericReportModel(headerRow));
         List<String> row = new ArrayList<>();
-        row.add("0");
-        row.add("0");
-        row.add("0");
-        row.add(personService.getOnArt(YesNo.YES).toString());
-        row.add(personService.countByHIvSelfTesting().toString());
-        row.add("0");
-        row.add("0");list.add(new GenericReportModel(row));
+        row.add(reportService.countIndividualsMobilizedForTesting(dto.getInstance(dto)).toString());
+        row.add(reportService.countIndividualsTestingForHIV(dto).toString());
+        dto.setResult(Result.POSITIVE);
+        row.add(reportService.countIndividualsTestingPostive(dto).toString());
+        dto.setYesNo(YesNo.YES);
+        row.add(reportService.countByArtInitiation(dto.getInstance(dto)).toString());
+        row.add(reportService.countByHIvSelfTesting(dto.getInstance(dto)).toString());
+        row.add(reportService.countHomeBased(dto.getInstance(dto)).toString());
+        row.add(reportService.countFacilityBased(dto.getInstance(dto)).toString());
+        list.add(new GenericReportModel(row));
         return list;
     }
 

@@ -28,6 +28,7 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
 import zw.org.zvandiri.report.api.service.DataEntryReportService;
+import zw.org.zvandiri.report.api.service.HIVSelfTestingReportService;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
 
 /**
@@ -44,6 +45,8 @@ public class DataEntryReportController extends BaseController{
     private DataEntryReportService dataEntryReportService;
     @Resource
     private ProvinceService provinceService;
+    @Resource
+    private HIVSelfTestingReportService hIVSelfTestingReportService;
 
     public void setUpModel(ModelMap model, SearchDTO item) {
         item = getUserLevelObjectState(item);
@@ -51,7 +54,7 @@ public class DataEntryReportController extends BaseController{
         model.addAttribute("provinces", provinceService.getAll());
         model.addAttribute("item", item.getInstance(item));
         model.addAttribute("excelExport", "/report/aggregate/data-entry/export/excel" + item.getQueryString(item.getInstance(item)));
-        model.addAttribute("items", dataEntryReportService.getDefaultReport(item.getInstance(item)));
+        model.addAttribute("items", hIVSelfTestingReportService.getDefaultReport(item.getInstance(item)));
     }
 
     @RequestMapping(value = "/data-entry", method = RequestMethod.GET)

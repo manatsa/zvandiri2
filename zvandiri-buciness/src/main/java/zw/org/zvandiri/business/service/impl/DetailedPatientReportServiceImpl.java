@@ -396,7 +396,7 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                 }
             }
         }
-        builder.append(" order by p.lastName, p.firstName, p.middleName ASC");
+        builder.append(" order by p.dateModified DESC, p.dateCreated, p.lastName ASC, p.firstName ASC, p.middleName ASC");
         TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());

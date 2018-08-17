@@ -28,7 +28,7 @@
                 <a href="${page}/data/item.form"><i class="fa fa-gavel fa-fw"></i> Data Cleaning Tool</a>
             </li>
             <li>
-                <a href="${page}/person/"><i class="fa fa-table fa-fw"></i> Manage Person</a>
+                <a href="${page}/person/"><i class="fa fa-table fa-fw"></i> HIV Self Testing</a>
             </li>
             <!--<li>
                 <a href="${page}/patient/contact/manager/item.list"><i class="fa fa-table fa-fw"></i> Manage Contacts</a>

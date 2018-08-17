@@ -89,6 +89,8 @@
                 <bean class="zw.org.zvandiri.portal.web.converter.GestationalAgeConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.ArtStartedConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.TestTypeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ResultConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.PersonConverter"/>
             </set>
         </property>
     </bean> 

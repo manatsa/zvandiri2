@@ -89,6 +89,13 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>
+                                    <a href="${page}/report/hiv-self-testing/detailed.htm">HIV Self Testing Report</a>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
                                 <th colspan="2">Visual Reports</th>
                             </tr>
                             <tr>

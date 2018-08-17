@@ -28,6 +28,7 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
 import zw.org.zvandiri.report.api.service.DataEntryReportService;
+import zw.org.zvandiri.report.api.service.HIVSelfTestingReportService;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
 
 /**

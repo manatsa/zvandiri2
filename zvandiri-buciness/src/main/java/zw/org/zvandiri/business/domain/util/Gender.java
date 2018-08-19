@@ -49,6 +49,18 @@ public enum Gender {
     }
     
     public String getName(){
-        return StringUtils.toCamelCase3(super.name());
+        //return StringUtils.toCamelCase3(super.name());
+        return getAltName();
+    }
+    
+    public String getAltName() {
+        if (this == MALE) {
+            return "M";
+        }else if (this == FEMALE) {
+            return "F";
+        }else if (this == OTHER) {
+            return "O";
+        }
+        return null;
     }
 }

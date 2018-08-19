@@ -138,23 +138,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         List<String> items = new ArrayList<>();
         items.addAll(Arrays.asList(ProblemReportHeaderNames.headerNames));
         list.add(new GenericReportModel(items));
-        /*
-         "Province",
-         "District",
-         "Facility",
-         "# of contacts",
-         "# of clients",
-         "# of newly registered clients",
-         "# exiting the program",
-         "# newly initiated on ART",
-         "# currently on ART",
-         "# on ART for 3 months",
-         "# on ART for 6 months",
-         "# on ART for 12 months",
-         "# on ART for 24 months",
-         "# on ART for 36 months",
-         "# on ART for > 36 months"
-         */
+       
         for (Province province : provinceService.getAll()) {
             dto.setProvince(province);
             int pos = 0;
@@ -512,7 +496,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         int secondLevelCount = 0;
         for (int i = 0; i < topCount; i++) {
             for (AgeGroup ageGroup : AgeGroup.values()) {
-                items.add(ageGroup.getName());
+                items.add(ageGroup.getAltName());
                 items.add("");
                 items.add("");
                 secondLevelCount++;
@@ -524,7 +508,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         items.add("");
         for (int i = 0; i < secondLevelCount; i++) {
             for (Gender gender : Gender.values()) {
-                items.add(gender.getName());
+                items.add(gender.getAltName());
             }
         }
         //items.add("Total");
@@ -581,7 +565,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         int secondLevelCount = 0;
         for (int i = 0; i < topCount; i++) {
             for (AgeGroup ageGroup : AgeGroup.values()) {
-                items.add(ageGroup.getName());
+                items.add(ageGroup.getAltName());
                 items.add("");
                 items.add("");
                 secondLevelCount++;
@@ -593,7 +577,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         items.add("");
         for (int i = 0; i < secondLevelCount; i++) {
             for (Gender gender : Gender.values()) {
-                items.add(gender.getName());
+                items.add(gender.getAltName());
             }
         }
         //items.add("Total");

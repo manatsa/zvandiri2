@@ -15,6 +15,9 @@
  */
 package zw.org.zvandiri.business.domain.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import zw.org.zvandiri.business.util.StringUtils;
 
 /**
@@ -62,5 +65,11 @@ public enum Gender {
             return "O";
         }
         return null;
+    }
+    
+    public static List<Gender> getItems() {
+        return new ArrayList<>(Arrays.asList(new Gender [] {
+            MALE, FEMALE
+        }));
     }
 }

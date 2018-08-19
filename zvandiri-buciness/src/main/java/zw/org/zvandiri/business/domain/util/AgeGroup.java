@@ -23,15 +23,17 @@ import zw.org.zvandiri.business.util.StringUtils;
  */
 public enum AgeGroup {
     
-    UNDER_ONE(0, 1), ONE_TO_NINE(1, 9), TEN_TO_FOURTEEN(10, 14),
-    FIFTEEN_TO_NINETEEN(15, 19), TWENTY_TO_TWENTY_FOUR(20, 24);
+    UNDER_ONE(0, 1, "<1"), ONE_TO_NINE(1, 9, "1-9"), TEN_TO_FOURTEEN(10, 14, "10-14"),
+    FIFTEEN_TO_NINETEEN(15, 19, "15-19"), TWENTY_TO_TWENTY_FOUR(20, 24, "20-24");
     
     private final Integer start;
     private final Integer end;
+    private final String name;
 
-    private AgeGroup(Integer start, Integer end) {
+    private AgeGroup(Integer start, Integer end, String name) {
         this.start = start;
         this.end = end;
+        this.name = name;
     }
 
     public Integer getStart() {
@@ -73,11 +75,10 @@ public enum AgeGroup {
     }
     
     public String getName(){
-        //return StringUtils.toCamelCase3(super.name());
-        return getAltName();
+        return this.name;
     }
     
     public String getAltName(){
-        return start+" - "+end;
+        return start+"-"+end;
     }
 }

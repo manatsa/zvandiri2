@@ -229,7 +229,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         items = new ArrayList<>();
         items.add("");
         for (int i = 0; i < topCount; i++) {
-            for (Gender gender : Gender.values()) {
+            for (Gender gender : Gender.getItems()) {
                 items.add(gender.getName());
             }
         }
@@ -241,7 +241,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
             List<String> row = new ArrayList<>();
             row.add(province.getName());
             for (int i = 0; i < topCount; i++) {
-                for (Gender gender : Gender.values()) {
+                for (Gender gender : Gender.getItems()) {
                     dto.setGender(gender);
                     row.add(getItem(dto.getInstance(dto), i));
                 }
@@ -269,7 +269,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         items = new ArrayList<>();
         items.add("");
         for (int i = 0; i < topCount; i++) {
-            for (Gender gender : Gender.values()) {
+            for (Gender gender : Gender.getItems()) {
                 items.add(gender.getName());
             }
         }
@@ -282,7 +282,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
             List<String> row = new ArrayList<>();
             row.add(district.getName());
             for (int i = 0; i < topCount; i++) {
-                for (Gender gender : Gender.values()) {
+                for (Gender gender : Gender.getItems()) {
                     dto.setGender(gender);
                     row.add(getItem(dto.getInstance(dto), i));
                 }
@@ -310,7 +310,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         items = new ArrayList<>();
         items.add("");
         for (int i = 0; i < topCount; i++) {
-            for (Gender gender : Gender.values()) {
+            for (Gender gender : Gender.getItems()) {
                 items.add(gender.getName());
             }
         }
@@ -324,7 +324,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
             List<String> row = new ArrayList<>();
             row.add(facility.getName());
             for (int i = 0; i < topCount; i++) {
-                for (Gender gender : Gender.values()) {
+                for (Gender gender : Gender.getItems()) {
                     dto.setGender(gender);
                     row.add(getItem(dto.getInstance(dto), i));
                 }
@@ -496,7 +496,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         int secondLevelCount = 0;
         for (int i = 0; i < topCount; i++) {
             for (AgeGroup ageGroup : AgeGroup.values()) {
-                items.add(ageGroup.getAltName());
+                items.add(ageGroup.getName());
                 items.add("");
                 items.add("");
                 secondLevelCount++;
@@ -507,7 +507,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         items = new ArrayList<>();
         items.add("");
         for (int i = 0; i < secondLevelCount; i++) {
-            for (Gender gender : Gender.values()) {
+            for (Gender gender : Gender.getItems()) {
                 items.add(gender.getAltName());
             }
         }
@@ -521,7 +521,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
             for (int i = 0; i < topCount; i++) {
                 for (AgeGroup ageGroup : AgeGroup.values()) {
                     dto.setAgeGroup(ageGroup);
-                    for (Gender gender : Gender.values()) {
+                    for (Gender gender : Gender.getItems()) {
                         dto.setGender(gender);
                         row.add(getItem(dto.getInstance(dto), i));
                     }
@@ -565,7 +565,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         int secondLevelCount = 0;
         for (int i = 0; i < topCount; i++) {
             for (AgeGroup ageGroup : AgeGroup.values()) {
-                items.add(ageGroup.getAltName());
+                items.add(ageGroup.getName());
                 items.add("");
                 items.add("");
                 secondLevelCount++;
@@ -576,7 +576,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         items = new ArrayList<>();
         items.add("");
         for (int i = 0; i < secondLevelCount; i++) {
-            for (Gender gender : Gender.values()) {
+            for (Gender gender : Gender.getItems()) {
                 items.add(gender.getAltName());
             }
         }
@@ -591,7 +591,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
             for (int i = 0; i < topCount; i++) {
                 for (AgeGroup ageGroup : AgeGroup.values()) {
                     dto.setAgeGroup(ageGroup);
-                    for (Gender gender : Gender.values()) {
+                    for (Gender gender : Gender.getItems()) {
                         dto.setGender(gender);
                         row.add(getItem(dto.getInstance(dto), i));
                     }
@@ -646,7 +646,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         items = new ArrayList<>();
         items.add("");
         for (int i = 0; i < secondLevelCount; i++) {
-            for (Gender gender : Gender.values()) {
+            for (Gender gender : Gender.getItems()) {
                 items.add(gender.getName());
             }
         }
@@ -663,7 +663,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
             for (int i = 0; i < topCount; i++) {
                 for (AgeGroup ageGroup : AgeGroup.values()) {
                     dto.setAgeGroup(ageGroup);
-                    for (Gender gender : Gender.values()) {
+                    for (Gender gender : Gender.getItems()) {
                         dto.setGender(gender);
                         row.add(getItem(dto.getInstance(dto), i));
                     }

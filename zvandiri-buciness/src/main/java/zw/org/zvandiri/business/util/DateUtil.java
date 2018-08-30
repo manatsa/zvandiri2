@@ -307,4 +307,12 @@ public class DateUtil {
     public static Integer getMonths(Date start, Date today){
         return Months.monthsBetween(new DateTime(start), new DateTime(today)).getMonths();
     }
+    
+    public static List<Date> getPastSixQuarters() {
+        List<Date> quarters = new ArrayList<>();
+        for (int i = 6; i <= 1; i--) {
+            quarters.add(getQuarter(new Date(), i, Boolean.TRUE));
+        }
+        return quarters;
+    }
 }

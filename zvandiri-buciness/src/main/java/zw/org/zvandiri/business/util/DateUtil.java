@@ -64,6 +64,15 @@ public class DateUtil {
         }
         throw new IllegalArgumentException("Un expected parameter provided :" + date);
     }
+    
+    public static Date getDateFromStringRest(String date) {
+        try {
+            return restFmt.parse(date);
+        } catch (ParseException ex) {
+            System.out.println("Error occurred");
+        }
+        throw new IllegalArgumentException("Un expected parameter provided :" + date);
+    }
 
     public static Date getDateDiffDate(int factor) {
         Calendar cal = Calendar.getInstance();

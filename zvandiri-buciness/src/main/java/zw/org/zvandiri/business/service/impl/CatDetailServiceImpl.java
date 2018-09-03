@@ -124,7 +124,7 @@ public class CatDetailServiceImpl implements CatDetailService {
     public List<NameIdDTO> getCatPatients(CatDetail catDetail) {
         List<NameIdDTO> patients = new ArrayList<>();
         for(Patient patient : catDetailRepo.findByPrimaryClinic(catDetail.getPrimaryClinic(), catDetail.getPatient())){
-            patients.add(new NameIdDTO(patient.getName(), patient.getId(), patient.getDateOfBirth()));
+            patients.add(new NameIdDTO(patient.getName(), patient.getId(), patient.getDateOfBirth(), patient.getGender()));
         }
         return patients;
     }

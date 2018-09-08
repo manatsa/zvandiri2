@@ -242,29 +242,37 @@ public class DateUtil {
             case 1:
                 if (start) {
                     cal.set(cal.get(Calendar.YEAR), Calendar.JANUARY, 01);
+                    return cal.getTime();
                 } else {
                     cal.set(cal.get(Calendar.YEAR), Calendar.MARCH, 31);
+                    return cal.getTime();
                 }
             case 2:
                 if (start) {
                     cal.set(cal.get(Calendar.YEAR), Calendar.APRIL, 01);
+                    return cal.getTime();
                 } else {
                     cal.set(cal.get(Calendar.YEAR), Calendar.JUNE, 30);
+                    return cal.getTime();
                 }
             case 3:
                 if (start) {
                     cal.set(cal.get(Calendar.YEAR), Calendar.JULY, 01);
+                    return cal.getTime();
                 } else {
                     cal.set(cal.get(Calendar.YEAR), Calendar.SEPTEMBER, 30);
+                    return cal.getTime();
                 }
             case 4:
                 if (start) {
                     cal.set(cal.get(Calendar.YEAR), Calendar.OCTOBER, 01);
+                    return cal.getTime();
                 } else {
                     cal.set(cal.get(Calendar.YEAR), Calendar.DECEMBER, 31);
+                    return cal.getTime();
                 }
         }
-        return cal.getTime();
+        throw new IllegalStateException("No case was reached  and factor is :"+ fact);
     }
 
     public static Date getHalfYear(Date date, int fact, Boolean start) {

@@ -25,6 +25,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
+import zw.org.zvandiri.business.domain.util.PeriodType;
 import zw.org.zvandiri.business.service.SettingsService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
@@ -100,7 +101,10 @@ public class DashboardController extends BaseController {
         JFreeChart barGraph = null;
         Integer maxItems = settingsService.getItem().getMaxNumContactIndex();
         try {
-            barGraph = aggregateVisualReportService.getDefaultTrend(new ChartModelItem("", "", "Months", maxItems, true), contactLevelOfCareReportService.getTrendReport(dto.getInstance(dto)), "Stable");
+            dto.setPeriodType(PeriodType.QUARTERLY);
+            System.out.println("*********************************************");
+            System.out.println(contactLevelOfCareReportService.getTrendReport(dto.getInstance(dto)));
+            barGraph = aggregateVisualReportService.getDefaultTrend(dto, new ChartModelItem("", "", "Months", maxItems, true), contactLevelOfCareReportService.getTrendReport(dto.getInstance(dto)), "Stable");
             ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, 540, 320);
         } catch (IOException ex) {
             ex.printStackTrace();

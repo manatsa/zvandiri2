@@ -33,6 +33,7 @@ import zw.org.zvandiri.business.service.PeriodService;
 import zw.org.zvandiri.business.service.ProvinceService;
 import zw.org.zvandiri.business.service.SupportGroupService;
 import zw.org.zvandiri.business.util.DateUtil;
+import zw.org.zvandiri.business.util.dto.QuarterMod;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.GenericReportModel;
 import zw.org.zvandiri.report.api.service.ContactLevelOfCareReportService;
@@ -234,10 +235,12 @@ public class ContactLevelOfCareReportServiceImpl implements ContactLevelOfCareRe
     @Override
     public List<GenericReportModel> getTrendReport(SearchDTO dto) {
         List<GenericReportModel> list = new ArrayList<>();
-        List<Period> periods = periodService.getPastPeriod(8);
+        List<QuarterMod> periods = DateUtil.getPastSixQuarters();
+        System.out.println("+++++++++++++++++++++++++++++++++++++");
+        System.out.println(periods);
         List<String> items = new ArrayList<>();
         items.add("");
-        for (Period p : periods) {
+        for (QuarterMod p : periods) {
             items.add(DateUtil.formatDate(p.getEndDate()));
         }
         items.add("Total");
@@ -248,7 +251,7 @@ public class ContactLevelOfCareReportServiceImpl implements ContactLevelOfCareRe
             List<String> row = new ArrayList<>();
             row.add(element.getName());
             Integer rowCount = 0;
-            for (Period p : periods) {
+            for (QuarterMod p : periods) {
                 dto.setStartDate(p.getStartDate());
                 dto.setEndDate(p.getEndDate());
                 Integer itemCount = contactByLevelOfCareService.getCount(dto) != null ? contactByLevelOfCareService.getCount(dto).intValue() : 0;

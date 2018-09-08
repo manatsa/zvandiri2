@@ -25,6 +25,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
+import zw.org.zvandiri.business.domain.util.PeriodType;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import static zw.org.zvandiri.portal.util.Graph_Prop.*;
 import zw.org.zvandiri.portal.web.controller.BaseController;
@@ -87,7 +88,8 @@ public class AggregateReportController extends BaseController {
         response.setContentType("image/png");
         JFreeChart barGraph = null;
         try {
-            barGraph = aggregateVisualReportService.getDefaultTrend(new ChartModelItem("Contact Trends By Care Level", "Number", "Months", 150, true), contactLevelOfCareReportService.getTrendReport(dto.getInstance(dto)), "Stable");
+            dto.setPeriodType(PeriodType.QUARTERLY);
+            barGraph = aggregateVisualReportService.getDefaultTrend(dto, new ChartModelItem("Contact Trends By Care Level", "Number", "Months", 150, true), contactLevelOfCareReportService.getTrendReport(dto.getInstance(dto)), "Stable");
             ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, 540, 320);
         } catch (IOException ex) {
             ex.printStackTrace();

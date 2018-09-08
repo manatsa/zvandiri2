@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Locale;
 import org.joda.time.DateTime;
 import org.joda.time.Months;
+import zw.org.zvandiri.business.util.dto.QuarterMod;
 
 /**
  *
@@ -308,10 +309,13 @@ public class DateUtil {
         return Months.monthsBetween(new DateTime(start), new DateTime(today)).getMonths();
     }
     
-    public static List<Date> getPastSixQuarters() {
-        List<Date> quarters = new ArrayList<>();
-        for (int i = 6; i <= 1; i--) {
-            quarters.add(getQuarter(new Date(), i, Boolean.TRUE));
+    public static List<QuarterMod> getPastSixQuarters() {
+        List<QuarterMod> quarters = new ArrayList<>();
+        for (int i = 1; i <6; i++) {
+            QuarterMod quarter = new QuarterMod(
+                    getQuarter(new Date(), i, Boolean.TRUE), 
+                    getQuarter(new Date(), i, Boolean.FALSE));
+            quarters.add(quarter);
         }
         return quarters;
     }

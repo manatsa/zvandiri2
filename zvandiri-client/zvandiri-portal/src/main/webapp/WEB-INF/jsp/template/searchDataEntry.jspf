@@ -30,6 +30,20 @@
                 </div> 
             </td>
         </c:if>
+        <c:if test="${userLevel == 'NATIONAL' or userLevel == 'PROVINCE' or userLevel == 'DISTRICT'}">
+            <td>
+                <div class="form-group">
+                    <label>Facility</label>
+                    <form:select path="primaryClinic" class="form-control">
+                        <form:option value="" label="--Select Item--"/>
+                        <form:options items="${facilities}" itemLabel="name" itemValue="id"/>
+                    </form:select>
+                    <p class="help-block">
+                    <form:errors path="primaryClinic"/>
+                    </p>
+                </div> 
+            </td>
+        </c:if>
         <td>
             <div class="form-group">
                 <label>User Type</label>

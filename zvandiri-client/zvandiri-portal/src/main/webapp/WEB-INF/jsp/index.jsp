@@ -41,8 +41,8 @@
                                                 <c:if test="${count <= 8}">
                                                     <tr>
                                                         <td>${d.name}</td>
-                                                        <td>${d.num}</td>
-                                                        <td>${d.num6Months}</td>
+                                                        <td>${d.num}${d.url}</td>
+                                                        <td>${d.num6Months}${d.url}</td>
                                                         <td>${d.num12Months}</td>
                                                     </tr>
                                             </c:if>

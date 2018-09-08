@@ -237,8 +237,6 @@ public class ContactLevelOfCareReportServiceImpl implements ContactLevelOfCareRe
         List<GenericReportModel> list = new ArrayList<>();
         QuarterMod quarterMod = new QuarterMod(null, null);
         List<QuarterMod> periods = quarterMod.getPastSixQuarters();
-        System.out.println("+++++++++++++++++++++++++++++++++++++");
-        System.out.println(periods);
         List<String> items = new ArrayList<>();
         items.add("");
         for (QuarterMod p : periods) {

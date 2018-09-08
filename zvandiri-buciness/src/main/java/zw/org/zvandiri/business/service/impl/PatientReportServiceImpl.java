@@ -24,7 +24,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.domain.util.DateRangeItem;
 import zw.org.zvandiri.business.domain.util.HIVStatus;
 import zw.org.zvandiri.business.service.PatientReportService;
 import zw.org.zvandiri.business.util.DateUtil;
@@ -590,7 +589,8 @@ public class PatientReportServiceImpl implements PatientReportService {
     
      @Override
     public List<Patient> getPatientWithContactList(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p ");
+        dto.setEndDate(new Date());
+        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p left join fetch p.referrals ");
         int position = 0;
         builder.append(" where ");
         if (dto.getProvince() != null) {
@@ -659,10 +659,10 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             if (position == 0) {
-                builder.append("p not in (Select c.patient From Contact c where c.contactDate between :startDate and :endDate)");
+                builder.append("p in (Select c.patient From Contact c where c.contactDate between :startDate and :endDate)");
                 position++;
             } else {
-                builder.append(" and p not in (Select c.patient From Contact c where c.contactDate between :startDate and :endDate)");
+                builder.append(" and p in (Select c.patient From Contact c where c.contactDate between :startDate and :endDate)");
             }
         }
 

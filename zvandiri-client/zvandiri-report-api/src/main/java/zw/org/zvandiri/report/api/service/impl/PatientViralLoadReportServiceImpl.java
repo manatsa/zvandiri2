@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
-import zw.org.zvandiri.business.domain.Settings;
 import zw.org.zvandiri.business.service.PatientReportService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.GenericReportModel;

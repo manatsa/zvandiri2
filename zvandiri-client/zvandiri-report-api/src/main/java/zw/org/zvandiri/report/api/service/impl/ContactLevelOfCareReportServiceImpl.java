@@ -236,7 +236,7 @@ public class ContactLevelOfCareReportServiceImpl implements ContactLevelOfCareRe
     public List<GenericReportModel> getTrendReport(SearchDTO dto) {
         List<GenericReportModel> list = new ArrayList<>();
         QuarterMod quarterMod = new QuarterMod(null, null);
-        List<QuarterMod> periods = quarterMod.getPastFourQuarters();
+        List<QuarterMod> periods = quarterMod.getPastSixQuarters();
         System.out.println("+++++++++++++++++++++++++++++++++++++");
         System.out.println(periods);
         List<String> items = new ArrayList<>();

@@ -19,7 +19,7 @@ import zw.org.zvandiri.business.util.DateUtil;
  * @author jmuzinda
  */
 public class QuarterMod implements Serializable {
-    
+
     private Date startDate;
     @Temporal(TemporalType.DATE)
     private Date endDate;
@@ -44,41 +44,31 @@ public class QuarterMod implements Serializable {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
-    
-    public String getName () {
-        return DateUtil.periodFriendly.format(startDate)+" - "+DateUtil.periodFriendly.format(endDate);
+
+    public String getName() {
+        return DateUtil.periodFriendly.format(startDate) + " - " + DateUtil.periodFriendly.format(endDate);
     }
-    
-    public List<QuarterMod> getPastFourQuarters() {
+
+    public List<QuarterMod> getPastSixQuarters() {
         List<QuarterMod> quarters = new ArrayList<>();
         // get first factor
         Date currentDate = new Date();
-        // first quarter date element
-        QuarterMod firstElement = new QuarterMod(
-                DateUtil.getQuarter(currentDate, getQuarterFactor(currentDate), Boolean.TRUE), 
-                DateUtil.getQuarter(currentDate, getQuarterFactor(currentDate), Boolean.FALSE));
-        quarters.add(firstElement);
-        // modify last quarter plus 10 days just in case
-        Date secondPastQuarterDate = DateUtil.getDateDiffDate(-20, firstElement.startDate);
-        QuarterMod secondElement = new QuarterMod(
-                DateUtil.getQuarter(secondPastQuarterDate, getQuarterFactor(secondPastQuarterDate), Boolean.TRUE), 
-                DateUtil.getQuarter(secondPastQuarterDate, getQuarterFactor(secondPastQuarterDate), Boolean.FALSE));
-        quarters.add(secondElement);
-        // modify last quarter plus 10 days just in case
-        Date thirdPastQuarterDate = DateUtil.getDateDiffDate(-20, secondElement.startDate);
-        QuarterMod thirdElement = new QuarterMod(
-                DateUtil.getQuarter(thirdPastQuarterDate, getQuarterFactor(thirdPastQuarterDate), Boolean.TRUE), 
-                DateUtil.getQuarter(thirdPastQuarterDate, getQuarterFactor(thirdPastQuarterDate), Boolean.FALSE));
-        quarters.add(thirdElement);
-        // modify last quarter plus 10 days just in case
-        Date fourthPastQuarterDate = DateUtil.getDateDiffDate(-20, thirdElement.startDate);
-        QuarterMod fourthElement = new QuarterMod(
-                DateUtil.getQuarter(fourthPastQuarterDate, getQuarterFactor(fourthPastQuarterDate), Boolean.TRUE), 
-                DateUtil.getQuarter(fourthPastQuarterDate, getQuarterFactor(fourthPastQuarterDate), Boolean.FALSE));
-        quarters.add(fourthElement);
+        QuarterMod prevElement = null;
+        int i = 6;
+        while (i >= 1) {
+            if (prevElement != null) {
+                currentDate = DateUtil.getDateDiffDate(-20, prevElement.startDate);
+            }
+            QuarterMod element = new QuarterMod(
+                    DateUtil.getQuarter(currentDate, getQuarterFactor(currentDate), Boolean.TRUE),
+                    DateUtil.getQuarter(currentDate, getQuarterFactor(currentDate), Boolean.FALSE));
+            prevElement = element;
+            quarters.add(element);
+            i--;
+        }
         return quarters;
     }
-    
+
     private int getQuarterFactor(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -154,5 +144,5 @@ public class QuarterMod implements Serializable {
     public String toString() {
         return "QuarterMod{" + "startDate=" + startDate + ", endDate=" + endDate + '}';
     }
-    
+
 }

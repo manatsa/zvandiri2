@@ -46,7 +46,7 @@ public class QuarterMod implements Serializable {
     }
 
     public String getName() {
-        return DateUtil.periodFriendly.format(startDate) + " - " + DateUtil.periodFriendly.format(endDate);
+        return DateUtil.quarterFriendly.format(startDate) + "-" + DateUtil.quarterFriendly.format(endDate);
     }
 
     public List<QuarterMod> getPastSixQuarters() {

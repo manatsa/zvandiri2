@@ -44,6 +44,7 @@ public class DateUtil {
     private static final SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
     public static final SimpleDateFormat restFmt = new SimpleDateFormat("dd/MM/yyyy");
     public static final SimpleDateFormat periodFriendly = new SimpleDateFormat("MMM yy");
+    public static final SimpleDateFormat quarterFriendly = new SimpleDateFormat("MM/yy");
 
     private DateUtil() {
         throw new IllegalStateException("Class not intended to be instantiated");

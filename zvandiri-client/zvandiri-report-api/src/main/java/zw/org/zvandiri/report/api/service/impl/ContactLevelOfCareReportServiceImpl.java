@@ -212,7 +212,7 @@ public class ContactLevelOfCareReportServiceImpl implements ContactLevelOfCareRe
         List<String> items = new ArrayList<>();
         items.add("");
         for (QuarterMod period : periods) {
-            items.add(DateUtil.periodFriendly.format(period.getEndDate()));
+            items.add(period.getName());
         }
         items.add("Total");
         list.add(new GenericReportModel(items));

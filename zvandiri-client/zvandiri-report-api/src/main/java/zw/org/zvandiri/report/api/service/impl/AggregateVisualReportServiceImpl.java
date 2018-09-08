@@ -20,7 +20,6 @@ import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimeZone;
 import javax.annotation.Resource;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -42,16 +41,12 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.time.Month;
-import org.jfree.data.time.Quarter;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
-import org.jfree.data.time.Year;
 import org.jfree.ui.RectangleInsets;
 import org.jfree.ui.TextAnchor;
 import org.springframework.stereotype.Repository;
-import zw.org.zvandiri.business.domain.util.PeriodType;
 import zw.org.zvandiri.business.util.DateUtil;
-import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.BasicReportModel;
 import zw.org.zvandiri.report.api.BasicTrendModel;
 import zw.org.zvandiri.report.api.ChartModelItem;
@@ -81,14 +76,6 @@ public class AggregateVisualReportServiceImpl implements AggregateVisualReportSe
     }
 
     @Override
-    public JFreeChart getDashReport(ChartModelItem item, List<GenericReportModel> data, String... key) {
-        if (data.size() <= 0) {
-            throw new IllegalArgumentException("No data to disply in chart");
-        }
-        return generateDashChart(item, data, key);
-    }
-
-    @Override
     public JFreeChart getDefaultPieChart(ChartModelItem item, List<GenericReportModel> data, String... key) {
         if (data.size() <= 0) {
             throw new IllegalArgumentException("No data to disply in chart");
@@ -97,17 +84,26 @@ public class AggregateVisualReportServiceImpl implements AggregateVisualReportSe
     }
 
     @Override
-    public JFreeChart getDefaultTrend(SearchDTO dto, ChartModelItem item, List<GenericReportModel> data, String... key) {
+    public JFreeChart getDefaultTrend(ChartModelItem item, List<GenericReportModel> data, String... key) {
         if (data.size() <= 0) {
             throw new IllegalArgumentException("No data to disply in chart");
         }
-        return generateTrend(dto, item.getChartName(), item.getxAxisName(), data, key);
+        return generateTrend(item, data, key);
     }
+    
+    @Override
+    public JFreeChart getDashReport(ChartModelItem item, List<GenericReportModel> data, String... key) {
+        if (data.size() <= 0) {
+            throw new IllegalArgumentException("No data to disply in chart");
+        }
+        return generateDashChart(item, data, key);
+    }
+
 
     private DefaultPieDataset createPieDataSet(List<BasicReportModel> data, String label) {
         DefaultPieDataset dataset = new DefaultPieDataset();
         for (BasicReportModel temp : data) {
-            dataset.setValue(temp.getAltName(), temp.getPercentage().doubleValue());
+            dataset.setValue(temp.getName(), temp.getCount().doubleValue());
         }
         return dataset;
     }
@@ -120,73 +116,32 @@ public class AggregateVisualReportServiceImpl implements AggregateVisualReportSe
         return dataset;
     }
 
-    private TimeSeriesCollection createTrendDataSet(SearchDTO item, List<BasicTrendModel> data, String label) {
-        if (item.getPeriodType() != null) {
-            if (item.getPeriodType().equals(PeriodType.MONTHLY)) {
-                return createMonthDataset(data, label);
-            } else if (item.getPeriodType().equals(PeriodType.QUARTERLY)) {
-                return createQuarterDataset(data, label);
-            } else if (item.getPeriodType().equals(PeriodType.YEARLY)) {
-                return createYearDataset(data, label);
-            }
-        }
-        throw new IllegalStateException("Trend data types should include month, quarter and year");
-    }
-    
-    // starting trend time periods here
-    
-    private TimeSeriesCollection createMonthDataset(List<BasicTrendModel> data, String label) {
-        TimeSeriesCollection dataset = new TimeSeriesCollection();
-        final TimeSeries serieYes = new TimeSeries("Yes", Month.class);
-        final TimeSeries serieNo = new TimeSeries("No", Month.class);
+    private TimeSeriesCollection createTrendDataSet(List<BasicTrendModel> data, String label) {
+        final TimeSeries serie = new TimeSeries("Monthly Rounds", Month.class);
         for (BasicTrendModel model : data) {
-            if (model.getName().equalsIgnoreCase("Yes")) {
-                serieYes.add(new Month(DateUtil.getMonthFromDate(model.getDate()) + 1, DateUtil.getYearFromDate(model.getDate())), model.getPercentage());
-            } else if (model.getName().equalsIgnoreCase("No")) {
-                serieNo.add(new Month(DateUtil.getMonthFromDate(model.getDate()) + 1, DateUtil.getYearFromDate(model.getDate())), model.getPercentage());
-            }
+            serie.add(new Month(DateUtil.getMonthFromDate(model.getDate()) + 1, DateUtil.getYearFromDate(model.getDate())), model.getPercentage());
         }
-        dataset.addSeries(serieYes);
-        dataset.addSeries(serieNo);
+        TimeSeriesCollection dataset = new TimeSeriesCollection();
+        dataset.addSeries(serie);
         return dataset;
     }
     
-    private TimeSeriesCollection createQuarterDataset(List<BasicTrendModel> data, String label) {
+    private TimeSeriesCollection createMultiTrendDataSet(List<BasicTrendModel> data, ChartModelItem item) {
         TimeSeriesCollection dataset = new TimeSeriesCollection();
-        final TimeSeries serieYes = new TimeSeries("Yes", Quarter.class);
-        final TimeSeries serieNo = new TimeSeries("No", Quarter.class);
+        final TimeSeries stable = new TimeSeries("Stable", Month.class);
+        final TimeSeries enhanced = new TimeSeries("Enhanced", Month.class);
         for (BasicTrendModel model : data) {
-            TimeZone timeZone = TimeZone.getTimeZone("Africa/Harare");
-            if (model.getName().equalsIgnoreCase("Yes")) {
-                serieYes.add(new Quarter(model.getDate(), timeZone), model.getPercentage());
-            } else if (model.getName().equalsIgnoreCase("No")) {
-                serieNo.add(new Quarter(model.getDate(), timeZone), model.getPercentage());
-            }
+            if (model.getName().equalsIgnoreCase("Stable")) {
+                stable.add(new Month(DateUtil.getMonthFromDate(model.getDate()) + 1, DateUtil.getYearFromDate(model.getDate())), item.isUseCount() ? model.getCount(): model.getPercentage());
+            } else if (model.getName().equalsIgnoreCase("Enhanced")) {
+                enhanced.add(new Month(DateUtil.getMonthFromDate(model.getDate()) + 1, DateUtil.getYearFromDate(model.getDate())), item.isUseCount() ? model.getCount(): model.getPercentage());
+            } 
         }
-        dataset.addSeries(serieYes);
-        dataset.addSeries(serieNo);
+        dataset.addSeries(stable);
+        dataset.addSeries(enhanced);
         return dataset;
     }
     
-    private TimeSeriesCollection createYearDataset(List<BasicTrendModel> data, String label) {
-        TimeSeriesCollection dataset = new TimeSeriesCollection();
-        final TimeSeries serieYes = new TimeSeries("Yes", Year.class);
-        final TimeSeries serieNo = new TimeSeries("No", Year.class);
-        for (BasicTrendModel model : data) {
-            if (model.getName().equalsIgnoreCase("Yes")) {
-                serieYes.add(new Year(DateUtil.getYearFromDate(model.getDate())), model.getPercentage());
-            } else if (model.getName().equalsIgnoreCase("No")) {
-                serieNo.add(new Year(DateUtil.getYearFromDate(model.getDate())), model.getPercentage());
-            }
-        }
-        dataset.addSeries(serieYes);
-        dataset.addSeries(serieNo);
-        return dataset;
-    }
-    
-    
-    // ending time periods here
-
     private Integer getItem(GenericReportModel data, int pos) {
         int outer = 0;
         for (String item : data.getRow()) {
@@ -218,45 +173,7 @@ public class AggregateVisualReportServiceImpl implements AggregateVisualReportSe
         return count;
     }
 
-    private Integer getPollItemCount(List<GenericReportModel> c) {
-        int outer = 0;
-        int count = 0;
-        for (GenericReportModel data : c) {
-            if (outer == 0) {
-                outer++;
-                continue;
-            }
-            for (String item : data.getRow()) {
-                count += Integer.valueOf(item);
-            }
-        }
-        return count;
-    }
-
-    @Override
-    public List<BasicTrendModel> initializeMupliple(List<GenericReportModel> data, String... key) {
-        List<BasicTrendModel> xAxis = new ArrayList<>();
-        int outerPos = 0;
-        /**
-         * @param key get away with making key an array
-         */
-        List<GenericReportModel> c = formatReportOutPut(data);
-        int currentItemCount = 1;
-        for (GenericReportModel model : c) {
-            if (outerPos < c.size() - 1) {
-                int innerPos = 0;
-                for (String item : model.getRow()) {
-                    xAxis.add(new BasicTrendModel(DateUtil.getDateFromString(c.get(0).getRow().get(innerPos)), getItem(c.get(currentItemCount), innerPos), getItemCount(formatReportOutPut(data), innerPos), data.get(currentItemCount).getRow().get(0)));
-                    innerPos++;
-                }
-            }
-            outerPos++;
-            currentItemCount++;
-        }
-        return xAxis;
-    }
-
-    private List<BasicTrendModel> initialize(List<GenericReportModel> data, String... key) {
+        private List<BasicTrendModel> initialize(List<GenericReportModel> data, String... key) {
         List<BasicTrendModel> xAxis = new ArrayList<>();
         int outerPos = 0;
         /**
@@ -351,46 +268,10 @@ public class AggregateVisualReportServiceImpl implements AggregateVisualReportSe
         return xAxis;
     }
 
-    private List<BasicReportModel> initializePollArr(List<GenericReportModel> data, String... key) {
-        List<BasicReportModel> xAxis = new ArrayList<>();
-        int outerPos = 0;
-        /**
-         * @param key get away with making key an array
-         */
-        List<GenericReportModel> c = new ArrayList<>();
-        if (key.length == 1) {
-            c = formatReportOutPut(getItemRowByMapKey(key[0], data));
-        } else if (key.length > 1) {
-            int pos = 0;
-            for (String k : key) {
-                if (pos == 0) {
-                    c = formatReportOutPut(getItemRowByMapKey(k, data));
-                } else if (pos >= 1) {
-                    c = createMultiOptionTable(c, formatReportOutPut(getItemRowByMapKey(k, data)).get(1));
-                }
-                pos++;
-            }
-        }
-        for (GenericReportModel model : c) {
-            if (outerPos == 0) {
-                int innerPos = 0;
-                for (String item : model.getRow()) {
-                    xAxis.add(new BasicReportModel(item, getItem(c.get(1), innerPos), getPollItemCount(formatReportOutPut(data))));
-                    innerPos++;
-                }
-            }
-            outerPos++;
-            if (outerPos >= 1) {
-                break;
-            }
-        }
-        return xAxis;
-    }
-
     private JFreeChart generatePieChart(String chartLabel, String domainAxisLabel, List<GenericReportModel> data, String... key) {
         JFreeChart chart = ChartFactory.createPieChart(
                 chartLabel,
-                createPieDataSet(initializePollArr(data, key), domainAxisLabel),
+                createPieDataSet(initializeArr(data, key), domainAxisLabel),
                 true,
                 true,
                 false);
@@ -399,11 +280,6 @@ public class AggregateVisualReportServiceImpl implements AggregateVisualReportSe
                         new java.awt.Font("SansSerif", java.awt.Font.BOLD, 12)
                 )
         );
-
-        /*final PiePlot3D plot = (PiePlot3D) chart.getPlot();
-         plot.setStartAngle(270);
-         plot.setForegroundAlpha(0.60f);
-         plot.setInteriorGap(0.09);*/
         return chart;
     }
 
@@ -434,13 +310,46 @@ public class AggregateVisualReportServiceImpl implements AggregateVisualReportSe
         renderer.setSeriesPaint(0, getColor());
         final CategoryAxis domainAxis = plot.getDomainAxis();
         ValueAxis xAxis = plot.getRangeAxis();
-        xAxis.setRange(0.0, item.getTopValue());
+        xAxis.setRange(0.0, 105.0);
         domainAxis.setCategoryLabelPositions(
                 CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 4.5)
         );
         return chart;
     }
 
+    private JFreeChart generateTrend(ChartModelItem item, List<GenericReportModel> data, String... key) {
+        JFreeChart chart = ChartFactory.createTimeSeriesChart(
+                item.getChartName(),
+                item.getyAxisName(),
+                item.getxAxisName(),
+                createMultiTrendDataSet(initializeMupliple(data, key), item),
+                true,
+                true,
+                false);
+        chart.setBackgroundPaint(Color.white);
+        XYPlot plot = (XYPlot) chart.getPlot();
+        plot.setBackgroundPaint(Color.lightGray);
+        plot.setDomainGridlinePaint(Color.white);
+        plot.setRangeGridlinePaint(Color.white);
+        plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
+        plot.setDomainCrosshairVisible(true);
+        plot.setRangeCrosshairVisible(true);
+        ValueAxis xAxis = plot.getRangeAxis();
+        xAxis.setRange(0.0, item.getTopValue());
+        XYItemRenderer r = plot.getRenderer();
+        if (r instanceof XYLineAndShapeRenderer) {
+            XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
+            renderer.setBaseShapesVisible(true);
+            renderer.setBaseShapesFilled(true);
+            renderer.setItemLabelFont(new Font("Dialog", Font.BOLD, 8));
+        }        
+        DateAxis axis = (DateAxis) plot.getDomainAxis();
+        axis.setLabelFont(new Font("Dialog", Font.PLAIN, 12));
+        axis.setTickLabelFont(new Font("Dialog", Font.PLAIN, 10));
+        axis.setDateFormatOverride(new SimpleDateFormat("MMM-yy"));
+        return chart;
+    }
+    
     private JFreeChart generateDashChart(ChartModelItem item, List<GenericReportModel> data, String... key) {
         final JFreeChart chart = ChartFactory.createBarChart3D(
                 "",
@@ -473,37 +382,7 @@ public class AggregateVisualReportServiceImpl implements AggregateVisualReportSe
         domainAxis.setCategoryLabelPositions(
                 CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 4.5)
         );
-        domainAxis.setTickLabelFont(new Font("Dialog", Font.BOLD, 8));
-        return chart;
-    }
-
-    private JFreeChart generateTrend(SearchDTO dto, String chartLabel, String domainAxisLabel, List<GenericReportModel> data, String... key) {
-        JFreeChart chart = ChartFactory.createTimeSeriesChart(
-                chartLabel,
-                "",
-                "Percent",
-                createTrendDataSet(dto, initializeMupliple(data, key), chartLabel),
-                true,
-                true,
-                false);
-        chart.setBackgroundPaint(Color.white);
-        XYPlot plot = (XYPlot) chart.getPlot();
-        plot.setBackgroundPaint(Color.lightGray);
-        plot.setDomainGridlinePaint(Color.white);
-        plot.setRangeGridlinePaint(Color.white);
-        plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
-        plot.setDomainCrosshairVisible(true);
-        plot.setRangeCrosshairVisible(true);
-        ValueAxis xAxis = plot.getRangeAxis();
-        xAxis.setRange(0.0, 105.0);
-        XYItemRenderer r = plot.getRenderer();
-        if (r instanceof XYLineAndShapeRenderer) {
-            XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
-            renderer.setBaseShapesVisible(true);
-            renderer.setBaseShapesFilled(true);
-        }
-        DateAxis axis = (DateAxis) plot.getDomainAxis();
-        axis.setDateFormatOverride(new SimpleDateFormat("MMM yy"));
+        domainAxis.setTickLabelFont(new Font("Dialog", Font.PLAIN, 10));
         return chart;
     }
 
@@ -544,9 +423,32 @@ public class AggregateVisualReportServiceImpl implements AggregateVisualReportSe
         }
         throw new IllegalArgumentException("Error occurred item not found :" + key);
     }
+    
+    @Override
+    public List<BasicTrendModel> initializeMupliple(List<GenericReportModel> data, String... key) {
+        List<BasicTrendModel> xAxis = new ArrayList<>();
+        int outerPos = 0;
+        /**
+         * @param key get away with making key an array
+         */
+        List<GenericReportModel> c = formatReportOutPut(data);
+        int currentItemCount = 1;
+        for (GenericReportModel model : c) {
+            if (outerPos < c.size() - 1) {
+                int innerPos = 0;
+                for (String item : model.getRow()) {
+                    xAxis.add(new BasicTrendModel(DateUtil.getDateFromString(c.get(0).getRow().get(innerPos)), getItem(c.get(currentItemCount), innerPos), getItemCount(formatReportOutPut(data), innerPos), data.get(currentItemCount).getRow().get(0)));
+                    innerPos++;
+                }
+            }
+            outerPos++;
+            currentItemCount++;
+        }
+        return xAxis;
+    }
 
     private Color getColor() {
         Integer num = randomNumGenService.getRandNum(0, 1);
-        return num == 0 ? Color.GREEN : Color.GREEN;
+        return num == 0 ? Color.BLUE : Color.GREEN;
     }
 }

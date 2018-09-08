@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
-import zw.org.zvandiri.business.domain.util.PeriodType;
 import zw.org.zvandiri.business.service.DistrictService;
 import zw.org.zvandiri.business.service.FacilityService;
 import zw.org.zvandiri.business.service.ProvinceService;
@@ -34,6 +33,7 @@ import zw.org.zvandiri.business.service.SettingsService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import static zw.org.zvandiri.portal.util.Graph_Prop.*;
 import zw.org.zvandiri.portal.web.controller.BaseController;
+import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
 import zw.org.zvandiri.report.api.ChartModelItem;
 import zw.org.zvandiri.report.api.service.AggregateVisualReportService;
 import zw.org.zvandiri.report.api.service.ContactLevelOfCareReportService;
@@ -201,8 +201,7 @@ public class GraphicalReportController extends BaseController{
         JFreeChart barGraph = null;
         Integer maxItems = settingsService.getItem().getMaxNumContactIndex();
         try {
-            dto.setPeriodType(PeriodType.QUARTERLY);
-            barGraph = aggregateVisualReportService.getDefaultTrend(dto, new ChartModelItem("", "", "Months", maxItems, true), contactLevelOfCareReportService.getTrendReport(dto.getInstance(dto)), "Stable");
+            barGraph = aggregateVisualReportService.getDefaultTrend(new ChartModelItem("", "", "Months", maxItems, true), contactLevelOfCareReportService.getTrendReport(dto.getInstance(dto)), "Stable");
             ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, GRAPH_WIDTH, GRAPH_HEIGHT);
         } catch (IOException ex) {
             ex.printStackTrace();

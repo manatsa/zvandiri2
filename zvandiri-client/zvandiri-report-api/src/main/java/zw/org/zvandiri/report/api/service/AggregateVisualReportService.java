@@ -17,7 +17,6 @@ package zw.org.zvandiri.report.api.service;
 
 import java.util.List;
 import org.jfree.chart.JFreeChart;
-import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.BasicTrendModel;
 import zw.org.zvandiri.report.api.ChartModelItem;
 import zw.org.zvandiri.report.api.GenericReportModel;
@@ -32,9 +31,9 @@ public interface AggregateVisualReportService {
     
     public JFreeChart getDefaultPieChart(ChartModelItem item, List<GenericReportModel> data, String ... key);
     
-    public JFreeChart getDefaultTrend(SearchDTO dto, ChartModelItem item, List<GenericReportModel> data, String ... key);
-    
-    public List<BasicTrendModel> initializeMupliple(List<GenericReportModel> data, String ... key);
+    public JFreeChart getDefaultTrend(ChartModelItem item, List<GenericReportModel> data, String ... key);
     
     public JFreeChart getDashReport(ChartModelItem item, List<GenericReportModel> data, String ... key);
+    
+    public List<BasicTrendModel> initializeMupliple(List<GenericReportModel> data, String ... key);
 }

@@ -229,8 +229,9 @@ public class GraphicalReportController extends BaseController{
     public void displayChart(HttpServletResponse response, SearchDTO dto) {
         response.setContentType("image/png");
         JFreeChart barGraph = null;
+        Integer maxItems = settingsService.getItem().getMaxNumContactIndex();
         try {
-            barGraph = aggregateVisualReportService.getDashReport(new ChartModelItem("", "Months", "Number", 1000.0, true), contactLevelOfCareReportService.getPeriodRange(dto.getInstance(dto)), "Counts");
+            barGraph = aggregateVisualReportService.getDashReport(new ChartModelItem("", "Months", "Number", maxItems, true), contactLevelOfCareReportService.getPeriodRange(dto.getInstance(dto)), "Counts");
             ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, GRAPH_WIDTH, GRAPH_HEIGHT);
         } catch (IOException ex) {
             ex.printStackTrace();

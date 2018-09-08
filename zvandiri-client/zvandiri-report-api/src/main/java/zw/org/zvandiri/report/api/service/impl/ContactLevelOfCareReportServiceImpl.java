@@ -207,10 +207,11 @@ public class ContactLevelOfCareReportServiceImpl implements ContactLevelOfCareRe
     @Override
     public List<GenericReportModel> getPeriodRange(SearchDTO dto) {
         List<GenericReportModel> list = new ArrayList<>();
-        List<Period> periods = periodService.getPastPeriod(6);
+        QuarterMod quarterMod = new QuarterMod(null, null);
+        List<QuarterMod> periods = quarterMod.getPastSixQuarters();
         List<String> items = new ArrayList<>();
         items.add("");
-        for (Period period : periods) {
+        for (QuarterMod period : periods) {
             items.add(DateUtil.periodFriendly.format(period.getEndDate()));
         }
         items.add("Total");
@@ -219,7 +220,7 @@ public class ContactLevelOfCareReportServiceImpl implements ContactLevelOfCareRe
         List<String> row = new ArrayList<>();
         row.add("Counts");
         Integer rowCount = 0;
-        for (Period period : periods) {
+        for (QuarterMod period : periods) {
             dto.setStartDate(period.getStartDate());
             dto.setEndDate(period.getEndDate());
             Integer itemCount = contactByLevelOfCareService.getCount(dto) != null ? contactByLevelOfCareService.getCount(dto).intValue() : 0;

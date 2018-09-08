@@ -29,6 +29,14 @@ public class BasicReportModel extends BasicReportItem {
     }
 
     public String getName() {
+        return name;
+    }
+    
+    public String getAltName(){
+        return name+" [N="+getCount()+"]";
+    }
+    
+    public String getPlainName(){
         return name+" [N="+getTotal()+"]";
     }
 

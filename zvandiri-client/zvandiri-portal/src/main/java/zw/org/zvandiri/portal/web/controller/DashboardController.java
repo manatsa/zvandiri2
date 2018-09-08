@@ -87,7 +87,7 @@ public class DashboardController extends BaseController {
         JFreeChart barGraph = null;
         Integer maxItems = settingsService.getItem().getMaxNumContactIndex();
         try {
-            barGraph = aggregateVisualReportService.getDashReport(new ChartModelItem("", "Months", "Number", maxItems, true), contactLevelOfCareReportService.getPeriodRange(dto.getInstance(dto)), "Counts");
+            barGraph = aggregateVisualReportService.getDashReport(new ChartModelItem("", "Quarters", "Number", maxItems, true), contactLevelOfCareReportService.getPeriodRange(dto.getInstance(dto)), "Counts");
             ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, 540, 320);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -100,7 +100,7 @@ public class DashboardController extends BaseController {
         JFreeChart barGraph = null;
         Integer maxItems = settingsService.getItem().getMaxNumContactIndex();
         try {
-            barGraph = aggregateVisualReportService.getDefaultTrend(new ChartModelItem("", "", "Months", maxItems, true), contactLevelOfCareReportService.getTrendReport(dto.getInstance(dto)), "Stable");
+            barGraph = aggregateVisualReportService.getDefaultTrend(new ChartModelItem("", "", "Quarters", maxItems, true), contactLevelOfCareReportService.getTrendReport(dto.getInstance(dto)), "Stable");
             ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, 540, 320);
         } catch (IOException ex) {
             ex.printStackTrace();

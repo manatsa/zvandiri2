@@ -15,7 +15,9 @@
  */
 package zw.org.zvandiri.business.domain.util;
 
-import zw.org.zvandiri.business.util.StringUtils;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -49,6 +51,24 @@ public enum Gender {
     }
     
     public String getName(){
-        return StringUtils.toCamelCase3(super.name());
+        //return StringUtils.toCamelCase3(super.name());
+        return getAltName();
+    }
+    
+    public String getAltName() {
+        if (this == MALE) {
+            return "M";
+        }else if (this == FEMALE) {
+            return "F";
+        }else if (this == OTHER) {
+            return "O";
+        }
+        return null;
+    }
+    
+    public static List<Gender> getItems() {
+        return new ArrayList<>(Arrays.asList(new Gender [] {
+            MALE, FEMALE
+        }));
     }
 }

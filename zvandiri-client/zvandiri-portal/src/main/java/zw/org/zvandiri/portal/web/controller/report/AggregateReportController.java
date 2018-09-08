@@ -28,6 +28,7 @@ import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import static zw.org.zvandiri.portal.util.Graph_Prop.*;
 import zw.org.zvandiri.portal.web.controller.BaseController;
+import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
 import zw.org.zvandiri.report.api.ChartModelItem;
 import zw.org.zvandiri.report.api.service.AggregateVisualReportService;
 import zw.org.zvandiri.report.api.service.ContactLevelOfCareReportService;

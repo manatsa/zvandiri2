@@ -23,15 +23,17 @@ import zw.org.zvandiri.business.util.StringUtils;
  */
 public enum AgeGroup {
     
-    UNDER_FIVE(0, 4), FIVE_TO_NINE(5, 9), TEN_TO_FOURTEEN(10, 14),
-    FIFTEEN_TO_NINETEEN(15, 19), TWENTY_TO_TWENTY_FOUR(20, 24);
+    UNDER_ONE(0, 1, "<1"), ONE_TO_NINE(1, 9, "1-9"), TEN_TO_FOURTEEN(10, 14, "10-14"),
+    FIFTEEN_TO_NINETEEN(15, 19, "15-19"), TWENTY_TO_TWENTY_FOUR(20, 24, "20-24");
     
     private final Integer start;
     private final Integer end;
+    private final String name;
 
-    private AgeGroup(Integer start, Integer end) {
+    private AgeGroup(Integer start, Integer end, String name) {
         this.start = start;
         this.end = end;
+        this.name = name;
     }
 
     public Integer getStart() {
@@ -45,9 +47,9 @@ public enum AgeGroup {
     public static AgeGroup get(Integer start){
         switch(start){
             case 0:
-                return UNDER_FIVE;
+                return UNDER_ONE;
             case 5:
-                return FIVE_TO_NINE;
+                return ONE_TO_NINE;
             case 10:
                 return TEN_TO_FOURTEEN;
             case 15:
@@ -60,9 +62,9 @@ public enum AgeGroup {
     }
     
     public static Integer getAgeRange(int age){
-        if(age >= 0 && age < 5){
+        if(age >= 0 && age < 1){
             return 0;
-        } else if(age >= 5 && age < 10){
+        } else if(age >= 1 && age < 10){
             return 5;
         }else if(age >= 10 && age < 15){
             return 10;
@@ -73,10 +75,10 @@ public enum AgeGroup {
     }
     
     public String getName(){
-        return StringUtils.toCamelCase3(super.name());
+        return this.name;
     }
     
     public String getAltName(){
-        return start+" - "+end;
+        return start+"-"+end;
     }
 }

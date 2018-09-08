@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Locale;
 import org.joda.time.DateTime;
 import org.joda.time.Months;
+import zw.org.zvandiri.business.util.dto.QuarterMod;
 
 /**
  *
@@ -43,6 +44,7 @@ public class DateUtil {
     private static final SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
     public static final SimpleDateFormat restFmt = new SimpleDateFormat("dd/MM/yyyy");
     public static final SimpleDateFormat periodFriendly = new SimpleDateFormat("MMM yy");
+    public static final SimpleDateFormat quarterFriendly = new SimpleDateFormat("MM/yy");
 
     private DateUtil() {
         throw new IllegalStateException("Class not intended to be instantiated");
@@ -241,29 +243,37 @@ public class DateUtil {
             case 1:
                 if (start) {
                     cal.set(cal.get(Calendar.YEAR), Calendar.JANUARY, 01);
+                    return cal.getTime();
                 } else {
                     cal.set(cal.get(Calendar.YEAR), Calendar.MARCH, 31);
+                    return cal.getTime();
                 }
             case 2:
                 if (start) {
                     cal.set(cal.get(Calendar.YEAR), Calendar.APRIL, 01);
+                    return cal.getTime();
                 } else {
                     cal.set(cal.get(Calendar.YEAR), Calendar.JUNE, 30);
+                    return cal.getTime();
                 }
             case 3:
                 if (start) {
                     cal.set(cal.get(Calendar.YEAR), Calendar.JULY, 01);
+                    return cal.getTime();
                 } else {
                     cal.set(cal.get(Calendar.YEAR), Calendar.SEPTEMBER, 30);
+                    return cal.getTime();
                 }
             case 4:
                 if (start) {
                     cal.set(cal.get(Calendar.YEAR), Calendar.OCTOBER, 01);
+                    return cal.getTime();
                 } else {
                     cal.set(cal.get(Calendar.YEAR), Calendar.DECEMBER, 31);
+                    return cal.getTime();
                 }
         }
-        return cal.getTime();
+        throw new IllegalStateException("No case was reached  and factor is :"+ fact);
     }
 
     public static Date getHalfYear(Date date, int fact, Boolean start) {
@@ -306,5 +316,16 @@ public class DateUtil {
     
     public static Integer getMonths(Date start, Date today){
         return Months.monthsBetween(new DateTime(start), new DateTime(today)).getMonths();
+    }
+    
+    public static List<QuarterMod> getPastSixQuarters() {
+        List<QuarterMod> quarters = new ArrayList<>();
+        for (int i = 1; i <6; i++) {
+            QuarterMod quarter = new QuarterMod(
+                    getQuarter(new Date(), i, Boolean.TRUE), 
+                    getQuarter(new Date(), i, Boolean.FALSE));
+            quarters.add(quarter);
+        }
+        return quarters;
     }
 }

@@ -33,6 +33,7 @@ import zw.org.zvandiri.business.service.SettingsService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import static zw.org.zvandiri.portal.util.Graph_Prop.*;
 import zw.org.zvandiri.portal.web.controller.BaseController;
+import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
 import zw.org.zvandiri.report.api.ChartModelItem;
 import zw.org.zvandiri.report.api.service.AggregateVisualReportService;
 import zw.org.zvandiri.report.api.service.ContactLevelOfCareReportService;
@@ -199,7 +200,7 @@ public class GraphicalReportController extends BaseController{
         JFreeChart barGraph = null;
         Integer maxItems = settingsService.getItem().getMaxNumContactIndex();
         try {
-            barGraph = aggregateVisualReportService.getDefaultTrend(new ChartModelItem("", "", "Months", maxItems, true), contactLevelOfCareReportService.getTrendReport(dto.getInstance(dto)), "Stable");
+            barGraph = aggregateVisualReportService.getDefaultTrend(new ChartModelItem("", "", "Quarters", maxItems, true), contactLevelOfCareReportService.getTrendReport(dto.getInstance(dto)), "Stable");
             ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, GRAPH_WIDTH, GRAPH_HEIGHT);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -229,7 +230,7 @@ public class GraphicalReportController extends BaseController{
         JFreeChart barGraph = null;
         Integer maxItems = settingsService.getItem().getMaxNumContactIndex();
         try {
-            barGraph = aggregateVisualReportService.getDashReport(new ChartModelItem("", "Months", "Number", maxItems, true), contactLevelOfCareReportService.getPeriodRange(dto.getInstance(dto)), "Counts");
+            barGraph = aggregateVisualReportService.getDashReport(new ChartModelItem("", "Quarters", "Number", maxItems, true), contactLevelOfCareReportService.getPeriodRange(dto.getInstance(dto)), "Counts");
             ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, GRAPH_WIDTH, GRAPH_HEIGHT);
         } catch (IOException ex) {
             ex.printStackTrace();

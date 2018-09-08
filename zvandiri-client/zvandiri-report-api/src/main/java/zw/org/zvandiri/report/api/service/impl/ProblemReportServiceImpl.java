@@ -138,23 +138,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         List<String> items = new ArrayList<>();
         items.addAll(Arrays.asList(ProblemReportHeaderNames.headerNames));
         list.add(new GenericReportModel(items));
-        /*
-         "Province",
-         "District",
-         "Facility",
-         "# of contacts",
-         "# of clients",
-         "# of newly registered clients",
-         "# exiting the program",
-         "# newly initiated on ART",
-         "# currently on ART",
-         "# on ART for 3 months",
-         "# on ART for 6 months",
-         "# on ART for 12 months",
-         "# on ART for 24 months",
-         "# on ART for 36 months",
-         "# on ART for > 36 months"
-         */
+       
         for (Province province : provinceService.getAll()) {
             dto.setProvince(province);
             int pos = 0;
@@ -245,7 +229,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         items = new ArrayList<>();
         items.add("");
         for (int i = 0; i < topCount; i++) {
-            for (Gender gender : Gender.values()) {
+            for (Gender gender : Gender.getItems()) {
                 items.add(gender.getName());
             }
         }
@@ -257,7 +241,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
             List<String> row = new ArrayList<>();
             row.add(province.getName());
             for (int i = 0; i < topCount; i++) {
-                for (Gender gender : Gender.values()) {
+                for (Gender gender : Gender.getItems()) {
                     dto.setGender(gender);
                     row.add(getItem(dto.getInstance(dto), i));
                 }
@@ -285,7 +269,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         items = new ArrayList<>();
         items.add("");
         for (int i = 0; i < topCount; i++) {
-            for (Gender gender : Gender.values()) {
+            for (Gender gender : Gender.getItems()) {
                 items.add(gender.getName());
             }
         }
@@ -298,7 +282,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
             List<String> row = new ArrayList<>();
             row.add(district.getName());
             for (int i = 0; i < topCount; i++) {
-                for (Gender gender : Gender.values()) {
+                for (Gender gender : Gender.getItems()) {
                     dto.setGender(gender);
                     row.add(getItem(dto.getInstance(dto), i));
                 }
@@ -326,7 +310,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         items = new ArrayList<>();
         items.add("");
         for (int i = 0; i < topCount; i++) {
-            for (Gender gender : Gender.values()) {
+            for (Gender gender : Gender.getItems()) {
                 items.add(gender.getName());
             }
         }
@@ -340,7 +324,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
             List<String> row = new ArrayList<>();
             row.add(facility.getName());
             for (int i = 0; i < topCount; i++) {
-                for (Gender gender : Gender.values()) {
+                for (Gender gender : Gender.getItems()) {
                     dto.setGender(gender);
                     row.add(getItem(dto.getInstance(dto), i));
                 }
@@ -523,8 +507,8 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         items = new ArrayList<>();
         items.add("");
         for (int i = 0; i < secondLevelCount; i++) {
-            for (Gender gender : Gender.values()) {
-                items.add(gender.getName());
+            for (Gender gender : Gender.getItems()) {
+                items.add(gender.getAltName());
             }
         }
         //items.add("Total");
@@ -537,7 +521,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
             for (int i = 0; i < topCount; i++) {
                 for (AgeGroup ageGroup : AgeGroup.values()) {
                     dto.setAgeGroup(ageGroup);
-                    for (Gender gender : Gender.values()) {
+                    for (Gender gender : Gender.getItems()) {
                         dto.setGender(gender);
                         row.add(getItem(dto.getInstance(dto), i));
                     }
@@ -592,8 +576,8 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         items = new ArrayList<>();
         items.add("");
         for (int i = 0; i < secondLevelCount; i++) {
-            for (Gender gender : Gender.values()) {
-                items.add(gender.getName());
+            for (Gender gender : Gender.getItems()) {
+                items.add(gender.getAltName());
             }
         }
         //items.add("Total");
@@ -607,7 +591,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
             for (int i = 0; i < topCount; i++) {
                 for (AgeGroup ageGroup : AgeGroup.values()) {
                     dto.setAgeGroup(ageGroup);
-                    for (Gender gender : Gender.values()) {
+                    for (Gender gender : Gender.getItems()) {
                         dto.setGender(gender);
                         row.add(getItem(dto.getInstance(dto), i));
                     }
@@ -662,7 +646,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         items = new ArrayList<>();
         items.add("");
         for (int i = 0; i < secondLevelCount; i++) {
-            for (Gender gender : Gender.values()) {
+            for (Gender gender : Gender.getItems()) {
                 items.add(gender.getName());
             }
         }
@@ -679,7 +663,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
             for (int i = 0; i < topCount; i++) {
                 for (AgeGroup ageGroup : AgeGroup.values()) {
                     dto.setAgeGroup(ageGroup);
-                    for (Gender gender : Gender.values()) {
+                    for (Gender gender : Gender.getItems()) {
                         dto.setGender(gender);
                         row.add(getItem(dto.getInstance(dto), i));
                     }
@@ -713,15 +697,19 @@ public class ProblemReportServiceImpl implements ProblemReportService {
                 return arvHistReportService.getNumberCurrentlyOnART(dto.getInstance(dto)).toString();
             case 7:
                 dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THREE_MONTHS.getEnd()));
+                dto.setEndDate(DateUtil.getDateDiffDate(-(DateRangeItem.PAST_SIX_MONTHS.getEnd()) - 1));
                 return arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto)).toString();
             case 8:
                 dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_SIX_MONTHS.getEnd()));
+                dto.setEndDate(DateUtil.getDateDiffDate(-(DateRangeItem.PAST_TWELVE_MONTHS.getEnd()) - 1));
                 return arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto)).toString();
             case 9:
                 dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWELVE_MONTHS.getEnd()));
+                dto.setEndDate(DateUtil.getDateDiffDate(-(DateRangeItem.PAST_TWENTY_FOUR_MONTHS.getEnd()) - 1));
                 return arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto)).toString();
             case 10:
                 dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWENTY_FOUR_MONTHS.getEnd()));
+                dto.setEndDate(DateUtil.getDateDiffDate(-(DateRangeItem.PAST_THIRTY_SIX_MONTHS.getEnd()) - 1));
                 return arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto)).toString();
             case 11:
                 dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THIRTY_SIX_MONTHS.getEnd()));
@@ -756,18 +744,23 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         count = arvHistReportService.getNumberCurrentlyOnART(dto.getInstance(dto));
         row.add(count.toString());
         dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THREE_MONTHS.getEnd()));
+        dto.setEndDate(DateUtil.getDateDiffDate(-(DateRangeItem.PAST_SIX_MONTHS.getEnd() -1)));
         count = arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto));
         row.add(count.toString());
         dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_SIX_MONTHS.getEnd()));
+        dto.setEndDate(DateUtil.getDateDiffDate(-(DateRangeItem.PAST_TWELVE_MONTHS.getEnd() -1)));
         count = arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto));
         row.add(count.toString());
         dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWELVE_MONTHS.getEnd()));
+        dto.setEndDate(DateUtil.getDateDiffDate(-(DateRangeItem.PAST_TWENTY_FOUR_MONTHS.getEnd() -1)));
         count = arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto));
         row.add(count.toString());
         dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWENTY_FOUR_MONTHS.getEnd()));
+        dto.setEndDate(DateUtil.getDateDiffDate(-(DateRangeItem.PAST_THIRTY_SIX_MONTHS.getEnd() -1)));
         count = arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto));
         row.add(count.toString());
         dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THIRTY_SIX_MONTHS.getEnd()));
+        dto.setEndDate(DateUtil.getDateDiffDate(-(DateRangeItem.ABOVE_THIRTY_SIX_MONTHS.getEnd() -1)));
         count = arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto));
         row.add(count.toString());
         Date startDate = DateUtil.getDateDiffDate(-DateRangeItem.ABOVE_THIRTY_SIX_MONTHS.getEnd());

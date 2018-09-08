@@ -86,14 +86,13 @@ public class GraphicalReportController extends BaseController{
         if(dto.getDistrict() != null){
             map.addAttribute("facilities", facilityService.getOptByDistrict(dto.getDistrict()));
         }
-        map.addAttribute("pageTitle", APP_PREFIX + "VISUAL REPORTS");
     }
     
     @RequestMapping(value = "/referral-distribution", method = RequestMethod.GET)
     public String showReferralChart(ModelMap map){
         SearchDTO dto = new SearchDTO();
         setUpModel(map, dto);
-        map.addAttribute("reportTitle", "Number Of External Referrals Past 6 Months");
+        map.addAttribute("pageTitle", APP_PREFIX + "Number Of External Referrals Past 6 Months");
         map.addAttribute("report", "/referral-distribution-past-six-months/bar-graph" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
     }
@@ -101,7 +100,7 @@ public class GraphicalReportController extends BaseController{
     @RequestMapping(value = "/referral-distribution", method = RequestMethod.POST)
     public String showReferralChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
         setUpModel(map, dto);
-        map.addAttribute("reportTitle", "Number Of External Referrals Past 6 Months");
+        map.addAttribute("pageTitle", APP_PREFIX+ "Number Of External Referrals Past 6 Months");
         map.addAttribute("report", "/referral-distribution-past-six-months/bar-graph" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
     }
@@ -122,7 +121,7 @@ public class GraphicalReportController extends BaseController{
     public String showPatientGenderChart(ModelMap map){
         SearchDTO dto = new SearchDTO();
         setUpModel(map, dto);
-        map.addAttribute("reportTitle", "Distribution Of Patients By Gender");
+        map.addAttribute("pageTitle", APP_PREFIX + "Distribution Of Patients By Gender");
         map.addAttribute("report", "/patient-gender-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
     }
@@ -130,7 +129,7 @@ public class GraphicalReportController extends BaseController{
     @RequestMapping(value = "/patient-gender-distribution", method = RequestMethod.POST)
     public String showPatientGenderChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
         setUpModel(map, dto);
-        map.addAttribute("reportTitle", "Distribution Of Patients By Gender");
+        map.addAttribute("pageTitle", APP_PREFIX + "Distribution Of Patients By Gender");
         map.addAttribute("report", "/patient-gender-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
     }
@@ -152,7 +151,7 @@ public class GraphicalReportController extends BaseController{
     public String showPatientStatusChart(ModelMap map){
         SearchDTO dto = new SearchDTO();
         setUpModel(map, dto);
-        map.addAttribute("reportTitle", "Distribution Of Patients By Status");
+        map.addAttribute("pageTitle", APP_PREFIX + "Distribution Of Patients By Status");
         map.addAttribute("report", "/patient-status-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
     }
@@ -160,7 +159,7 @@ public class GraphicalReportController extends BaseController{
     @RequestMapping(value = "/patient-status-distribution", method = RequestMethod.POST)
     public String showPatientStatusChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
         setUpModel(map, dto);
-        map.addAttribute("reportTitle", "Distribution Of Patients By Status");
+        map.addAttribute("pageTitle", APP_PREFIX + "Distribution Of Patients By Status");
         map.addAttribute("report", "/patient-status-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
     }
@@ -181,7 +180,7 @@ public class GraphicalReportController extends BaseController{
     public String showContactLevelOfCareChart(ModelMap map){
         SearchDTO dto = new SearchDTO();
         setUpModel(map, dto);
-        map.addAttribute("reportTitle", "Trends Of Contacts By Care Level");
+        map.addAttribute("pageTitle", APP_PREFIX + "Trends Of Contacts By Care Level");
         map.addAttribute("report", "/contact-trend-by-care-level/trend" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
     }
@@ -189,7 +188,7 @@ public class GraphicalReportController extends BaseController{
     @RequestMapping(value = "/contact-level-of-care", method = RequestMethod.POST)
     public String showContactLevelOfCareChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
         setUpModel(map, dto);
-        map.addAttribute("reportTitle", "Trends Of Contacts By Care Level");
+        map.addAttribute("pageTitle", APP_PREFIX + "Trends Of Contacts By Care Level");
         map.addAttribute("report", "/contact-trend-by-care-level/trend" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
     }
@@ -211,7 +210,7 @@ public class GraphicalReportController extends BaseController{
     public String showContactDistributionChart(ModelMap map){
         SearchDTO dto = new SearchDTO();
         setUpModel(map, dto);
-        map.addAttribute("reportTitle", "Number Of Contacts Past 6 Months");
+        map.addAttribute("pageTitle", APP_PREFIX + "Number Of Contacts Past 6 Months");
         map.addAttribute("report", "/contact-distribution-past-six-months/bar-graph" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
     }
@@ -219,7 +218,7 @@ public class GraphicalReportController extends BaseController{
     @RequestMapping(value = "/contact-distribution", method = RequestMethod.POST)
     public String showContactDistributionChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
         setUpModel(map, dto);
-        map.addAttribute("reportTitle", "Number Of Contacts Past 6 Months");
+        map.addAttribute("pageTitle", APP_PREFIX + "Number Of Contacts Past 6 Months");
         map.addAttribute("report", "/contact-distribution-past-six-months/bar-graph" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
     }
@@ -228,8 +227,9 @@ public class GraphicalReportController extends BaseController{
     public void displayChart(HttpServletResponse response, SearchDTO dto) {
         response.setContentType("image/png");
         JFreeChart barGraph = null;
+        Integer maxItems = settingsService.getItem().getMaxNumContactIndex();
         try {
-            barGraph = aggregateVisualReportService.getDashReport(new ChartModelItem("", "Months", "Number", 1000.0, true), contactLevelOfCareReportService.getPeriodRange(dto.getInstance(dto)), "Counts");
+            barGraph = aggregateVisualReportService.getDashReport(new ChartModelItem("", "Months", "Number", maxItems, true), contactLevelOfCareReportService.getPeriodRange(dto.getInstance(dto)), "Counts");
             ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, GRAPH_WIDTH, GRAPH_HEIGHT);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -240,7 +240,7 @@ public class GraphicalReportController extends BaseController{
     public String showPatientAgeGroupDistributionChart(ModelMap map){
         SearchDTO dto = new SearchDTO();
         setUpModel(map, dto);
-        map.addAttribute("reportTitle", "Distribution Of Patients By Age Group");
+        map.addAttribute("pageTitle", APP_PREFIX + "Distribution Of Patients By Age Group");
         map.addAttribute("report", "/patient-age-group-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
     }
@@ -248,7 +248,7 @@ public class GraphicalReportController extends BaseController{
     @RequestMapping(value = "/patient-age-group-distribution", method = RequestMethod.POST)
     public String showPatientAgeGroupDistributionChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
         setUpModel(map, dto);
-        map.addAttribute("reportTitle", "Distribution Of Patients By Age Group");
+        map.addAttribute("pageTitle", APP_PREFIX + "Distribution Of Patients By Age Group");
         map.addAttribute("report", "/patient-age-group-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
     }
@@ -270,7 +270,7 @@ public class GraphicalReportController extends BaseController{
     public String showContactCareLevelChart(ModelMap map){
         SearchDTO dto = new SearchDTO();
         setUpModel(map, dto);
-        map.addAttribute("reportTitle", "Distribution Of Contacts By Care Level");
+        map.addAttribute("pageTitle", APP_PREFIX + "Distribution Of Contacts By Care Level");
         map.addAttribute("report", "/contact-care-level-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
     }
@@ -278,7 +278,7 @@ public class GraphicalReportController extends BaseController{
     @RequestMapping(value = "/contact-care-level-distribution", method = RequestMethod.POST)
     public String showContactCareLevelChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
         setUpModel(map, dto);
-        map.addAttribute("reportTitle", "Distribution Of Contacts By Care Level");
+        map.addAttribute("pageTitle", APP_PREFIX + "Distribution Of Contacts By Care Level");
         map.addAttribute("report", "/contact-care-level-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
     }
@@ -300,7 +300,7 @@ public class GraphicalReportController extends BaseController{
     public String showPatientContactChart(ModelMap map){
         SearchDTO dto = new SearchDTO();
         setUpModel(map, dto);
-        map.addAttribute("reportTitle", "Distribution Of Patients By Contact");
+        map.addAttribute("pageTitle", APP_PREFIX + "Distribution Of Patients By Contact");
         map.addAttribute("report", "/patient-contact-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
     }
@@ -308,7 +308,7 @@ public class GraphicalReportController extends BaseController{
     @RequestMapping(value = "/patient-contact-distribution", method = RequestMethod.POST)
     public String showPatientContactChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
         setUpModel(map, dto);
-        map.addAttribute("reportTitle", "Distribution Of Patients By Contact");
+        map.addAttribute("pageTitle", APP_PREFIX + "Distribution Of Patients By Contact");
         map.addAttribute("report", "/patient-contact-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
     }
@@ -330,7 +330,7 @@ public class GraphicalReportController extends BaseController{
     public String showPatientViralLoadChart(ModelMap map){
         SearchDTO dto = new SearchDTO();
         setUpModel(map, dto);
-        map.addAttribute("reportTitle", "Distribution Of Patients By Viral Load");
+        map.addAttribute("pageTitle", APP_PREFIX + "Distribution Of Patients By Viral Load");
         map.addAttribute("report", "/patient-viral-load-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
     }
@@ -338,7 +338,7 @@ public class GraphicalReportController extends BaseController{
     @RequestMapping(value = "/patient-viral-load-distribution", method = RequestMethod.POST)
     public String showPatientViralLoadChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
         setUpModel(map, dto);
-        map.addAttribute("reportTitle", "Distribution Of Patients By Viral Load");
+        map.addAttribute("pageTitle", APP_PREFIX + "Distribution Of Patients By Viral Load");
         map.addAttribute("report", "/patient-viral-load-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
     }

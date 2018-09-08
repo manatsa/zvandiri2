@@ -92,8 +92,8 @@
                                 <td>
                                     <a href="${page}/report/hiv-self-testing/detailed.htm">HIV Self Testing Report</a>
                                 </td>
-                                <td>
-                                </td>
+                                <td><a href="${page}/report/detailed/hei.htm">HEI Report</a></td>
+                                <td>&nbsp;</td>
                             </tr>
                             <tr>
                                 <th colspan="2">Visual Reports</th>
@@ -115,7 +115,7 @@
                                 <td><a href="${page}/report/graphs/patient-contact-distribution">Patient Distribution By Contact</a></td>
                             </tr>
                             <tr>
-                                <td><a href="${page}/report/graphs/patient-viral-load-distribution">Patient Distribution By Viral Load</a></td>
+                                <td><a href="${page}/report/graphs/patient-viral-load-distribution">Patient Distribution By Viral Load</a></td>                                
                             </tr>
                         </tbody>
                     </table>

@@ -31,10 +31,6 @@ public interface PatientService extends GenericService<Patient> {
     
     public List<Patient> search(String ...exp);
     
-    public List<Patient> getByEmail(Patient patient);
-    
-    public Boolean checkDuplicateEmail(Patient current, Patient old);
-    
     public Boolean hasCatDetailRecord(Patient patient);
     
     public List<Patient> checkPatientDuplicate(Patient patient);

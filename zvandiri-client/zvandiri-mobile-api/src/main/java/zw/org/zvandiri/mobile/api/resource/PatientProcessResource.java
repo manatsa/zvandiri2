@@ -246,12 +246,6 @@ public class PatientProcessResource {
         if ((item.getOwnSecondaryMobile() != null && item.getOwnSecondaryMobile().equals(YesNo.NO)) && StringUtils.isEmpty(item.getSecondaryMobileOwnerName())) {
             response.put("secondaryMobileOwnerName", "Field is required");
         }
-        if (StringUtils.isNotEmpty(item.getEmail()) && !EmailValidator.getInstance().isValid(item.getEmail())) {
-            response.put("email", "Email not valid");
-        }
-        if (StringUtils.isNotEmpty(item.getEmail()) && patientService.checkDuplicateEmail(item, null)) {
-            response.put("email", "Email already in system");
-        }
         if(StringUtils.isEmpty(item.getAddress())){
             response.put("address", "Field is required");
         }

@@ -87,13 +87,6 @@
                                 </p>
                             </div>
                             <div class="form-group">
-                                <label>Email</label>
-                                <form:input path="email" class="form-control"/>
-                                <p class="help-block">
-                                    <form:errors path="email" class="alert-danger"/>
-                                </p>
-                            </div>
-                            <div class="form-group">
                                 <button class="btn btn-primary" type="submit" id="back" name="_eventId_back">&Lt;&Lt;Back</button>
                                 <button class="btn btn-primary" type="submit" id="next" name="_eventId_next">Next&Gt;&Gt;</button>
                                 <button class="btn btn-primary" type="submit" id="cancel" name="_eventId_cancel">Cancel</button>

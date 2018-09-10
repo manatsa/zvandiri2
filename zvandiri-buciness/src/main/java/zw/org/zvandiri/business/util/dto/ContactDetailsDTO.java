@@ -27,7 +27,6 @@ public class ContactDetailsDTO implements Serializable {
     private Patient patient;
     private String address;
     private String mobileNumber;
-    private String email;
 
     public ContactDetailsDTO() {
     }
@@ -36,7 +35,6 @@ public class ContactDetailsDTO implements Serializable {
         this.patient = patient;
         this.address = patient.getAddress();
         this.mobileNumber = patient.getMobileNumber();
-        this.email = patient.getEmail();
     }
 
     public Patient getPatient() {
@@ -62,18 +60,9 @@ public class ContactDetailsDTO implements Serializable {
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
     
     public Patient getInstance(ContactDetailsDTO dto){
         Patient p = dto.getPatient();
-        p.setEmail(email);
         p.setAddress(address);
         p.setMobileNumber(mobileNumber);
         return p;

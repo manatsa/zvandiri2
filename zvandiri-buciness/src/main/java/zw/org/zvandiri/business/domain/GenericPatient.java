@@ -52,15 +52,12 @@ public class GenericPatient extends BaseEntity {
     @Enumerated
     private Gender gender;
     @Enumerated
-    private YesNo consentToPhoto;
-    @Enumerated
     private YesNo consentToMHealth;
     @ManyToOne(fetch = FetchType.LAZY)
     private Period period;
     private String address;
     private String address1;
     private String mobileNumber;
-    private String email;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateOfBirth;
@@ -194,14 +191,6 @@ public class GenericPatient extends BaseEntity {
         this.gender = gender;
     }
 
-    public YesNo getConsentToPhoto() {
-        return consentToPhoto;
-    }
-
-    public void setConsentToPhoto(YesNo consentToPhoto) {
-        this.consentToPhoto = consentToPhoto;
-    }
-
     public YesNo getConsentToMHealth() {
         return consentToMHealth;
     }
@@ -240,14 +229,6 @@ public class GenericPatient extends BaseEntity {
 
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Date getDateOfBirth() {

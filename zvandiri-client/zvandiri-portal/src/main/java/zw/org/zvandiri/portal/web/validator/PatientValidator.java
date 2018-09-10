@@ -141,12 +141,6 @@ public class PatientValidator implements Validator {
             if ((item.getOwnSecondaryMobile() != null && item.getOwnSecondaryMobile().equals(YesNo.NO)) && item.getSecondaryMobileOwnerName() == null) {
                 errors.rejectValue("secondaryMobileOwnerName", "field.empty");
             }
-            if (item.getEmail() != null && !EmailValidator.getInstance().isValid(item.getEmail())) {
-                errors.rejectValue("email", "email.format");
-            }
-            if (item.getEmail() != null && patientService.checkDuplicateEmail(item, old)) {
-                errors.rejectValue("email", "email.exist");
-            }
         }
     }
 

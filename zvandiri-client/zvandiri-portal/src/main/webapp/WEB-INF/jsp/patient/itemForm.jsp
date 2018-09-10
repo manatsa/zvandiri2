@@ -134,13 +134,6 @@
                                 </p>
                             </div>
                             <div class="form-group">
-                                <label>Email</label>
-                                <form:input path="email" class="form-control"/>
-                                <p class="help-block">
-                                    <form:errors path="email" class="alert-danger"/>
-                                </p>
-                            </div>
-                            <div class="form-group">
                                 <label>Address 1</label>
                                 <form:input path="address" class="form-control"/>
                                 <p class="help-block">
@@ -310,16 +303,6 @@
                                 <form:checkboxes path="disabilityCategorys" items="${disabilityCategories}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
                                 <p class="help-block">
                                     <form:errors path="disabilityCategorys" class="alert-danger"/>
-                                </p>
-                            </div>
-                            <div class="form-group">
-                                <label>Consent Photo</label>
-                                <form:select path="consentToPhoto" class="form-control">
-                                    <form:option value="" label="--Select Item"/>
-                                    <form:options itemValue="code" itemLabel="name"/>
-                                </form:select>
-                                <p class="help-block">
-                                    <form:errors path="consentToPhoto" class="alert-danger"/>
                                 </p>
                             </div>
                             <div class="form-group">

@@ -140,17 +140,6 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public List<Patient> getByEmail(Patient patient) {
-        return patientRepo.findByEmail(patient.getEmail());
-    }
-
-    @Override
-    public Boolean checkDuplicateEmail(Patient current, Patient old) {
-        List<Patient> patients = getByEmail(current);
-        return checkItemDuplicate(current, patients);
-    }
-
-    @Override
     public Boolean hasCatDetailRecord(Patient patient) {
         if (patient.getCat() != null && patient.getCat().equals(YesNo.YES) && catDetailService.getByPatient(patient) != null) {
             return Boolean.TRUE;

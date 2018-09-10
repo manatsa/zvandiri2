@@ -28,6 +28,16 @@
                                 </p>
                             </div>
                             <div class="form-group self-care-giver hide">
+                                <label>Relationship to child</label>
+                                <form:select path="relationship" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options items="${relationships}" itemValue="id" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="relationship" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group self-care-giver hide">
                                 <label>First Name</label>
                                 <form:input path="pfirstName" class="form-control"/>
                                 <p class="help-block">
@@ -57,17 +67,7 @@
                                 <p class="help-block">
                                     <form:errors path="pgender" class="alert-danger"/>
                                 </p>
-                            </div>
-                            <div class="form-group self-care-giver hide">
-                                <label>Relationship to child</label>
-                                <form:select path="relationship" class="form-control">
-                                    <form:option value="" label="--Select Item"/>
-                                    <form:options items="${relationships}" itemValue="id" itemLabel="name"/>
-                                </form:select>
-                                <p class="help-block">
-                                    <form:errors path="relationship" class="alert-danger"/>
-                                </p>
-                            </div>
+                            </div>                            
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit" id="back" name="_eventId_${heuval}">&Lt;&Lt;Back</button>
                                 <button class="btn btn-primary" type="submit" id="save" name="_eventId_save">Save</button>

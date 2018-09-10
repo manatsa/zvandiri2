@@ -91,6 +91,7 @@
                 <bean class="zw.org.zvandiri.portal.web.converter.TestTypeConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.ResultConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.PersonConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.CatsMentorshipConverter"/>
             </set>
         </property>
     </bean> 

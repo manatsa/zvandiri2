@@ -26,4 +26,6 @@ import zw.org.zvandiri.report.api.GenericReportModel;
 public interface PatientViralLoadReportService extends GenericReportService<GenericReportModel>{
     
      public List<GenericReportModel> getDefaultPieData(SearchDTO dto);
+     
+     public List<GenericReportModel> getViralSuppressionPieData(SearchDTO dto);
 }

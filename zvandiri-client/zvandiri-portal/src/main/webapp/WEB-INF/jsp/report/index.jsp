@@ -116,6 +116,7 @@
                             </tr>
                             <tr>
                                 <td><a href="${page}/report/graphs/patient-viral-load-distribution">Patient Distribution By Viral Load</a></td>
+                                 <td><a href="${page}/report/graphs/patient-viral-suppression-distribution">Patient Distribution By Viral Suppression</a></td>
                             </tr>
                         </tbody>
                     </table>

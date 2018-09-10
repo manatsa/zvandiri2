@@ -52,4 +52,6 @@ public interface PatientReportService {
     public Long getPatientWithViralLoad(SearchDTO dto);
     
      public Long getPatientWithoutViralLoad(SearchDTO dto);
+     
+     public Long getPatientWithViralSuppression(SearchDTO dto);
 }

@@ -356,4 +356,34 @@ public class GraphicalReportController extends BaseController{
         }
     }
     
+    @RequestMapping(value = "/patient-viral-suppression-distribution", method = RequestMethod.GET)
+    public String showPatientViralSuppressionChart(ModelMap map){
+        SearchDTO dto = new SearchDTO();
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Distribution Of Patients By Viral Suppression");
+        map.addAttribute("report", "/patient-viral-suppression-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/patient-viral-suppression-distribution", method = RequestMethod.POST)
+    public String showPatientViralSuppressionChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
+        setUpModel(map, dto);
+        map.addAttribute("reportTitle", "Distribution Of Patients By Viral Suppression");
+        map.addAttribute("report", "/patient-viral-suppression-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/patient-viral-suppression-distribution/pie-chart", method = RequestMethod.GET)
+    public void displayPatientViralSuppressionPieChart(HttpServletResponse response, SearchDTO dto) {
+        response.setContentType("image/png");
+        JFreeChart barGraph = null;
+        try {
+            dto.setStatus(PatientChangeEvent.ACTIVE);
+            barGraph = aggregateVisualReportService.getDefaultPieChart(new ChartModelItem("", "", ""), patientViralLoadReportService.getViralSuppressionPieData(dto), "Counts");
+            ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, GRAPH_WIDTH, GRAPH_HEIGHT);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
 }

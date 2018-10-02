@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Judge Muzinda.
+ * Copyright 2018 jmuzinda.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,21 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package zw.org.zvandiri.report.api;
+package zw.org.zvandiri.portal.web.converter;
+
+import org.springframework.core.convert.converter.Converter;
+import zw.org.zvandiri.business.domain.util.CatsMentorship;
 
 /**
  *
- * @author Judge Muzinda
+ * @author jmuzinda
  */
-public interface Notifications {
+public class CatsMentorshipConverter implements Converter<String, CatsMentorship> {
 
-    public final String [] labels = {
-        "Number of new clients registered",
-        "Number of clients with contacts",
-        "Clients About To Graduate",
-        "Cumulative internal referrals initiated",
-        "Cumulative internal referrals confirmed",
-        "Cumulative external referrals initiated",
-        "Cumulative external referrals confirmed",
-    };
+    @Override
+    public CatsMentorship convert(String s) {
+        
+        if (s.equals("")) {
+            return null;
+        }
+        return CatsMentorship.get(Integer.valueOf(s));
+    }
+    
 }

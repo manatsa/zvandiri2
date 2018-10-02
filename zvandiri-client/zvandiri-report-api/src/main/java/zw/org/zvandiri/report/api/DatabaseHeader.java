@@ -22,8 +22,8 @@ package zw.org.zvandiri.report.api;
 public interface DatabaseHeader {
     
     public final String [] PATIENT_HEADER = {
-     "ID","Name", "OI/ Art Number", "Date of Birth","Date Joined", "Gender", "Address", "Mobile Number", "Email", 
-        "Consent To Photo", "Consent To M-Health","Education", "Highest Education",
+     "ID","Name", "OI/ Art Number", "Date of Birth","Date Joined", "Gender", "Address", "Mobile Number",
+        "Consent To M-Health","Education", "Highest Education",
         "Refer", "Region", "District","Primary Clinic", "Support Group", "Date Tested","HIV Disclosure Location",
         "Has Disability", "IS CATS", "Is In Young Mum Group", "HIV Transmission Mode",
         "HIV Status Known", "Patient Status", "Date Status Changed"

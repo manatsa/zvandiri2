@@ -163,11 +163,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell mobileNumber = header.createCell(++count);
             mobileNumber.setCellValue(patient.getMobileNumber());
             Cell email = header.createCell(++count);
-            email.setCellValue(patient.getEmail());
-            Cell consetToPhoto = header.createCell(++count);
-            consetToPhoto.setCellValue(
-                    patient.getConsentToPhoto() != null
-                            ? patient.getConsentToPhoto().getName() : null);
             Cell consetToMHelaath = header.createCell(++count);
             consetToMHelaath.setCellValue(patient.getConsentToMHealth() != null
                     ? patient.getConsentToMHealth().getName() : null);

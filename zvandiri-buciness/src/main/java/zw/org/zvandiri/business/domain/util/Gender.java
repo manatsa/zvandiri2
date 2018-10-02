@@ -68,7 +68,7 @@ public enum Gender {
     
     public static List<Gender> getItems() {
         return new ArrayList<>(Arrays.asList(new Gender [] {
-            MALE, FEMALE
+            MALE, FEMALE, OTHER
         }));
     }
 }

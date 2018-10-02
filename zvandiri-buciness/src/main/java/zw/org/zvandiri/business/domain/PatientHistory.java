@@ -39,7 +39,6 @@ public class PatientHistory extends GenericPatient {
         this.setCat(patient.getCat());
         this.setConsentForm(patient.getConsentForm());
         this.setConsentToMHealth(patient.getConsentToMHealth());
-        this.setConsentToPhoto(patient.getConsentToPhoto());
         this.setCreatedBy(patient.getCreatedBy());
         this.setDateCreated(patient.getDateCreated());
         this.setDateJoined(patient.getDateJoined());
@@ -50,7 +49,6 @@ public class PatientHistory extends GenericPatient {
         this.setDisability(patient.getDisability());
         this.setEducation(patient.getEducation());
         this.setEducationLevel(patient.getEducationLevel());
-        this.setEmail(patient.getEmail());
         this.setFirstName(patient.getFirstName());
         this.setGender(patient.getGender());
         this.setHivStatusKnown(patient.getHivStatusKnown());

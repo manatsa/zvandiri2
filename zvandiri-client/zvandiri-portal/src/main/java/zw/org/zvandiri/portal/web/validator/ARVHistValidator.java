@@ -48,9 +48,9 @@ public class ARVHistValidator implements Validator {
         if(item.getArvMedicine2() == null){
             errors.rejectValue("arvMedicine2", "field.empty");
         }
-        if(item.getArvMedicine3() == null){
+        /*if(item.getArvMedicine3() == null){
             errors.rejectValue("arvMedicine3", "field.empty");
-        }
+        }*/
         if (item.getArvMedicine() != null && item.getArvMedicine2() != null) {
         	if (item.getArvMedicine().getName().equals(item.getArvMedicine2().getName())) {
         		errors.rejectValue("arvMedicine2", "medicine.duplicate");

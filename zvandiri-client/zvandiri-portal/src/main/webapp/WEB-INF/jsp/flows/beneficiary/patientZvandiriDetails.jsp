@@ -18,16 +18,6 @@
                     <div class="col-lg-10">
                         <form:form commandName="patient" id="patientDemographicForm">
                             <div class="form-group">
-                                <label>Consent Photo</label>
-                                <form:select path="consentToPhoto" class="form-control">
-                                    <form:option value="" label="--Select Item"/>
-                                    <form:options itemValue="code" itemLabel="name"/>
-                                </form:select>
-                                <p class="help-block">
-                                    <form:errors path="consentToPhoto" class="alert-danger"/>
-                                </p>
-                            </div>
-                            <div class="form-group">
                                 <label>Consent M-Health</label>
                                 <form:select path="consentToMHealth" class="form-control">
                                     <form:option value="" label="--Select Item"/>

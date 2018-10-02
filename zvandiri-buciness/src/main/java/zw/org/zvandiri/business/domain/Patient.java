@@ -38,12 +38,12 @@ import zw.org.zvandiri.business.util.DateUtil;
 @Entity
 public class Patient extends GenericPatient {
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "patient_disability_category", joinColumns = {
         @JoinColumn(name = "patient_id", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "disability_category_id", nullable = false)})
     private Set<DisabilityCategory> disabilityCategorys;
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private Set<PatientHistory> patientHistories = new HashSet<>();
     @Transient
     private District district;

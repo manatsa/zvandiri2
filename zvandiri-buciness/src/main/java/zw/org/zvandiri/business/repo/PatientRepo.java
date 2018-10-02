@@ -47,9 +47,6 @@ public interface PatientRepo extends AbstractRepo<Patient, String> {
     @Query("from Patient p left join fetch p.education left join fetch p.educationLevel left join fetch p.referer left join fetch p.primaryClinic left join fetch p.supportGroup where p.firstName=:firstName and p.lastName=:lastName and p.dateOfBirth=:dateOfBirth and p.gender=:gender")
     public Patient findByFirstNameANdLastNameAndDateOfBirthAndGender(@Param("firstName") String firstName, @Param("lastName") String lastName, @Param("dateOfBirth") Date dateOfBirth, @Param("gender") Gender gender);
     
-    @Query("from Patient p left join fetch p.education left join fetch p.educationLevel left join fetch p.referer left join fetch p.primaryClinic left join fetch p.supportGroup where p.email=:email")
-    public List<Patient> findByEmail(@Param("email") String email);
-    
     @Query("Select Distinct p from Patient p where (p.firstName like :firstName% and p.lastName like :lastName%) and (p.dateOfBirth between :start and :end) and p.primaryClinic=:primaryClinic")
     public List<Patient> checkPatientDuplicate(
             @Param("firstName") String firstName, 

@@ -43,8 +43,5 @@ public class ContactValidator implements Validator {
         if (item.getMobileNumber() != null && !item.getMobileNumber().matches(MobileNumberFormat.ZIMBABWE)) {
             errors.rejectValue("mobileNumber", "mobileNumber.format");
         }
-        if (item.getEmail() != null && !EmailValidator.getInstance().isValid(item.getEmail())) {
-            errors.rejectValue("email", "email.format");
-        }
     }
 }

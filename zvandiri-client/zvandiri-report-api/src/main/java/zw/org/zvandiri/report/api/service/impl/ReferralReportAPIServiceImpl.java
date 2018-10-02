@@ -101,7 +101,7 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
                     continue;
                 case 3:
                     dto.setReason(Reason.INTERNAL_REFERRAL);
-                    dto.setYesNo(YesNo.NO);
+                    //dto.setYesNo(YesNo.NO);
                     dto.setEndDate(new Date());
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THREE_MONTHS.getEnd()));
                     threeMonths = contactReportService.getCount(dto).intValue();
@@ -127,7 +127,7 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
                     continue;
                 case 5:
                     dto.setReason(Reason.EXTERNAL_REFERRAL);
-                    dto.setYesNo(YesNo.NO);
+                    //dto.setYesNo(YesNo.NO);
                     dto.setEndDate(new Date());
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THREE_MONTHS.getEnd()));
                     threeMonths = contactReportService.getCount(dto).intValue();

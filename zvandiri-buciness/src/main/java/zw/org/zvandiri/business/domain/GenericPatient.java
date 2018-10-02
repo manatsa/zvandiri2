@@ -52,15 +52,12 @@ public class GenericPatient extends BaseEntity {
     @Enumerated
     private Gender gender;
     @Enumerated
-    private YesNo consentToPhoto;
-    @Enumerated
     private YesNo consentToMHealth;
     @ManyToOne(fetch = FetchType.LAZY)
     private Period period;
     private String address;
     private String address1;
     private String mobileNumber;
-    private String email;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateOfBirth;
@@ -123,36 +120,36 @@ public class GenericPatient extends BaseEntity {
     private PatientChangeEvent status = PatientChangeEvent.ACTIVE;
     @Temporal(TemporalType.DATE)
     private Date statusChangeDate;
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     @JsonIgnore
     private Set<Dependent> dependents = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private Set<MedicalHist> medicalHists = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private Set<ChronicInfectionItem> chronicInfectionItems = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private Set<HivConInfectionItem> hivConInfectionItems = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private Set<ArvHist> arvHists = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private Set<MentalHealthItem> mentalHealthItems = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private Set<SrhHist> srhHists = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private Set<ObstercHist> obstercHists = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private Set<SocialHist> socialHists = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private Set<SubstanceItem> substanceItems = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private Set<Family> familys = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private Set<Contact> contacts = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private Set<EidTest> eidTests = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private Set<Referral> referrals = new HashSet<>();    
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private Set<InvestigationTest> investigationTests = new HashSet<>();    
     /*
      new fields
@@ -194,14 +191,6 @@ public class GenericPatient extends BaseEntity {
         this.gender = gender;
     }
 
-    public YesNo getConsentToPhoto() {
-        return consentToPhoto;
-    }
-
-    public void setConsentToPhoto(YesNo consentToPhoto) {
-        this.consentToPhoto = consentToPhoto;
-    }
-
     public YesNo getConsentToMHealth() {
         return consentToMHealth;
     }
@@ -240,14 +229,6 @@ public class GenericPatient extends BaseEntity {
 
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Date getDateOfBirth() {

@@ -15,17 +15,12 @@
  */
 package zw.org.zvandiri.report.api.service;
 
-import java.util.List;
-import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.GenericReportModel;
 
 /**
  *
  * @author tasu
  */
-public interface PatientViralLoadReportService extends GenericReportService<GenericReportModel>{
+public interface ContactServicesOfferedReportService extends GenericReportService<GenericReportModel> {
     
-     public List<GenericReportModel> getDefaultPieData(SearchDTO dto);
-     
-     public List<GenericReportModel> getViralSuppressionPieData(SearchDTO dto);
 }

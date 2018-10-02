@@ -34,6 +34,8 @@ public class Person extends BaseEntity{
     @Transient
     private Province province;
     private String nameOfMother;
+    @Transient
+    private String dob;
 
     public String getNameOfClient() {
         return nameOfClient;
@@ -89,6 +91,14 @@ public class Person extends BaseEntity{
 
     public void setProvince(Province province) {
         this.province = province;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
     }
     
 }

@@ -74,7 +74,7 @@
                             </tr>
                             <tr>                                
                                 <td>
-                                    <a href="${page}/report/aggregate/data-entry.htm">Data Entry Report</a>
+                                    <a href="${page}/report/aggregate/data-entry.htm">Combined Data Entry Report</a>
                                 </td>
                                 <td>
                                     <a href="${page}/report/aggregate/contact-entry.htm">Contact Entry Report</a>
@@ -115,7 +115,8 @@
                                 <td><a href="${page}/report/graphs/patient-contact-distribution">Patient Distribution By Contact</a></td>
                             </tr>
                             <tr>
-                                <td><a href="${page}/report/graphs/patient-viral-load-distribution">Patient Distribution By Viral Load</a></td>                                
+                                <td><a href="${page}/report/graphs/patient-viral-load-distribution">Patient Distribution By Viral Load</a></td>
+                                 <td><a href="${page}/report/graphs/patient-viral-suppression-distribution">Patient Distribution By Viral Suppression</a></td>
                             </tr>
                         </tbody>
                     </table>

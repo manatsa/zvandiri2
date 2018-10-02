@@ -21,7 +21,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.User;
 import zw.org.zvandiri.business.service.ContactEntryService;
-import zw.org.zvandiri.business.service.DataEntryService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.GenericReportModel;

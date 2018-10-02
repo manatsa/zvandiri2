@@ -61,6 +61,32 @@ public class PatientViralLoadReportServiceImpl implements PatientViralLoadReport
         list.add(model);
         return list;
     }
+    
+    @Override
+    public List<GenericReportModel> getViralSuppressionPieData(SearchDTO dto) {
+        List<GenericReportModel> list = new ArrayList<>();
+        List<String> items = new ArrayList<>();
+        items.add("");
+        items.add("Viral Suppression");
+        items.add("No Suppression");
+        items.add("Total");
+        list.add(new GenericReportModel(items));
+        GenericReportModel model = new GenericReportModel();
+        List<String> row = new ArrayList<>();
+        Long rowCount = 0L;
+        row.add("Counts");
+        Long withViralLoad = patientReportService.getPatientWithViralLoad(dto);
+        Long withSuppression = patientReportService.getPatientWithViralSuppression(dto);
+        row.add(withSuppression.toString());
+        rowCount += withSuppression;
+        Long withoutSuppression = withViralLoad - withSuppression;
+        row.add(withoutSuppression.toString());
+        rowCount += withoutSuppression;
+        row.add(rowCount.toString());
+        model.setRow(row);
+        list.add(model);
+        return list;
+    }
 
     @Override
     public List<GenericReportModel> getDefaultReport(SearchDTO dto) {

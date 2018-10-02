@@ -20,6 +20,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.User;
+import zw.org.zvandiri.business.service.ContactEntryService;
 import zw.org.zvandiri.business.service.DataEntryService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
@@ -37,14 +38,17 @@ public class DataEntryReportServiceImpl implements DataEntryReportService{
     private UserService userService;
     @Resource
     private DataEntryService dataEntryService;
+    @Resource
+    private ContactEntryService contactEntryService;
     
     @Override
     public List<GenericReportModel> getDefaultReport(SearchDTO dto) {
         List<GenericReportModel> list = new ArrayList<>();
-        List<User> users = userService.getUsers(dto);
+        List<User> users = userService.getAll();
         List<String> items = new ArrayList<>();
         items.add("User");
         items.add("Records Captured");
+        items.add("Contacts Captured");
         list.add(new GenericReportModel(items));
         for(User user : users){
             dto.setCreatedBy(user);
@@ -53,6 +57,8 @@ public class DataEntryReportServiceImpl implements DataEntryReportService{
             row.add(user.getFirstName() + " " + user.getLastName());
             Long itemCount = dataEntryService.getCount(dto);
             row.add(itemCount.toString());
+            Long contactCount = contactEntryService.getCount(dto);
+            row.add(contactCount.toString());
             model.setRow(row);
             list.add(model);
         }

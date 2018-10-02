@@ -28,7 +28,6 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
 import zw.org.zvandiri.report.api.service.DataEntryReportService;
-import zw.org.zvandiri.report.api.service.HIVSelfTestingReportService;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
 
 /**
@@ -48,7 +47,7 @@ public class DataEntryReportController extends BaseController{
 
     public void setUpModel(ModelMap model, SearchDTO item) {
         item = getUserLevelObjectState(item);
-        model.addAttribute("pageTitle", APP_PREFIX + "Data Entry Report Report");
+        model.addAttribute("pageTitle", APP_PREFIX + "Combined Data Entry Report");
         model.addAttribute("provinces", provinceService.getAll());
         model.addAttribute("item", item.getInstance(item));
         model.addAttribute("excelExport", "/report/aggregate/data-entry/export/excel" + item.getQueryString(item.getInstance(item)));
@@ -69,7 +68,7 @@ public class DataEntryReportController extends BaseController{
 
     @RequestMapping(value = "/data-entry/export/excel", method = RequestMethod.GET)
     public void getExcelExportHealthCenter(HttpServletResponse response, SearchDTO item) {
-        String name = DateUtil.getFriendlyFileName("Data Report");
+        String name = DateUtil.getFriendlyFileName("Combined Data Entry Report");
         forceDownLoad(officeExportService.exportExcelFile(dataEntryReportService.getDefaultReport(item.getInstance(item)), name), name, response);
     }
 }

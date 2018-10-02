@@ -21,7 +21,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.District;
 import zw.org.zvandiri.business.domain.Facility;
-import zw.org.zvandiri.business.domain.Period;
 import zw.org.zvandiri.business.domain.Province;
 import zw.org.zvandiri.business.domain.SupportGroup;
 import zw.org.zvandiri.business.domain.util.CareLevel;

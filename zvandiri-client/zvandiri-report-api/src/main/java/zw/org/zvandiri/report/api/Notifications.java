@@ -21,22 +21,6 @@ package zw.org.zvandiri.report.api;
  */
 public interface Notifications {
 
-    /*public final String[] labels = {
-        "New contacts received in past 1 week",
-        "New contacts received in past 2 weeks",
-        "Clients with no contact past 1 month",
-        "Clients with no contact past 3 months",
-        "Clients with 12 months before graduation",
-        "Clients with no contact past 6 months",
-        "Clients with no contact past 12 months",        
-        "External referrals send and no feedback received past 1 week",
-        "External referrals send and no feedback received past 2 weeks",
-        "External referrals send and no feedback received past 1 month",        
-        "Clients with 6 months before graduation",
-        "Clients with 3 months before graduation",
-        "Clients with 12 months before graduation"
-    };*/
-    
     public final String [] labels = {
         "Number of new clients registered",
         "Number of clients with contacts",

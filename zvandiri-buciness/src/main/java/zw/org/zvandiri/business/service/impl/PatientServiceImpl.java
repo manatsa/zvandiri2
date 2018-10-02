@@ -29,6 +29,7 @@ import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.repo.PatientRepo;
 import zw.org.zvandiri.business.service.CatDetailService;
+import zw.org.zvandiri.business.service.PatientHistoryService;
 import zw.org.zvandiri.business.service.PatientService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.DateUtil;
@@ -50,6 +51,8 @@ public class PatientServiceImpl implements PatientService {
     private UserService userService;
     @Resource
     private CatDetailService catDetailService;
+    @Resource
+    private PatientHistoryService patientHistoryService;
 
     @Override
     public List<Patient> getAll() {
@@ -198,8 +201,8 @@ public class PatientServiceImpl implements PatientService {
         patient.getContacts().addAll(patientToBeMerged.getContacts());
         patient.getEidTests().addAll(patientToBeMerged.getEidTests());
         patient.getInvestigationTests().addAll(patientToBeMerged.getInvestigationTests());
+        patient.getPatientHistories().addAll(patientHistoryService.getByPatient(patientToBeMerged));
         save(patient);
         delete(patientToBeMerged);
     }
-
 }

@@ -10,25 +10,25 @@ package zw.org.zvandiri.business.domain.util;
  * @author jmuzinda
  */
 public enum CatsMentorship {
-    
+
     FACILITY_MENTORSHIP(1), CATS_COORDINATION(2), E_MENTORSHIP(3);
-    
+
     private final Integer code;
-    
+
     private CatsMentorship(Integer code) {
         this.code = code;
     }
-    
+
     public Integer getCode() {
         return code;
     }
-    
+
     public static CatsMentorship get(Integer code) {
         for (CatsMentorship item : values()) {
             if (item.getCode().equals(code)) {
                 return item;
             }
         }
-        throw new IllegalArgumentException("Un recognised exception passed to method : "+code);
+        throw new IllegalArgumentException("Un recognised code passed to method : " + code);
     }
 }

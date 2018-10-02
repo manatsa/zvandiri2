@@ -349,78 +349,74 @@
 <%@include file="../template/footer.jspf" %>
 <script type="text/javascript">
     $("#educationLevel").change(function () {
-    var name = $("#educationLevel :selected").text();
-            var education = $("#education :selected").text();
-            if (education === "Out of School" && (name === "N/A" || name === "Primary School")) {
-    $(".education-level").removeClass("hide");
-    } else {
-    $(".education-level").addClass("hide");
-    }
+        var name = $("#educationLevel :selected").text();
+        var education = $("#education :selected").text();
+        if (education === "Out of School" && (name === "N/A" || name === "Primary School")) {
+            $(".education-level").removeClass("hide");
+        } else {
+            $(".education-level").addClass("hide");
+        }
     });
-            $("#mobileOwner").change(function () {
-    var name = $("#mobileOwner :selected").text();
-            if (name === "No") {
-    $(".own-mobile").removeClass("hide");
-    } else {
-    $(".own-mobile").addClass("hide");
-    }
+    $("#mobileOwner").change(function () {
+        var name = $("#mobileOwner :selected").text();
+        if (name === "No") {
+            $(".own-mobile").removeClass("hide");
+        } else {
+            $(".own-mobile").addClass("hide");
+        }
     });
-            $("#ownSecondaryMobile").change(function () {
-    var name = $("#ownSecondaryMobile :selected").text();
-            if (name === "No") {
-    $(".sec-own-mobile").removeClass("hide");
-    } else {
-    $(".sec-own-mobile").addClass("hide");
-    }
-    }); veClass("hide");
-    } else {
-    $(".status-known").addClass("hide");
-    }
+    $("#ownSecondaryMobile").change(function () {
+        var name = $("#ownSecondaryMobile :selected").text();
+        if (name === "No") {
+            $(".sec-own-mobile").removeClass("hide");
+        } else {
+            $(".sec-own-mobile").addClass("hide");
+        }
     });
-            $("#hivStatusKnown").change(function () {
-    var name = $("#hivStatusKnown :selected").text();
-            if (name === "Yes") {
-    $(".status-known").removeClass("hide");
-    } else {
-    $("#transmissionMode").val('');
+    $("#hivStatusKnown").change(function () {
+        var name = $("#hivStatusKnown :selected").text();
+        if (name === "Yes") {
+            $(".status-known").removeClass("hide");
+        } else {
+            $("#transmissionMode").val('');
             $("#dateTested").val('');
             $("#hIVDisclosureLocation").val('');
             $(".status-known").addClass("hide");
-    }
+        }
     });
-            $("#disability").change(function () {
-    var name = $("#disability :selected").text();
-            if (name === "Yes") {
-    $(".has-disability").removeClass("hide");
-    } else {
-    $('input:checkbox').removeAttr('checked');
+    $("#disability").change(function () {
+        var name = $("#disability :selected").text();
+        if (name === "Yes") {
+            $(".has-disability").removeClass("hide");
+        } else {
+            $('input:checkbox').removeAttr('checked');
             $(".has-disability").addClass("hide");
-    }
+        }
     });
-            $(function () {
-            window.onload = function () {
+    $(function () {
+        window.onload = function () {
             var name = $("#educationLevel :selected").text();
-                    var education = $("#education :selected").text();
-                    if (education === "Out of School" && (name === "N/A" || name === "Primary School")) {
-            $(".education-level").removeClass("hide");
+            var education = $("#education :selected").text();
+            if (education === "Out of School" && (name === "N/A" || name === "Primary School")) {
+                $(".education-level").removeClass("hide");
             }
             var name = $("#hivStatusKnown :selected").text();
-                    if (name === "Yes") {
-            $(".status-known").removeClass("hide");
+            if (name === "Yes") {
+                $(".status-known").removeClass("hide");
             }
             var name = $("#disability :selected").text();
-                    if (name === "Yes") {
-            $(".has-disability").removeClass("hide");
+            if (name === "Yes") {
+                $(".has-disability").removeClass("hide");
             }
             var name = $("#mobileOwner :selected").text();
-                    if (name === "No") {
-            $(".own-mobile").removeClass("hide");
+            if (name === "No") {
+                $(".own-mobile").removeClass("hide");
             }
             var name = $("#ownSecondaryMobile :selected").text();
-                    if (name === "No") {
-            $(".sec-own-mobile").removeClass("hide");
+            if (name === "No") {
+                $(".sec-own-mobile").removeClass("hide");
             }
-            };
-            });
-            $(window).scrollTop("<c:out value="${item.currentElement}"/>");
+        };
+    });
+    $(window).scrollTop("<c:out value="${item.currentElement}"/>");
 </script>

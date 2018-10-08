@@ -41,9 +41,9 @@
                                                 <c:if test="${count <= 8}">
                                                     <tr>
                                                         <td>${d.name}</td>
-                                                        <td><a href="${page}${d.url}">${d.num}</a></td>
-                                                        <td><a href="${page}${d.url6Months}">${d.num6Months}</a></td>
-                                                        <td><a href="${page}${d.url12Months}">${d.num12Months}</a></td>
+                                                        <td>${d.num}</td>
+                                                        <td>${d.num6Months}</td>
+                                                        <td>${d.num12Months}</td>
                                                     </tr>
                                             </c:if>
                                             <c:set var="count" value="${count + 1}"/>

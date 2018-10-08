@@ -1293,87 +1293,6 @@ public class PatientReportServiceImpl implements PatientReportService {
         StringBuilder builder = new StringBuilder("Select count(Distinct v.patient) from InvestigationTest v");
         int position = 0;
         builder.append(" where ");
-        if (dto.getProvince() != null) {
-            if (position == 0) {
-                builder.append("v.patient.primaryClinic.district.province=:province");
-                position++;
-            } else {
-                builder.append(" and v.patient.primaryClinic.district.province=:province");
-            }
-        }
-        if (dto.getDistrict() != null) {
-            if (position == 0) {
-                builder.append("v.patient.primaryClinic.district=:district");
-                position++;
-            } else {
-                builder.append(" and v.patient.primaryClinic.district=:district");
-            }
-
-        }
-        if (dto.getPrimaryClinic() != null) {
-            if (position == 0) {
-                builder.append("v.patient.primaryClinic=:primaryClinic");
-                position++;
-            } else {
-                builder.append(" and v.patient.primaryClinic=:primaryClinic");
-            }
-        }
-        if (dto.getSupportGroup() != null) {
-            if (position == 0) {
-                builder.append("v.patient.supportGroup=:supportGroup");
-                position++;
-            } else {
-                builder.append(" and v.patient.supportGroup=:supportGroup");
-            }
-        }
-        if (dto.getGender() != null) {
-            if (position == 0) {
-                builder.append("v.patient.gender=:gender");
-                position++;
-            } else {
-                builder.append(" and v.patient.gender=:gender");
-            }
-        }
-        if (dto.getAgeGroup() != null) {
-            if (position == 0) {
-                builder.append("v.patient.dateOfBirth between :start and :end");
-                position++;
-            } else {
-                builder.append(" and v.patient.dateOfBirth between :start and :end");
-            }
-        }
-        if (dto.getPeriod() != null) {
-            if (position == 0) {
-                builder.append("v.patient.period=:period");
-                position++;
-            } else {
-                builder.append(" and v.patient.period=:period");
-            }
-        }
-        if (dto.getStatus() != null) {
-            if (position == 0) {
-                builder.append("v.patient.status=:status");
-                position++;
-            } else {
-                builder.append(" and v.patient.status=:status");
-            }
-        }
-        if (dto.getStartDate() != null && dto.getEndDate() != null) {
-            if (position == 0) {
-                builder.append("v.patient.dateJoined between :startDate and :endDate");
-                position++;
-            } else {
-                builder.append(" and (v.patient.dateJoined between :startDate and :endDate)");
-            }
-        }
-        if (dto.getTestType() != null) {
-            if (position == 0) {
-                builder.append("v.testType=:testType");
-                position++;
-            } else {
-                builder.append(" and v.testType=:testType");
-            }
-        }
         if (dto.getMaxViralLoad() != null) {
             if (position == 0) {
                 builder.append("v.result >:result");
@@ -1391,57 +1310,6 @@ public class PatientReportServiceImpl implements PatientReportService {
                 builder.append(" and v.result <:result");
             }
         }
-        
-        TypedQuery query = entityManager.createQuery(builder.toString(), Long.class);
-        if (dto.getProvince() != null) {
-            query.setParameter("province", dto.getProvince());
-        }
-        if (dto.getDistrict() != null) {
-            query.setParameter("district", dto.getDistrict());
-        }
-        if (dto.getPrimaryClinic() != null) {
-            query.setParameter("primaryClinic", dto.getPrimaryClinic());
-        }
-        if (dto.getSupportGroup() != null) {
-            query.setParameter("supportGroup", dto.getSupportGroup());
-        }
-        if (dto.getGender() != null) {
-            query.setParameter("gender", dto.getGender());
-        }
-        if (dto.getAgeGroup() != null) {
-            query.setParameter("start", DateUtil.getDateFromAge(dto.getAgeGroup().getEnd()));
-            query.setParameter("end", DateUtil.getEndDate(dto.getAgeGroup().getStart()));
-        }
-        if (dto.getPeriod() != null) {
-            query.setParameter("period", dto.getPeriod());
-        }
-        if (dto.getStatus() != null) {
-            query.setParameter("status", dto.getStatus());
-        }
-        if (dto.getStartDate() != null && dto.getEndDate() != null) {
-            query.setParameter("startDate", dto.getStartDate());
-            query.setParameter("endDate", dto.getEndDate());
-        }
-        if (dto.getMinCd4Count() != null) {
-            query.setParameter("result", dto.getMinCd4Count());
-        }
-        if (dto.getMaxViralLoad() != null) {
-            query.setParameter("result", dto.getMaxViralLoad());
-        }
-        if (dto.getMinCd4Count() != null) {
-            query.setParameter("result", dto.getMinCd4Count());
-        }
-        if (dto.getTestType() != null) {
-            query.setParameter("testType", dto.getTestType());
-        }
-        return (Long) query.getSingleResult();
-    }
-    
-    @Override
-    public Long getPatientWithoutViralLoad(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("Select count(Distinct v.patient) from InvestigationTest v");
-        int position = 0;
-        builder.append(" where ");
         if (dto.getProvince() != null) {
             if (position == 0) {
                 builder.append("v.patient.primaryClinic.district.province=:province");
@@ -1477,7 +1345,7 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
         if (dto.getGender() != null) {
             if (position == 0) {
-                builder.append("v.patient.gender=:gender");
+                builder.append("v.patient..gender=:gender");
                 position++;
             } else {
                 builder.append(" and v.patient.gender=:gender");
@@ -1509,10 +1377,10 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
         if (dto.getHei() != null) {
             if (position == 0) {
-                builder.append("v.patient.patient.hei=:hei");
+                builder.append("v.patient.hei=:hei");
                 position++;
             } else {
-                builder.append(" and v.patient.patient.hei=:hei");
+                builder.append(" and v.patient.hei=:hei");
             }
         }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
@@ -1522,33 +1390,7 @@ public class PatientReportServiceImpl implements PatientReportService {
             } else {
                 builder.append(" and (v.patient.dateJoined between :startDate and :endDate)");
             }
-        }
-        if (dto.getTestType() != null) {
-            if (position == 0) {
-                builder.append("v.testType=:testType");
-                position++;
-            } else {
-                builder.append(" and v.testType=:testType");
-            }
-        }
-        if (dto.getMaxViralLoad() != null) {
-            if (position == 0) {
-                builder.append("v.result >:result");
-                position++;
-            } else {
-                builder.append(" and v.result >:result");
-            }
-        }
-
-        if (dto.getMinCd4Count() != null) {
-            if (position == 0) {
-                builder.append("v.result <:result");
-                position++;
-            } else {
-                builder.append(" and v.result <:result");
-            }
-        }
-        
+        }    
         TypedQuery query = entityManager.createQuery(builder.toString(), Long.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());
@@ -1582,9 +1424,6 @@ public class PatientReportServiceImpl implements PatientReportService {
             query.setParameter("startDate", dto.getStartDate());
             query.setParameter("endDate", dto.getEndDate());
         }
-        if (dto.getMinCd4Count() != null) {
-            query.setParameter("result", dto.getMinCd4Count());
-        }
         if (dto.getMaxViralLoad() != null) {
             query.setParameter("result", dto.getMaxViralLoad());
         }
@@ -1592,11 +1431,6 @@ public class PatientReportServiceImpl implements PatientReportService {
             query.setParameter("result", dto.getMinCd4Count());
         }
         return (Long) query.getSingleResult();
-    }
-
-    @Override
-    public Long getPatientWithViralSuppression(SearchDTO dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

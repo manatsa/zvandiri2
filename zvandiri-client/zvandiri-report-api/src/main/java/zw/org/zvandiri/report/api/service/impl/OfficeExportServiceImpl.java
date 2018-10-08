@@ -41,6 +41,7 @@ import zw.org.zvandiri.business.domain.MentalHealthItem;
 import zw.org.zvandiri.business.domain.ObstercHist;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.Referral;
+import zw.org.zvandiri.business.domain.ServicesReferred;
 import zw.org.zvandiri.business.domain.SocialHist;
 import zw.org.zvandiri.business.domain.SubstanceItem;
 import zw.org.zvandiri.business.service.DetailedPatientReportService;
@@ -371,17 +372,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             }
             Cell actionTaken = referralRow.createCell(++count);
             actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
-            /*
-            
-            "HIV Services Referred", "HIV Services Provided"
-            , "HIV & STI Services Referred", "HIV & STI Services Provided", 
-            "OI/ ART Services Referred", "OI/ ART Services Provided", "SRH Services Referred", 
-            "SRH Services Provided", "Laboratory Services Referred", 
-            "Laboratory Services Provided", "TB Services Referred", "TB Services Provided", 
-            "Psych Services Referred", "Psych Services Provided", "Legal Services Referred", 
-            "Legal Services Provided"
-            
-             */
             Cell hivReq = referralRow.createCell(++count);
             hivReq.setCellValue(!referral.getHivStiServicesReq().isEmpty()
                     ? referral.getHivStiServicesReq().toString() : null);
@@ -425,6 +415,791 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             legalRec.setCellValue(!referral.getLegalAvailed().isEmpty()
                     ? referral.getLegalAvailed().toString() : null);
         }
+
+        // add hiv sti services referred
+        HSSFSheet hivStiReferredDetails = workbook.createSheet("Hiv_And_Sti_Services_Referred");
+        int hivStiReferredRowNum = 0;
+        HSSFRow hivStiReferredRow = hivStiReferredDetails.createRow(hivStiReferredRowNum++);
+        int hivStiReferredCellNum = 0;
+        for (String title : DatabaseHeader.REFERRAL_SPECIFI_HEADER) {
+            Cell cell = hivStiReferredRow.createCell(hivStiReferredCellNum++);
+            cell.setCellValue(title);
+        }
+        for (Referral referral : referrals) {
+            if (!referral.getHivStiServicesReq().isEmpty()) {
+                for (ServicesReferred referred : referral.getHivStiServicesReq()) {
+                    int count = 0;
+                    hivStiReferredRow = hivStiReferredDetails.createRow(hivStiReferredRowNum++);
+                    Cell id = hivStiReferredRow.createCell(count);
+                    id.setCellValue(referral.getPatient().getId());
+                    Cell patientName = hivStiReferredRow.createCell(++count);
+                    patientName.setCellValue(referral.getPatient().getName());
+                    Cell province = hivStiReferredRow.createCell(++count);
+                    province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+                    Cell district = hivStiReferredRow.createCell(++count);
+                    district.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getName());
+                    Cell primaryClinic = hivStiReferredRow.createCell(++count);
+                    primaryClinic.setCellValue(referral.getPatient().getPrimaryClinic().getName());
+                    Cell referralDate = hivStiReferredRow.createCell(++count);
+                    referralDate.setCellValue(referral.getReferralDate());
+                    referralDate.setCellStyle(cellStyle);
+                    Cell expectedVisitDate = hivStiReferredRow.createCell(++count);
+                    if (referral.getExpectedVisitDate() != null) {
+                        expectedVisitDate.setCellValue(referral.getExpectedVisitDate());
+                        expectedVisitDate.setCellStyle(cellStyle);
+                    } else {
+                        expectedVisitDate.setCellValue("");
+                    }
+                    Cell organisation = hivStiReferredRow.createCell(++count);
+                    organisation.setCellValue(referral.getOrganisation());
+                    Cell designation = hivStiReferredRow.createCell(++count);
+                    designation.setCellValue(referral.getDesignation());
+                    Cell attendingOfficer = hivStiReferredRow.createCell(++count);
+                    attendingOfficer.setCellValue(referral.getAttendingOfficer());
+                    Cell dateAttended = hivStiReferredRow.createCell(++count);
+                    if (referral.getDateAttended() != null) {
+                        dateAttended.setCellValue(referral.getDateAttended());
+                        dateAttended.setCellStyle(cellStyle);
+                    } else {
+                        dateAttended.setCellValue("");
+                    }
+                    Cell actionTaken = hivStiReferredRow.createCell(++count);
+                    actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
+                    Cell hivReq = hivStiReferredRow.createCell(++count);
+                    hivReq.setCellValue(referred.toString());
+                }
+            }
+
+        }
+
+        // add hiv sti services provided
+        HSSFSheet hivStiProvidedDetails = workbook.createSheet("Hiv_And_Sti_Services_Provided");
+        int hivStiProvidedRowNum = 0;
+        HSSFRow hivStiProvidedRow = hivStiProvidedDetails.createRow(hivStiProvidedRowNum++);
+        int hivStiProvidedCellNum = 0;
+        for (String title : DatabaseHeader.REFERRAL_SPECIFI_HEADER) {
+            Cell cell = hivStiProvidedRow.createCell(hivStiProvidedCellNum++);
+            cell.setCellValue(title);
+        }
+        for (Referral referral : referrals) {
+            if (!referral.getHivStiServicesAvailed().isEmpty()) {
+                for (ServicesReferred referred : referral.getHivStiServicesAvailed()) {
+                    int count = 0;
+                    hivStiProvidedRow = hivStiProvidedDetails.createRow(hivStiProvidedRowNum++);
+                    Cell id = hivStiProvidedRow.createCell(count);
+                    id.setCellValue(referral.getPatient().getId());
+                    Cell patientName = hivStiProvidedRow.createCell(++count);
+                    patientName.setCellValue(referral.getPatient().getName());
+                    Cell province = hivStiProvidedRow.createCell(++count);
+                    province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+                    Cell district = hivStiProvidedRow.createCell(++count);
+                    district.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getName());
+                    Cell primaryClinic = hivStiProvidedRow.createCell(++count);
+                    primaryClinic.setCellValue(referral.getPatient().getPrimaryClinic().getName());
+                    Cell referralDate = hivStiProvidedRow.createCell(++count);
+                    referralDate.setCellValue(referral.getReferralDate());
+                    referralDate.setCellStyle(cellStyle);
+                    Cell expectedVisitDate = hivStiProvidedRow.createCell(++count);
+                    if (referral.getExpectedVisitDate() != null) {
+                        expectedVisitDate.setCellValue(referral.getExpectedVisitDate());
+                        expectedVisitDate.setCellStyle(cellStyle);
+                    } else {
+                        expectedVisitDate.setCellValue("");
+                    }
+                    Cell organisation = hivStiProvidedRow.createCell(++count);
+                    organisation.setCellValue(referral.getOrganisation());
+                    Cell designation = hivStiProvidedRow.createCell(++count);
+                    designation.setCellValue(referral.getDesignation());
+                    Cell attendingOfficer = hivStiProvidedRow.createCell(++count);
+                    attendingOfficer.setCellValue(referral.getAttendingOfficer());
+                    Cell dateAttended = hivStiProvidedRow.createCell(++count);
+                    if (referral.getDateAttended() != null) {
+                        dateAttended.setCellValue(referral.getDateAttended());
+                        dateAttended.setCellStyle(cellStyle);
+                    } else {
+                        dateAttended.setCellValue("");
+                    }
+                    Cell actionTaken = hivStiProvidedRow.createCell(++count);
+                    actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
+                    Cell hivReq = hivStiProvidedRow.createCell(++count);
+                    hivReq.setCellValue(referred.toString());
+                }
+            }
+
+        }
+
+        // add oi art services referred
+        HSSFSheet oiArtReferredDetails = workbook.createSheet("Oi_Art_Services_Referred");
+        int oiArtReferredRowNum = 0;
+        HSSFRow oiArtReferredRow = oiArtReferredDetails.createRow(oiArtReferredRowNum++);
+        int oiArtReferredCellNum = 0;
+        for (String title : DatabaseHeader.REFERRAL_SPECIFI_HEADER) {
+            Cell cell = oiArtReferredRow.createCell(oiArtReferredCellNum++);
+            cell.setCellValue(title);
+        }
+        for (Referral referral : referrals) {
+            if (!referral.getOiArtReq().isEmpty()) {
+                for (ServicesReferred referred : referral.getOiArtReq()) {
+                    int count = 0;
+                    oiArtReferredRow = oiArtReferredDetails.createRow(oiArtReferredRowNum++);
+                    Cell id = oiArtReferredRow.createCell(count);
+                    id.setCellValue(referral.getPatient().getId());
+                    Cell patientName = oiArtReferredRow.createCell(++count);
+                    patientName.setCellValue(referral.getPatient().getName());
+                    Cell province = oiArtReferredRow.createCell(++count);
+                    province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+                    Cell district = oiArtReferredRow.createCell(++count);
+                    district.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getName());
+                    Cell primaryClinic = oiArtReferredRow.createCell(++count);
+                    primaryClinic.setCellValue(referral.getPatient().getPrimaryClinic().getName());
+                    Cell referralDate = oiArtReferredRow.createCell(++count);
+                    referralDate.setCellValue(referral.getReferralDate());
+                    referralDate.setCellStyle(cellStyle);
+                    Cell expectedVisitDate = oiArtReferredRow.createCell(++count);
+                    if (referral.getExpectedVisitDate() != null) {
+                        expectedVisitDate.setCellValue(referral.getExpectedVisitDate());
+                        expectedVisitDate.setCellStyle(cellStyle);
+                    } else {
+                        expectedVisitDate.setCellValue("");
+                    }
+                    Cell organisation = oiArtReferredRow.createCell(++count);
+                    organisation.setCellValue(referral.getOrganisation());
+                    Cell designation = oiArtReferredRow.createCell(++count);
+                    designation.setCellValue(referral.getDesignation());
+                    Cell attendingOfficer = oiArtReferredRow.createCell(++count);
+                    attendingOfficer.setCellValue(referral.getAttendingOfficer());
+                    Cell dateAttended = oiArtReferredRow.createCell(++count);
+                    if (referral.getDateAttended() != null) {
+                        dateAttended.setCellValue(referral.getDateAttended());
+                        dateAttended.setCellStyle(cellStyle);
+                    } else {
+                        dateAttended.setCellValue("");
+                    }
+                    Cell actionTaken = oiArtReferredRow.createCell(++count);
+                    actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
+                    Cell hivReq = oiArtReferredRow.createCell(++count);
+                    hivReq.setCellValue(referred.toString());
+                }
+            }
+
+        }
+
+        // add oi art services provided
+        HSSFSheet oiArtProvidedDetails = workbook.createSheet("Oi_Art_Services_Provided");
+        int oiArtProvidedRowNum = 0;
+        HSSFRow oiArtProvidedRow = oiArtProvidedDetails.createRow(oiArtProvidedRowNum++);
+        int oiArtProvidedCellNum = 0;
+        for (String title : DatabaseHeader.REFERRAL_SPECIFI_HEADER) {
+            Cell cell = oiArtProvidedRow.createCell(oiArtProvidedCellNum++);
+            cell.setCellValue(title);
+        }
+        for (Referral referral : referrals) {
+            if (!referral.getOiArtAvailed().isEmpty()) {
+                for (ServicesReferred referred : referral.getOiArtAvailed()) {
+                    int count = 0;
+                    oiArtProvidedRow = oiArtProvidedDetails.createRow(oiArtProvidedRowNum++);
+                    Cell id = oiArtProvidedRow.createCell(count);
+                    id.setCellValue(referral.getPatient().getId());
+                    Cell patientName = oiArtProvidedRow.createCell(++count);
+                    patientName.setCellValue(referral.getPatient().getName());
+                    Cell province = oiArtProvidedRow.createCell(++count);
+                    province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+                    Cell district = oiArtProvidedRow.createCell(++count);
+                    district.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getName());
+                    Cell primaryClinic = oiArtProvidedRow.createCell(++count);
+                    primaryClinic.setCellValue(referral.getPatient().getPrimaryClinic().getName());
+                    Cell referralDate = oiArtProvidedRow.createCell(++count);
+                    referralDate.setCellValue(referral.getReferralDate());
+                    referralDate.setCellStyle(cellStyle);
+                    Cell expectedVisitDate = oiArtProvidedRow.createCell(++count);
+                    if (referral.getExpectedVisitDate() != null) {
+                        expectedVisitDate.setCellValue(referral.getExpectedVisitDate());
+                        expectedVisitDate.setCellStyle(cellStyle);
+                    } else {
+                        expectedVisitDate.setCellValue("");
+                    }
+                    Cell organisation = oiArtProvidedRow.createCell(++count);
+                    organisation.setCellValue(referral.getOrganisation());
+                    Cell designation = oiArtProvidedRow.createCell(++count);
+                    designation.setCellValue(referral.getDesignation());
+                    Cell attendingOfficer = oiArtProvidedRow.createCell(++count);
+                    attendingOfficer.setCellValue(referral.getAttendingOfficer());
+                    Cell dateAttended = oiArtProvidedRow.createCell(++count);
+                    if (referral.getDateAttended() != null) {
+                        dateAttended.setCellValue(referral.getDateAttended());
+                        dateAttended.setCellStyle(cellStyle);
+                    } else {
+                        dateAttended.setCellValue("");
+                    }
+                    Cell actionTaken = oiArtProvidedRow.createCell(++count);
+                    actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
+                    Cell hivReq = oiArtProvidedRow.createCell(++count);
+                    hivReq.setCellValue(referred.toString());
+                }
+            }
+
+        }
+
+        // add srh services referred
+        HSSFSheet srhReferredDetails = workbook.createSheet("Srh_Services_Referred");
+        int srhReferredRowNum = 0;
+        HSSFRow srhReferredRow = srhReferredDetails.createRow(srhReferredRowNum++);
+        int srhReferredCellNum = 0;
+        for (String title : DatabaseHeader.REFERRAL_SPECIFI_HEADER) {
+            Cell cell = srhReferredRow.createCell(srhReferredCellNum++);
+            cell.setCellValue(title);
+        }
+        for (Referral referral : referrals) {
+            if (!referral.getSrhReq().isEmpty()) {
+                for (ServicesReferred referred : referral.getSrhReq()) {
+                    int count = 0;
+                    srhReferredRow = srhReferredDetails.createRow(srhReferredRowNum++);
+                    Cell id = srhReferredRow.createCell(count);
+                    id.setCellValue(referral.getPatient().getId());
+                    Cell patientName = srhReferredRow.createCell(++count);
+                    patientName.setCellValue(referral.getPatient().getName());
+                    Cell province = srhReferredRow.createCell(++count);
+                    province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+                    Cell district = srhReferredRow.createCell(++count);
+                    district.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getName());
+                    Cell primaryClinic = srhReferredRow.createCell(++count);
+                    primaryClinic.setCellValue(referral.getPatient().getPrimaryClinic().getName());
+                    Cell referralDate = srhReferredRow.createCell(++count);
+                    referralDate.setCellValue(referral.getReferralDate());
+                    referralDate.setCellStyle(cellStyle);
+                    Cell expectedVisitDate = srhReferredRow.createCell(++count);
+                    if (referral.getExpectedVisitDate() != null) {
+                        expectedVisitDate.setCellValue(referral.getExpectedVisitDate());
+                        expectedVisitDate.setCellStyle(cellStyle);
+                    } else {
+                        expectedVisitDate.setCellValue("");
+                    }
+                    Cell organisation = srhReferredRow.createCell(++count);
+                    organisation.setCellValue(referral.getOrganisation());
+                    Cell designation = srhReferredRow.createCell(++count);
+                    designation.setCellValue(referral.getDesignation());
+                    Cell attendingOfficer = srhReferredRow.createCell(++count);
+                    attendingOfficer.setCellValue(referral.getAttendingOfficer());
+                    Cell dateAttended = srhReferredRow.createCell(++count);
+                    if (referral.getDateAttended() != null) {
+                        dateAttended.setCellValue(referral.getDateAttended());
+                        dateAttended.setCellStyle(cellStyle);
+                    } else {
+                        dateAttended.setCellValue("");
+                    }
+                    Cell actionTaken = srhReferredRow.createCell(++count);
+                    actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
+                    Cell hivReq = srhReferredRow.createCell(++count);
+                    hivReq.setCellValue(referred.toString());
+                }
+            }
+
+        }
+
+        // add srh services provided
+        HSSFSheet srhProvidedDetails = workbook.createSheet("Srh_Services_Provided");
+        int srhProvidedRowNum = 0;
+        HSSFRow srhProvidedRow = srhProvidedDetails.createRow(srhProvidedRowNum++);
+        int srhProvidedCellNum = 0;
+        for (String title : DatabaseHeader.REFERRAL_SPECIFI_HEADER) {
+            Cell cell = srhProvidedRow.createCell(srhProvidedCellNum++);
+            cell.setCellValue(title);
+        }
+        for (Referral referral : referrals) {
+            if (!referral.getSrhAvailed().isEmpty()) {
+                for (ServicesReferred referred : referral.getSrhAvailed()) {
+                    int count = 0;
+                    srhProvidedRow = srhProvidedDetails.createRow(srhProvidedRowNum++);
+                    Cell id = srhProvidedRow.createCell(count);
+                    id.setCellValue(referral.getPatient().getId());
+                    Cell patientName = srhProvidedRow.createCell(++count);
+                    patientName.setCellValue(referral.getPatient().getName());
+                    Cell province = srhProvidedRow.createCell(++count);
+                    province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+                    Cell district = srhProvidedRow.createCell(++count);
+                    district.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getName());
+                    Cell primaryClinic = srhProvidedRow.createCell(++count);
+                    primaryClinic.setCellValue(referral.getPatient().getPrimaryClinic().getName());
+                    Cell referralDate = srhProvidedRow.createCell(++count);
+                    referralDate.setCellValue(referral.getReferralDate());
+                    referralDate.setCellStyle(cellStyle);
+                    Cell expectedVisitDate = srhProvidedRow.createCell(++count);
+                    if (referral.getExpectedVisitDate() != null) {
+                        expectedVisitDate.setCellValue(referral.getExpectedVisitDate());
+                        expectedVisitDate.setCellStyle(cellStyle);
+                    } else {
+                        expectedVisitDate.setCellValue("");
+                    }
+                    Cell organisation = srhProvidedRow.createCell(++count);
+                    organisation.setCellValue(referral.getOrganisation());
+                    Cell designation = srhProvidedRow.createCell(++count);
+                    designation.setCellValue(referral.getDesignation());
+                    Cell attendingOfficer = srhProvidedRow.createCell(++count);
+                    attendingOfficer.setCellValue(referral.getAttendingOfficer());
+                    Cell dateAttended = srhProvidedRow.createCell(++count);
+                    if (referral.getDateAttended() != null) {
+                        dateAttended.setCellValue(referral.getDateAttended());
+                        dateAttended.setCellStyle(cellStyle);
+                    } else {
+                        dateAttended.setCellValue("");
+                    }
+                    Cell actionTaken = srhProvidedRow.createCell(++count);
+                    actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
+                    Cell hivReq = srhProvidedRow.createCell(++count);
+                    hivReq.setCellValue(referred.toString());
+                }
+            }
+
+        }
+
+        // add laboratory services referred
+        HSSFSheet laboratoryReferredDetails = workbook.createSheet("Laboratory_Services_Referred");
+        int laboratoryReferredRowNum = 0;
+        HSSFRow laboratoryReferredRow = laboratoryReferredDetails.createRow(laboratoryReferredRowNum++);
+        int laboratoryReferredCellNum = 0;
+        for (String title : DatabaseHeader.REFERRAL_SPECIFI_HEADER) {
+            Cell cell = laboratoryReferredRow.createCell(laboratoryReferredCellNum++);
+            cell.setCellValue(title);
+        }
+        for (Referral referral : referrals) {
+            if (!referral.getLaboratoryReq().isEmpty()) {
+                for (ServicesReferred referred : referral.getLaboratoryReq()) {
+                    int count = 0;
+                    laboratoryReferredRow = laboratoryReferredDetails.createRow(laboratoryReferredRowNum++);
+                    Cell id = laboratoryReferredRow.createCell(count);
+                    id.setCellValue(referral.getPatient().getId());
+                    Cell patientName = laboratoryReferredRow.createCell(++count);
+                    patientName.setCellValue(referral.getPatient().getName());
+                    Cell province = laboratoryReferredRow.createCell(++count);
+                    province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+                    Cell district = laboratoryReferredRow.createCell(++count);
+                    district.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getName());
+                    Cell primaryClinic = laboratoryReferredRow.createCell(++count);
+                    primaryClinic.setCellValue(referral.getPatient().getPrimaryClinic().getName());
+                    Cell referralDate = laboratoryReferredRow.createCell(++count);
+                    referralDate.setCellValue(referral.getReferralDate());
+                    referralDate.setCellStyle(cellStyle);
+                    Cell expectedVisitDate = laboratoryReferredRow.createCell(++count);
+                    if (referral.getExpectedVisitDate() != null) {
+                        expectedVisitDate.setCellValue(referral.getExpectedVisitDate());
+                        expectedVisitDate.setCellStyle(cellStyle);
+                    } else {
+                        expectedVisitDate.setCellValue("");
+                    }
+                    Cell organisation = laboratoryReferredRow.createCell(++count);
+                    organisation.setCellValue(referral.getOrganisation());
+                    Cell designation = laboratoryReferredRow.createCell(++count);
+                    designation.setCellValue(referral.getDesignation());
+                    Cell attendingOfficer = laboratoryReferredRow.createCell(++count);
+                    attendingOfficer.setCellValue(referral.getAttendingOfficer());
+                    Cell dateAttended = laboratoryReferredRow.createCell(++count);
+                    if (referral.getDateAttended() != null) {
+                        dateAttended.setCellValue(referral.getDateAttended());
+                        dateAttended.setCellStyle(cellStyle);
+                    } else {
+                        dateAttended.setCellValue("");
+                    }
+                    Cell actionTaken = laboratoryReferredRow.createCell(++count);
+                    actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
+                    Cell hivReq = laboratoryReferredRow.createCell(++count);
+                    hivReq.setCellValue(referred.toString());
+                }
+            }
+
+        }
+
+        // add laboratory services provided
+        HSSFSheet laboratoryProvidedDetails = workbook.createSheet("Laboratory_Services_Provided");
+        int laboratoryProvidedRowNum = 0;
+        HSSFRow laboratoryProvidedRow = laboratoryProvidedDetails.createRow(laboratoryProvidedRowNum++);
+        int laboratoryProvidedCellNum = 0;
+        for (String title : DatabaseHeader.REFERRAL_SPECIFI_HEADER) {
+            Cell cell = laboratoryProvidedRow.createCell(laboratoryProvidedCellNum++);
+            cell.setCellValue(title);
+        }
+        for (Referral referral : referrals) {
+            if (!referral.getLaboratoryAvailed().isEmpty()) {
+                for (ServicesReferred referred : referral.getLaboratoryAvailed()) {
+                    int count = 0;
+                    laboratoryProvidedRow = laboratoryProvidedDetails.createRow(laboratoryProvidedRowNum++);
+                    Cell id = laboratoryProvidedRow.createCell(count);
+                    id.setCellValue(referral.getPatient().getId());
+                    Cell patientName = laboratoryProvidedRow.createCell(++count);
+                    patientName.setCellValue(referral.getPatient().getName());
+                    Cell province = laboratoryProvidedRow.createCell(++count);
+                    province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+                    Cell district = laboratoryProvidedRow.createCell(++count);
+                    district.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getName());
+                    Cell primaryClinic = laboratoryProvidedRow.createCell(++count);
+                    primaryClinic.setCellValue(referral.getPatient().getPrimaryClinic().getName());
+                    Cell referralDate = laboratoryProvidedRow.createCell(++count);
+                    referralDate.setCellValue(referral.getReferralDate());
+                    referralDate.setCellStyle(cellStyle);
+                    Cell expectedVisitDate = laboratoryProvidedRow.createCell(++count);
+                    if (referral.getExpectedVisitDate() != null) {
+                        expectedVisitDate.setCellValue(referral.getExpectedVisitDate());
+                        expectedVisitDate.setCellStyle(cellStyle);
+                    } else {
+                        expectedVisitDate.setCellValue("");
+                    }
+                    Cell organisation = laboratoryProvidedRow.createCell(++count);
+                    organisation.setCellValue(referral.getOrganisation());
+                    Cell designation = laboratoryProvidedRow.createCell(++count);
+                    designation.setCellValue(referral.getDesignation());
+                    Cell attendingOfficer = laboratoryProvidedRow.createCell(++count);
+                    attendingOfficer.setCellValue(referral.getAttendingOfficer());
+                    Cell dateAttended = laboratoryProvidedRow.createCell(++count);
+                    if (referral.getDateAttended() != null) {
+                        dateAttended.setCellValue(referral.getDateAttended());
+                        dateAttended.setCellStyle(cellStyle);
+                    } else {
+                        dateAttended.setCellValue("");
+                    }
+                    Cell actionTaken = laboratoryProvidedRow.createCell(++count);
+                    actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
+                    Cell hivReq = laboratoryProvidedRow.createCell(++count);
+                    hivReq.setCellValue(referred.toString());
+                }
+            }
+
+        }
+
+        // add tb services referred
+        HSSFSheet tbReferredDetails = workbook.createSheet("Tb_Services_Referred");
+        int tbReferredRowNum = 0;
+        HSSFRow tbReferredRow = tbReferredDetails.createRow(tbReferredRowNum++);
+        int tbReferredCellNum = 0;
+        for (String title : DatabaseHeader.REFERRAL_SPECIFI_HEADER) {
+            Cell cell = tbReferredRow.createCell(tbReferredCellNum++);
+            cell.setCellValue(title);
+        }
+        for (Referral referral : referrals) {
+            if (!referral.getTbReq().isEmpty()) {
+                for (ServicesReferred referred : referral.getTbReq()) {
+                    int count = 0;
+                    tbReferredRow = tbReferredDetails.createRow(tbReferredRowNum++);
+                    Cell id = tbReferredRow.createCell(count);
+                    id.setCellValue(referral.getPatient().getId());
+                    Cell patientName = tbReferredRow.createCell(++count);
+                    patientName.setCellValue(referral.getPatient().getName());
+                    Cell province = tbReferredRow.createCell(++count);
+                    province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+                    Cell district = tbReferredRow.createCell(++count);
+                    district.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getName());
+                    Cell primaryClinic = tbReferredRow.createCell(++count);
+                    primaryClinic.setCellValue(referral.getPatient().getPrimaryClinic().getName());
+                    Cell referralDate = tbReferredRow.createCell(++count);
+                    referralDate.setCellValue(referral.getReferralDate());
+                    referralDate.setCellStyle(cellStyle);
+                    Cell expectedVisitDate = tbReferredRow.createCell(++count);
+                    if (referral.getExpectedVisitDate() != null) {
+                        expectedVisitDate.setCellValue(referral.getExpectedVisitDate());
+                        expectedVisitDate.setCellStyle(cellStyle);
+                    } else {
+                        expectedVisitDate.setCellValue("");
+                    }
+                    Cell organisation = tbReferredRow.createCell(++count);
+                    organisation.setCellValue(referral.getOrganisation());
+                    Cell designation = tbReferredRow.createCell(++count);
+                    designation.setCellValue(referral.getDesignation());
+                    Cell attendingOfficer = tbReferredRow.createCell(++count);
+                    attendingOfficer.setCellValue(referral.getAttendingOfficer());
+                    Cell dateAttended = tbReferredRow.createCell(++count);
+                    if (referral.getDateAttended() != null) {
+                        dateAttended.setCellValue(referral.getDateAttended());
+                        dateAttended.setCellStyle(cellStyle);
+                    } else {
+                        dateAttended.setCellValue("");
+                    }
+                    Cell actionTaken = tbReferredRow.createCell(++count);
+                    actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
+                    Cell hivReq = tbReferredRow.createCell(++count);
+                    hivReq.setCellValue(referred.toString());
+                }
+            }
+
+        }
+
+        // add tb services provided
+        HSSFSheet tbProvidedDetails = workbook.createSheet("Tb_Services_Provided");
+        int tbProvidedRowNum = 0;
+        HSSFRow tbProvidedRow = tbProvidedDetails.createRow(tbProvidedRowNum++);
+        int tbProvidedCellNum = 0;
+        for (String title : DatabaseHeader.REFERRAL_SPECIFI_HEADER) {
+            Cell cell = tbProvidedRow.createCell(tbProvidedCellNum++);
+            cell.setCellValue(title);
+        }
+        for (Referral referral : referrals) {
+            if (!referral.getTbAvailed().isEmpty()) {
+                for (ServicesReferred referred : referral.getTbAvailed()) {
+                    int count = 0;
+                    tbProvidedRow = tbProvidedDetails.createRow(tbProvidedRowNum++);
+                    Cell id = tbProvidedRow.createCell(count);
+                    id.setCellValue(referral.getPatient().getId());
+                    Cell patientName = tbProvidedRow.createCell(++count);
+                    patientName.setCellValue(referral.getPatient().getName());
+                    Cell province = tbProvidedRow.createCell(++count);
+                    province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+                    Cell district = tbProvidedRow.createCell(++count);
+                    district.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getName());
+                    Cell primaryClinic = tbProvidedRow.createCell(++count);
+                    primaryClinic.setCellValue(referral.getPatient().getPrimaryClinic().getName());
+                    Cell referralDate = tbProvidedRow.createCell(++count);
+                    referralDate.setCellValue(referral.getReferralDate());
+                    referralDate.setCellStyle(cellStyle);
+                    Cell expectedVisitDate = tbProvidedRow.createCell(++count);
+                    if (referral.getExpectedVisitDate() != null) {
+                        expectedVisitDate.setCellValue(referral.getExpectedVisitDate());
+                        expectedVisitDate.setCellStyle(cellStyle);
+                    } else {
+                        expectedVisitDate.setCellValue("");
+                    }
+                    Cell organisation = tbProvidedRow.createCell(++count);
+                    organisation.setCellValue(referral.getOrganisation());
+                    Cell designation = tbProvidedRow.createCell(++count);
+                    designation.setCellValue(referral.getDesignation());
+                    Cell attendingOfficer = tbProvidedRow.createCell(++count);
+                    attendingOfficer.setCellValue(referral.getAttendingOfficer());
+                    Cell dateAttended = tbProvidedRow.createCell(++count);
+                    if (referral.getDateAttended() != null) {
+                        dateAttended.setCellValue(referral.getDateAttended());
+                        dateAttended.setCellStyle(cellStyle);
+                    } else {
+                        dateAttended.setCellValue("");
+                    }
+                    Cell actionTaken = tbProvidedRow.createCell(++count);
+                    actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
+                    Cell hivReq = tbProvidedRow.createCell(++count);
+                    hivReq.setCellValue(referred.toString());
+                }
+            }
+
+        }
+
+        // add psych services referred
+        HSSFSheet psychReferredDetails = workbook.createSheet("Psych_Services_Referred");
+        int psychReferredRowNum = 0;
+        HSSFRow psychReferredRow = psychReferredDetails.createRow(psychReferredRowNum++);
+        int psychReferredCellNum = 0;
+        for (String title : DatabaseHeader.REFERRAL_SPECIFI_HEADER) {
+            Cell cell = psychReferredRow.createCell(psychReferredCellNum++);
+            cell.setCellValue(title);
+        }
+        for (Referral referral : referrals) {
+            if (!referral.getPsychReq().isEmpty()) {
+                for (ServicesReferred referred : referral.getPsychReq()) {
+                    int count = 0;
+                    psychReferredRow = psychReferredDetails.createRow(psychReferredRowNum++);
+                    Cell id = psychReferredRow.createCell(count);
+                    id.setCellValue(referral.getPatient().getId());
+                    Cell patientName = psychReferredRow.createCell(++count);
+                    patientName.setCellValue(referral.getPatient().getName());
+                    Cell province = psychReferredRow.createCell(++count);
+                    province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+                    Cell district = psychReferredRow.createCell(++count);
+                    district.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getName());
+                    Cell primaryClinic = psychReferredRow.createCell(++count);
+                    primaryClinic.setCellValue(referral.getPatient().getPrimaryClinic().getName());
+                    Cell referralDate = psychReferredRow.createCell(++count);
+                    referralDate.setCellValue(referral.getReferralDate());
+                    referralDate.setCellStyle(cellStyle);
+                    Cell expectedVisitDate = psychReferredRow.createCell(++count);
+                    if (referral.getExpectedVisitDate() != null) {
+                        expectedVisitDate.setCellValue(referral.getExpectedVisitDate());
+                        expectedVisitDate.setCellStyle(cellStyle);
+                    } else {
+                        expectedVisitDate.setCellValue("");
+                    }
+                    Cell organisation = psychReferredRow.createCell(++count);
+                    organisation.setCellValue(referral.getOrganisation());
+                    Cell designation = psychReferredRow.createCell(++count);
+                    designation.setCellValue(referral.getDesignation());
+                    Cell attendingOfficer = psychReferredRow.createCell(++count);
+                    attendingOfficer.setCellValue(referral.getAttendingOfficer());
+                    Cell dateAttended = psychReferredRow.createCell(++count);
+                    if (referral.getDateAttended() != null) {
+                        dateAttended.setCellValue(referral.getDateAttended());
+                        dateAttended.setCellStyle(cellStyle);
+                    } else {
+                        dateAttended.setCellValue("");
+                    }
+                    Cell actionTaken = psychReferredRow.createCell(++count);
+                    actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
+                    Cell hivReq = psychReferredRow.createCell(++count);
+                    hivReq.setCellValue(referred.toString());
+                }
+            }
+
+        }
+
+        // add psych services provided
+        HSSFSheet psychProvidedDetails = workbook.createSheet("Psych_Services_Provided");
+        int psychProvidedRowNum = 0;
+        HSSFRow psychProvidedRow = psychProvidedDetails.createRow(psychProvidedRowNum++);
+        int psychProvidedCellNum = 0;
+        for (String title : DatabaseHeader.REFERRAL_SPECIFI_HEADER) {
+            Cell cell = psychProvidedRow.createCell(psychProvidedCellNum++);
+            cell.setCellValue(title);
+        }
+        for (Referral referral : referrals) {
+            if (!referral.getPsychAvailed().isEmpty()) {
+                for (ServicesReferred referred : referral.getPsychAvailed()) {
+                    int count = 0;
+                    psychProvidedRow = psychProvidedDetails.createRow(psychProvidedRowNum++);
+                    Cell id = psychProvidedRow.createCell(count);
+                    id.setCellValue(referral.getPatient().getId());
+                    Cell patientName = psychProvidedRow.createCell(++count);
+                    patientName.setCellValue(referral.getPatient().getName());
+                    Cell province = psychProvidedRow.createCell(++count);
+                    province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+                    Cell district = psychProvidedRow.createCell(++count);
+                    district.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getName());
+                    Cell primaryClinic = psychProvidedRow.createCell(++count);
+                    primaryClinic.setCellValue(referral.getPatient().getPrimaryClinic().getName());
+                    Cell referralDate = psychProvidedRow.createCell(++count);
+                    referralDate.setCellValue(referral.getReferralDate());
+                    referralDate.setCellStyle(cellStyle);
+                    Cell expectedVisitDate = psychProvidedRow.createCell(++count);
+                    if (referral.getExpectedVisitDate() != null) {
+                        expectedVisitDate.setCellValue(referral.getExpectedVisitDate());
+                        expectedVisitDate.setCellStyle(cellStyle);
+                    } else {
+                        expectedVisitDate.setCellValue("");
+                    }
+                    Cell organisation = psychProvidedRow.createCell(++count);
+                    organisation.setCellValue(referral.getOrganisation());
+                    Cell designation = psychProvidedRow.createCell(++count);
+                    designation.setCellValue(referral.getDesignation());
+                    Cell attendingOfficer = psychProvidedRow.createCell(++count);
+                    attendingOfficer.setCellValue(referral.getAttendingOfficer());
+                    Cell dateAttended = psychProvidedRow.createCell(++count);
+                    if (referral.getDateAttended() != null) {
+                        dateAttended.setCellValue(referral.getDateAttended());
+                        dateAttended.setCellStyle(cellStyle);
+                    } else {
+                        dateAttended.setCellValue("");
+                    }
+                    Cell actionTaken = psychProvidedRow.createCell(++count);
+                    actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
+                    Cell hivReq = psychProvidedRow.createCell(++count);
+                    hivReq.setCellValue(referred.toString());
+                }
+            }
+
+        }
+
+        // add legal services referred
+        HSSFSheet legalReferredDetails = workbook.createSheet("Legal_Services_Referred");
+        int legalReferredRowNum = 0;
+        HSSFRow legalReferredRow = legalReferredDetails.createRow(legalReferredRowNum++);
+        int legalReferredCellNum = 0;
+        for (String title : DatabaseHeader.REFERRAL_SPECIFI_HEADER) {
+            Cell cell = legalReferredRow.createCell(legalReferredCellNum++);
+            cell.setCellValue(title);
+        }
+        for (Referral referral : referrals) {
+            if (!referral.getLegalReq().isEmpty()) {
+                for (ServicesReferred referred : referral.getLegalReq()) {
+                    int count = 0;
+                    legalReferredRow = legalReferredDetails.createRow(legalReferredRowNum++);
+                    Cell id = legalReferredRow.createCell(count);
+                    id.setCellValue(referral.getPatient().getId());
+                    Cell patientName = legalReferredRow.createCell(++count);
+                    patientName.setCellValue(referral.getPatient().getName());
+                    Cell province = legalReferredRow.createCell(++count);
+                    province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+                    Cell district = legalReferredRow.createCell(++count);
+                    district.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getName());
+                    Cell primaryClinic = legalReferredRow.createCell(++count);
+                    primaryClinic.setCellValue(referral.getPatient().getPrimaryClinic().getName());
+                    Cell referralDate = legalReferredRow.createCell(++count);
+                    referralDate.setCellValue(referral.getReferralDate());
+                    referralDate.setCellStyle(cellStyle);
+                    Cell expectedVisitDate = legalReferredRow.createCell(++count);
+                    if (referral.getExpectedVisitDate() != null) {
+                        expectedVisitDate.setCellValue(referral.getExpectedVisitDate());
+                        expectedVisitDate.setCellStyle(cellStyle);
+                    } else {
+                        expectedVisitDate.setCellValue("");
+                    }
+                    Cell organisation = legalReferredRow.createCell(++count);
+                    organisation.setCellValue(referral.getOrganisation());
+                    Cell designation = legalReferredRow.createCell(++count);
+                    designation.setCellValue(referral.getDesignation());
+                    Cell attendingOfficer = legalReferredRow.createCell(++count);
+                    attendingOfficer.setCellValue(referral.getAttendingOfficer());
+                    Cell dateAttended = legalReferredRow.createCell(++count);
+                    if (referral.getDateAttended() != null) {
+                        dateAttended.setCellValue(referral.getDateAttended());
+                        dateAttended.setCellStyle(cellStyle);
+                    } else {
+                        dateAttended.setCellValue("");
+                    }
+                    Cell actionTaken = legalReferredRow.createCell(++count);
+                    actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
+                    Cell hivReq = legalReferredRow.createCell(++count);
+                    hivReq.setCellValue(referred.toString());
+                }
+            }
+
+        }
+
+        // add legal services provided
+        HSSFSheet legalProvidedDetails = workbook.createSheet("Legal_Services_Provided");
+        int legalProvidedRowNum = 0;
+        HSSFRow legalProvidedRow = legalProvidedDetails.createRow(legalProvidedRowNum++);
+        int legalProvidedCellNum = 0;
+        for (String title : DatabaseHeader.REFERRAL_SPECIFI_HEADER) {
+            Cell cell = legalProvidedRow.createCell(legalProvidedCellNum++);
+            cell.setCellValue(title);
+        }
+        for (Referral referral : referrals) {
+            if (!referral.getLegalAvailed().isEmpty()) {
+                for (ServicesReferred referred : referral.getLegalAvailed()) {
+                    int count = 0;
+                    legalProvidedRow = legalProvidedDetails.createRow(legalProvidedRowNum++);
+                    Cell id = legalProvidedRow.createCell(count);
+                    id.setCellValue(referral.getPatient().getId());
+                    Cell patientName = legalProvidedRow.createCell(++count);
+                    patientName.setCellValue(referral.getPatient().getName());
+                    Cell province = legalProvidedRow.createCell(++count);
+                    province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+                    Cell district = legalProvidedRow.createCell(++count);
+                    district.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getName());
+                    Cell primaryClinic = legalProvidedRow.createCell(++count);
+                    primaryClinic.setCellValue(referral.getPatient().getPrimaryClinic().getName());
+                    Cell referralDate = legalProvidedRow.createCell(++count);
+                    referralDate.setCellValue(referral.getReferralDate());
+                    referralDate.setCellStyle(cellStyle);
+                    Cell expectedVisitDate = legalProvidedRow.createCell(++count);
+                    if (referral.getExpectedVisitDate() != null) {
+                        expectedVisitDate.setCellValue(referral.getExpectedVisitDate());
+                        expectedVisitDate.setCellStyle(cellStyle);
+                    } else {
+                        expectedVisitDate.setCellValue("");
+                    }
+                    Cell organisation = legalProvidedRow.createCell(++count);
+                    organisation.setCellValue(referral.getOrganisation());
+                    Cell designation = legalProvidedRow.createCell(++count);
+                    designation.setCellValue(referral.getDesignation());
+                    Cell attendingOfficer = legalProvidedRow.createCell(++count);
+                    attendingOfficer.setCellValue(referral.getAttendingOfficer());
+                    Cell dateAttended = legalProvidedRow.createCell(++count);
+                    if (referral.getDateAttended() != null) {
+                        dateAttended.setCellValue(referral.getDateAttended());
+                        dateAttended.setCellStyle(cellStyle);
+                    } else {
+                        dateAttended.setCellValue("");
+                    }
+                    Cell actionTaken = legalProvidedRow.createCell(++count);
+                    actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
+                    Cell hivReq = legalProvidedRow.createCell(++count);
+                    hivReq.setCellValue(referred.toString());
+                }
+            }
+
+        }
+
         // add patient dependants
         HSSFSheet dependantDetails = workbook.createSheet("Patient_Dependants");
         int dependantRowNum = 0;

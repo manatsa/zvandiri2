@@ -55,8 +55,12 @@ public interface DatabaseHeader {
     
     public final String [] CONTACT_HEADER = {
         "ID", "Patient Name", "Region", "District","Primary Clinic", "Contact Date", "Care Level", "Location", "Position",
-        "Reason", "Followup", "Subjective", "Objective", "Assessment", "Plan", "Action Taken",
+        "Reason", "Followup", "Subjective", "Objective", "Plan", "Action Taken",
         "Last Clinic Appointmet Date", "Attended Clinic Appointment"
+    };
+    
+    public final String [] ASSESSMENT_HEADER = {
+        "ID", "Patient Name", "Region", "District","Primary Clinic", "Contact Date", "Care Level", "Assessment"
     };
     
     public final String [] SOCIAL_HISTORY_HEADER = {

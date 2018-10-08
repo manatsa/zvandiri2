@@ -31,6 +31,7 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.ArvHist;
+import zw.org.zvandiri.business.domain.Assessment;
 import zw.org.zvandiri.business.domain.ChronicInfectionItem;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Dependent;
@@ -194,7 +195,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell hivDisclosureLoc = header.createCell(++count);
             hivDisclosureLoc.setCellValue(
                     patient.gethIVDisclosureLocation() != null
-                            ? patient.gethIVDisclosureLocation().getName() : null
+                    ? patient.gethIVDisclosureLocation().getName() : null
             );
             Cell hasDisability = header.createCell(++count);
             hasDisability.setCellValue(
@@ -211,15 +212,15 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell transMode = header.createCell(++count);
             transMode.setCellValue(
                     patient.getTransmissionMode() != null
-                            ? patient.getTransmissionMode().getName() : null);
+                    ? patient.getTransmissionMode().getName() : null);
             Cell hivStatusKnown = header.createCell(++count);
             hivStatusKnown.setCellValue(
                     patient.getHivStatusKnown() != null
-                            ? patient.getHivStatusKnown().getName() : null);
+                    ? patient.getHivStatusKnown().getName() : null);
             Cell patientStatus = header.createCell(++count);
             patientStatus.setCellValue(
                     patient.getStatus() != null
-                            ? patient.getStatus().getName() : null);
+                    ? patient.getStatus().getName() : null);
             Cell dateStatusChanged = header.createCell(++count);
             if (patient.getStatusChangeDate() != null) {
                 dateStatusChanged.setCellValue(patient.getStatusChangeDate());
@@ -228,10 +229,10 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 dateStatusChanged.setCellValue("");
             }
             numPatient++;
-            if(numPatient >= 65535) {
+            if (numPatient >= 65535) {
                 break;
             }
-                    
+
         }
         // add contacts
         HSSFSheet contactDetails = workbook.createSheet("Patient_Contacts");
@@ -240,7 +241,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         int contactCellNum = 0;
         for (String title : DatabaseHeader.CONTACT_HEADER) {
             Cell cell = contactHeader.createCell(contactCellNum++);
-            cell.setCellValue(title);           
+            cell.setCellValue(title);
         }
         for (Contact contact : contacts) {
             int count = 0;
@@ -273,11 +274,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             subjective.setCellValue(contact.getSubjective());
             Cell objective = contactHeader.createCell(++count);
             objective.setCellValue(contact.getObjective());
-             
-            Cell assessment = contactHeader.createCell(++count);
-            if (!contact.getAssessments().isEmpty()) {
-                assessment.setCellValue(contact.getAssessments().toString());
-            }
             Cell plan = contactHeader.createCell(++count);
             plan.setCellValue(contact.getPlan());
             Cell actionTaken = contactHeader.createCell(++count);
@@ -292,6 +288,41 @@ public class OfficeExportServiceImpl implements OfficeExportService {
 
             Cell attendedClinicAppointment = contactHeader.createCell(++count);
             attendedClinicAppointment.setCellValue(contact.getAttendedClinicAppointment() != null ? contact.getAttendedClinicAppointment().getName() : "");
+        }
+
+        // add contact assessments
+        HSSFSheet assessmentDetails = workbook.createSheet("Patient_Contact_Assessments");
+        int assessmentRowNum = 0;
+        HSSFRow assessmentHeader = assessmentDetails.createRow(assessmentRowNum++);
+        int assessmentCellNum = 0;
+        for (String title : DatabaseHeader.ASSESSMENT_HEADER) {
+            Cell cell = assessmentHeader.createCell(assessmentCellNum++);
+            cell.setCellValue(title);
+        }
+        for (Contact contact : contacts) {
+            if (!contact.getAssessments().isEmpty()) {
+                for (Assessment item : contact.getAssessments()) {
+                    int count = 0;
+                    assessmentHeader = assessmentDetails.createRow(assessmentRowNum++);
+                    Cell id = assessmentHeader.createCell(count);
+                    id.setCellValue(contact.getPatient().getId());
+                    Cell patientName = assessmentHeader.createCell(++count);
+                    patientName.setCellValue(contact.getPatient().getName());
+                    Cell province = assessmentHeader.createCell(++count);
+                    province.setCellValue(contact.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+                    Cell district = assessmentHeader.createCell(++count);
+                    district.setCellValue(contact.getPatient().getPrimaryClinic().getDistrict().getName());
+                    Cell primaryClinic = assessmentHeader.createCell(++count);
+                    primaryClinic.setCellValue(contact.getPatient().getPrimaryClinic().getName());
+                    Cell contactDate = assessmentHeader.createCell(++count);
+                    contactDate.setCellValue(contact.getContactDate());
+                    contactDate.setCellStyle(cellStyle);
+                    Cell careLevel = assessmentHeader.createCell(++count);
+                    careLevel.setCellValue(contact.getCareLevel().getName());
+                    Cell assessment = assessmentHeader.createCell(++count);
+                    assessment.setCellValue(item.toString());
+                }
+            }
         }
         // add referrals
         HSSFSheet referralDetails = workbook.createSheet("Patient_Referral");
@@ -350,7 +381,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             "Psych Services Referred", "Psych Services Provided", "Legal Services Referred", 
             "Legal Services Provided"
             
-            */
+             */
             Cell hivReq = referralRow.createCell(++count);
             hivReq.setCellValue(!referral.getHivStiServicesReq().isEmpty()
                     ? referral.getHivStiServicesReq().toString() : null);
@@ -529,7 +560,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell receiveProfessionalHelp = mentalHealthRow.createCell(++count);
             receiveProfessionalHelp.setCellValue(
                     mentalHealthItem.getReceivedProfessionalHelp() != null
-                            ? mentalHealthItem.getReceivedProfessionalHelp().getName() : ""
+                    ? mentalHealthItem.getReceivedProfessionalHelp().getName() : ""
             );
             Cell helpStartDate = mentalHealthRow.createCell(++count);
             if (mentalHealthItem.getProfHelpStart() != null) {
@@ -565,7 +596,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell hosp = mentalHealthRow.createCell(++count);
             hosp.setCellValue(
                     mentalHealthItem.getBeenHospitalized() != null
-                            ? mentalHealthItem.getBeenHospitalized().getName() : ""
+                    ? mentalHealthItem.getBeenHospitalized().getName() : ""
             );
             Cell desc = mentalHealthRow.createCell(++count);
             desc.setCellValue(mentalHealthItem.getMentalHistText());
@@ -599,22 +630,22 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell currentPreg = obsRow.createCell(++count);
             currentPreg.setCellValue(
                     obstercHist.getPregCurrent() != null
-                            ? obstercHist.getPregCurrent().getName() : ""
+                    ? obstercHist.getPregCurrent().getName() : ""
             );
             Cell numAncVisit = obsRow.createCell(++count);
             numAncVisit.setCellValue(
                     obstercHist.getNumberOfANCVisit() != null
-                            ? obstercHist.getNumberOfANCVisit().getName() : ""
+                    ? obstercHist.getNumberOfANCVisit().getName() : ""
             );
             Cell gestAge = obsRow.createCell(++count);
             gestAge.setCellValue(
                     obstercHist.getGestationalAge() != null
-                            ? obstercHist.getGestationalAge().getName() : ""
+                    ? obstercHist.getGestationalAge().getName() : ""
             );
             Cell artStarted = obsRow.createCell(++count);
             artStarted.setCellValue(
                     obstercHist.getArtStarted() != null
-                            ? obstercHist.getArtStarted().getName() : ""
+                    ? obstercHist.getArtStarted().getName() : ""
             );
             Cell numChildren = obsRow.createCell(++count);
             numChildren.setCellValue(obstercHist.getChildren() != null ? obstercHist.getChildren() : 0);
@@ -646,7 +677,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell relationship = socialHistRow.createCell(++count);
             relationship.setCellValue(
                     socialHist.getRelationship() != null
-                            ? socialHist.getRelationship().getName() : ""
+                    ? socialHist.getRelationship().getName() : ""
             );
             Cell abused = socialHistRow.createCell(++count);
             abused.setCellValue(

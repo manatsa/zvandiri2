@@ -31,7 +31,8 @@
                                     <td>
                                         <a href="<c:url value="/person/item.form?id=${item.id}"/>">Edit | </a>
                                         <a href="<c:url value="/person/item.delete?id=${item.id}"/>">Delete | </a>
-                                         <a href="<c:url value="/hiv-self-testing/item.list?id=${item.id}"/>">Self Testing</a>
+                                         <a href="<c:url value="/hiv-self-testing/item.list?id=${item.id}"/>">Self Testing |</a>
+                                         <a href="<c:url value="/tb-screening/item.list?id=${item.id}"/>">TB Screening</a>
                                     </td>
                                 </tr>
                             </c:forEach>

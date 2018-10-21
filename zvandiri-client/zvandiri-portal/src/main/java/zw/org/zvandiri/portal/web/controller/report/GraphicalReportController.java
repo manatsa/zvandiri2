@@ -30,6 +30,7 @@ import zw.org.zvandiri.business.service.DistrictService;
 import zw.org.zvandiri.business.service.FacilityService;
 import zw.org.zvandiri.business.service.ProvinceService;
 import zw.org.zvandiri.business.service.SettingsService;
+import zw.org.zvandiri.business.service.TbScreeningService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import static zw.org.zvandiri.portal.util.Graph_Prop.*;
 import zw.org.zvandiri.portal.web.controller.BaseController;
@@ -43,6 +44,7 @@ import zw.org.zvandiri.report.api.service.PatientReportAPIService;
 import zw.org.zvandiri.report.api.service.PatientStatusReportService;
 import zw.org.zvandiri.report.api.service.PatientViralLoadReportService;
 import zw.org.zvandiri.report.api.service.ReferralReportAPIService;
+import zw.org.zvandiri.report.api.service.TbScreeningReportReportService;
 
 /**
  *
@@ -76,6 +78,10 @@ public class GraphicalReportController extends BaseController{
     private PatientContactReportService patientContactReportService;
     @Resource
     private PatientViralLoadReportService patientViralLoadReportService;
+    @Resource
+    private TbScreeningReportReportService tbScreeningReportReportService;
+    @Resource
+    private TbScreeningService screeningService;
     
     public void setUpModel(ModelMap map, SearchDTO dto){
         dto = getUserLevelObjectState(dto);
@@ -387,4 +393,63 @@ public class GraphicalReportController extends BaseController{
         }
     }
     
+    @RequestMapping(value = "/tb-screening-treatment-status", method = RequestMethod.GET)
+    public String showTbScreeningTreatmentStatusChart(ModelMap map){
+        SearchDTO dto = new SearchDTO();
+        setUpModel(map, dto);
+        map.addAttribute("pageTitle", APP_PREFIX + "Trends Of TB Screening By Treatment Status");
+        map.addAttribute("report", "/tb-screening-treatment-status/trend" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/tb-screening-treatment-status", method = RequestMethod.POST)
+    public String showTbScreeningTreatmentStatusPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
+        setUpModel(map, dto);
+        map.addAttribute("pageTitle", APP_PREFIX + "Trends Of TB Screening By Treatment Status");
+        map.addAttribute("report", "/tb-screening-treatment-status/trend" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/tb-screening-treatment-status/trend", method = RequestMethod.GET)
+    public void displayTreatmentStatusTrend(HttpServletResponse response, SearchDTO dto) {
+        response.setContentType("image/png");
+        JFreeChart barGraph = null;
+        Integer maxItems = screeningService.getAll().size();
+        try {
+            barGraph = aggregateVisualReportService.getTbStatusTrend(new ChartModelItem("", "", "Quarters", maxItems, true), tbScreeningReportReportService.getTbTreatmentStatusTrendReport(dto.getInstance(dto)), "Active On Tb Treatment");
+            ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, GRAPH_WIDTH, GRAPH_HEIGHT);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    @RequestMapping(value = "/tb-screening-treatment-outcome", method = RequestMethod.GET)
+    public String showTbScreeningTreatmentOutcomeChart(ModelMap map){
+        SearchDTO dto = new SearchDTO();
+        setUpModel(map, dto);
+        map.addAttribute("pageTitle", APP_PREFIX + "Trends Of TB Screening By Treatment Outcome");
+        map.addAttribute("report", "/tb-screening-treatment-outcome/trend" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/tb-screening-treatment-outcome", method = RequestMethod.POST)
+    public String showTbScreeningTreatmentOutcomePost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
+        setUpModel(map, dto);
+        map.addAttribute("pageTitle", APP_PREFIX + "Trends Of TB Screening By Treatment Outcome");
+        map.addAttribute("report", "/tb-screening-treatment-outcome/trend" + dto.getQueryString(dto.getInstance(dto)));
+        return "report/graphs";
+    }
+    
+    @RequestMapping(value = "/tb-screening-treatment-outcome/trend", method = RequestMethod.GET)
+    public void displayTreatmentOutcomeTrend(HttpServletResponse response, SearchDTO dto) {
+        response.setContentType("image/png");
+        JFreeChart barGraph = null;
+        Integer maxItems = screeningService.getAll().size();
+        try {
+            barGraph = aggregateVisualReportService.getTbOutcomeTrend(new ChartModelItem("", "", "Quarters", maxItems, true), tbScreeningReportReportService.getTbTreatmentOutcomeTrendReport(dto.getInstance(dto)), "Successful");
+            ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, GRAPH_WIDTH, GRAPH_HEIGHT);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

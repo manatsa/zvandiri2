@@ -96,6 +96,12 @@
                                 <td>&nbsp;</td>
                             </tr>
                             <tr>
+                                <td>
+                                    <a href="${page}/report/tb-screening/screening">TB Screening Report</a>
+                                    <td>&nbsp;</td>
+                                </td>
+                            </tr>
+                            <tr>
                                 <th colspan="2">Visual Reports</th>
                             </tr>
                             <tr>
@@ -115,8 +121,8 @@
                                 <td><a href="${page}/report/graphs/patient-contact-distribution">Patient Distribution By Contact</a></td>
                             </tr>
                             <tr>
-                                <td><a href="${page}/report/graphs/patient-viral-load-distribution">Patient Distribution By Viral Load</a></td>
-                                 <td><a href="${page}/report/graphs/patient-viral-suppression-distribution">Patient Distribution By Viral Suppression</a></td>
+                                <td><a href="${page}/report/graphs/tb-screening-treatment-status">TB Screening By Treatment Status</a></td>
+                                 <td><a href="${page}/report/graphs/tb-screening-treatment-outcome">TB Screening By Treatment Outcome</a></td>
                             </tr>
                         </tbody>
                     </table>

@@ -26,14 +26,18 @@ import zw.org.zvandiri.report.api.GenericReportModel;
  * @author Judge Muzinda
  */
 public interface AggregateVisualReportService {
-    
-    public JFreeChart getDefaultReport(ChartModelItem item, List<GenericReportModel> data, String ... key);
-    
-    public JFreeChart getDefaultPieChart(ChartModelItem item, List<GenericReportModel> data, String ... key);
-    
-    public JFreeChart getDefaultTrend(ChartModelItem item, List<GenericReportModel> data, String ... key);
-    
-    public JFreeChart getDashReport(ChartModelItem item, List<GenericReportModel> data, String ... key);
-    
-    public List<BasicTrendModel> initializeMupliple(List<GenericReportModel> data, String ... key);
+
+    public JFreeChart getDefaultReport(ChartModelItem item, List<GenericReportModel> data, String... key);
+
+    public JFreeChart getDefaultPieChart(ChartModelItem item, List<GenericReportModel> data, String... key);
+
+    public JFreeChart getDefaultTrend(ChartModelItem item, List<GenericReportModel> data, String... key);
+
+    public JFreeChart getTbStatusTrend(ChartModelItem item, List<GenericReportModel> data, String... key);
+
+    public JFreeChart getTbOutcomeTrend(ChartModelItem item, List<GenericReportModel> data, String... key);
+
+    public JFreeChart getDashReport(ChartModelItem item, List<GenericReportModel> data, String... key);
+
+    public List<BasicTrendModel> initializeMupliple(List<GenericReportModel> data, String... key);
 }

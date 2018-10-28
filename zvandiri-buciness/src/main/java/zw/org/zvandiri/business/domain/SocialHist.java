@@ -46,6 +46,8 @@ public class SocialHist extends BaseEntity {
     private AbuseOutcome abuseOutcome;
     @Enumerated
     private AbuseType abuseType;
+    private String socialSupport;
+    private String lossOfSignificantRelationships;
 
     public SocialHist() {
     }
@@ -116,6 +118,22 @@ public class SocialHist extends BaseEntity {
 
     public void setAbuseType(AbuseType abuseType) {
         this.abuseType = abuseType;
+    }
+
+    public String getSocialSupport() {
+        return socialSupport;
+    }
+
+    public void setSocialSupport(String socialSupport) {
+        this.socialSupport = socialSupport;
+    }
+
+    public String getLossOfSignificantRelationships() {
+        return lossOfSignificantRelationships;
+    }
+
+    public void setLossOfSignificantRelationships(String lossOfSignificantRelationships) {
+        this.lossOfSignificantRelationships = lossOfSignificantRelationships;
     }
     
 }

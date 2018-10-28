@@ -61,6 +61,14 @@
                                         <th>Do you feel safe where you live now</th>
                                         <td>${socialHist.feelSafe.name}</td>
                                     </tr>
+                                    <tr>
+                                        <th>Social Support</th>
+                                        <td>${socialHist.socialSupport}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Loss Of Other Significant Relationships</th>
+                                        <td>${socialHist.lossOfSignificantRelationships}</td>
+                                    </tr>
                                 </c:if>
                                 <tr>
                                     <td>&nbsp;</td>

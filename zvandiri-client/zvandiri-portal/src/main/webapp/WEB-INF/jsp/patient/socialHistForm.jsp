@@ -27,7 +27,7 @@
                                     <form:errors path="liveWith" class="alert-danger"/>
                                 </p>
                             </div>
-                                <div class="form-group">
+                            <div class="form-group">
                                 <label>Relationship</label>
                                 <form:select path="relationship" class="form-control">
                                     <form:option value="" label="--Select Item"/>
@@ -47,7 +47,7 @@
                                     <form:errors path="abuse" class="alert-danger"/>
                                 </p>
                             </div>
-                                <div class="form-group">
+                            <div class="form-group abuse hide">
                                 <label>Type of abuse</label>
                                 <form:select path="abuseType" class="form-control">
                                     <form:option value="" label="--Select Item"/>
@@ -87,6 +87,20 @@
                                     <form:errors path="feelSafe" class="alert-danger"/>
                                 </p>
                             </div>
+                            <div class="form-group abuse hide">
+                                <label>Social Support</label>
+                                <form:textarea path="socialSupport" class="form-control"/>
+                                <p class="help-block">
+                                    <form:errors path="socialSupport" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group abuse hide">
+                                <label>Losses Of Other Significant Relationships</label>
+                                <form:textarea path="lossOfSignificantRelationships" class="form-control"/>
+                                <p class="help-block">
+                                    <form:errors path="lossOfSignificantRelationships" class="alert-danger"/>
+                                </p>
+                            </div>
                             <div class="form-group">
                                 <c:if test="${canEdit}"><button class="btn btn-primary" type="submit">Save</button></c:if>
                                 <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}"><button class="btn btn-primary" type="button">Cancel</button></a>
@@ -120,22 +134,22 @@
         };
     });
     $("form").validate({
-       rules: {
-           liveWith: {
-               required: true
-           },
-           abuse: {
-               required: true
-           },
-           dosclosure: {
-               required: true
-           },
-           feelSafe: {
-               required: true
-           },
-           abuseOutcome: {
-               required: true
-           }
-       } 
+        rules: {
+            liveWith: {
+                required: true
+            },
+            abuse: {
+                required: true
+            },
+            dosclosure: {
+                required: true
+            },
+            feelSafe: {
+                required: true
+            },
+            abuseOutcome: {
+                required: true
+            }
+        }
     });
 </script>

@@ -23,6 +23,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.DetailedPatientReportService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.PatientInnerJoin;
@@ -359,12 +360,14 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                     builder.append(" and p.period=:period");
                 }
             }
-            if (dto.getStatus() != null) {
-                if (position == 0) {
-                    builder.append("p.status=:status");
-                    position++;
-                } else {
-                    builder.append(" and p.status=:status");
+            if (dto.getStatuses() == null || dto.getStatuses().isEmpty()) {
+                if (dto.getStatus() != null) {
+                    if (position == 0) {
+                        builder.append("p.status=:status");
+                        position++;
+                    } else {
+                        builder.append(" and p.status=:status");
+                    }
                 }
             }
             if (dto.getHei() != null) {

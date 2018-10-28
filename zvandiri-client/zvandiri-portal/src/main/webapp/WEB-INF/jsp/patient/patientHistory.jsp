@@ -236,6 +236,40 @@
                                 </c:if>
                             </table>            
                         </c:if> 
+                        <b class="titleHeader">Mental Health Screening Detail</b><hr/>
+                        <c:if test="${mentalHealthScreen != null}">
+                            <table class="table-condensed" width="100%">
+                                 <tr>
+                                    <th>Screened For Mental Health</th>
+                                    <td>${item.screenedForMentalHealth}</td>
+                                </tr>
+                                <tr>
+                                    <th>Identified Risks</th>
+                                    <td>${item.identifiedRisk}</td>
+                                </tr>
+                                <tr>
+                                    <th>Action Taken</th>
+                                    <td>${item.actionTaken.name}</td>
+                                </tr>
+                                <tr>
+                                    <th>Other</th>
+                                    <td>${item.other}</td>
+                                </tr>
+                                 <tr>
+                                    <th>Rescreened For Mental Health</th>
+                                    <td>${item.mentalScreenResult}</td>
+                                </tr>
+                                <tr>
+                                    <th>Identified Risks</th>
+                                    <td>${item.identifiedRisk}</td>
+                                </tr>
+                                <tr>
+                                    <th>Action Taken</th>
+                                    <td>${item.actionTaken.name}</td>
+                                </tr>
+                                </c:if>
+                            </table>            
+                        </c:if> 
                         <b class="titleHeader">Substance Use Detail</b>
                         <hr/>
                         <div class="table-responsive">

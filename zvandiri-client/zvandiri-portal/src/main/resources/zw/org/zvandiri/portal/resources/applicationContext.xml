@@ -94,6 +94,8 @@
                 <bean class="zw.org.zvandiri.portal.web.converter.CatsMentorshipConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.TbTreatmentOutcomeConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.TbTreatmentStatusConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.MentalScreenResultConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.IdentifiedRiskConverter"/>
             </set>
         </property>
     </bean> 

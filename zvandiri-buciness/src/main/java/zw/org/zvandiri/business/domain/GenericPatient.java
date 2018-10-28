@@ -151,6 +151,8 @@ public class GenericPatient extends BaseEntity {
     private Set<Referral> referrals = new HashSet<>();    
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private Set<InvestigationTest> investigationTests = new HashSet<>();    
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    private Set<CatDetail> catDetails = new HashSet<>();   
     /*
      new fields
      */
@@ -652,6 +654,14 @@ public class GenericPatient extends BaseEntity {
 
     public void setInvestigationTests(Set<InvestigationTest> investigationTests) {
         this.investigationTests = investigationTests;
+    }
+
+    public Set<CatDetail> getCatDetails() {
+        return catDetails;
+    }
+
+    public void setCatDetails(Set<CatDetail> catDetails) {
+        this.catDetails = catDetails;
     }
     
 }

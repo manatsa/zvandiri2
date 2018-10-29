@@ -23,7 +23,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.DetailedPatientReportService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.PatientInnerJoin;
@@ -42,7 +41,7 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
 
     @Override
     public List<Patient> get(SearchDTO dto, Integer firstResult) {
-        StringBuilder builder = new StringBuilder("from Patient p " + PatientInnerJoin.PATIENT_INNER_JOIN);
+        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p " + PatientInnerJoin.PATIENT_INNER_JOIN);
         int position = 0;
         if (dto.getSearch(dto)) {
             builder.append(" where ");
@@ -168,7 +167,7 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
 
     @Override
     public Long getCount(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("Select count(p) from Patient p");
+        StringBuilder builder = new StringBuilder("Select count(Distinct p) from Patient p");
         int position = 0;
         if (dto.getSearch(dto)) {
             builder.append(" where ");
@@ -296,7 +295,7 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
 
     @Override
     public List<Patient> get(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("from Patient p " + PatientInnerJoin.PATIENT_FULL_ASSOC_FETCH);
+        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p " + PatientInnerJoin.PATIENT_FULL_ASSOC_FETCH);
         int position = 0;
         String startDate = "dateJoined";
         if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {

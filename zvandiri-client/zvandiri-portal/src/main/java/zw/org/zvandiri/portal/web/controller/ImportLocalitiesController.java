@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import zw.org.zvandiri.business.domain.ArvHist;
 import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.ArvHistService;
 import zw.org.zvandiri.business.service.PatientService;
 import zw.org.zvandiri.report.api.service.LocalityImporterService;
@@ -36,7 +37,7 @@ import zw.org.zvandiri.report.api.service.LocalityImporterService;
  */
 @Controller
 @RequestMapping("/import")
-public class ImportLocalitiesController {
+public class ImportLocalitiesController extends BaseController {
 
     @Resource
     private LocalityImporterService localityImporterService;

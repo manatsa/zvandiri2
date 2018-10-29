@@ -117,14 +117,22 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<Patient> checkPatientDuplicate(Patient patient) {
         String firstName = getSubString(patient.getFirstName());
-        String latName = getSubString(patient.getLastName());
+        String lastName = getSubString(patient.getLastName());
+        String firstNameLastPart = getThreeLastChars(patient.getFirstName());
+        String lastNameLastPart = getThreeLastChars(patient.getLastName());
+        
         Date start = DateUtil.getDateDiffMonth(patient.getDateOfBirth(), -6);
         Date end = DateUtil.getDateDiffMonth(patient.getDateOfBirth(), 6);
-        return patientRepo.checkPatientDuplicate(firstName, latName, start, end, patient.getPrimaryClinic());
+        return patientRepo.checkPatientDuplicate(firstName, lastName, start, end, patient.getPrimaryClinic(), firstNameLastPart, lastNameLastPart);
     }
 
     private String getSubString(String name) {
-        return name.length() > 4 ? name.substring(0, 3) : name;
+        return name.length() > 4 ? name.substring(0, 4) : name;
+    }
+
+    private String getThreeLastChars(String name) {
+        int length = name.length();
+        return length > 4 ? name.substring(length - 3, length) : name;
     }
 
     @Override
@@ -172,7 +180,7 @@ public class PatientServiceImpl implements PatientService {
                 PatientDuplicateDTO patientWithDuplicates = PatientDuplicateDTO.getInstance(currentPatient);
                 patientWithDuplicates.setMatches(PatientDuplicateDTO.getRelatedPatients(estDuplicates));
                 patientsWithPossibleDuplicates.add(patientWithDuplicates);
-                
+
             }
             pi.remove();
         }

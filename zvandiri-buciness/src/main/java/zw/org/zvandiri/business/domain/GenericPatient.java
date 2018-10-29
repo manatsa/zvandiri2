@@ -120,37 +120,39 @@ public class GenericPatient extends BaseEntity {
     private PatientChangeEvent status = PatientChangeEvent.ACTIVE;
     @Temporal(TemporalType.DATE)
     private Date statusChangeDate;
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Dependent> dependents = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private Set<MedicalHist> medicalHists = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private Set<ChronicInfectionItem> chronicInfectionItems = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private Set<HivConInfectionItem> hivConInfectionItems = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private Set<ArvHist> arvHists = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private Set<MentalHealthItem> mentalHealthItems = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private Set<SrhHist> srhHists = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private Set<ObstercHist> obstercHists = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private Set<SocialHist> socialHists = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private Set<SubstanceItem> substanceItems = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private Set<Family> familys = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private Set<Contact> contacts = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private Set<EidTest> eidTests = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private Set<Referral> referrals = new HashSet<>();    
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private Set<InvestigationTest> investigationTests = new HashSet<>();    
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private Set<CatDetail> catDetails = new HashSet<>();   
     /*
      new fields
      */
@@ -652,6 +654,14 @@ public class GenericPatient extends BaseEntity {
 
     public void setInvestigationTests(Set<InvestigationTest> investigationTests) {
         this.investigationTests = investigationTests;
+    }
+
+    public Set<CatDetail> getCatDetails() {
+        return catDetails;
+    }
+
+    public void setCatDetails(Set<CatDetail> catDetails) {
+        this.catDetails = catDetails;
     }
     
 }

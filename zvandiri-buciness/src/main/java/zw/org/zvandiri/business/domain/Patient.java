@@ -200,4 +200,13 @@ public class Patient extends GenericPatient {
         return cd4Count != null ? cd4Count : 0;
     }
     
+    public void add(DisabilityCategory category){
+        disabilityCategorys.add(category);
+        category.getPatients().add(this);
+    }
+    
+    public void remove(DisabilityCategory category, Patient patient){
+        disabilityCategorys.remove(category);
+        category.getPatients().remove(patient);
+    }
 }

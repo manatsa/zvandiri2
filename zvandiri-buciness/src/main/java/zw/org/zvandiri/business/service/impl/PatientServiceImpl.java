@@ -21,21 +21,39 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import zw.org.zvandiri.business.domain.ArvHist;
+import zw.org.zvandiri.business.domain.CatDetail;
+import zw.org.zvandiri.business.domain.ChronicInfectionItem;
+import zw.org.zvandiri.business.domain.Contact;
+import zw.org.zvandiri.business.domain.Dependent;
+import zw.org.zvandiri.business.domain.EidTest;
+import zw.org.zvandiri.business.domain.Family;
+import zw.org.zvandiri.business.domain.HivConInfectionItem;
+import zw.org.zvandiri.business.domain.InvestigationTest;
+import zw.org.zvandiri.business.domain.MedicalHist;
+import zw.org.zvandiri.business.domain.MentalHealthItem;
+import zw.org.zvandiri.business.domain.ObstercHist;
 import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.Referral;
+import zw.org.zvandiri.business.domain.SocialHist;
+import zw.org.zvandiri.business.domain.SrhHist;
+import zw.org.zvandiri.business.domain.SubstanceItem;
 import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.repo.PatientRepo;
 import zw.org.zvandiri.business.service.CatDetailService;
-import zw.org.zvandiri.business.service.PatientHistoryService;
 import zw.org.zvandiri.business.service.PatientService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.UUIDGen;
 import zw.org.zvandiri.business.util.dto.PatientDuplicateDTO;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
+import zw.org.zvandiri.business.domain.DisabilityCategory;
 
 /**
  *
@@ -51,8 +69,8 @@ public class PatientServiceImpl implements PatientService {
     private UserService userService;
     @Resource
     private CatDetailService catDetailService;
-    @Resource
-    private PatientHistoryService patientHistoryService;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public List<Patient> getAll() {
@@ -187,7 +205,7 @@ public class PatientServiceImpl implements PatientService {
         return patientsWithPossibleDuplicates;
     }
 
-    @Override
+    /*@Override
     @Transactional
     public void mergePatients(String patientId, String patientToBeMergedId) {
         // ignore merging fields only merge associated data
@@ -210,6 +228,68 @@ public class PatientServiceImpl implements PatientService {
         patient.getEidTests().addAll(patientToBeMerged.getEidTests());
         patient.getInvestigationTests().addAll(patientToBeMerged.getInvestigationTests());
         patient.getPatientHistories().addAll(patientHistoryService.getByPatient(patientToBeMerged));
+        save(patient);
+        delete(patientToBeMerged);
+    }*/
+    
+    @Override
+    @Transactional
+    public void mergePatients(String patientId, String patientToBeMergedId) {
+        Patient patient = patientRepo.getPatient(patientId);
+        Patient patientToBeMerged = patientRepo.getPatient(patientToBeMergedId);
+        for(InvestigationTest item : patientToBeMerged.getInvestigationTests()){
+            patient.add(item, patient);
+        }
+        for(CatDetail item : patientToBeMerged.getCatDetails()){
+            patient.add(item, patient);
+        }
+        for(Referral item : patientToBeMerged.getReferrals()){
+            patient.add(item, patient);
+        }
+        for(EidTest item : patientToBeMerged.getEidTests()){
+            patient.add(item, patient);
+        }
+        for(Contact item : patientToBeMerged.getContacts()){
+            patient.add(item, patient);
+        }
+        for(Family item : patientToBeMerged.getFamilys()){
+            patient.add(item, patient);
+        }
+        for(SubstanceItem item : patientToBeMerged.getSubstanceItems()){
+            patient.add(item, patient);
+        }
+        for(SrhHist item : patientToBeMerged.getSrhHists()){
+            patient.add(item, patient);
+        }
+        for(SocialHist item : patientToBeMerged.getSocialHists()){
+            patient.add(item, patient);
+        }
+        for(ObstercHist item : patientToBeMerged.getObstercHists()){
+            patient.add(item, patient);
+        }
+        for(MentalHealthItem item : patientToBeMerged.getMentalHealthItems()){
+            patient.add(item, patient);
+        }
+        for(ArvHist item : patientToBeMerged.getArvHists()){
+            patient.add(item, patient);
+        }
+        for(HivConInfectionItem item : patientToBeMerged.getHivConInfectionItems()){
+            patient.add(item, patient);
+        }
+        for(ChronicInfectionItem item : patientToBeMerged.getChronicInfectionItems()){
+            patient.add(item, patient);
+        }
+        
+        for(MedicalHist item : patientToBeMerged.getMedicalHists()){
+            patient.add(item, patient);
+        }
+        
+        for(Dependent item : patientToBeMerged.getDependents()){
+            patient.add(item, patient);
+        }
+        for(DisabilityCategory item : patientToBeMerged.getDisabilityCategorys()){
+            patient.add(item);
+        }
         save(patient);
         delete(patientToBeMerged);
     }

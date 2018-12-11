@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -28,8 +29,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.annotations.Formula;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import zw.org.zvandiri.business.domain.util.Gender;
@@ -160,6 +163,9 @@ public class GenericPatient extends BaseEntity {
     private ReasonForNotReachingOLevel reasonForNotReachingOLevel;
     private String refererName;
     private String oINumber;
+    /*@Column(unique = true)
+    private String patientNumber;
+    private int patientCount;*/
 
     public String getFirstName() {
         return StringUtils.toCamelCase2(firstName);
@@ -743,4 +749,31 @@ public class GenericPatient extends BaseEntity {
         familys.add(item);
         item.setPatient(patient);
     }
+
+    /*public String getPatientNumber() {
+        return patientNumber;
+    }
+
+    public void setPatientNumber(String patientNumber) {
+        this.patientNumber = patientNumber;
+    }
+    
+    @Transient
+    public String generatePatientUAC() {
+        if (patientNumber != null) {
+            return patientNumber;
+        }
+        // last 2 members of mother's name + last 2 letters of surname +
+        // last 2 letters of your district of birth + date of birth + sex + count
+        int currentCount = getPatientCount();
+        if (currentCount <= 9) {
+            
+        }
+        return null;
+    }
+    
+    @Formula("(Select count(p.id) From patient p where p.primary_clinic=primary_Clinic)")
+    public int getPatientCount () {
+        return patientCount;
+    }*/
 }

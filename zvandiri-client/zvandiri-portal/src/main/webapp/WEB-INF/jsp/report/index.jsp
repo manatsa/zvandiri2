@@ -121,6 +121,10 @@
                                 <td><a href="${page}/report/graphs/patient-contact-distribution">Patient Distribution By Contact</a></td>
                             </tr>
                             <tr>
+                                <td><a href="${page}/report/graphs/patient-viral-load-distribution">Viral Load Distribution</a></td>
+                                 <td><a href="${page}/report/graphs/patient-viral-suppression-distribution">Viral Load Suppression</a></td>
+                            </tr>
+                            <tr>
                                 <td><a href="${page}/report/graphs/tb-screening-treatment-status">TB Screening By Treatment Status</a></td>
                                  <td><a href="${page}/report/graphs/tb-screening-treatment-outcome">TB Screening By Treatment Outcome</a></td>
                             </tr>

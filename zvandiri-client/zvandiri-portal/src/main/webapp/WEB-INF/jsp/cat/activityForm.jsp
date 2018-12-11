@@ -9,32 +9,74 @@
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <form:form commandName="item">
+                        <div class="panel panel-default">                            
+                            <%@include file="../template/dashboard/patientProfile.jspf" %>
+                        </div>
+                    </div>
+                </div>
+                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back To ${patient.name} Dashboard</a><br/><br/>
+                <div class="row">
+                    <div class="col-lg-10">
+                         <form:form commandName="item">
                             <form:hidden path="catDetail" value="${item.catDetail.id}"/>
-                            <form:hidden path="period" value="${item.period.id}"/>
                             <%@include file="../template/formState.jspf" %>
+                            
                             <div class="form-group">
-                                <label>Date of Visit</label>
-                                <form:input path="dateOfVisit" class="form-control general"/>
+                                <label>Certificate Number</label>
+                                <form:input path="certificateNumber" class="form-control"/>
                                 <p class="help-block">
-                                    <form:errors path="dateOfVisit" class="alert-danger"/>
+                                    <form:errors path="certificateNumber" class="alert-danger"/>
                                 </p>
                             </div>
-                            <div class="form-group">
-                                <label>Client</label>
-                                <form:select path="patient" class="form-control">
+                                <div class="form-group">
+                                <label>Date Received Mentorship</label>
+                                <form:input path="dateReceivedMentorship" class="form-control general"/>
+                                <p class="help-block">
+                                    <form:errors path="dateReceivedMentorship" class="alert-danger"/>
+                                </p>
+                            </div>
+                                <div class="form-group">
+                                <label>Mentorship Type</label>
+                                <form:select path="catsMentorship" class="form-control">
                                     <form:option value="" label="--Select Item"/>
-                                    <form:options items="${patients}" itemValue="id" itemLabel="name"/>
+                                    <form:options itemValue="code" itemLabel="name"/>
                                 </form:select>
                                 <p class="help-block">
-                                    <form:errors path="patient" class="alert-danger"/>
+                                    <form:errors path="catsMentorship" class="alert-danger"/>
+                                </p>
+                            </div>
+                                <div class="form-group">
+                                <label>Date Issued</label>
+                                <form:input path="dateIssued" class="form-control general"/>
+                                <p class="help-block">
+                                    <form:errors path="dateIssued" class="alert-danger"/>
+                                </p>
+                            </div>
+                             <div class="form-group">
+                                <label>Province</label>
+                                <form:select path="province" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options items="${provinces}" itemValue="id" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="province" class="alert-danger"/>
+                                </p>
+                            </div>
+                                 <div class="form-group">
+                                <label>District</label>
+                                <form:select path="district" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options items="${districts}" itemValue="id" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="district" class="alert-danger"/>
                                 </p>
                             </div>
                             <div class="form-group">
                                 <label>Comment</label>
-                                <form:textarea rows="4" path="comments" class="form-control"/>
+                                <form:textarea rows="4" path="description" class="form-control"/>
                                 <p class="help-block">
-                                    <form:errors path="comments" class="alert-danger"/>
+                                    <form:errors path="description" class="alert-danger"/>
                                 </p>
                             </div>
                             <div class="form-group">

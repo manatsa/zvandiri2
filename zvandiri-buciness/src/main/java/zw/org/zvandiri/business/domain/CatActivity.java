@@ -6,6 +6,7 @@
 package zw.org.zvandiri.business.domain;
 
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
@@ -37,6 +38,15 @@ public class CatActivity extends BaseEntity {
     private District district;
     @Transient
     private Province province;
+    @Column(columnDefinition = "text")
+    private String description;
+
+    public CatActivity() {
+    }
+
+    public CatActivity(CatDetail catDetail) {
+        this.catDetail = catDetail;
+    }
 
     public CatDetail getCatDetail() {
         return catDetail;
@@ -92,6 +102,14 @@ public class CatActivity extends BaseEntity {
 
     public void setProvince(Province province) {
         this.province = province;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
     
 }

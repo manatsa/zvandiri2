@@ -25,5 +25,7 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
  */
 public interface DetailedPatientReportService extends GenericReportService<Patient, SearchDTO> {
     public Integer getNumResults(SearchDTO dto);
+    
     public List<Patient> get(SearchDTO dto, Integer firstResult);
+    
 }

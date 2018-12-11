@@ -29,7 +29,7 @@ public interface PatientService extends GenericService<Patient> {
     
     public List<Patient> getByCat(Boolean cat);
     
-    public List<Patient> search(String ...exp);
+    public List<Patient> search(SearchDTO dto, String ...exp);
     
     public Boolean hasCatDetailRecord(Patient patient);
     

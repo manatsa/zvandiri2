@@ -159,11 +159,19 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public List<Patient> search(String... exp) {
+    public List<Patient> search(SearchDTO dto, String... exp) {
         if (exp == null) {
             throw new IllegalArgumentException("Provide parameter for search");
-        } else if (exp.length == 1) {
+        } else if (exp.length == 1 && dto.getProvince() == null && dto.getDistrict() ==null) {
             return patientRepo.findByFirstNameOrLastName(exp[0], Boolean.TRUE);
+        } else if (exp.length == 1 && dto.getProvince() != null && dto.getDistrict() ==null) {
+            return patientRepo.findByFirstNameOrLastNameAndProvince(exp[0], Boolean.TRUE, dto.getProvince());
+        } else if (exp.length == 1 && dto.getProvince() == null && dto.getDistrict() !=null) {
+            return patientRepo.findByFirstNameOrLastNameAndDistrict(exp[0], Boolean.TRUE, dto.getDistrict());
+        } else if (exp.length > 1 && dto.getProvince() != null && dto.getDistrict() ==null) {
+            return patientRepo.findByFirstNameAndLastNameAndProvince(exp[0], exp[1], Boolean.TRUE, dto.getProvince());
+        } else if (exp.length > 1 && dto.getProvince() == null && dto.getDistrict() !=null) {
+            return patientRepo.findByFirstNameAndLastNameAndDistrict(exp[0], exp[1], Boolean.TRUE, dto.getDistrict());
         }
         return patientRepo.findByFirstNameAndLastName(exp[0], exp[1], Boolean.TRUE);
     }

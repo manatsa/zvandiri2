@@ -161,7 +161,8 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             dateJoined.setCellStyle(cellStyle);
             Cell gender = header.createCell(++count);
             gender.setCellValue(patient.getGender().getName());
-            String addressDetails = patient.getAddress() + " , " + patient.getAddress1();
+            String addressDetails = patient.getAddress()  != null ? patient.getAddress() : " "+ 
+                    " , " + patient.getAddress1() != null ? patient.getAddress1() : "";
             Cell address = header.createCell(++count);
             address.setCellValue(addressDetails);
             Cell mobileNumber = header.createCell(++count);
@@ -1481,21 +1482,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             }
             Cell medication = mentalHealthRow.createCell(++count);
             medication.setCellValue(mentalHealthItem.getMedication());
-            Cell medStartDate = mentalHealthRow.createCell(++count);
-            if (mentalHealthItem.getStartDate() != null) {
-                medStartDate.setCellValue(mentalHealthItem.getStartDate());
-                medStartDate.setCellStyle(cellStyle);
-            } else {
-                medStartDate.setCellValue("");
-            }
-            Cell medEndDate = mentalHealthRow.createCell(++count);
-            if (mentalHealthItem.getEndDate() != null) {
-                medEndDate.setCellValue(mentalHealthItem.getEndDate());
-                medEndDate.setCellStyle(cellStyle);
-            } else {
-                medEndDate.setCellValue("");
-            }
-
+            
             Cell hosp = mentalHealthRow.createCell(++count);
             hosp.setCellValue(
                     mentalHealthItem.getBeenHospitalized() != null
@@ -1607,7 +1594,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     socialHist.getFeelSafe() != null ? socialHist.getFeelSafe().getName() : ""
             );
             Cell abuseType = socialHistRow.createCell(++count);
-            abuseType.setCellValue(socialHist.getAbuseType() != null ? socialHist.getAbuseType().getName() : "");
+            abuseType.setCellValue((socialHist.getAbuseTypes() != null && !socialHist.getAbuseTypes().isEmpty()) ? socialHist.getAbuseTypes().toString() : "");
             Cell abuseOutcome = socialHistRow.createCell(++count);
             abuseOutcome.setCellValue(socialHist.getAbuseOutcome() != null ? socialHist.getAbuseOutcome().getName() : "");
 

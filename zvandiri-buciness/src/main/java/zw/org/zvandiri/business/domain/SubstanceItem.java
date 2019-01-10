@@ -53,6 +53,10 @@ public class SubstanceItem extends BaseEntity {
     private Date endDate;
     @Enumerated
     private DrugIntervention drugIntervention;
+    private String howOften;
+    private String reason;
+    @Enumerated
+    private YesNo problematic;
     @Transient
     private String duration;
 
@@ -125,6 +129,30 @@ public class SubstanceItem extends BaseEntity {
 
     public void setDrugIntervention(DrugIntervention drugIntervention) {
         this.drugIntervention = drugIntervention;
+    }
+
+    public String getHowOften() {
+        return howOften;
+    }
+
+    public void setHowOften(String howOften) {
+        this.howOften = howOften;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public YesNo getProblematic() {
+        return problematic;
+    }
+
+    public void setProblematic(YesNo problematic) {
+        this.problematic = problematic;
     }
 
     public String getDuration() {

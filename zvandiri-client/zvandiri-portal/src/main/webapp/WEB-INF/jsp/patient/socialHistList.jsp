@@ -45,7 +45,7 @@
                                     <td>${socialHist.abuse.name}</td>
                                 </tr>
                                 <tr>
-                                    <th>Type of abuse</th>
+                                    <th>Types of abuse</th>
                                     <td>${socialHist.abuseType}</td>
                                 </tr>
                                 <c:if test="${abuse}">

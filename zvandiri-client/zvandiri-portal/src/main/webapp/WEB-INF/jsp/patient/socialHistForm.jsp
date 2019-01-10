@@ -47,14 +47,11 @@
                                     <form:errors path="abuse" class="alert-danger"/>
                                 </p>
                             </div>
-                            <div class="form-group abuse hide">
-                                <label>Type of abuse</label>
-                                <form:select path="abuseType" class="form-control">
-                                    <form:option value="" label="--Select Item"/>
-                                    <form:options itemValue="code" itemLabel="name"/>
-                                </form:select>
+                            <div class="form-group">
+                                <label>Type of abuse</label><br/><br/>
+                                <form:checkboxes path="abuseTypes" items="${abuseTypes}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
                                 <p class="help-block">
-                                    <form:errors path="abuseType" class="alert-danger"/>
+                                    <form:errors path="abuseTypes" class="alert-danger"/>
                                 </p>
                             </div>
                             <div class="form-group abuse hide">

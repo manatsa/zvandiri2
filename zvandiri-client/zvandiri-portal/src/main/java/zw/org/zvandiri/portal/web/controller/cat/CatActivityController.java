@@ -90,7 +90,7 @@ public class CatActivityController extends BaseController {
             return setUpModel(model, item);
         }
         catActivityService.save(item);
-        return "redirect:item.list?id=" + item.getCatDetail().getPatient().getId() + "&type=1";
+        return "redirect:item.list?id=" + item.getCatDetail().getId() + "&type=1";
     }
     
     @RequestMapping(value = "/item.list", method = RequestMethod.GET)

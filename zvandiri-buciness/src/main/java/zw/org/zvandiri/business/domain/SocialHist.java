@@ -15,8 +15,11 @@
  */
 package zw.org.zvandiri.business.domain;
 
+import java.util.Set;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import zw.org.zvandiri.business.domain.util.AbuseOutcome;
@@ -44,8 +47,9 @@ public class SocialHist extends BaseEntity {
     private YesNo feelSafe;
     @Enumerated
     private AbuseOutcome abuseOutcome;
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated
-    private AbuseType abuseType;
+    private Set<AbuseType> abuseTypes;
     private String socialSupport;
     private String lossOfSignificantRelationships;
 
@@ -112,12 +116,12 @@ public class SocialHist extends BaseEntity {
         this.relationship = relationship;
     }
 
-    public AbuseType getAbuseType() {
-        return abuseType;
+    public Set<AbuseType> getAbuseTypes() {
+        return abuseTypes;
     }
 
-    public void setAbuseType(AbuseType abuseType) {
-        this.abuseType = abuseType;
+    public void setAbuseTypes(Set<AbuseType> abuseTypes) {
+        this.abuseTypes = abuseTypes;
     }
 
     public String getSocialSupport() {

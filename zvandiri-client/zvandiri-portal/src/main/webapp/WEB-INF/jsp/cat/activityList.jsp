@@ -14,11 +14,11 @@
                         </div>
                     </div>
                 </div>
-                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back To ${patient.name} Dashboard</a><br/><br/>
+                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back To ${patient.name} Dashboard</a><br/>
                 <div class="row">
                     <div class="col-lg-12">
                         <br/>
-                        <b class="titleHeader"><a href="item.form?catId=${item.id}">Add Item </a>
+                        <b class="titleHeader"><a href="item.form?catId=${item.id}">Add Item </a></b><br/><br/>
                         <div class="table-responsive">
                             <table class="itemList" class="display" cellspacing="0">
                                 <thead>
@@ -42,8 +42,8 @@
                                             <td>${act.district.province.name}</td>
                                             <td>${act.district.name}</td>
                                             <td>
-                                                <a href="item.form?itemId=${eff.id}">Edit</a> |
-                                                <c:if test="${canEdit}"><a href="item.delete?id=${eff.id}">Delete</a></c:if>
+                                                <a href="item.form?id=${act.catDetail.id}">Edit</a> |
+                                                <a href="item.delete?id=${act.catDetail.id}">Delete</a>
                                             </td>
                                         </tr>
                                     </c:forEach>

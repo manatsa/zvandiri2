@@ -44,8 +44,7 @@ public interface DatabaseHeader {
     public final String [] MENTAL_HIST_HEADER = {
         "ID", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "Mental Health", "Past", "Current", 
         "Received Professional Help", "Professional Help Start Date",
-        "Professional Help End Date", "Medication", "Medication Start Date",
-        "Medication End Date", "Been Hospitalized", "Description"
+        "Professional Help End Date", "Medication", "Psychiatric Hospitalization", "Description"
     };
     
     public final String [] OBSTERIC_HIST_HEADER = {

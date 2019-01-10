@@ -15,13 +15,11 @@
  */
 package zw.org.zvandiri.portal.web.validator;
 
-import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import zw.org.zvandiri.business.domain.ArvHist;
-import zw.org.zvandiri.business.service.ArvHistService;
 
 /**
  *
@@ -30,9 +28,6 @@ import zw.org.zvandiri.business.service.ArvHistService;
 @Component
 public class ARVHistValidator implements Validator {
 
-    @Resource
-    private ArvHistService arvHistService;
-    
     @Override
     public boolean supports(Class<?> type) {
         return type.equals(ArvHist.class);
@@ -48,9 +43,6 @@ public class ARVHistValidator implements Validator {
         if(item.getArvMedicine2() == null){
             errors.rejectValue("arvMedicine2", "field.empty");
         }
-        /*if(item.getArvMedicine3() == null){
-            errors.rejectValue("arvMedicine3", "field.empty");
-        }*/
         if (item.getArvMedicine() != null && item.getArvMedicine2() != null) {
         	if (item.getArvMedicine().getName().equals(item.getArvMedicine2().getName())) {
         		errors.rejectValue("arvMedicine2", "medicine.duplicate");

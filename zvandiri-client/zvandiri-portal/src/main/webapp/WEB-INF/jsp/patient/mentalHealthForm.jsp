@@ -31,20 +31,6 @@
                                 </p>
                             </div>
                             <div class="form-group">
-                                <label>From</label>
-                                <form:input path="startDate" class="form-control general"/>
-                                <p class="help-block">
-                                    <form:errors path="startDate" class="alert-danger"/>
-                                </p>
-                            </div>
-                            <div class="form-group">
-                                <label>To</label>
-                                <form:input path="endDate" class="form-control general"/>
-                                <p class="help-block">
-                                    <form:errors path="endDate" class="alert-danger"/>
-                                </p>
-                            </div>
-                            <div class="form-group">
                                 <label>Past</label>
                                 <form:input path="past" class="form-control"/>
                                 <p class="help-block">
@@ -56,6 +42,20 @@
                                 <form:input path="current" class="form-control"/>
                                 <p class="help-block">
                                     <form:errors path="current" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label>Age</label>
+                                <form:input path="age" class="form-control"/>
+                                <p class="help-block">
+                                    <form:errors path="age" class="alert-danger"/>
+                                </p>
+                            </div>
+                                <div class="form-group">
+                                <label>Professional Help Provided By</label>
+                                <form:input path="professionalCareProvidedBy" class="form-control"/>
+                                <p class="help-block">
+                                    <form:errors path="professionalCareProvidedBy" class="alert-danger"/>
                                 </p>
                             </div>
                             <div class="form-group">
@@ -90,7 +90,7 @@
                                 </p>
                             </div>
                             <div class="form-group">
-                                <label>Been Hospitalized</label>
+                                <label>Psychiatric Hospitalization</label>
                                 <form:select path="beenHospitalized" class="form-control">
                                     <form:option value="" label="--Select Item"/>
                                     <form:options itemValue="code" itemLabel="name"/>
@@ -138,31 +138,31 @@
         };
     });
     $("form").validate({
-       rules: {
-           past:{
-               required: true
-           },
-           current: {
-               required: true
-           },
-           mentalHistText: {
-               required: true
-           },
-           startDate: {
-               required: true
-           },
-           mentalHealth: {
-               required: true
-           },
-           receivedProfessionalHelp: {
-               required: true
-           },
-           profHelpStart: {
-               required: true
-           },
-           profHelpEnd: {
-               required: true
-           }
-       } 
+        rules: {
+            past: {
+                required: true
+            },
+            current: {
+                required: true
+            },
+            mentalHistText: {
+                required: true
+            },
+            startDate: {
+                required: true
+            },
+            mentalHealth: {
+                required: true
+            },
+            receivedProfessionalHelp: {
+                required: true
+            },
+            profHelpStart: {
+                required: true
+            },
+            profHelpEnd: {
+                required: true
+            }
+        }
     });
 </script>

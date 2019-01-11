@@ -40,4 +40,6 @@ public interface PatientService extends GenericService<Patient> {
     public Set<PatientDuplicateDTO> getAllPossibleDuplicates(List<Patient> patients);
     
     public void mergePatients(String patientId, String patientToBeMergedId);
+    
+    public void updatePatientStatus(List<Patient> pateints);
 }

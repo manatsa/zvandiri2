@@ -91,11 +91,11 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
                 case 2:
                     dto.setEndDate(DateUtil.getDateFromAge(23));
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THREE_MONTHS.getEnd(), DateUtil.getDateFromAge(24)));
-                    threeMonths = catDetailReportService.getPatientAboutToGraduate(dto).intValue();
+                    threeMonths = patientReportService.getPatientAboutToGraduate(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_SIX_MONTHS.getEnd(), DateUtil.getDateFromAge(24)));
-                    sixMonths = catDetailReportService.getPatientAboutToGraduate(dto).intValue();
+                    sixMonths = patientReportService.getPatientAboutToGraduate(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWELVE_MONTHS.getEnd(), DateUtil.getDateFromAge(24)));
-                    twelveMonths = catDetailReportService.getPatientAboutToGraduate(dto).intValue();
+                    twelveMonths = patientReportService.getPatientAboutToGraduate(dto).intValue();
                     list.add(new BasicNameNumber(item, threeMonths, sixMonths, twelveMonths));
                     i++;
                     continue;

@@ -17,7 +17,12 @@ package zw.org.zvandiri.portal.config;
 
 import javax.annotation.Resource;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.Scheduled;
+import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
+import zw.org.zvandiri.business.service.PatientReportService;
 import zw.org.zvandiri.business.service.PatientService;
+import zw.org.zvandiri.business.util.DateUtil;
+import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 /**
  *
@@ -25,9 +30,21 @@ import zw.org.zvandiri.business.service.PatientService;
  */
 @Configuration
 public class PatientStatusAutoUpdaterConfig {
- 
+
     private static final String SCHEDULE_EXPRESSION = "0 45 20-23 * * SUN";
-    
+
+    @Resource
+    private PatientReportService patientReportService;
     @Resource
     private PatientService patientService;
+
+    @Scheduled(cron = SCHEDULE_EXPRESSION)
+    public void autoGraduatePatientsAbove24() {
+
+        SearchDTO dto = new SearchDTO();
+        dto.setStatus(PatientChangeEvent.ACTIVE);
+        dto.setEndDate(DateUtil.getDateDiffDate( -14, DateUtil.getDateFromAge(24)));
+        dto.setStartDate(DateUtil.getDateFromAge(45));
+        patientService.updatePatientStatus(patientReportService.getPatientAboutToGraduateList(dto));
+    }
 }

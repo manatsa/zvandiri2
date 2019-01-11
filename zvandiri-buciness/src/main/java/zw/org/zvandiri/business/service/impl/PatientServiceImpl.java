@@ -54,6 +54,7 @@ import zw.org.zvandiri.business.util.UUIDGen;
 import zw.org.zvandiri.business.util.dto.PatientDuplicateDTO;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.business.domain.DisabilityCategory;
+import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 
 /**
  *
@@ -301,4 +302,15 @@ public class PatientServiceImpl implements PatientService {
         save(patient);
         delete(patientToBeMerged);
     }
+
+    @Override
+    @Transactional
+    public void updatePatientStatus(List<Patient> pateints) {
+        
+        for (Patient p : pateints) {
+            p.setStatus(PatientChangeEvent.GRADUATED);
+            save(p);
+        }
+    }
+    
 }

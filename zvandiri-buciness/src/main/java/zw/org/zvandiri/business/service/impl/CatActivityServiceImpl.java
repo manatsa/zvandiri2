@@ -48,8 +48,7 @@ public class CatActivityServiceImpl implements CatActivityService {
         if (t.getId() == null) {
             throw new IllegalStateException("Item to be deleted is in an inconsistent state");
         }
-        t.setActive(Boolean.FALSE);
-        catActivityRepo.save(t);
+        catActivityRepo.delete(t);
     }
 
     @Override

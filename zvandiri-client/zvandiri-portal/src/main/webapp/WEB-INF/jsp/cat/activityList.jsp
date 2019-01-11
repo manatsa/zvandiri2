@@ -42,8 +42,8 @@
                                             <td>${act.district.province.name}</td>
                                             <td>${act.district.name}</td>
                                             <td>
-                                                <a href="item.form?id=${act.catDetail.id}">Edit</a> |
-                                                <a href="item.delete?id=${act.catDetail.id}">Delete</a>
+                                                <a href="item.form?itemId=${act.id}">Edit</a> |
+                                                <a href="item.delete?id=${act.id}">Delete</a>
                                             </td>
                                         </tr>
                                     </c:forEach>

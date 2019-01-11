@@ -44,7 +44,7 @@ import zw.org.zvandiri.portal.web.validator.CatActivityValidator;
 @Controller
 @RequestMapping("/cats-management")
 public class CatActivityController extends BaseController {
-    
+
     @Resource
     private CatActivityService catActivityService;
     @Resource
@@ -60,22 +60,25 @@ public class CatActivityController extends BaseController {
         model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit CATS Activity :" + item.getCatDetail().getPatient().getName());
         model.addAttribute("provinces", provinceService.getAll());
         model.addAttribute("formAction", "item.form");
+        if (item.getDistrict() != null) {
+            item.setProvince(item.getDistrict().getProvince());
+        }
         if (item.getProvince() != null) {
             model.addAttribute("districts", districtService.getDistrictByProvince(item.getProvince()));
-           }
+        }
         model.addAttribute("patient", item.getCatDetail().getPatient());
         model.addAttribute("item", item);
-        if(item.getId() != null){
-            return "cat/editCatDetail";
+        if (item.getId() != null) {
+            return "cat/activityForm";
         }
         return "cat/activityForm";
     }
 
     @RequestMapping(value = "/item.form", method = RequestMethod.GET)
-    public String getForm(ModelMap model, @RequestParam(required = false) String catId, @RequestParam(required = false) String id) {
+    public String getForm(ModelMap model, @RequestParam(required = false) String catId, @RequestParam(required = false) String itemId) {
         CatActivity item;
-        if (id != null) {
-            item = catActivityService.get(id);
+        if (itemId != null) {
+            item = catActivityService.get(itemId);
             return setUpModel(model, item);
         }
         item = new CatActivity(catDetailService.get(catId));
@@ -92,7 +95,7 @@ public class CatActivityController extends BaseController {
         catActivityService.save(item);
         return "redirect:item.list?id=" + item.getCatDetail().getId() + "&type=1";
     }
-    
+
     @RequestMapping(value = "/item.list", method = RequestMethod.GET)
     public String getList(ModelMap model, @RequestParam(required = false) String id) {
         CatDetail catDetail = catDetailService.get(id);
@@ -102,7 +105,7 @@ public class CatActivityController extends BaseController {
         model.addAttribute("items", catActivityService.getByCat(id));
         return "cat/activityList";
     }
-    
+
     @RequestMapping(value = "item.delete", method = RequestMethod.GET)
     public String getDeleteForm(@RequestParam("id") String id, ModelMap model) {
         CatActivity item = catActivityService.get(id);

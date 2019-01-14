@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -120,38 +121,38 @@ public class GenericPatient extends BaseEntity {
     private PatientChangeEvent status = PatientChangeEvent.ACTIVE;
     @Temporal(TemporalType.DATE)
     private Date statusChangeDate;
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JsonIgnore
     private Set<Dependent> dependents = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<MedicalHist> medicalHists = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<ChronicInfectionItem> chronicInfectionItems = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<HivConInfectionItem> hivConInfectionItems = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<ArvHist> arvHists = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<MentalHealthItem> mentalHealthItems = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<SrhHist> srhHists = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<ObstercHist> obstercHists = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<SocialHist> socialHists = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<SubstanceItem> substanceItems = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<Family> familys = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<Contact> contacts = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<EidTest> eidTests = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<Referral> referrals = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<InvestigationTest> investigationTests = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<CatDetail> catDetails = new HashSet<>();
     /*
      new fields
@@ -160,9 +161,8 @@ public class GenericPatient extends BaseEntity {
     private ReasonForNotReachingOLevel reasonForNotReachingOLevel;
     private String refererName;
     private String oINumber;
-    /*@Column(unique = true)
+    @Column(unique = true)
     private String patientNumber;
-    private int patientCount;*/
 
     public String getFirstName() {
         return StringUtils.toCamelCase2(firstName);
@@ -747,30 +747,11 @@ public class GenericPatient extends BaseEntity {
         item.setPatient(patient);
     }
 
-    /*public String getPatientNumber() {
+    public String getPatientNumber() {
         return patientNumber;
     }
 
     public void setPatientNumber(String patientNumber) {
         this.patientNumber = patientNumber;
     }
-    
-    @Transient
-    public String generatePatientUAC() {
-        if (patientNumber != null) {
-            return patientNumber;
-        }
-        // last 2 members of mother's name + last 2 letters of surname +
-        // last 2 letters of your district of birth + date of birth + sex + count
-        int currentCount = getPatientCount();
-        if (currentCount <= 9) {
-            
-        }
-        return null;
-    }
-    
-    @Formula("(Select count(p.id) From patient p where p.primary_clinic=primary_Clinic)")
-    public int getPatientCount () {
-        return patientCount;
-    }*/
 }

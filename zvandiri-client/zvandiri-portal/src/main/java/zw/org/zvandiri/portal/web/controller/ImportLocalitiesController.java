@@ -95,4 +95,10 @@ public class ImportLocalitiesController extends BaseController {
         dto.setStartDate(DateUtil.getDateFromAge(45));
         patientService.updatePatientStatus(patientReportService.getPatientAboutToGraduateList(dto));
     }
+    
+    @RequestMapping("/add-uac-patient")
+    public void addUACToPatient() {
+
+        patientService.updatePatientUAC();
+    }
 }

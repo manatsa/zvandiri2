@@ -42,4 +42,8 @@ public interface PatientService extends GenericService<Patient> {
     public void mergePatients(String patientId, String patientToBeMergedId);
     
     public void updatePatientStatus(List<Patient> pateints);
+    
+    public void updatePatientUAC();
+    
+    public String getPatientUAC(Patient patient);
 }

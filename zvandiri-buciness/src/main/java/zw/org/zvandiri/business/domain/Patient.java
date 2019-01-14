@@ -38,7 +38,7 @@ import zw.org.zvandiri.business.util.DateUtil;
 @Entity
 public class Patient extends GenericPatient {
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "patient_disability_category", joinColumns = {
         @JoinColumn(name = "patient_id", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "disability_category_id", nullable = false)})

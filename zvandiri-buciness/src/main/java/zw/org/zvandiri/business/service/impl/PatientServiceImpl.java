@@ -15,6 +15,7 @@
  */
 package zw.org.zvandiri.business.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -106,6 +107,7 @@ public class PatientServiceImpl implements PatientService {
             t.setId(UUIDGen.generateUUID());
             t.setCreatedBy(userService.getCurrentUser());
             t.setDateCreated(new Date());
+            t.setPatientNumber(getPatientUAC(t));
             return patientRepo.save(t);
         }
         t.setModifiedBy(userService.getCurrentUser());
@@ -139,7 +141,7 @@ public class PatientServiceImpl implements PatientService {
         String lastName = getSubString(patient.getLastName());
         String firstNameLastPart = getThreeLastChars(patient.getFirstName());
         String lastNameLastPart = getThreeLastChars(patient.getLastName());
-        
+
         Date start = DateUtil.getDateDiffMonth(patient.getDateOfBirth(), -6);
         Date end = DateUtil.getDateDiffMonth(patient.getDateOfBirth(), 6);
         return patientRepo.checkPatientDuplicate(firstName, lastName, start, end, patient.getPrimaryClinic(), firstNameLastPart, lastNameLastPart);
@@ -163,15 +165,15 @@ public class PatientServiceImpl implements PatientService {
     public List<Patient> search(SearchDTO dto, String... exp) {
         if (exp == null) {
             throw new IllegalArgumentException("Provide parameter for search");
-        } else if (exp.length == 1 && dto.getProvince() == null && dto.getDistrict() ==null) {
+        } else if (exp.length == 1 && dto.getProvince() == null && dto.getDistrict() == null) {
             return patientRepo.findByFirstNameOrLastName(exp[0], Boolean.TRUE);
-        } else if (exp.length == 1 && dto.getProvince() != null && dto.getDistrict() ==null) {
+        } else if (exp.length == 1 && dto.getProvince() != null && dto.getDistrict() == null) {
             return patientRepo.findByFirstNameOrLastNameAndProvince(exp[0], Boolean.TRUE, dto.getProvince());
-        } else if (exp.length == 1 && dto.getProvince() == null && dto.getDistrict() !=null) {
+        } else if (exp.length == 1 && dto.getProvince() == null && dto.getDistrict() != null) {
             return patientRepo.findByFirstNameOrLastNameAndDistrict(exp[0], Boolean.TRUE, dto.getDistrict());
-        } else if (exp.length > 1 && dto.getProvince() != null && dto.getDistrict() ==null) {
+        } else if (exp.length > 1 && dto.getProvince() != null && dto.getDistrict() == null) {
             return patientRepo.findByFirstNameAndLastNameAndProvince(exp[0], exp[1], Boolean.TRUE, dto.getProvince());
-        } else if (exp.length > 1 && dto.getProvince() == null && dto.getDistrict() !=null) {
+        } else if (exp.length > 1 && dto.getProvince() == null && dto.getDistrict() != null) {
             return patientRepo.findByFirstNameAndLastNameAndDistrict(exp[0], exp[1], Boolean.TRUE, dto.getDistrict());
         }
         return patientRepo.findByFirstNameAndLastName(exp[0], exp[1], Boolean.TRUE);
@@ -215,88 +217,87 @@ public class PatientServiceImpl implements PatientService {
     }
 
     /*@Override
-    @Transactional
-    public void mergePatients(String patientId, String patientToBeMergedId) {
-        // ignore merging fields only merge associated data
-        // its assummed that the associated data will not be duplicated, otherwise tough luck
-        Patient patient = patientRepo.getPatient(patientId);
-        Patient patientToBeMerged = patientRepo.getPatient(patientToBeMergedId);
-        patient.getDisabilityCategorys().addAll(patientToBeMerged.getDisabilityCategorys());
-        patient.getDependents().addAll(patientToBeMerged.getDependents());
-        patient.getMedicalHists().addAll(patientToBeMerged.getMedicalHists());
-        patient.getChronicInfectionItems().addAll(patientToBeMerged.getChronicInfectionItems());
-        patient.getHivConInfectionItems().addAll(patientToBeMerged.getHivConInfectionItems());
-        patient.getArvHists().addAll(patientToBeMerged.getArvHists());
-        patient.getMentalHealthItems().addAll(patientToBeMerged.getMentalHealthItems());
-        patient.getSrhHists().addAll(patientToBeMerged.getSrhHists());
-        patient.getObstercHists().addAll(patientToBeMerged.getObstercHists());
-        patient.getSocialHists().addAll(patientToBeMerged.getSocialHists());
-        patient.getSubstanceItems().addAll(patientToBeMerged.getSubstanceItems());
-        patient.getFamilys().addAll(patientToBeMerged.getFamilys());
-        patient.getContacts().addAll(patientToBeMerged.getContacts());
-        patient.getEidTests().addAll(patientToBeMerged.getEidTests());
-        patient.getInvestigationTests().addAll(patientToBeMerged.getInvestigationTests());
-        patient.getPatientHistories().addAll(patientHistoryService.getByPatient(patientToBeMerged));
-        save(patient);
-        delete(patientToBeMerged);
-    }*/
-    
+     @Transactional
+     public void mergePatients(String patientId, String patientToBeMergedId) {
+     // ignore merging fields only merge associated data
+     // its assummed that the associated data will not be duplicated, otherwise tough luck
+     Patient patient = patientRepo.getPatient(patientId);
+     Patient patientToBeMerged = patientRepo.getPatient(patientToBeMergedId);
+     patient.getDisabilityCategorys().addAll(patientToBeMerged.getDisabilityCategorys());
+     patient.getDependents().addAll(patientToBeMerged.getDependents());
+     patient.getMedicalHists().addAll(patientToBeMerged.getMedicalHists());
+     patient.getChronicInfectionItems().addAll(patientToBeMerged.getChronicInfectionItems());
+     patient.getHivConInfectionItems().addAll(patientToBeMerged.getHivConInfectionItems());
+     patient.getArvHists().addAll(patientToBeMerged.getArvHists());
+     patient.getMentalHealthItems().addAll(patientToBeMerged.getMentalHealthItems());
+     patient.getSrhHists().addAll(patientToBeMerged.getSrhHists());
+     patient.getObstercHists().addAll(patientToBeMerged.getObstercHists());
+     patient.getSocialHists().addAll(patientToBeMerged.getSocialHists());
+     patient.getSubstanceItems().addAll(patientToBeMerged.getSubstanceItems());
+     patient.getFamilys().addAll(patientToBeMerged.getFamilys());
+     patient.getContacts().addAll(patientToBeMerged.getContacts());
+     patient.getEidTests().addAll(patientToBeMerged.getEidTests());
+     patient.getInvestigationTests().addAll(patientToBeMerged.getInvestigationTests());
+     patient.getPatientHistories().addAll(patientHistoryService.getByPatient(patientToBeMerged));
+     save(patient);
+     delete(patientToBeMerged);
+     }*/
     @Override
     @Transactional
     public void mergePatients(String patientId, String patientToBeMergedId) {
         Patient patient = patientRepo.getPatient(patientId);
         Patient patientToBeMerged = patientRepo.getPatient(patientToBeMergedId);
-        for(InvestigationTest item : patientToBeMerged.getInvestigationTests()){
+        for (InvestigationTest item : patientToBeMerged.getInvestigationTests()) {
             patient.add(item, patient);
         }
-        for(CatDetail item : patientToBeMerged.getCatDetails()){
+        for (CatDetail item : patientToBeMerged.getCatDetails()) {
             patient.add(item, patient);
         }
-        for(Referral item : patientToBeMerged.getReferrals()){
+        for (Referral item : patientToBeMerged.getReferrals()) {
             patient.add(item, patient);
         }
-        for(EidTest item : patientToBeMerged.getEidTests()){
+        for (EidTest item : patientToBeMerged.getEidTests()) {
             patient.add(item, patient);
         }
-        for(Contact item : patientToBeMerged.getContacts()){
+        for (Contact item : patientToBeMerged.getContacts()) {
             patient.add(item, patient);
         }
-        for(Family item : patientToBeMerged.getFamilys()){
+        for (Family item : patientToBeMerged.getFamilys()) {
             patient.add(item, patient);
         }
-        for(SubstanceItem item : patientToBeMerged.getSubstanceItems()){
+        for (SubstanceItem item : patientToBeMerged.getSubstanceItems()) {
             patient.add(item, patient);
         }
-        for(SrhHist item : patientToBeMerged.getSrhHists()){
+        for (SrhHist item : patientToBeMerged.getSrhHists()) {
             patient.add(item, patient);
         }
-        for(SocialHist item : patientToBeMerged.getSocialHists()){
+        for (SocialHist item : patientToBeMerged.getSocialHists()) {
             patient.add(item, patient);
         }
-        for(ObstercHist item : patientToBeMerged.getObstercHists()){
+        for (ObstercHist item : patientToBeMerged.getObstercHists()) {
             patient.add(item, patient);
         }
-        for(MentalHealthItem item : patientToBeMerged.getMentalHealthItems()){
+        for (MentalHealthItem item : patientToBeMerged.getMentalHealthItems()) {
             patient.add(item, patient);
         }
-        for(ArvHist item : patientToBeMerged.getArvHists()){
+        for (ArvHist item : patientToBeMerged.getArvHists()) {
             patient.add(item, patient);
         }
-        for(HivConInfectionItem item : patientToBeMerged.getHivConInfectionItems()){
+        for (HivConInfectionItem item : patientToBeMerged.getHivConInfectionItems()) {
             patient.add(item, patient);
         }
-        for(ChronicInfectionItem item : patientToBeMerged.getChronicInfectionItems()){
+        for (ChronicInfectionItem item : patientToBeMerged.getChronicInfectionItems()) {
             patient.add(item, patient);
         }
-        
-        for(MedicalHist item : patientToBeMerged.getMedicalHists()){
+
+        for (MedicalHist item : patientToBeMerged.getMedicalHists()) {
             patient.add(item, patient);
         }
-        
-        for(Dependent item : patientToBeMerged.getDependents()){
+
+        for (Dependent item : patientToBeMerged.getDependents()) {
             patient.add(item, patient);
         }
-        for(DisabilityCategory item : patientToBeMerged.getDisabilityCategorys()){
+        for (DisabilityCategory item : patientToBeMerged.getDisabilityCategorys()) {
             patient.add(item);
         }
         save(patient);
@@ -306,11 +307,123 @@ public class PatientServiceImpl implements PatientService {
     @Override
     @Transactional
     public void updatePatientStatus(List<Patient> pateints) {
-        
+
         for (Patient p : pateints) {
             p.setStatus(PatientChangeEvent.GRADUATED);
             save(p);
         }
     }
-    
+
+    @Override
+    public String getPatientUAC(Patient patient) {
+        if (patient.getPatientNumber() != null) {
+            return patient.getPatientNumber();
+        }
+        SimpleDateFormat format = new SimpleDateFormat("ddMMYY");
+        String surname = getLastTwoLetters(patient.getLastName());
+        String forename = getLastTwoLetters(patient.getFirstName());
+        String district = getLastTwoLetters(patient.getPrimaryClinic().getDistrict().getName());
+        String sex = patient.getGender().getAltName();
+        String dob = format.format(patient.getDateOfBirth());
+        String uac = surname + forename + district + dob + sex;
+
+        int current = patientRepo.countByPrimaryClinicAndPatientNumberNotNull(patient.getPrimaryClinic());
+        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Facility : " + patient.getPrimaryClinic().getName() + " Current Count IS : " + current);
+        String combinedUAC = "";
+        if (current == 0) {
+            combinedUAC = uac + "00000";
+        } else {
+            combinedUAC = transformCode(uac + String.valueOf(current));
+        }
+
+        return combinedUAC.toUpperCase();
+    }
+
+    private String getLastTwoLetters(String name) {
+        return name.substring(name.length() - 2, name.length());
+    }
+
+    private String transformCode(String code) {
+        //  10010200000 ONNERU160694F 0001
+        int begin = code.length() - 14;
+        String lastDigits = code.substring(13);
+        final String firstDigits = code.substring(0, 13);
+        System.out.println("******************************** Last DIGITS " + lastDigits);
+        System.out.println("******************************** First DIGITS " + firstDigits);
+        lastDigits = padWithZeroes(lastDigits);
+        String[] digits = explodeString(lastDigits);
+        String calculatedCode = "";
+        boolean found = false;
+        int position = 0;
+        for (String digit : digits) {
+            Integer currentVal = Integer.valueOf(digit);
+            if (currentVal >= 1) {
+                found = true;
+                // potential bug here on 90
+                if (position == 4) {
+                    Integer value = currentVal + 1;
+
+                    if (value == 10 || value == 100 || value == 1000 || value == 10000) {
+                        calculatedCode = calculatedCode.substring(1);
+                    }
+                    calculatedCode += value;
+                } else {
+                    // fetch rest of string to the right and add 1 and break
+                    Integer restOfValue = Integer.valueOf(lastDigits.substring(position)) + 1;
+                    if (restOfValue == 10 || restOfValue == 100 || restOfValue == 1000 || restOfValue == 10000) {
+                        calculatedCode = calculatedCode.substring(1);
+                    }
+                    calculatedCode += restOfValue.toString();
+                    break;
+                }
+            } else {
+                calculatedCode += digit;
+            }
+            position++;
+        }
+        if (!found) {
+            calculatedCode = "00001";
+        }
+        return firstDigits + calculatedCode;
+    }
+
+    private String padWithZeroes(String lastBits) {
+
+        // we need 0001
+        int count = lastBits.length();
+        switch (count) {
+            case 1:
+                return "000" + lastBits;
+            case 2:
+                return "00" + lastBits;
+            case 3:
+                return "0" + lastBits;
+            case 4:
+                return lastBits;
+            default:
+                throw new IllegalStateException("Illegal application state only expected counts on 1 - 4 : " + count);
+        }
+    }
+
+    private String[] explodeString(String s) {
+        if (s == null) {
+            return null;
+        }
+        char[] c = s.toCharArray();
+        String[] sArray = new String[c.length];
+        for (int i = 0; i < c.length; i++) {
+            sArray[i] = String.valueOf(c[i]);
+        }
+        return sArray;
+    }
+
+    @Override
+    public void updatePatientUAC() {
+
+        for (Patient patient : getAll()) {
+            patient.setPatientNumber(getPatientUAC(patient));
+            save(patient);
+        }
+    }
+
 }

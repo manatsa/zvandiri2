@@ -22,8 +22,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -71,8 +69,6 @@ public class PatientServiceImpl implements PatientService {
     private UserService userService;
     @Resource
     private CatDetailService catDetailService;
-    @PersistenceContext
-    private EntityManager entityManager;
 
     @Override
     public List<Patient> getAll() {
@@ -322,16 +318,20 @@ public class PatientServiceImpl implements PatientService {
         SimpleDateFormat format = new SimpleDateFormat("ddMMYY");
         String surname = getLastTwoLetters(patient.getLastName());
         String forename = getLastTwoLetters(patient.getFirstName());
-        String district = getLastTwoLetters(patient.getPrimaryClinic().getDistrict().getName());
+        String district = patient.getPrimaryClinic().getDistrict().getName().substring(0, 2);
         String sex = patient.getGender().getAltName();
         String dob = format.format(patient.getDateOfBirth());
-        String uac = surname + forename + district + dob + sex;
+        String uac = surname + forename + sex + dob + district;
+        //KOANF120700NO005739
 
-        int current = patientRepo.countByPrimaryClinicAndPatientNumberNotNull(patient.getPrimaryClinic());
-        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Facility : " + patient.getPrimaryClinic().getName() + " Current Count IS : " + current);
+        int current = patientRepo.countByPatientNumberNotNull();
+        if (current >= 5730 && current < 5741) {
+            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Facility : " + patient.getPrimaryClinic().getName() 
+                    + " Current Count IS : " + current + " Name :: " + patient.getName());
+        }
         String combinedUAC = "";
         if (current == 0) {
-            combinedUAC = uac + "00000";
+            combinedUAC = uac + "000000";
         } else {
             combinedUAC = transformCode(uac + String.valueOf(current));
         }
@@ -344,12 +344,8 @@ public class PatientServiceImpl implements PatientService {
     }
 
     private String transformCode(String code) {
-        //  10010200000 ONNERU160694F 0001
-        int begin = code.length() - 14;
         String lastDigits = code.substring(13);
         final String firstDigits = code.substring(0, 13);
-        System.out.println("******************************** Last DIGITS " + lastDigits);
-        System.out.println("******************************** First DIGITS " + firstDigits);
         lastDigits = padWithZeroes(lastDigits);
         String[] digits = explodeString(lastDigits);
         String calculatedCode = "";
@@ -359,46 +355,40 @@ public class PatientServiceImpl implements PatientService {
             Integer currentVal = Integer.valueOf(digit);
             if (currentVal >= 1) {
                 found = true;
-                // potential bug here on 90
-                if (position == 4) {
-                    Integer value = currentVal + 1;
-
-                    if (value == 10 || value == 100 || value == 1000 || value == 10000) {
-                        calculatedCode = calculatedCode.substring(1);
-                    }
-                    calculatedCode += value;
-                } else {
-                    // fetch rest of string to the right and add 1 and break
-                    Integer restOfValue = Integer.valueOf(lastDigits.substring(position)) + 1;
-                    if (restOfValue == 10 || restOfValue == 100 || restOfValue == 1000 || restOfValue == 10000) {
-                        calculatedCode = calculatedCode.substring(1);
-                    }
-                    calculatedCode += restOfValue.toString();
-                    break;
-                }
-            } else {
-                calculatedCode += digit;
+                // potential bug here on 90 100 000
+                break;
             }
             position++;
         }
         if (!found) {
-            calculatedCode = "00001";
+            calculatedCode = "000001";
+        } else {
+            Integer lastPart = Integer.valueOf(lastDigits.substring(position - 1));
+            String firstPart = lastDigits.substring(0, position);
+            if (lastPart == 9 || lastPart == 99 || lastPart == 999 || lastPart == 9999 || lastPart == 99999) {
+                firstPart = lastDigits.substring(0, position - 1);
+            }
+            calculatedCode = firstPart + (lastPart + 1);
         }
         return firstDigits + calculatedCode;
     }
 
     private String padWithZeroes(String lastBits) {
 
-        // we need 0001
+        // we need 000000
         int count = lastBits.length();
         switch (count) {
             case 1:
-                return "000" + lastBits;
+                return "00000" + lastBits;
             case 2:
-                return "00" + lastBits;
+                return "0000" + lastBits;
             case 3:
-                return "0" + lastBits;
+                return "000" + lastBits;
             case 4:
+                return "00" + lastBits;
+            case 5:
+                return "0" + lastBits;
+            case 6:
                 return lastBits;
             default:
                 throw new IllegalStateException("Illegal application state only expected counts on 1 - 4 : " + count);
@@ -418,11 +408,16 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    @Transactional
     public void updatePatientUAC() {
 
         for (Patient patient : getAll()) {
-            patient.setPatientNumber(getPatientUAC(patient));
-            save(patient);
+            if (patient.getFirstName().length() <= 1 || patient.getLastName().length() <= 1) {
+                continue;
+            }
+            Patient newPatient = get(patient.getId());
+            newPatient.setPatientNumber(getPatientUAC(patient));
+            save(newPatient);
         }
     }
 

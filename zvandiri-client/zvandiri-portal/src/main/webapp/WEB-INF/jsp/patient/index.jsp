@@ -17,12 +17,13 @@
                     <form method="post">
                         <div class="form-group">
                             <label>Search Clients</label>
-                            <input type="text" name="search" placeholder="Search by first name or last name or both first name and lastname" id="search" class="form-control"/>
+                            <input type="text" name="search" placeholder="Search by uac first name or last name or both first name and lastname" id="search" class="form-control"/>
                         </div>
                     </form>
                     <table id="patientListing" class="display hide" cellspacing="0">
                         <thead>
                         <th>Name</th>
+                        <th>UAC</th>
                         <th>Gender</th>
                         <th>Age</th>
                         <th>Joined</th>
@@ -68,6 +69,7 @@
                     var contact_url = "<a href='"+path+"/beneficiary/contact/item.form?patientId=" + pat[i].id + "'>";
                     var referral_url = "<a href='"+path+"/patient/referral/item.list?id=" + pat[i].id + "'>";
                     $("#patientListing").dataTable().fnAddData([part_url +pat[i].name+ "</a>",
+                        pat[i].patientNumber,
                         pat[i].gender,
                         pat[i].age,
                         pat[i].dateJoined,

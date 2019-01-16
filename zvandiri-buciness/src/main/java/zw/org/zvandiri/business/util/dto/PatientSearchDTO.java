@@ -36,8 +36,9 @@ public class PatientSearchDTO implements Serializable {
     private final String primaryClinic;
     private final String id;
     private final PatientChangeEvent status;
+    private final String patientNumber;
 
-    public PatientSearchDTO(String name, String gender, Integer age, String dateJoined, String district, String primaryClinic, String id, PatientChangeEvent status) {
+    public PatientSearchDTO(String name, String gender, Integer age, String dateJoined, String district, String primaryClinic, String id, PatientChangeEvent status, String patientNumber) {
         this.name = name;
         this.gender = gender;
         this.age = age;
@@ -46,6 +47,7 @@ public class PatientSearchDTO implements Serializable {
         this.primaryClinic = primaryClinic;
         this.id = id;
         this.status = status;
+        this.patientNumber = patientNumber;
     }
 
     public String getName() {
@@ -83,6 +85,10 @@ public class PatientSearchDTO implements Serializable {
         return Boolean.FALSE;
     }
 
+    public String getPatientNumber() {
+        return patientNumber;
+    }
+
     public static List<PatientSearchDTO> getInstance(List<Patient> patients) {
         List<PatientSearchDTO> items = new ArrayList<>();
         for(Patient patient : patients){
@@ -94,7 +100,8 @@ public class PatientSearchDTO implements Serializable {
                 patient.getPrimaryClinic().getDistrict().getName(),
                 patient.getPrimaryClinic().getName(),
                 patient.getId(),
-                patient.getStatus()
+                patient.getStatus(),
+                patient.getPatientNumber()
             ));
         }
         return items;

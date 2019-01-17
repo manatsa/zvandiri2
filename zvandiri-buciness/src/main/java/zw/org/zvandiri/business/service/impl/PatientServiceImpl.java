@@ -322,13 +322,8 @@ public class PatientServiceImpl implements PatientService {
         String sex = patient.getGender().getAltName();
         String dob = format.format(patient.getDateOfBirth());
         String uac = surname + forename + sex + dob + district;
-        //KOANF120700NO005739
 
         int current = patientRepo.countByPatientNumberNotNull();
-        if (current >= 5730 && current < 5741) {
-            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Facility : " + patient.getPrimaryClinic().getName() 
-                    + " Current Count IS : " + current + " Name :: " + patient.getName());
-        }
         String combinedUAC = "";
         if (current == 0) {
             combinedUAC = uac + "000000";

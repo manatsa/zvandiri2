@@ -15,6 +15,7 @@
  */
 package zw.org.zvandiri.portal.web.validator;
 
+import java.util.Date;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -54,6 +55,12 @@ public class DisabilityValidator implements Validator {
         if (item.getSeverity() == null) {
             errors.rejectValue("severity", "field.empty");
         }
+        if (item.getDateScreened() != null && item.getDateScreened().after(new Date())) {
+                errors.rejectValue("dateJoined", "date.aftertoday");
+            }
+            if (item.getDateScreened() != null && item.getPatient().getDateOfBirth() != null && item.getDateScreened().before(item.getPatient().getDateOfBirth())) {
+                errors.rejectValue("dateJoined", "date.beforebirth");
+            }
         if (item.getPatient() != null && item.getDisabilityCategory()!= null) {
             if (item.getPatient() != null) {
                 old = disabilityService.getByPatientAndDisabilityCategory(item.getPatient(), item.getDisabilityCategory());

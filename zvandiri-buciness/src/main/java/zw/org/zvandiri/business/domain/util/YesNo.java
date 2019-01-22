@@ -52,7 +52,7 @@ public enum YesNo {
 
     @Override
     public String toString() {
-        return getName();
+        return super.name() != null ? getName() : null;
     }
     
 }

@@ -5,6 +5,8 @@
  */
 package zw.org.zvandiri.business.domain.util;
 
+import zw.org.zvandiri.business.util.StringUtils;
+
 /**
  *
  * @author jmuzinda
@@ -29,5 +31,14 @@ public enum DisabilitySeverity {
             }
         }
         throw new IllegalArgumentException("Illegal parameter passed to method : "+ code);
+    }
+    
+    public String getName(){
+        return StringUtils.toCamelCase3(super.name());
+    }
+
+    @Override
+    public String toString() {
+        return super.name() != null ? getName() : null;
     }
 }

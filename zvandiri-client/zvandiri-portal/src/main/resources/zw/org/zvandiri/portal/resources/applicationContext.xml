@@ -96,6 +96,7 @@
                 <bean class="zw.org.zvandiri.portal.web.converter.TbTreatmentStatusConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.MentalScreenResultConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.IdentifiedRiskConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.DisabilitySeverityConverter"/>
             </set>
         </property>
     </bean> 

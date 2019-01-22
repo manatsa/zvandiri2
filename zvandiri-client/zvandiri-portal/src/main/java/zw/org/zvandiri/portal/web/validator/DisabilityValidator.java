@@ -56,10 +56,10 @@ public class DisabilityValidator implements Validator {
             errors.rejectValue("severity", "field.empty");
         }
         if (item.getDateScreened() != null && item.getDateScreened().after(new Date())) {
-                errors.rejectValue("dateJoined", "date.aftertoday");
+                errors.rejectValue("dateScreened", "date.aftertoday");
             }
             if (item.getDateScreened() != null && item.getPatient().getDateOfBirth() != null && item.getDateScreened().before(item.getPatient().getDateOfBirth())) {
-                errors.rejectValue("dateJoined", "date.beforebirth");
+                errors.rejectValue("dateScreened", "date.beforebirth");
             }
         if (item.getPatient() != null && item.getDisabilityCategory()!= null) {
             if (item.getPatient() != null) {

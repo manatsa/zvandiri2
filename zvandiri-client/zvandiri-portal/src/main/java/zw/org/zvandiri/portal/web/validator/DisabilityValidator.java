@@ -22,6 +22,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import zw.org.zvandiri.business.domain.PatientDisability;
+import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.DisabilityService;
 
 /**
@@ -33,7 +34,7 @@ public class DisabilityValidator implements Validator {
 
     @Resource
     private DisabilityService disabilityService;
-    
+
     @Override
     public boolean supports(Class<?> type) {
         return type.equals(PatientDisability.class);
@@ -41,9 +42,7 @@ public class DisabilityValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-        
-        ValidationUtils.rejectIfEmpty(errors, "dateScreened", "field.empty");
-        
+
         PatientDisability item = (PatientDisability) o;
         PatientDisability old = null;
         if (item.getDisabilityCategory() == null) {
@@ -55,13 +54,16 @@ public class DisabilityValidator implements Validator {
         if (item.getSeverity() == null) {
             errors.rejectValue("severity", "field.empty");
         }
+        if ((item.getScreened() != null && item.getScreened().equals(YesNo.YES)) && item.getDateScreened() == null) {
+            errors.rejectValue("dateScreened", "field.empty");
+        }
         if (item.getDateScreened() != null && item.getDateScreened().after(new Date())) {
-                errors.rejectValue("dateScreened", "date.aftertoday");
-            }
-            if (item.getDateScreened() != null && item.getPatient().getDateOfBirth() != null && item.getDateScreened().before(item.getPatient().getDateOfBirth())) {
-                errors.rejectValue("dateScreened", "date.beforebirth");
-            }
-        if (item.getPatient() != null && item.getDisabilityCategory()!= null) {
+            errors.rejectValue("dateScreened", "date.aftertoday");
+        }
+        if (item.getDateScreened() != null && item.getPatient().getDateOfBirth() != null && item.getDateScreened().before(item.getPatient().getDateOfBirth())) {
+            errors.rejectValue("dateScreened", "date.beforebirth");
+        }
+        if (item.getPatient() != null && item.getDisabilityCategory() != null) {
             if (item.getPatient() != null) {
                 old = disabilityService.getByPatientAndDisabilityCategory(item.getPatient(), item.getDisabilityCategory());
             }
@@ -70,5 +72,5 @@ public class DisabilityValidator implements Validator {
             }
         }
     }
-    
+
 }

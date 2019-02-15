@@ -20,10 +20,6 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import org.hibernate.annotations.Formula;
@@ -38,11 +34,8 @@ import zw.org.zvandiri.business.util.DateUtil;
 @Entity
 public class Patient extends GenericPatient {
 
-    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
-    @JoinTable(name = "patient_disability_category", joinColumns = {
-        @JoinColumn(name = "patient_id", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "disability_category_id", nullable = false)})
-    private Set<DisabilityCategory> disabilityCategorys;
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
+    private Set<PatientDisability> disabilityCategorys = new HashSet<>();
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private Set<PatientHistory> patientHistories = new HashSet<>();
     @Transient
@@ -110,11 +103,11 @@ public class Patient extends GenericPatient {
         return getFirstName() + (getMiddleName() != null && !getMiddleName().equals("") ? " " + getMiddleName() : "") + " " + getLastName();
     }
 
-    public Set<DisabilityCategory> getDisabilityCategorys() {
+    public Set<PatientDisability> getDisabilityCategorys() {
         return disabilityCategorys;
     }
 
-    public void setDisabilityCategorys(Set<DisabilityCategory> disabilityCategorys) {
+    public void setDisabilityCategorys(Set<PatientDisability> disabilityCategorys) {
         this.disabilityCategorys = disabilityCategorys;
     }
 
@@ -199,14 +192,9 @@ public class Patient extends GenericPatient {
     public Integer getCd4Count() {
         return cd4Count != null ? cd4Count : 0;
     }
-    
-    public void add(DisabilityCategory category){
-        disabilityCategorys.add(category);
-        category.getPatients().add(this);
-    }
-    
-    public void remove(DisabilityCategory category, Patient patient){
-        disabilityCategorys.remove(category);
-        category.getPatients().remove(patient);
+
+    public void add(PatientDisability item, Patient patient) {
+        disabilityCategorys.add(item);
+        item.setPatient(patient);
     }
 }

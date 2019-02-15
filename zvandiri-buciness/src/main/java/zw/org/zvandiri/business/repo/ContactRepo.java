@@ -21,6 +21,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.User;
 
 /**
  *
@@ -41,4 +42,7 @@ public interface ContactRepo extends AbstractRepo<Contact, String> {
     
     @Query("Select Distinct(c) from Contact c left join fetch c.patient left join fetch c.location left join fetch c.position left join fetch c.period left join fetch c.internalReferral left join fetch c.externalReferral left join fetch c.assessments left join fetch c.actionTaken left join fetch c.stables left join fetch c.enhanceds left join fetch c.parent left join fetch c.referredPerson")
     public List<Contact> findByAllContacts();
+    
+    @Query("Select Distinct(c) from Contact c left join fetch c.createdBy left join fetch c.patient left join fetch c.location left join fetch c.position left join fetch c.period left join fetch c.internalReferral left join fetch c.externalReferral left join fetch c.assessments left join fetch c.actionTaken left join fetch c.stables left join fetch c.enhanceds left join fetch c.parent left join fetch c.referredPerson where c.referredPerson=:referredPerson and c.open=:open order by c.contactDate DESC")
+    public List<Contact> findByReferredPersonAndOpenOrderByContactDateDesc(@Param("referredPerson") User referredPerson, @Param("open") Boolean open);
 }

@@ -5,6 +5,8 @@
             <td>
                 ${patient.name} 
             </td>
+            <td>UAC</td>
+            <td>${patient.patientNumber}</td>
             <th>Age</th>
             <td>
                 ${patient.age}
@@ -20,6 +22,8 @@
             <td>
                 <spring:eval expression="patient.dateJoined"/>
             </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
         </tr>
     </tbody>
 </table>

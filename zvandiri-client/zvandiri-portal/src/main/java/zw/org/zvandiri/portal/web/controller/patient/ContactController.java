@@ -38,6 +38,7 @@ import zw.org.zvandiri.business.service.LocationService;
 import zw.org.zvandiri.business.service.PatientService;
 import zw.org.zvandiri.business.service.PositionService;
 import zw.org.zvandiri.business.service.StableService;
+import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.ItemDeleteDTO;
 import zw.org.zvandiri.portal.util.AppMessage;
@@ -76,6 +77,8 @@ public class ContactController extends BaseController {
     private AssessmentService assessmentService;
     @Resource
     private ActionTakenService actionTakenService;
+    @Resource
+    private UserService userService;
 
     public String setUpModel(ModelMap model, Contact item, String view) {
         Patient patient = item.getPatient();
@@ -90,6 +93,7 @@ public class ContactController extends BaseController {
         model.addAttribute("stable", Boolean.FALSE);
         model.addAttribute("enhanced", Boolean.FALSE);
         model.addAttribute("intensive", Boolean.FALSE);
+        model.addAttribute("internalStaff", Boolean.FALSE);
         model.addAttribute("assessments", assessmentService.getAll());
         model.addAttribute("actionTaken", actionTakenService.getAll());
         if (item.getReason() != null) {
@@ -108,10 +112,14 @@ public class ContactController extends BaseController {
             } else if (item.getCareLevel().equals(CareLevel.ENHANCED)) {
                 model.addAttribute("enhanced", Boolean.TRUE);
                 model.addAttribute("enhanceds", enhancedService.getAll());
-            } 
+            }
+        }
+        if (item.getActionTaken() != null && item.getActionTaken().getName().equalsIgnoreCase("Internal Referral")) {
+            model.addAttribute("staff", userService.getByUserType());
+            model.addAttribute("internalStaff", Boolean.TRUE);
         }
         getPatientStatus(item.getPatient(), model);
-        return "patient/"+view;
+        return "patient/" + view;
     }
 
     @RequestMapping(value = "/item.form", method = RequestMethod.GET)
@@ -123,7 +131,7 @@ public class ContactController extends BaseController {
         }
         return setUpModel(model, new Contact(patientService.get(patientId)), "contactForm");
     }
-    
+
     @RequestMapping(value = "/item.view", method = RequestMethod.GET)
     public String getContactView(ModelMap model, @RequestParam(required = false) String patientId, @RequestParam(required = false) String id) {
         Contact item;

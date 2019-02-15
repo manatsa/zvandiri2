@@ -49,8 +49,6 @@ public class LaboratoryTestResultsController extends BaseController {
     @Resource
     private FacilityService facilityService;
     @Resource
-    private OfficeExportService officeExportService;
-    @Resource
     private PatientReportService patientReportService;
 
     public String setUpModel(ModelMap model, SearchDTO item) {
@@ -63,7 +61,8 @@ public class LaboratoryTestResultsController extends BaseController {
                 model.addAttribute("facilities", facilityService.getOptByDistrict(item.getDistrict()));
             }
         }
-        model.addAttribute("excelExport", "/report/test-results/export/excel" + item.getQueryString(item.getInstance(item)));
+        // 
+        model.addAttribute("excelExport", "/report/detailed/export/excel" + item.getQueryString(item.getInstance(item)));
         model.addAttribute("items", patientReportService.getPatientLabResultsList(item.getInstance(item)));
         model.addAttribute("item", item.getInstance(item));
         return "report/detailedPatientReport";
@@ -80,10 +79,4 @@ public class LaboratoryTestResultsController extends BaseController {
     public String getReferralReportIndex(ModelMap model, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
         return setUpModel(model, item);
     }
-    
-    /*@RequestMapping(value = "/export/excel", method = RequestMethod.GET)
-    public void getExcelExport(HttpServletResponse response, SearchDTO item) {
-        String name = DateUtil.getFriendlyFileName("Lab_Results");
-        forceDownLoad(officeExportService.exportExcelFile(referralReportAPIService.getDefaultReport(item.getInstance(item)), name), name, response);
-    }*/
 }

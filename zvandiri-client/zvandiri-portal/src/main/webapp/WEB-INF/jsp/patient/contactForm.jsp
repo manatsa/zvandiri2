@@ -180,12 +180,20 @@
                                             <form:errors path="actionTaken" class="alert-danger"/>
                                         </p>
                                     </div>
-
+                                    <c:if test="${internalStaff}">
+                                        <div class="form-group">
+                                            <label>Zvandiri Staff Member</label><br/><br/>
+                                            <form:select path="referredPerson" class="form-control">
+                                                <form:option value="" label="--Select Item"/>
+                                                <form:options items="${staff}" itemValue="id" itemLabel="displayName"/>
+                                            </form:select>
+                                            <p class="help-block">
+                                                <form:errors path="referredPerson" class="alert-danger"/>
+                                            </p>
+                                        </div>
+                                    </c:if>
                                 </div>
                             </div>
-
-
-
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Save</button>
                                 <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}"><button class="btn btn-primary" type="button">Cancel</button></a>
@@ -200,6 +208,11 @@
 <%@include file="../template/footer.jspf" %>
 <script type="text/javascript">
     $("#reason").change(function () {
+        $("#currentElement").val($(window).scrollTop());
+        $("form").attr("action", "reload-form").submit();
+    });
+    
+    $("#actionTaken").change(function () {
         $("#currentElement").val($(window).scrollTop());
         $("form").attr("action", "reload-form").submit();
     });

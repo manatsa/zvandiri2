@@ -15,10 +15,7 @@
  */
 package zw.org.zvandiri.business.domain;
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 
 /**
  *
@@ -27,21 +24,10 @@ import javax.persistence.ManyToMany;
 @Entity
 public class DisabilityCategory extends BaseName {
 
-    @ManyToMany(mappedBy = "disabilityCategorys")
-    private Set<Patient> patients = new HashSet<>();
-    
     public DisabilityCategory() {
     }
 
     public DisabilityCategory(String id) {
         super(id);
-    }
-
-    public Set<Patient> getPatients() {
-        return patients;
-    }
-
-    public void setPatients(Set<Patient> patients) {
-        this.patients = patients;
     }
 }

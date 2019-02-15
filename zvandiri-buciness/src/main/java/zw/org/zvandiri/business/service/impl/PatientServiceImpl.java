@@ -52,7 +52,7 @@ import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.UUIDGen;
 import zw.org.zvandiri.business.util.dto.PatientDuplicateDTO;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
-import zw.org.zvandiri.business.domain.DisabilityCategory;
+import zw.org.zvandiri.business.domain.PatientDisability;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 
 /**
@@ -293,8 +293,8 @@ public class PatientServiceImpl implements PatientService {
         for (Dependent item : patientToBeMerged.getDependents()) {
             patient.add(item, patient);
         }
-        for (DisabilityCategory item : patientToBeMerged.getDisabilityCategorys()) {
-            patient.add(item);
+        for (PatientDisability item : patientToBeMerged.getDisabilityCategorys()) {
+            patient.add(item, patient);
         }
         save(patient);
         delete(patientToBeMerged);

@@ -98,6 +98,10 @@ public class Contact extends BaseEntity {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date lastClinicAppointmentDate;
     private YesNo attendedClinicAppointment;
+    @Column(name = "`open`")
+    private Boolean open = Boolean.FALSE;
+    @Column(columnDefinition = "text")
+    private String defaultMessage;
     @Transient
     private String currentElement;
 
@@ -282,6 +286,25 @@ public class Contact extends BaseEntity {
 
     public void setAttendedClinicAppointment(YesNo attendedClinicAppointment) {
         this.attendedClinicAppointment = attendedClinicAppointment;
+    }
+
+    public Boolean getOpen() {
+        if (open == null) {
+            return Boolean.TRUE;
+        }
+        return open;
+    }
+
+    public void setOpen(Boolean open) {
+        this.open = open;
+    }
+
+    public String getDefaultMessage() {
+        return defaultMessage;
+    }
+
+    public void setDefaultMessage(String defaultMessage) {
+        this.defaultMessage = defaultMessage;
     }
     
 }

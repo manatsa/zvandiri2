@@ -32,18 +32,18 @@ public interface UserRepo extends CrudRepository<User, String> {
     @Override
     public List<User> findAll();
     
-    @Query("from User u "+IRepoConstant.USER_CONSTANT+" where u.id =:id")
+    @Query("Select Distinct u from User u "+IRepoConstant.USER_CONSTANT+" where u.id =:id")
     public User findUser(@Param("id") String id);
 
     @Query("Select Distinct u from User u "+IRepoConstant.USER_CONSTANT+" where u.active=:active Order By u.userName ASC")
     public List<User> getOptAll(@Param("active") Boolean active);
 
-    @Query("from User u "+IRepoConstant.USER_CONSTANT+" where u.userName=:userName and u.active=:active")
+    @Query("Select Distinct u from User u "+IRepoConstant.USER_CONSTANT+" where u.userName=:userName and u.active=:active")
     public User findByUserName(@Param("userName") String userName, @Param("active") Boolean active);
 
 //    @Query("from User p where p.userName=:userName")
 //    public boolean hasDuplicateUserName(User user, Boolean exists);
     
-    @Query("from User u "+IRepoConstant.USER_CONSTANT+" where u.userType in:userTypes")
+    @Query("Select Distinct u from User u "+IRepoConstant.USER_CONSTANT+" where u.userType in:userTypes")
     public List<User> findByUserType(@Param("userTypes") List<UserType> userTypes);
 }

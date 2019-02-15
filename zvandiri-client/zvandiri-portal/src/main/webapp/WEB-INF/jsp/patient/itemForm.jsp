@@ -298,13 +298,6 @@
                                     <form:errors path="disability" class="alert-danger"/>
                                 </p>
                             </div>
-                            <div class="form-group has-disability hide">
-                                <label>Disabilities</label><br/><br/>
-                                <form:checkboxes path="disabilityCategorys" items="${disabilityCategories}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
-                                <p class="help-block">
-                                    <form:errors path="disabilityCategorys" class="alert-danger"/>
-                                </p>
-                            </div>
                             <div class="form-group">
                                 <label>Consent M-Health</label>
                                 <form:select path="consentToMHealth" class="form-control">
@@ -383,16 +376,6 @@
             $("#hIVDisclosureLocation").val('');
             $(".status-known").addClass("hide");
         }
-    });
-    $("#disability").change(function () {
-        var name = $("#disability :selected").text();
-        if (name === "Yes") {
-            $(".has-disability").removeClass("hide");
-        } else {
-            $('input:checkbox').removeAttr('checked');
-            $(".has-disability").addClass("hide");
-        }
-    });
     $(function () {
         window.onload = function () {
             var name = $("#educationLevel :selected").text();
@@ -403,10 +386,6 @@
             var name = $("#hivStatusKnown :selected").text();
             if (name === "Yes") {
                 $(".status-known").removeClass("hide");
-            }
-            var name = $("#disability :selected").text();
-            if (name === "Yes") {
-                $(".has-disability").removeClass("hide");
             }
             var name = $("#mobileOwner :selected").text();
             if (name === "No") {

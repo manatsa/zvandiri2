@@ -12,6 +12,7 @@
                     <table id="tableList" class="display" cellspacing="0">
                         <thead>
                         <th>Name</th>
+                        <th>UAC</th>
                         <th>Age</th>
                         <th>Viral Load</th>
                         <th>CD4 Count</th>
@@ -27,6 +28,7 @@
                         </thead>
                         <tfoot>
                         <th>Name</th>
+                        <th>UAC</th>
                         <th>Age</th>
                         <th>Viral Load</th>
                         <th>CD4 Count</th>
@@ -44,6 +46,7 @@
                             <c:forEach var="item" items="${items}" >
                                 <tr>
                                     <td>${item.name}</td>
+                                    <td>${item.patientNumber}</td>
                                     <td>${item.age}</td>
                                     <td>${item.viralLoad}</td>
                                     <td>${item.cd4Count}</td>

@@ -97,5 +97,10 @@ public class BeneficiaryContactValidator implements Validator {
         if (item.getLastClinicAppointmentDate() != null && item.getAttendedClinicAppointment() == null) {
             errors.rejectValue("attendedClinicAppointment", "field.empty");
         }
+        if (item.getActionTaken() != null && item.getActionTaken().getName().equalsIgnoreCase("Internal Referral") 
+                && item.getReferredPerson() == null) {
+            errors.rejectValue("referredPerson", "field.empty");
+        }
     }
+    
 }

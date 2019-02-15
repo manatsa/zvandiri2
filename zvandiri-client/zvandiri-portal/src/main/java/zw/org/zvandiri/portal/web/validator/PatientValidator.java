@@ -217,9 +217,6 @@ public class PatientValidator implements Validator {
                     errors.rejectValue("hIVDisclosureLocation", "field.empty");
                 }
             }
-            if (item.getDisability() != null && item.getDisability().equals(YesNo.YES) && item.getDisabilityCategorys() == null) {
-                errors.rejectValue("disabilityCategorys", "item.select.one");
-            }
         }
     }
 

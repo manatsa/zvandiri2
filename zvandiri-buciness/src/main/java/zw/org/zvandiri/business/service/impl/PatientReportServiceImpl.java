@@ -1123,7 +1123,15 @@ public class PatientReportServiceImpl implements PatientReportService {
             } else {
                 builder.append(" and (v.patient.dateJoined between :startDate and :endDate)");
             }
-        }    
+        }
+        if (dto.getTestType() != null) {
+            if (position == 0) {
+                builder.append("v.testType=:testType");
+                position++;
+            } else {
+                builder.append(" and v.testType=:testType");
+            }
+        }
         TypedQuery query = entityManager.createQuery(builder.toString(), Patient.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());
@@ -1162,6 +1170,9 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
         if (dto.getMinCd4Count() != null) {
             query.setParameter("result", dto.getMinCd4Count());
+        }
+        if (dto.getTestType() != null) {
+            query.setParameter("testType", dto.getTestType());
         }
         return query.getResultList();
     }

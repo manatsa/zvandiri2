@@ -85,7 +85,7 @@
                                     <a href="${page}/report/detailed/range.htm">Beneficiaries By Date Range</a>
                                 </td>
                                 <td>
-                                    <a href="${page}/report/test-results/index.htm?type=cd4-count">Viral Load Results Report</a>
+                                    <a href="${page}/report/test-results/index.htm?type=viral-load">Viral Load Results Report</a>
                                 </td>
                             </tr>
                             <tr>

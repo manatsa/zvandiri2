@@ -25,6 +25,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.service.DistrictService;
 import zw.org.zvandiri.business.service.FacilityService;
 import zw.org.zvandiri.business.service.PatientReportService;
@@ -51,7 +53,7 @@ public class LaboratoryTestResultsController extends BaseController {
     @Resource
     private PatientReportService patientReportService;
 
-    public String setUpModel(ModelMap model, SearchDTO item) {
+    public String setUpModel(ModelMap model, SearchDTO item, String type) {
         item = getUserLevelObjectState(item);
         model.addAttribute("pageTitle", APP_PREFIX + "Lab Results Reports");
         model.addAttribute("provinces", provinceService.getAll());
@@ -61,7 +63,13 @@ public class LaboratoryTestResultsController extends BaseController {
                 model.addAttribute("facilities", facilityService.getOptByDistrict(item.getDistrict()));
             }
         }
-        // 
+        if (type.equals("viral-load")) {
+            item.setMaxViralLoad(0);
+            item.setTestType(TestType.VIRAL_LOAD);
+        } else if (type.equals("cd4-count")) {
+            item.setMaxViralLoad(0);
+            item.setTestType(TestType.CD4_COUNT);
+        }
         model.addAttribute("excelExport", "/report/detailed/export/excel" + item.getQueryString(item.getInstance(item)));
         model.addAttribute("items", patientReportService.getPatientLabResultsList(item.getInstance(item)));
         model.addAttribute("item", item.getInstance(item));
@@ -70,13 +78,13 @@ public class LaboratoryTestResultsController extends BaseController {
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_ZM') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
-    public String getReferralReportIndex(ModelMap model) {
-        return setUpModel(model, new SearchDTO());
+    public String getReferralReportIndex(ModelMap model, @RequestParam String type) {
+        return setUpModel(model, new SearchDTO(), type);
     }
 
     @RequestMapping(value = "/index", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_ZM') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
-    public String getReferralReportIndex(ModelMap model, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
-        return setUpModel(model, item);
+    public String getReferralReportIndex(ModelMap model, @RequestParam String type, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
+        return setUpModel(model, item, type);
     }
 }

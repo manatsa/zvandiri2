@@ -43,7 +43,7 @@ public class DetailedReportServiceImpl implements DetailedReportService {
 
     @Override
     public List<GenericReportModel> getDefaultReport(SearchDTO dto) {
-        String[] headers = {"Name", "Age", "Date of Birth", "Gender", "Date Joined",
+        String[] headers = {"Name", "Age", "Date of Birth", "Gender", "Date Joined","Viral Load", "CD4 Count",
             "Province", "District", "Primary Clinic", "Support Group", "Mobile Number", "Referer"};
         List<GenericReportModel> items = new ArrayList<>();
         items.add(new GenericReportModel(Arrays.asList(headers)));
@@ -54,6 +54,8 @@ public class DetailedReportServiceImpl implements DetailedReportService {
                 DateUtil.getStringFromDate(item.getDateOfBirth()),
                 item.getGender().getName(), 
                 item.getDateJoin(), 
+                item.getViralLoad() != null ? item.getViralLoad() + "" : "",
+                item.getCd4Count() != null ? item.getCd4Count() + "" : "",
                 item.getPrimaryClinic().getDistrict().getProvince().getName(),
                 item.getPrimaryClinic().getDistrict().getName(), 
                 item.getPrimaryClinic().getName(),
@@ -68,7 +70,7 @@ public class DetailedReportServiceImpl implements DetailedReportService {
 
     @Override
     public List<GenericReportModel> get(List<Patient> patients) {
-        String[] headers = {"Name", "Age", "Date of Birth", "Gender", "Date Joined",
+        String[] headers = {"Name", "Age", "Date of Birth", "Gender", "Date Joined","Viral Load", "CD4 Count",
             "Province", "District", "Primary Clinic", "Support Group", "Mobile Number", "Referer"};
         List<GenericReportModel> items = new ArrayList<>();
         items.add(new GenericReportModel(Arrays.asList(headers)));
@@ -79,6 +81,8 @@ public class DetailedReportServiceImpl implements DetailedReportService {
                 DateUtil.getStringFromDate(item.getDateOfBirth()),
                 item.getGender().getName(), 
                 item.getDateJoin(), 
+                item.getViralLoad() != null ? item.getViralLoad() + "" : "",
+                item.getCd4Count() != null ? item.getCd4Count() + "" : "",
                 item.getPrimaryClinic().getDistrict().getProvince().getName(),
                 item.getPrimaryClinic().getDistrict().getName(), 
                 item.getPrimaryClinic().getName(),

@@ -111,6 +111,9 @@ public class CatDetailServiceImpl implements CatDetailService {
             if (userService.findByUserName(current.getUserName()) != null) {
                 return true;
             }
+            if(getByPatient(current.getPatient()) != null) {
+                return true;
+            }
         }
         return false; 
     }

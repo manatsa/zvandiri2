@@ -298,6 +298,9 @@ public class OfficeExportServiceImpl implements OfficeExportService {
 
             Cell attendedClinicAppointment = contactHeader.createCell(++count);
             attendedClinicAppointment.setCellValue(contact.getAttendedClinicAppointment() != null ? contact.getAttendedClinicAppointment().getName() : "");
+            if (contactRowNum >= 65535) {
+                break;
+            }
         }
 
         // add contact assessments
@@ -339,6 +342,9 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     Cell assessment = assessmentHeader.createCell(++count);
                     assessment.setCellValue(item.toString());
                 }
+            }
+            if (assessmentRowNum >= 65535) {
+                break;
             }
         }
         // add referrals
@@ -437,6 +443,9 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell legalRec = referralRow.createCell(++count);
             legalRec.setCellValue(!referral.getLegalAvailed().isEmpty()
                     ? referral.getLegalAvailed().toString() : null);
+            if (referralRowNum >= 65535) {
+                break;
+            }
         }
 
         // add hiv sti services referred

@@ -121,9 +121,12 @@ public class ContactController extends BaseController {
         // only do this when contact date is null meaning user is not in edit or view mode
         if (item.getContactDate() == null) {
             Contact latestContact = contactService.findLatestContact(patient);
-            item.setLastClinicAppointmentDate(latestContact.getContactDate());
+            if (latestContact != null) {
+                item.setLastClinicAppointmentDate(latestContact.getContactDate());
+                item.setCareLevel(latestContact.getCareLevel());
+            }
         }
-        
+
         getPatientStatus(item.getPatient(), model);
         return "patient/" + view;
     }

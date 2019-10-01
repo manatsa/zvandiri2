@@ -48,7 +48,7 @@
                                         </p>
                                     </div>
                                     <div class="form-group">
-                                        <label>Level of Care</label>
+                                        <label>Current Level of Care</label>
                                         <form:select path="careLevel" class="form-control">
                                             <form:option value="" label="--Select Item"/>
                                             <form:options itemValue="code" itemLabel="name"/>

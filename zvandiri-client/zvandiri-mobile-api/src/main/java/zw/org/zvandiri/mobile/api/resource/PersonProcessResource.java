@@ -17,10 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import zw.org.zvandiri.business.domain.HIVSelfTesting;
-import zw.org.zvandiri.business.domain.Person;
 import zw.org.zvandiri.business.service.HIVSelfTestingService;
-import zw.org.zvandiri.business.service.PersonService;
-import zw.org.zvandiri.business.util.DateUtil;
+import zw.org.zvandiri.business.service.PatientService;
 
 /**
  *
@@ -33,32 +31,16 @@ import zw.org.zvandiri.business.util.DateUtil;
 public class PersonProcessResource {
 
     @Resource
-    private PersonService personService;
+    private PatientService patientService;
     @Resource
     private HIVSelfTestingService hIVSelfTestingService;
-
-    @POST
-    @Path("/add-person")
-    public ResponseEntity<Map<String, Object>> addPerson(Person person) {
-        Map<String, Object> map = new HashMap<>();
-        String id = "";
-        try {
-            person.setDateOfBirth(DateUtil.getDateFromStringRest(person.getDob()));
-            id = personService.save(person).getId();
-        } catch (Exception e) {
-            map.put("message", "System error occurred saving person");
-            return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        map.put("message", id);
-        return new ResponseEntity<>(map, HttpStatus.OK);
-    }
 
     @POST
     @Path("/add-self-testing")
     public ResponseEntity<Map<String, Object>> addHivSelfTesting(HIVSelfTesting item) {
         Map<String, Object> map = new HashMap<>();
         try {
-            item.setPerson(personService.get(item.getPerson().getId()));
+            item.setPatient(patientService.get(item.getPatient().getId()));
             hIVSelfTestingService.save(item);
         } catch (Exception e) {
             e.printStackTrace();

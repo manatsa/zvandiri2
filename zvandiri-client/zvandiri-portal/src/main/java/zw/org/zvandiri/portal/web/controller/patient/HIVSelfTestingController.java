@@ -43,7 +43,7 @@ import zw.org.zvandiri.portal.web.validator.HIVSelfTestingValidator;
  * @author tasu
  */
 @Controller
-@RequestMapping("/hiv-self-testing")
+@RequestMapping("/patient/hiv-self-testing")
 public class HIVSelfTestingController extends BaseController {
 
     @Resource
@@ -56,7 +56,7 @@ public class HIVSelfTestingController extends BaseController {
     public String setUpModel(ModelMap map, HIVSelfTesting item) {
         map.addAttribute("pageTitle", APP_PREFIX + " " + item.getPatient().getName() + "'s HIV Self Testing History");
         map.addAttribute("item", item);
-        map.addAttribute("person", item.getPatient());
+        map.addAttribute("patient", item.getPatient());
         map.addAttribute("gender", Gender.values());
         map.addAttribute("results", Result.values());
         map.addAttribute("yesNo", YesNo.values());
@@ -91,7 +91,7 @@ public class HIVSelfTestingController extends BaseController {
     public String getItemList(@RequestParam String id, @RequestParam(required = false) Integer type, ModelMap model) {
         Patient item = patientService.get(id);
         model.addAttribute("pageTitle", APP_PREFIX + " " + item.getName() + "'s HIV Self-Testing History");
-        model.addAttribute("person", item);
+        model.addAttribute("patient", item);
         if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }

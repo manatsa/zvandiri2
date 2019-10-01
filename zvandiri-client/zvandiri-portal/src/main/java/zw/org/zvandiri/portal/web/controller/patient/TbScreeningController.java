@@ -44,7 +44,7 @@ import zw.org.zvandiri.portal.web.validator.TbScreeningValidator;
  * @author tasu
  */
 @Controller
-@RequestMapping("/tb-screening")
+@RequestMapping("/patient/tb-screening")
 public class TbScreeningController extends BaseController {
 
     @Resource
@@ -93,7 +93,7 @@ public class TbScreeningController extends BaseController {
     public String getItemList(@RequestParam String id, @RequestParam(required = false) Integer type, ModelMap model) {
         Patient item = patientService.get(id);
         model.addAttribute("pageTitle", APP_PREFIX + " " + item.getName()+ "'s Tb Screening History");
-        model.addAttribute("person", item);
+        model.addAttribute("patient", item);
         if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }

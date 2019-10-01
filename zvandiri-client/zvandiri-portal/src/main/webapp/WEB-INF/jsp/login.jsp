@@ -27,7 +27,7 @@
         height: 445px;
         overflow: scroll;
     }
-    .fa-caret-down, .fa-user{
+    .fa-caret-down, .fa-user, .fa-envelope{
         display: none;
     }
 </style>

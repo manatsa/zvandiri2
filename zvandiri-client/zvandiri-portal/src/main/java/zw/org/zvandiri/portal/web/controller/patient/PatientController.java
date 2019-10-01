@@ -164,7 +164,7 @@ public class PatientController extends BaseController {
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String getPatientIndex(ModelMap model, @RequestParam(required = false) Integer type) {
-        model.addAttribute("pageTitle", APP_PREFIX + "Search Clinets");
+        model.addAttribute("pageTitle", APP_PREFIX + "Search Clients");
         if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }

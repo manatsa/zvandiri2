@@ -12,10 +12,10 @@
                             <em><spring:eval expression="message.contactDate"/></em>
                         </span>
                     </div>
-                        <div>
-                            <br/>
-                            Please checkout contact prepared by ${message.createdBy.displayName}
-                        </div>
+                    <div>
+                        <br/>
+                        Please checkout contact prepared by ${message.createdBy.displayName}
+                    </div>
                 </a>
             </li>
             <li class="divider"></li>
@@ -33,7 +33,7 @@
     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
     </a>
-    <ul class="dropdown-menu dropdown-user">F
+    <ul class="dropdown-menu dropdown-user">
         <li><a href="${page}/admin/changepassword.htm?id=${currentuser.id}"><i class="fa fa-user fa-fw"></i> Change Password</a>
         </li>
         <sec:authorize ifAllGranted="ROLE_MANAGER">

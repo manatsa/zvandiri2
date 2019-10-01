@@ -23,7 +23,7 @@
                     <table id="patientListing" class="display hide" cellspacing="0">
                         <thead>
                         <th>Name</th>
-                        <th>UAC</th>
+                        <th>UIC</th>
                         <th>Gender</th>
                         <th>Age</th>
                         <th>Joined</th>

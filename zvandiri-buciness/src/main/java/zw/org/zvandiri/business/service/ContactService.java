@@ -32,4 +32,6 @@ public interface ContactService extends GenericService<Contact> {
     public List<Contact> findByPatientAndContactDate(Patient patient, Date start, Date end);
     
     public List<Contact> findByReferredPersonAndOpen(User referredPerson);
+    
+    public Contact findLatestContact(Patient patient);
 }

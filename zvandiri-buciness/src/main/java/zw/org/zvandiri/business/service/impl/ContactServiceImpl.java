@@ -102,4 +102,9 @@ public class ContactServiceImpl implements ContactService {
         return contactRepo.findByReferredPersonAndOpenOrderByContactDateDesc(referredPerson, Boolean.FALSE);
     }
 
+    @Override
+    public Contact findLatestContact(Patient patient) {
+        return contactRepo.findTopByPatientOrderByContactDateDesc(patient);
+    }
+    
 }

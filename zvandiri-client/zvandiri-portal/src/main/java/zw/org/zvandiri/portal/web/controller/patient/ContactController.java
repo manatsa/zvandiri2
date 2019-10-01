@@ -118,6 +118,12 @@ public class ContactController extends BaseController {
             model.addAttribute("staff", userService.getByUserType());
             model.addAttribute("internalStaff", Boolean.TRUE);
         }
+        // only do this when contact date is null meaning user is not in edit or view mode
+        if (item.getContactDate() == null) {
+            Contact latestContact = contactService.findLatestContact(patient);
+            item.setLastClinicAppointmentDate(latestContact.getContactDate());
+        }
+        
         getPatientStatus(item.getPatient(), model);
         return "patient/" + view;
     }

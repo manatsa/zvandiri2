@@ -38,10 +38,10 @@ public class TbScreening extends BaseEntity {
     @Enumerated
     private TbTreatmentOutcome tbTreatmentOutcome;
     @ManyToOne
-    private Person person;
+    private Patient patient;
 
-    public TbScreening(Person person) {
-        this.person = person;
+    public TbScreening(Patient patient) {
+        this.patient = patient;
     }
 
     public TbScreening() {
@@ -119,11 +119,13 @@ public class TbScreening extends BaseEntity {
         this.tbTreatmentOutcome = tbTreatmentOutcome;
     }
 
-    public Person getPerson() {
-        return person;
+    public Patient getPatient() {
+        return patient;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
+
+    
 }

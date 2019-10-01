@@ -8,8 +8,15 @@
             <div class="panel-body">
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
+                    <div class="col-lg-10">
+                        <div class="panel panel-default">                            
+                            <%@include file="../template/dashboard/patientProfile.jspf" %>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-lg-12">
-                        <b class="titleHeader">HIV Self-Testing Detail</b> | <a href="item.form?personId=${person.id}">Add HIV Self-Testing Item </a>
+                        <b class="titleHeader">HIV Self-Testing Detail</b> | <a href="item.form?patientId=${patient.id}">Add HIV Self-Testing Item </a>
                         <hr/>
                         <div class="table-responsive">
                             <table class="itemList" class="display" cellspacing="0">

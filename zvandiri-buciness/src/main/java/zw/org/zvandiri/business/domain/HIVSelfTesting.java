@@ -31,10 +31,10 @@ public class HIVSelfTesting extends BaseEntity{
     @Enumerated
     private YesNo artInitiation;
     @ManyToOne
-    private Person person;
+    private Patient patient;
 
-    public HIVSelfTesting(Person person) {
-        this.person = person;
+    public HIVSelfTesting(Patient patient) {
+        this.patient = patient;
     }
     
     public HIVSelfTesting(){
@@ -89,11 +89,11 @@ public class HIVSelfTesting extends BaseEntity{
         this.artInitiation = artInitiation;
     }
 
-    public Person getPerson() {
-        return person;
+    public Patient getPatient() {
+        return patient;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 }

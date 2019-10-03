@@ -37,10 +37,10 @@
             </tr>
             <tr>
                 <td>
-                    <a href="${page}/admin/location/">Manage Location</a>
+                    <a href="${page}/admin/location/">Manage Place of Contact</a>
                 </td>  
                 <td>
-                    <a href="${page}/admin/position/">Manage Position</a> 
+                    <a href="${page}/admin/position/">Manage Contacted By</a> 
                 </td>  
             </tr>
             <tr>

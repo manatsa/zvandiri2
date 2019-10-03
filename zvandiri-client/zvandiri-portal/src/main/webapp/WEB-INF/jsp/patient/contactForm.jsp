@@ -58,7 +58,7 @@
                                         </p>
                                     </div>
                                     <div class="form-group">
-                                        <label>Location</label>
+                                        <label>Place of Contact</label>
                                         <form:select path="location" class="form-control">
                                             <form:option value="" label="--Select Item"/>
                                             <form:options items="${locations}" itemValue="id" itemLabel="name"/>
@@ -68,7 +68,7 @@
                                         </p>
                                     </div>
                                     <div class="form-group">
-                                        <label>Position</label>
+                                        <label>Contacted By</label>
                                         <form:select path="position" class="form-control">
                                             <form:option value="" label="--Select Item"/>
                                             <form:options items="${positions}" itemValue="id" itemLabel="name"/>
@@ -88,14 +88,14 @@
                                         </p>
                                     </div>
                                     <div class="form-group">
-                                        <label>Subjective</label>
+                                        <label>Client's Observations <small>(What is the Client saying)</small></label>
                                         <form:textarea path="subjective" rows="5" class="form-control"/>
                                         <p class="help-block">
                                             <form:errors path="subjective" class="alert-danger"/>
                                         </p>
                                     </div> 
                                     <div class="form-group">
-                                        <label>Objective</label>
+                                        <label>Findings <small>What are you noticing</small></label>
                                         <form:textarea path="objective" rows="5" class="form-control"/>
                                         <p class="help-block">
                                             <form:errors path="objective" class="alert-danger"/>

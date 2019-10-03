@@ -33,6 +33,7 @@ import javax.persistence.Transient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 import zw.org.zvandiri.business.domain.util.CareLevel;
+import zw.org.zvandiri.business.domain.util.ContactPhoneOption;
 import zw.org.zvandiri.business.domain.util.FollowUp;
 import zw.org.zvandiri.business.domain.util.Reason;
 import zw.org.zvandiri.business.domain.util.YesNo;
@@ -53,10 +54,14 @@ public class Contact extends BaseEntity {
     private CareLevel careLevel;
     @ManyToOne
     private Location location;
+    private String otherLocation;
+    private ContactPhoneOption contactPhoneOption;
+    private Integer numberOfSms;
     @ManyToOne
     private Position position;
     @Enumerated
     private Reason reason;
+    private String otherReason;
     @ManyToOne
     private Period period;
     @ManyToOne
@@ -306,5 +311,30 @@ public class Contact extends BaseEntity {
     public void setDefaultMessage(String defaultMessage) {
         this.defaultMessage = defaultMessage;
     }
+
+    public String getOtherLocation() {
+        return otherLocation;
+    }
+
+    public void setOtherLocation(String otherLocation) {
+        this.otherLocation = otherLocation;
+    }
+
+    public ContactPhoneOption getContactPhoneOption() {
+        return contactPhoneOption;
+    }
+
+    public void setContactPhoneOption(ContactPhoneOption contactPhoneOption) {
+        this.contactPhoneOption = contactPhoneOption;
+    }
+
+    public Integer getNumberOfSms() {
+        return numberOfSms;
+    }
+
+    public void setNumberOfSms(Integer numberOfSms) {
+        this.numberOfSms = numberOfSms;
+    }
+    
     
 }

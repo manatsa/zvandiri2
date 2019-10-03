@@ -23,7 +23,7 @@ import zw.org.zvandiri.business.util.StringUtils;
  */
 public enum Reason {
  
-    SELF_REFERRAL(1), EXTERNAL_REFERRAL(2), INTERNAL_REFERRAL(3), SCHEDULED_CONTACT(4);
+    SELF_REFERRAL(1), EXTERNAL_REFERRAL(2), INTERNAL_REFERRAL(3), SCHEDULED_CONTACT(4), OTHER(5);
     
     private final Integer code;
     
@@ -35,19 +35,13 @@ public enum Reason {
         return code;
     }
     
-    public static Reason get(Integer code){
-        switch(code){
-            case 1:
-                return SELF_REFERRAL;
-            case 2:
-                return EXTERNAL_REFERRAL;
-            case 3:
-                return INTERNAL_REFERRAL;
-            case 4:
-                return SCHEDULED_CONTACT;
-            default :
-                throw new IllegalArgumentException("Illegal parameter passed to method :"+code);
+    public static Reason get(Integer code) {
+        for (Reason item : values()) {
+            if (item.getCode().equals(code)) {
+                return item;
+            }
         }
+        throw new IllegalArgumentException("Un recognised code passed to method : " + code);
     }
     
     public String getName(){

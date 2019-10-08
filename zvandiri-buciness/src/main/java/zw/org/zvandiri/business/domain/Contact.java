@@ -54,14 +54,12 @@ public class Contact extends BaseEntity {
     private CareLevel careLevel;
     @ManyToOne
     private Location location;
-    private String otherLocation;
     private ContactPhoneOption contactPhoneOption;
     private Integer numberOfSms;
     @ManyToOne
     private Position position;
     @Enumerated
     private Reason reason;
-    private String otherReason;
     @ManyToOne
     private Period period;
     @ManyToOne
@@ -75,10 +73,15 @@ public class Contact extends BaseEntity {
     @Column(columnDefinition = "text")
     private String objective;
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinTable(name = "contact_assessment", joinColumns = {
+    @JoinTable(name = "contact_clinical_assessment", joinColumns = {
         @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "assessment_id", nullable = false)})
-    private Set<Assessment> assessments = new HashSet<>();
+    private Set<Assessment> clinicalAssessments = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinTable(name = "contact_non_clinical_assessment", joinColumns = {
+        @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "assessment_id", nullable = false)})
+    private Set<Assessment> nonClinicalAssessments = new HashSet<>();
     @Column(columnDefinition = "text")
     private String plan;
     @ManyToOne
@@ -211,12 +214,20 @@ public class Contact extends BaseEntity {
         this.objective = objective;
     }
 
-    public Set<Assessment> getAssessments() {
-        return assessments;
+    public Set<Assessment> getClinicalAssessments() {
+        return clinicalAssessments;
     }
 
-    public void setAssessments(Set<Assessment> assessments) {
-        this.assessments = assessments;
+    public void setClinicalAssessments(Set<Assessment> clinicalAssessments) {
+        this.clinicalAssessments = clinicalAssessments;
+    }
+
+    public Set<Assessment> getNonClinicalAssessments() {
+        return nonClinicalAssessments;
+    }
+
+    public void setNonClinicalAssessments(Set<Assessment> nonClinicalAssessments) {
+        this.nonClinicalAssessments = nonClinicalAssessments;
     }
 
     public String getPlan() {
@@ -318,14 +329,6 @@ public class Contact extends BaseEntity {
         this.defaultMessage = defaultMessage;
     }
 
-    public String getOtherLocation() {
-        return otherLocation;
-    }
-
-    public void setOtherLocation(String otherLocation) {
-        this.otherLocation = otherLocation;
-    }
-
     public ContactPhoneOption getContactPhoneOption() {
         return contactPhoneOption;
     }
@@ -340,14 +343,6 @@ public class Contact extends BaseEntity {
 
     public void setNumberOfSms(Integer numberOfSms) {
         this.numberOfSms = numberOfSms;
-    }
-
-    public String getOtherReason() {
-        return otherReason;
-    }
-
-    public void setOtherReason(String otherReason) {
-        this.otherReason = otherReason;
     }
 
     public Set<ServiceOffered> getServiceOffereds() {

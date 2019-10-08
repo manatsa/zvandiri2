@@ -154,10 +154,17 @@
                                         </div>
                                     </c:if>
                                     <div class="form-group">
-                                        <label>Assessment</label><br/>
-                                        <form:checkboxes path="assessments" items="${assessments}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
+                                        <label>Clinical Assessment</label><br/>
+                                        <form:checkboxes path="clinicalAssessments" items="${clinicalAssessments}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
                                         <p class="help-block">
-                                            <form:errors path="assessments" class="alert-danger"/>
+                                            <form:errors path="clinicalAssessments" class="alert-danger"/>
+                                        </p>
+                                    </div>
+                                        <div class="form-group">
+                                        <label>Non Clinical Assessment</label><br/>
+                                        <form:checkboxes path="nonClinicalAssessments" items="${nonClinicalAssessments}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
+                                        <p class="help-block">
+                                            <form:errors path="nonClinicalAssessments" class="alert-danger"/>
                                         </p>
                                     </div>
                                     <div class="form-group">

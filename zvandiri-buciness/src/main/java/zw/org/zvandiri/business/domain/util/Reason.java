@@ -23,7 +23,7 @@ import zw.org.zvandiri.business.util.StringUtils;
  */
 public enum Reason {
  
-    SELF_REFERRAL(1), EXTERNAL_REFERRAL(2), INTERNAL_REFERRAL(3), SCHEDULED_CONTACT(4), OTHER(5);
+    SELF_REFERRAL(1), EXTERNAL_REFERRAL(2), INTERNAL_REFERRAL(3), SCHEDULED_CONTACT(4);
     
     private final Integer code;
     

@@ -356,9 +356,6 @@ public class PatientProcessResource {
                 response.put("enhanceds", "Select at least one item in this list");
             }
         }
-        if (item.getAssessments() == null) {
-            response.put("assessments", "Field is required");
-        }
         if (item.getContactDate() != null && item.getContactDate().after(new Date())) {
             response.put("contactDate", "Date cannot be in the future");
         }

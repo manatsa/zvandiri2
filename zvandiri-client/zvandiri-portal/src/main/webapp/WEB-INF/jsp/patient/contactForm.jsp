@@ -95,12 +95,19 @@
                                         </p>
                                     </div> 
                                     <div class="form-group">
-                                        <label>Findings <small>What are you noticing</small></label>
+                                        <label>Findings <small>(What are you noticing)</small></label>
                                         <form:textarea path="objective" rows="5" class="form-control"/>
                                         <p class="help-block">
                                             <form:errors path="objective" class="alert-danger"/>
                                         </p>
                                     </div> 
+                                    <div class="form-group">
+                                        <label>Services Offered</label><br/>
+                                        <form:checkboxes path="serviceOffereds" items="${servicesOffered}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
+                                        <p class="help-block">
+                                            <form:errors path="serviceOffereds" class="alert-danger"/>
+                                        </p>
+                                    </div>
                                     <div class="form-group">
                                         <label>Plan</label>
                                         <form:textarea path="plan" rows="5" class="form-control"/>
@@ -160,7 +167,7 @@
                                             <form:errors path="clinicalAssessments" class="alert-danger"/>
                                         </p>
                                     </div>
-                                        <div class="form-group">
+                                    <div class="form-group">
                                         <label>Non Clinical Assessment</label><br/>
                                         <form:checkboxes path="nonClinicalAssessments" items="${nonClinicalAssessments}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
                                         <p class="help-block">
@@ -218,7 +225,7 @@
         $("#currentElement").val($(window).scrollTop());
         $("form").attr("action", "reload-form").submit();
     });
-    
+
     $("#actionTaken").change(function () {
         $("#currentElement").val($(window).scrollTop());
         $("form").attr("action", "reload-form").submit();

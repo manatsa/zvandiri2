@@ -101,7 +101,6 @@ public class Contact extends BaseEntity {
         @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "service_offered_id", nullable = false)})
     private Set<ServiceOffered> serviceOffereds = new HashSet<>();
-    private String otherServiceOffered;
     @ManyToOne
     @JsonIgnore
     private Contact parent;
@@ -351,14 +350,6 @@ public class Contact extends BaseEntity {
 
     public void setServiceOffereds(Set<ServiceOffered> serviceOffereds) {
         this.serviceOffereds = serviceOffereds;
-    }
-
-    public String getOtherServiceOffered() {
-        return otherServiceOffered;
-    }
-
-    public void setOtherServiceOffered(String otherServiceOffered) {
-        this.otherServiceOffered = otherServiceOffered;
     }
     
 }

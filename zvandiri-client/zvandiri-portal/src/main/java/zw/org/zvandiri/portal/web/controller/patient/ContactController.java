@@ -38,6 +38,7 @@ import zw.org.zvandiri.business.service.InternalReferralService;
 import zw.org.zvandiri.business.service.LocationService;
 import zw.org.zvandiri.business.service.PatientService;
 import zw.org.zvandiri.business.service.PositionService;
+import zw.org.zvandiri.business.service.ServiceOfferedService;
 import zw.org.zvandiri.business.service.StableService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.DateUtil;
@@ -80,6 +81,8 @@ public class ContactController extends BaseController {
     private ActionTakenService actionTakenService;
     @Resource
     private UserService userService;
+    @Resource
+    private ServiceOfferedService serviceOfferedService;
 
     public String setUpModel(ModelMap model, Contact item, String view) {
         Patient patient = item.getPatient();
@@ -98,6 +101,7 @@ public class ContactController extends BaseController {
         model.addAttribute("clinicalAssessments", assessmentService.getByAssessmentType(ContactAssessment.CLINICAL));
         model.addAttribute("nonClinicalAssessments", assessmentService.getByAssessmentType(ContactAssessment.NON_CLINICAL));
         model.addAttribute("actionTaken", actionTakenService.getAll());
+        model.addAttribute("servicesOffered", serviceOfferedService.getAll());
         if (item.getReason() != null) {
             if (item.getReason().equals(Reason.EXTERNAL_REFERRAL)) {
                 model.addAttribute("external", Boolean.TRUE);

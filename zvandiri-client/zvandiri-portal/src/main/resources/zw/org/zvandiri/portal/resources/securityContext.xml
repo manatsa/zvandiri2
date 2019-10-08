@@ -29,8 +29,7 @@
         <sec:intercept-url pattern="/login*" access="permitAll"/>
         <sec:intercept-url pattern="*.png" access="permitAll"/>
         <sec:intercept-url pattern="*.jpg" access="permitAll"/>
-        <sec:intercept-url pattern="/**" access="permitAll"/>
-        <!--<sec:intercept-url pattern="/**" access="hasRole('ROLE_ZI') or 
+        <sec:intercept-url pattern="/**" access="hasRole('ROLE_ZI') or 
                 hasRole('ROLE_ADMINISTRATOR') or 
                 hasRole('ROLE_ZM') or 
                 hasRole('ROLE_NURSE') or
@@ -40,7 +39,7 @@
                 hasRole('ROLE_M_AND_E_OFFICER') or
                 hasRole('ROLE_HOD_M_AND_E') or
                 hasRole('ROLE_MANAGEMENT') or
-                hasRole('ROLE_ADMINISTRATOR') "/>-->
+                hasRole('ROLE_ADMINISTRATOR') "/>
         <sec:form-login login-page="/login.htm" always-use-default-target="true" default-target-url="/index.htm" authentication-failure-url="/loginfailed.htm" />
         <sec:logout invalidate-session="true" logout-success-url="/logout.htm" />
     </sec:http>

@@ -27,7 +27,8 @@
     <sec:http auto-config="true" access-denied-page="/acceessdenied.htm"  use-expressions="true" create-session="never" >
         <sec:intercept-url pattern="/resources/**" access="permitAll"/>
         <sec:intercept-url pattern="/login*" access="permitAll"/>
-        <sec:intercept-url pattern="/**" access="hasRole('ROLE_ZI') or 
+        <sec:intercept-url pattern="/**" access="permitAll"/>
+        <!--<sec:intercept-url pattern="/**" access="hasRole('ROLE_ZI') or 
                 hasRole('ROLE_ADMINISTRATOR') or 
                 hasRole('ROLE_ZM') or 
                 hasRole('ROLE_NURSE') or
@@ -37,7 +38,7 @@
                 hasRole('ROLE_M_AND_E_OFFICER') or
                 hasRole('ROLE_HOD_M_AND_E') or
                 hasRole('ROLE_MANAGEMENT') or
-                hasRole('ROLE_ADMINISTRATOR') "/>
+                hasRole('ROLE_ADMINISTRATOR') "/>-->
        <!--<sec:intercept-url pattern="/**" access="hasRole('ROLE_ADMINISTRATOR')"/>
         <sec:intercept-url pattern="/**" access="hasRole('ROLE_DATA_CAPTURE_CLERK')"/>
         <sec:intercept-url pattern="/**" access="hasRole('ROLE_DATA_MANAGER')"/>-->

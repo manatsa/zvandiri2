@@ -28,7 +28,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.validator.EmailValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -100,15 +99,11 @@ public class PatientProcessResource {
     public ResponseEntity<Map<String, Object>>  addPatient(Patient patient){
         Map<String, Object> response = validatePatient(patient);
         if(!response.isEmpty()) {
-            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-            System.out.println(response.toString());
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
         try{
             patientService.save(patient);
         } catch (Exception e){
-            System.out.println("*************************************************");
-            System.out.println(e.getMessage());
             response.put("message", "System error occurred saving patient");
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -121,6 +121,12 @@
                     <a href="${page}/admin/reason-for-not-reaching-olevel/">Manage Reason For Not Reaching O-Level</a> 
                 </td>
             </tr>
+            <tr>
+                <td><a href="${page}/admin/service-offered/">Manage Service Offered</a> </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
         </table>
     </div>
     <div>

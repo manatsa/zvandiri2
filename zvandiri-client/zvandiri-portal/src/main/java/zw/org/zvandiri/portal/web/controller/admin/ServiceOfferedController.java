@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Judge Muzinda.
+ * Copyright 2019 jmuzinda.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,81 +24,81 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import zw.org.zvandiri.business.domain.Assessment;
-import zw.org.zvandiri.business.service.AssessmentService;
+import zw.org.zvandiri.business.domain.ServiceOffered;
+import zw.org.zvandiri.business.service.ServiceOfferedService;
 import zw.org.zvandiri.business.util.dto.ItemDeleteDTO;
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
-import zw.org.zvandiri.portal.web.validator.AssessmentValidator;
+import zw.org.zvandiri.portal.web.validator.ServiceOfferedValidator;
 
 /**
  *
- * @author Judge Muzinda
+ * @author jmuzinda
  */
 @Controller
-@RequestMapping("/admin/assessment")
-public class AssessmentController extends BaseController {
+@RequestMapping("/admin/service-offered")
+public class ServiceOfferedController extends BaseController {
 
     @Resource
-    private AssessmentService assessmentService;
+    private ServiceOfferedService serviceOfferedService;
     @Resource
-    private AssessmentValidator assessmentValidator;
+    private ServiceOfferedValidator serviceOfferedValidator;
 
-    public void setUpModel(ModelMap model, Assessment item) {
-        model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit Assessment");
+    public void setUpModel(ModelMap model, ServiceOffered item) {
+        model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit ServiceOffered");
         model.addAttribute("item", item);
         model.addAttribute("itemDelete", "item.list?type=3");
     }
 
     @RequestMapping(value = "/item.form", method = RequestMethod.GET)
     public String getForm(ModelMap model, @RequestParam(required = false) String id) {
-        Assessment item = new Assessment();
+        ServiceOffered item = new ServiceOffered();
         if (id != null) {
-            item = assessmentService.get(id);
+            item = serviceOfferedService.get(id);
         }
         setUpModel(model, item);
-        return "admin/assessmentForm";
+        return "admin/nameForm";
     }
 
     @RequestMapping(value = "/item.form", method = RequestMethod.POST)
-    public String saveItem(@ModelAttribute("item") @Valid Assessment item, BindingResult result, ModelMap model) {
-        assessmentValidator.validate(item, result);
+    public String saveItem(@ModelAttribute("item") @Valid ServiceOffered item, BindingResult result, ModelMap model) {
+        serviceOfferedValidator.validate(item, result);
         model.addAttribute("message", new AppMessage.MessageBuilder().build());
         if (result.hasErrors()) {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
             setUpModel(model, item);
-            return "admin/assessmentForm";
+            return "admin/nameForm";
         }
-        assessmentService.save(item);
+        serviceOfferedService.save(item);
         return "redirect:item.list?type=1";
     }
 
     @RequestMapping(value = {"/item.list", "/"}, method = RequestMethod.GET)
     public String itemList(ModelMap model, @RequestParam(required = false) Integer type) {
         model.addAttribute("message", new AppMessage.MessageBuilder().build());
-        model.addAttribute("pageTitle", APP_PREFIX + "Assessment List");
-        model.addAttribute("items", assessmentService.getAll());
+        model.addAttribute("pageTitle", APP_PREFIX + "ServiceOffered List");
+        model.addAttribute("items", serviceOfferedService.getAll());
         if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
-        return "admin/assessmentList";
+        return "admin/nameList";
     }
 
     @RequestMapping(value = "item.delete", method = RequestMethod.GET)
     public String getDeleteForm(@RequestParam("id") String id, ModelMap model) {
-        Assessment item = assessmentService.get(id);
-        ItemDeleteDTO dto = new ItemDeleteDTO(id, item.getName() + " Assessment", "item.list?type=3");
+        ServiceOffered item = serviceOfferedService.get(id);
+        ItemDeleteDTO dto = new ItemDeleteDTO(id, item.getName() + " ServiceOffered", "item.list?type=3");
         model.addAttribute("item", dto);
         model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Are you sure you want to delete this record").messageType(MessageType.WARNING).build());
-        model.addAttribute("pageTitle", APP_PREFIX + "Delete " + item.getName() + " Assessment");
+        model.addAttribute("pageTitle", APP_PREFIX + "Delete " + item.getName() + " ServiceOffered");
         return "admin/deleteItem";
     }
 
     @RequestMapping(value = "item.delete", method = RequestMethod.POST)
     public String deleteItem(@Valid ItemDeleteDTO dto) {
-        assessmentService.delete(assessmentService.get(dto.getId()));
+        serviceOfferedService.delete(serviceOfferedService.get(dto.getId()));
         return "redirect:item.list?type=2";
     }
 }

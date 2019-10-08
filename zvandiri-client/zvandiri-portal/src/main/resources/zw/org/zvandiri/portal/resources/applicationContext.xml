@@ -97,6 +97,8 @@
                 <bean class="zw.org.zvandiri.portal.web.converter.IdentifiedRiskConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.DisabilitySeverityConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.ContactPhoneOptionConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ServiceOfferedConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ContactAssessmentConverter"/>
             </set>
         </property>
     </bean> 

@@ -93,6 +93,12 @@ public class Contact extends BaseEntity {
         @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "enhanced_id", nullable = false)})
     private Set<Enhanced> enhanceds = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinTable(name = "contact_service_offered", joinColumns = {
+        @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "service_offered_id", nullable = false)})
+    private Set<ServiceOffered> serviceOffereds = new HashSet<>();
+    private String otherServiceOffered;
     @ManyToOne
     @JsonIgnore
     private Contact parent;
@@ -335,6 +341,29 @@ public class Contact extends BaseEntity {
     public void setNumberOfSms(Integer numberOfSms) {
         this.numberOfSms = numberOfSms;
     }
-    
+
+    public String getOtherReason() {
+        return otherReason;
+    }
+
+    public void setOtherReason(String otherReason) {
+        this.otherReason = otherReason;
+    }
+
+    public Set<ServiceOffered> getServiceOffereds() {
+        return serviceOffereds;
+    }
+
+    public void setServiceOffereds(Set<ServiceOffered> serviceOffereds) {
+        this.serviceOffereds = serviceOffereds;
+    }
+
+    public String getOtherServiceOffered() {
+        return otherServiceOffered;
+    }
+
+    public void setOtherServiceOffered(String otherServiceOffered) {
+        this.otherServiceOffered = otherServiceOffered;
+    }
     
 }

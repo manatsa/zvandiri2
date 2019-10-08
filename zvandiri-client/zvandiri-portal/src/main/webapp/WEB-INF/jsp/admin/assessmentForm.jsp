@@ -6,7 +6,7 @@
                 ${pageTitle}
             </div>
             <div class="panel-body">
-                <a href="../index.htm">Option Tables</a> | <a href="item.form">New Service Referred</a> | <a href="item.list">Service Referred List</a><br/><br/>
+                <a href="../index.htm">Option Tables</a> | <a href="item.form">New Assessment</a> | <a href="item.list">Assessment List</a><br/><br/>
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
@@ -20,13 +20,13 @@
                                 </p>
                             </div>
                             <div class="form-group">
-                                <label>Referral Type</label>
-                                <form:select path="referalType" class="form-control">
+                                <label>Assessment Type</label>
+                                <form:select path="contactAssessment" class="form-control">
                                     <form:option value="" label="--Select Item"/>
                                     <form:options itemValue="code" itemLabel="name"/>
                                 </form:select>
                                 <p class="help-block">
-                                    <form:errors path="referalType" class="alert-danger"/>
+                                    <form:errors path="contactAssessment" class="alert-danger"/>
                                 </p>
                             </div>
                             <div class="form-group">

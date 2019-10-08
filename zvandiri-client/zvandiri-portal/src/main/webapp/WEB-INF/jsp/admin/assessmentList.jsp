@@ -5,7 +5,7 @@
             ${pageTitle}
         </div>
         <div class="panel-body">
-            <a href="../index.htm">Option Tables</a> | <a href="item.form">New Service</a> | <a href="item.list">Service List</a><br/><br/>
+            <a href="../index.htm">Option Tables</a> | <a href="item.form">New Assessment</a> | <a href="item.list">Assessment List</a><br/><br/>
             <%@include file="../template/message.jspf" %>
             <div class="row">
                 <div class="col-lg-10">
@@ -24,7 +24,7 @@
                             <c:forEach var="item" items="${items}" >
                                 <tr>
                                     <td><a href="item.form?id=${item.id}">${item.name}</a></td>
-                                    <td>${item.referalType.name}</td>
+                                    <td>${item.contactAssessment.name}</td>
                                     <td>
                                         <a href="item.form?id=${item.id}">Edit | </a>
                                         <a href="item.delete?id=${item.id}">Delete</a>

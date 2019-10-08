@@ -21,6 +21,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import zw.org.zvandiri.business.domain.util.ContactAssessment;
 
 /**
  *
@@ -32,6 +33,7 @@ public class Assessment extends BaseName {
     @ManyToMany(mappedBy = "assessments", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JsonIgnore
     private Set<Contact> contacts = new HashSet<>();
+    private ContactAssessment contactAssessment;
 
     public Set<Contact> getContacts() {
         return contacts;
@@ -39,6 +41,14 @@ public class Assessment extends BaseName {
 
     public void setContacts(Set<Contact> contacts) {
         this.contacts = contacts;
+    }
+
+    public ContactAssessment getContactAssessment() {
+        return contactAssessment;
+    }
+
+    public void setContactAssessment(ContactAssessment contactAssessment) {
+        this.contactAssessment = contactAssessment;
     }
     
 }

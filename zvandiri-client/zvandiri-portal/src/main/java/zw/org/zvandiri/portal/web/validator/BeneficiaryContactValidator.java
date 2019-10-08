@@ -79,9 +79,6 @@ public class BeneficiaryContactValidator implements Validator {
                 errors.rejectValue("enhanceds", "item.select.one");
             }
         }
-        if (item.getAssessments() == null) {
-            errors.rejectValue("assessments", "field.empty");
-        }
         if (item.getContactDate() != null && item.getContactDate().after(new Date())) {
             errors.rejectValue("contactDate", "date.aftertoday");
         }

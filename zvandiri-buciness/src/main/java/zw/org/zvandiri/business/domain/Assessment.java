@@ -29,18 +29,30 @@ import zw.org.zvandiri.business.domain.util.ContactAssessment;
  */
 @Entity
 public class Assessment extends BaseName {
-    
-    @ManyToMany(mappedBy = "assessments", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+
+    @ManyToMany(mappedBy = "clinicalAssessments", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JsonIgnore
-    private Set<Contact> contacts = new HashSet<>();
+    private Set<Contact> clinicalAssessments = new HashSet<>();
+
+    @ManyToMany(mappedBy = "nonClinicalAssessments", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonIgnore
+    private Set<Contact> nonClinicalAssessments = new HashSet<>();
     private ContactAssessment contactAssessment;
 
-    public Set<Contact> getContacts() {
-        return contacts;
+    public Set<Contact> getClinicalAssessments() {
+        return clinicalAssessments;
     }
 
-    public void setContacts(Set<Contact> contacts) {
-        this.contacts = contacts;
+    public void setClinicalAssessments(Set<Contact> clinicalAssessments) {
+        this.clinicalAssessments = clinicalAssessments;
+    }
+
+    public Set<Contact> getNonClinicalAssessments() {
+        return nonClinicalAssessments;
+    }
+
+    public void setNonClinicalAssessments(Set<Contact> nonClinicalAssessments) {
+        this.nonClinicalAssessments = nonClinicalAssessments;
     }
 
     public ContactAssessment getContactAssessment() {
@@ -50,5 +62,5 @@ public class Assessment extends BaseName {
     public void setContactAssessment(ContactAssessment contactAssessment) {
         this.contactAssessment = contactAssessment;
     }
-    
+
 }

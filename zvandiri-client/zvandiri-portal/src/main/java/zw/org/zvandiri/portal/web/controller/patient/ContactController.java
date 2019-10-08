@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.CareLevel;
+import zw.org.zvandiri.business.domain.util.ContactAssessment;
 import zw.org.zvandiri.business.domain.util.Reason;
 import zw.org.zvandiri.business.service.ActionTakenService;
 import zw.org.zvandiri.business.service.AssessmentService;
@@ -94,7 +95,8 @@ public class ContactController extends BaseController {
         model.addAttribute("enhanced", Boolean.FALSE);
         model.addAttribute("intensive", Boolean.FALSE);
         model.addAttribute("internalStaff", Boolean.FALSE);
-        model.addAttribute("assessments", assessmentService.getAll());
+        model.addAttribute("clinicalAssessments", assessmentService.getByAssessmentType(ContactAssessment.CLINICAL));
+        model.addAttribute("nonClinicalAssessments", assessmentService.getByAssessmentType(ContactAssessment.NON_CLINICAL));
         model.addAttribute("actionTaken", actionTakenService.getAll());
         if (item.getReason() != null) {
             if (item.getReason().equals(Reason.EXTERNAL_REFERRAL)) {

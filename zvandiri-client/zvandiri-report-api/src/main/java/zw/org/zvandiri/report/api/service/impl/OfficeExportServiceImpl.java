@@ -313,8 +313,12 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             cell.setCellValue(title);
         }
         for (Contact contact : contacts) {
-            if (!contact.getAssessments().isEmpty()) {
-                for (Assessment item : contact.getAssessments()) {
+            if (!contact.getClinicalAssessments().isEmpty() || !contact.getNonClinicalAssessments().isEmpty()) {
+                Set<Assessment> clinicalAssessment = contact.getClinicalAssessments();
+                if (clinicalAssessment != null) {
+                    clinicalAssessment.addAll(contact.getNonClinicalAssessments());
+                }
+                for (Assessment item : contact.getClinicalAssessments()) {
                     int count = 0;
                     assessmentHeader = assessmentDetails.createRow(assessmentRowNum++);
                     Cell id = assessmentHeader.createCell(count);
@@ -339,6 +343,8 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     contactDate.setCellStyle(cellStyle);
                     Cell careLevel = assessmentHeader.createCell(++count);
                     careLevel.setCellValue(contact.getCareLevel().getName());
+                    Cell assessmentType = assessmentHeader.createCell(++count);
+                    assessmentType.setCellValue(item.getContactAssessment().getName());
                     Cell assessment = assessmentHeader.createCell(++count);
                     assessment.setCellValue(item.toString());
                 }

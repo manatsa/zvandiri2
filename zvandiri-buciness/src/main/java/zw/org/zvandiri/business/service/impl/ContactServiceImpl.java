@@ -104,7 +104,10 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public Contact findLatestContact(Patient patient) {
-        return contactRepo.findTopByPatientOrderByContactDateDesc(patient);
+        for(Contact contact : contactRepo.findTop1ByPatientOrderByContactDateDesc(patient)) {
+            return contact;
+        }
+        return null;
     }
     
 }

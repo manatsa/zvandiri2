@@ -15,7 +15,9 @@
  */
 package zw.org.zvandiri.business.service;
 
+import java.util.List;
 import zw.org.zvandiri.business.domain.Assessment;
+import zw.org.zvandiri.business.domain.util.ContactAssessment;
 
 /**
  *
@@ -23,4 +25,5 @@ import zw.org.zvandiri.business.domain.Assessment;
  */
 public interface AssessmentService extends GenericNameService<Assessment> {
     
+    public List<Assessment> getByAssessmentType(ContactAssessment contactAssessment);
 }

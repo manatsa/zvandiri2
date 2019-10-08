@@ -59,7 +59,7 @@ public interface DatabaseHeader {
     };
     
     public final String [] ASSESSMENT_HEADER = {
-        "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "Contact Date", "Care Level", "Assessment"
+        "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "Contact Date", "Care Level", "Type", "Assessment"
     };
     
     public final String [] SOCIAL_HISTORY_HEADER = {

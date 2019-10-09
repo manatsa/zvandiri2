@@ -117,7 +117,6 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-
                                     <c:if test="${external}">
                                         <div class="form-group">
                                             <label>External Referral</label>
@@ -196,6 +195,40 @@
                                     </div>
                                     <c:if test="${internalStaff}">
                                         <div class="form-group">
+                                            <label>User Level</label>
+                                            <form:select path="userLevel" class="form-control">
+                                                <form:option value="" label="--Select Item"/>
+                                                <form:options itemValue="code" itemLabel="name"/>
+                                            </form:select>
+                                            <p class="help-block">
+                                                <form:errors path="userLevel" class="alert-danger"/>
+                                            </p>
+                                        </div>
+                                        <c:if test="${showProvince}">
+                                            <div class="form-group">
+                                                <label>Region</label>
+                                                <form:select path="province" class="form-control">
+                                                    <form:option value="" label="--Select Item"/>
+                                                    <form:options items="${provinces}" itemValue="id" itemLabel="name"/>
+                                                </form:select>
+                                                <p class="help-block">
+                                                    <form:errors path="province" class="alert-danger"/>
+                                                </p>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${showDistrict}">
+                                            <div class="form-group">
+                                                <label>District</label>
+                                                <form:select path="district" class="form-control">
+                                                    <form:option value="" label="--Select Item"/>
+                                                    <form:options items="${districts}" itemValue="id" itemLabel="name"/>
+                                                </form:select>
+                                                <p class="help-block">
+                                                    <form:errors path="district" class="alert-danger"/>
+                                                </p>
+                                            </div>
+                                        </c:if>
+                                        <div class="form-group">
                                             <label>Zvandiri Staff Member</label><br/><br/>
                                             <form:select path="referredPerson" class="form-control">
                                                 <form:option value="" label="--Select Item"/>
@@ -229,6 +262,25 @@
     $("#actionTaken").change(function () {
         $("#currentElement").val($(window).scrollTop());
         $("form").attr("action", "reload-form").submit();
+    });
+    
+    $("#province").change(function () {
+        $("#currentElement").val($(window).scrollTop());
+        $("form").attr("action", "reload-form").submit();
+    });
+    
+    $("#district").change(function () {
+        $("#currentElement").val($(window).scrollTop());
+        $("form").attr("action", "reload-form").submit();
+    });
+
+    $("#userLevel").change(function () {
+        $this = $(this);
+        var userLevel = $.trim($this.val());
+        if (userLevel !== "" || userLevel !== 1) {
+            $("#currentElement").val($(window).scrollTop());
+            $("form").attr("action", "reload-form").submit();
+        }
     });
     $(window).scrollTop("<c:out value="${item.currentElement}"/>");
     //actionTaken

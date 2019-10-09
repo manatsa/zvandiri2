@@ -16,7 +16,6 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import javax.annotation.Resource;
-import org.apache.commons.validator.EmailValidator;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;

@@ -169,6 +169,14 @@ public class UserServiceImpl implements UserService {
                 builder.append(" and u.userType=:userType");
             }
         }
+        if (dto.getUserLevel() != null) {
+            if (position == 0) {
+                builder.append("where u.userLevel=:userLevel");
+                position++;
+            } else {
+                builder.append(" and u.userLevel=:userLevel");
+            }
+        }
         builder.append(" order by u.lastName, u.firstName ASC");
         TypedQuery<User> query = entityManager.createQuery(builder.toString(), User.class);
         if (dto.getProvince() != null) {
@@ -180,7 +188,9 @@ public class UserServiceImpl implements UserService {
         if (dto.getUserType() != null) {
             query.setParameter("userType", dto.getUserType());
         }
-
+        if (dto.getUserLevel() != null) {
+            query.setParameter("userLevel", dto.getUserLevel());
+        }
         return query.getResultList();
     }
 

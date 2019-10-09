@@ -36,6 +36,7 @@ import zw.org.zvandiri.business.domain.util.CareLevel;
 import zw.org.zvandiri.business.domain.util.ContactPhoneOption;
 import zw.org.zvandiri.business.domain.util.FollowUp;
 import zw.org.zvandiri.business.domain.util.Reason;
+import zw.org.zvandiri.business.domain.util.UserLevel;
 import zw.org.zvandiri.business.domain.util.YesNo;
 
 /**
@@ -117,6 +118,12 @@ public class Contact extends BaseEntity {
     private String defaultMessage;
     @Transient
     private String currentElement;
+    @Transient
+    private UserLevel userLevel;
+    @Transient
+    private District district;
+    @Transient
+    private Province province;
 
     public Contact(Patient patient) {
         this.patient = patient;
@@ -350,6 +357,30 @@ public class Contact extends BaseEntity {
 
     public void setServiceOffereds(Set<ServiceOffered> serviceOffereds) {
         this.serviceOffereds = serviceOffereds;
+    }
+
+    public UserLevel getUserLevel() {
+        return userLevel;
+    }
+
+    public void setUserLevel(UserLevel userLevel) {
+        this.userLevel = userLevel;
+    }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
+    }
+
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
     }
     
 }

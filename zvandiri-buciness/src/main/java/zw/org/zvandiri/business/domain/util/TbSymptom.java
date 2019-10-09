@@ -11,29 +11,30 @@ import zw.org.zvandiri.business.util.StringUtils;
  *
  * @author tasu
  */
-public enum TbTreatmentOutcome {
-
-    SUCCESSFUL(1), FAILED(2);
+public enum TbSymptom {
+    
+    COUGH(1), NIGHT_SWEATS(2), WEIGHT_LOSS(3), FEVER(4);
+    
     private final Integer code;
-
-    private TbTreatmentOutcome(Integer code) {
+    
+    private TbSymptom(Integer code){
         this.code = code;
     }
-
-    public Integer getCode() {
+    
+    public Integer getCode(){
         return code;
     }
-
-    public static TbTreatmentOutcome get(Integer code) {
-        for (TbTreatmentOutcome item : values()) {
+    
+    public static TbSymptom get(Integer code){
+        for (TbSymptom item : values()) {
             if (item.getCode().equals(code)) {
                 return item;
             }
         }
-        throw new IllegalArgumentException("Unknown parameter passes to method: " + code);
+        throw new IllegalArgumentException("Illegal parameter passed to method :"+code);
     }
-
-    public String getName() {
+    
+    public String getName(){
         return StringUtils.toCamelCase3(super.name());
     }
 }

@@ -18,9 +18,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import zw.org.zvandiri.business.domain.HIVSelfTesting;
 import zw.org.zvandiri.business.domain.Mortality;
+import zw.org.zvandiri.business.domain.TbIpt;
 import zw.org.zvandiri.business.service.HIVSelfTestingService;
 import zw.org.zvandiri.business.service.MortalityService;
 import zw.org.zvandiri.business.service.PatientService;
+import zw.org.zvandiri.business.service.TbIptService;
 
 /**
  *
@@ -38,6 +40,8 @@ public class PersonProcessResource {
     private HIVSelfTestingService hIVSelfTestingService;
     @Resource
     private MortalityService mortalityService;
+    @Resource
+    private TbIptService tbIptService;
 
     @POST
     @Path("/add-self-testing")
@@ -65,6 +69,22 @@ public class PersonProcessResource {
         } catch (Exception e) {
             e.printStackTrace();
             map.put("message", "System error occurred saving mortality");
+            return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        map.put("message", "Item saved");
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+    
+    @POST
+    @Path("/add-tb-ipt")
+    public ResponseEntity<Map<String, Object>> addTbIpt(TbIpt item) {
+        Map<String, Object> map = new HashMap<>();
+        try {
+            item.setPatient(patientService.get(item.getPatient().getId()));
+            tbIptService.save(item);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("message", "System error occurred saving TbIpt");
             return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         map.put("message", "Item saved");

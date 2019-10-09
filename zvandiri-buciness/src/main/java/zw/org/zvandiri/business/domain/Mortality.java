@@ -11,7 +11,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 import zw.org.zvandiri.business.domain.util.CauseOfDeath;
 import zw.org.zvandiri.business.domain.util.YesNo;

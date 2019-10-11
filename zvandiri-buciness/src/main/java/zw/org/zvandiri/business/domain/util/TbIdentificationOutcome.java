@@ -11,12 +11,12 @@ import zw.org.zvandiri.business.util.StringUtils;
  *
  * @author tasu
  */
-public enum TbTreatmentOutcome {
-
-    SUCCESSFUL(1), FAILED(2);
+public enum TbIdentificationOutcome {
+    
+    REFERRED_FOR_TB_TREATMENT(1), ON_TB_TREATMENT(2);
     private final Integer code;
 
-    private TbTreatmentOutcome(Integer code) {
+    private TbIdentificationOutcome(Integer code) {
         this.code = code;
     }
 
@@ -24,11 +24,10 @@ public enum TbTreatmentOutcome {
         return code;
     }
 
-    public static TbTreatmentOutcome get(Integer code) {
-        for (TbTreatmentOutcome item : values()) {
-            if (item.getCode().equals(code)) {
+    public static TbIdentificationOutcome get(Integer code) {
+        for(TbIdentificationOutcome item : values()){
+            if(item.getCode().equals(code))
                 return item;
-            }
         }
         throw new IllegalArgumentException("Unknown parameter passes to method: " + code);
     }

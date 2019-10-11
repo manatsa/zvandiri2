@@ -11,12 +11,13 @@ import zw.org.zvandiri.business.util.StringUtils;
  *
  * @author tasu
  */
-public enum TbTreatmentOutcome {
+public enum CauseOfDeath {
+    
+    TB(1), CRYPROCOCCAL_MENENGITIS(2), CANCER(3), ANAEMIA(4), ACUTE_INFECTION(5), OTHERS(6);
 
-    SUCCESSFUL(1), FAILED(2);
     private final Integer code;
 
-    private TbTreatmentOutcome(Integer code) {
+    private CauseOfDeath(Integer code) {
         this.code = code;
     }
 
@@ -24,13 +25,13 @@ public enum TbTreatmentOutcome {
         return code;
     }
 
-    public static TbTreatmentOutcome get(Integer code) {
-        for (TbTreatmentOutcome item : values()) {
+    public static CauseOfDeath get(Integer code) {
+        for (CauseOfDeath item : values()) {
             if (item.getCode().equals(code)) {
                 return item;
             }
         }
-        throw new IllegalArgumentException("Unknown parameter passes to method: " + code);
+        throw new IllegalArgumentException("Un recognised code passed to method : " + code);
     }
 
     public String getName() {

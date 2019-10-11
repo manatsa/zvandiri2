@@ -44,6 +44,7 @@ import zw.org.zvandiri.business.domain.Province;
 import zw.org.zvandiri.business.domain.ReasonForNotReachingOLevel;
 import zw.org.zvandiri.business.domain.Referer;
 import zw.org.zvandiri.business.domain.Relationship;
+import zw.org.zvandiri.business.domain.ServiceOffered;
 import zw.org.zvandiri.business.domain.ServicesReferred;
 import zw.org.zvandiri.business.domain.Stable;
 import zw.org.zvandiri.business.domain.Substance;
@@ -70,6 +71,7 @@ import zw.org.zvandiri.business.service.ProvinceService;
 import zw.org.zvandiri.business.service.ReasonForNotReachingOLevelService;
 import zw.org.zvandiri.business.service.RefererService;
 import zw.org.zvandiri.business.service.RelationshipService;
+import zw.org.zvandiri.business.service.ServiceOfferedService;
 import zw.org.zvandiri.business.service.ServicesReferredService;
 import zw.org.zvandiri.business.service.StableService;
 import zw.org.zvandiri.business.service.SubstanceService;
@@ -136,6 +138,8 @@ public class StaticDataResource {
     private ActionTakenService actionTakenService;
     @Resource
     private ReasonForNotReachingOLevelService reasonForNotReachingOLevelService;
+    @Resource
+    private ServiceOfferedService serviceOfferedService;
     
     @GET
     @Path("/province")
@@ -291,5 +295,11 @@ public class StaticDataResource {
     @Path("/reason-for-not-reaching-o-level")
     public List<ReasonForNotReachingOLevel> getReasonForNotReachingOLevel() {
         return reasonForNotReachingOLevelService.getAll();
+    }
+    
+    @GET
+    @Path("/service-offered")
+    public List<ServiceOffered> getServicesOffered() {
+        return serviceOfferedService.getAll();
     }
 }

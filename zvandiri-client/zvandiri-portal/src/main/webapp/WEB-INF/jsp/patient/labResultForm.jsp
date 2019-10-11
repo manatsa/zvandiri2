@@ -41,7 +41,7 @@
                             </c:if>
                             <c:if test="${!eid}">
                                 <div class="form-group">
-                                    <label>Count</label>
+                                    <label>Result</label>
                                     <form:input path="result" class="form-control"/>
                                     <p class="help-block">
                                         <form:errors path="result" class="alert-danger"/>

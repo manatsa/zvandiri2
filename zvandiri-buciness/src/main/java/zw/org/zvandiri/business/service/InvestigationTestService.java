@@ -31,4 +31,6 @@ public interface InvestigationTestService extends GenericService<InvestigationTe
 	public List<InvestigationTest> getByPatientAndTestType(Patient patient, TestType testType);
         
         public List<InvestigationTest> get(SearchDTO dto);
+        
+        public InvestigationTest getLatestTestByTestType(Patient patient, TestType testType);
 }

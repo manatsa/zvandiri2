@@ -96,5 +96,14 @@ public class InvestigationTestServiceImpl implements InvestigationTestService {
     public List<InvestigationTest> get(SearchDTO dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public InvestigationTest getLatestTestByTestType(Patient patient, TestType testType) {
+        
+        for (InvestigationTest item : getByPatientAndTestType(patient, testType)) {
+            return item;
+        }
+        return null;
+    }
     
 }

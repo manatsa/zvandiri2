@@ -62,6 +62,7 @@ public class TransferPatientFacilityController extends BaseController {
         model.addAttribute("patient", item.getPatient());
         model.addAttribute("provinces", provinceService.getAll());
         getPatientStatus(item.getPatient(), model);
+        setViralLoad(model, item.getPatient());
         if(item.getPatient().getProvince() != null){
             model.addAttribute("districts", districtService.getDistrictByProvince(item.getPatient().getProvince()));
             if(item.getPatient().getDistrict() != null){

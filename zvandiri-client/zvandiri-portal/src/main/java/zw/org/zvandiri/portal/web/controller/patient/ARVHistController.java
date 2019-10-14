@@ -58,7 +58,8 @@ public class ARVHistController extends BaseController {
         model.addAttribute("patient", item.getPatient());
         model.addAttribute("item", item);
         getPatientStatus(item.getPatient(), model);
-        model.addAttribute("aRVDrugRegimens", arvMedicineService.getAll());  
+        model.addAttribute("aRVDrugRegimens", arvMedicineService.getAll());
+        setViralLoad(model, item.getPatient());
         return "patient/arvHistForm";
     }
 
@@ -95,6 +96,7 @@ public class ARVHistController extends BaseController {
         Patient item = patientService.get(id);
         model.addAttribute("pageTitle", APP_PREFIX + " " + item.getName() + "'s ARV History");
         model.addAttribute("patient", item);
+        setViralLoad(model, item);
         if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }

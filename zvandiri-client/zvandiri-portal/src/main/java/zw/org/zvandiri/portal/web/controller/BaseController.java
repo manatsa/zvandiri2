@@ -28,9 +28,11 @@ import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.Settings;
 import zw.org.zvandiri.business.domain.User;
+import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.domain.util.UserLevel;
 import zw.org.zvandiri.business.service.ContactService;
 import zw.org.zvandiri.business.service.DatePropertyService;
+import zw.org.zvandiri.business.service.InvestigationTestService;
 import zw.org.zvandiri.business.service.SettingsService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
@@ -52,6 +54,8 @@ abstract public class BaseController implements IAppTitle {
     public Settings settings = null;
     @Resource
     private ContactService contactService;
+    @Resource
+    private InvestigationTestService investigationTestService;
 
     @ModelAttribute("currentuser")
     public User getUserName() {
@@ -155,6 +159,10 @@ abstract public class BaseController implements IAppTitle {
         } catch (IOException e) {
             System.err.println("Error occured writing file");
         }
+    }
+    
+    public void setViralLoad(ModelMap model, Patient item) {
+        model.addAttribute("latestViralLoad", investigationTestService.getLatestTestByTestType(item, TestType.VIRAL_LOAD));
     }
     
     @PostConstruct

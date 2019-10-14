@@ -65,6 +65,7 @@ public class ReferralController extends BaseController {
         model.addAttribute("item", item);
         getPatientStatus(item.getPatient(), model);
         model.addAttribute("patient", item.getPatient());
+        setViralLoad(model, item.getPatient());
         return "patient/"+view;
     }
 
@@ -106,6 +107,7 @@ public class ReferralController extends BaseController {
         model.addAttribute("items", referralService.getByPatient(item));
         model.addAttribute("patient", item);
         getPatientStatus(item, model);
+        setViralLoad(model, item);
         return "patient/referralList";
     }
 

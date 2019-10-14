@@ -59,6 +59,7 @@ public class SrhController extends BaseController {
         model.addAttribute("female", Boolean.FALSE);
         model.addAttribute("sexActive", Boolean.FALSE);
         getPatientStatus(item.getPatient(), model);
+        setViralLoad(model, item.getPatient());
         if (item.getPatient().getGender() != null && item.getPatient().getGender().equals(Gender.FEMALE)) {
             model.addAttribute("female", Boolean.TRUE);
         }
@@ -113,6 +114,7 @@ public class SrhController extends BaseController {
             model.addAttribute("sexActive", Boolean.TRUE);
         }
         getPatientStatus(item, model);
+        setViralLoad(model, item);
         model.addAttribute("srhHist", srhHist);
         return "patient/srhList";
     }

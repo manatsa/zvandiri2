@@ -163,6 +163,7 @@ public class ContactController extends BaseController {
         }
 
         getPatientStatus(item.getPatient(), model);
+        setViralLoad(model, item.getPatient());
         return "patient/" + view;
     }
 

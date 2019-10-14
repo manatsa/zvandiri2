@@ -68,6 +68,7 @@ public class MentalHealthScreeningController extends BaseController{
         model.addAttribute("results", MentalScreenResult.values());
         model.addAttribute("yesNo", YesNo.values());
         getPatientStatus(item.getPatient(), model);
+        setViralLoad(model, item.getPatient());
         return "patient/mentalHealthScreeningForm";
     }
 
@@ -110,6 +111,7 @@ public class MentalHealthScreeningController extends BaseController{
             model.addAttribute("message", AppMessage.getMessage(type));
         }
         getPatientStatus(patient, model);
+        setViralLoad(model, item.getPatient());
         model.addAttribute("item", item);
         return "patient/mentalHealthScreeningList";
     }

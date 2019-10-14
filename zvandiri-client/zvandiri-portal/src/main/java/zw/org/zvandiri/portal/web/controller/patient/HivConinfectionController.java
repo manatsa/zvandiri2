@@ -59,6 +59,7 @@ public class HivConinfectionController extends BaseController {
         model.addAttribute("item", item);
         getPatientStatus(item.getPatient(), model);
         model.addAttribute("hivCoInfections", hivCoInfectionService.getAll());
+        setViralLoad(model, item.getPatient());
         return "patient/hivCoInfectionForm";
     }
 
@@ -97,6 +98,7 @@ public class HivConinfectionController extends BaseController {
         if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
+        setViralLoad(model, item);
         getPatientStatus(item, model);
         model.addAttribute("hivInfections", hivConInfectionItemService.getByPatient(item));
         return "patient/hivCoInfectionList";

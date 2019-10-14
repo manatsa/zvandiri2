@@ -53,6 +53,7 @@ public class ChangePatientStatusController extends BaseController {
         model.addAttribute("item", item);
         model.addAttribute("patient", item.getPatient());
         getPatientStatus(item.getPatient(), model);
+        setViralLoad(model, item.getPatient());
         return "patient/patientChangeStatusForm";
     }
 

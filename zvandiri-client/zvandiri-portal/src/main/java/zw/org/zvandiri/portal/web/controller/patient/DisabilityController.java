@@ -60,6 +60,7 @@ public class DisabilityController extends BaseController {
         model.addAttribute("item", item);
         getPatientStatus(item.getPatient(), model);
         model.addAttribute("disabilityCategories", disabilityCategoryService.getAll());
+        setViralLoad(model, item.getPatient());
         return "patient/disabilityForm";
     }
 
@@ -98,6 +99,7 @@ public class DisabilityController extends BaseController {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
         getPatientStatus(item, model);
+        setViralLoad(model, item);
         model.addAttribute("disabilityCategories", disabilityService.getByPatient(item));
         return "patient/disabilityList";
     }

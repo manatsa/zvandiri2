@@ -62,6 +62,7 @@ public class TbScreeningController extends BaseController {
         map.addAttribute("yesNo", YesNo.values());
         map.addAttribute("outcomes", TbTreatmentOutcome.values());
         map.addAttribute("status", TbTreatmentStatus.values());
+        setViralLoad(map, item.getPatient());
         map.addAttribute("formAction", "item.form");
         return "patient/tbScreeningForm";
     }
@@ -97,6 +98,7 @@ public class TbScreeningController extends BaseController {
         if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
+        setViralLoad(model, item);
         model.addAttribute("items", service.getByPatient(item));
         return "patient/tbScreeningList";
     }

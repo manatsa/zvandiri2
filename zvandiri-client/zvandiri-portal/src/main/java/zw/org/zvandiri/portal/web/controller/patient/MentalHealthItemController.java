@@ -59,6 +59,7 @@ public class MentalHealthItemController extends BaseController {
         model.addAttribute("item", item);
         getPatientStatus(item.getPatient(), model);
         model.addAttribute("mentalHealths", mentalHealthService.getAll());
+        setViralLoad(model, item.getPatient());
         return "patient/mentalHealthForm";
     }
 
@@ -97,6 +98,7 @@ public class MentalHealthItemController extends BaseController {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
         getPatientStatus(item, model);
+        setViralLoad(model, item);
         model.addAttribute("mentalHealths", mentalHealthItemService.getByPatient(item));
         return "patient/mentalHealthList";
     }

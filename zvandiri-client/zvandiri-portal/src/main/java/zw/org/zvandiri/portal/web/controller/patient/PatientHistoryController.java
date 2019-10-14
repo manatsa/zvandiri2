@@ -85,6 +85,7 @@ public class PatientHistoryController extends BaseController {
         model.addAttribute("infections", chronicInfectionItemService.getByPatient(item));
         model.addAttribute("hivInfections", hivConInfectionItemService.getByPatient(item));
         model.addAttribute("mentalHealths", mentalHealthItemService.getByPatient(item));
+        setViralLoad(model, item);
         return "patient/patientHistory";
     }
 }

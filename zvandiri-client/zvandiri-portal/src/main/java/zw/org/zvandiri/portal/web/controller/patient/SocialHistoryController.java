@@ -64,6 +64,7 @@ public class SocialHistoryController extends BaseController {
         model.addAttribute("abuse", Boolean.FALSE);
         model.addAttribute("abuseTypes", AbuseType.values());
         getPatientStatus(item.getPatient(), model);
+        setViralLoad(model, item.getPatient());
         if(item.getAbuse() != null && item.getAbuse().equals(YesNo.YES)){
             model.addAttribute("abuse", Boolean.TRUE);
         }
@@ -118,6 +119,7 @@ public class SocialHistoryController extends BaseController {
             model.addAttribute("abuse", Boolean.TRUE);
         }
         getPatientStatus(patient, model);
+        setViralLoad(model, patient);
         model.addAttribute("socialHist", item);
         return "patient/socialHistList";
     }

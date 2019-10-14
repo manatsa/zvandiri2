@@ -54,6 +54,7 @@ public class ArvAdverseEffectsController extends BaseController {
         model.addAttribute("item", item);
         model.addAttribute("patient", item.getArvHist().getPatient());
         getPatientStatus(item.getArvHist().getPatient(), model);
+        setViralLoad(model, item.getArvHist().getPatient());
         return "patient/arvAdverseEffectForm";
     }
 
@@ -87,6 +88,7 @@ public class ArvAdverseEffectsController extends BaseController {
         model.addAttribute("item", item);
         model.addAttribute("patient", item.getPatient());
         getPatientStatus(item.getPatient(), model);
+        setViralLoad(model, item.getPatient());
         model.addAttribute("items", arvAdverseEffectService.getByArvHist(item));
         return "patient/arvAdverseEffectList";
     }

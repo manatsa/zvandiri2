@@ -61,6 +61,7 @@ public class HIVSelfTestingController extends BaseController {
         map.addAttribute("results", Result.values());
         map.addAttribute("yesNo", YesNo.values());
         map.addAttribute("formAction", "item.form");
+        setViralLoad(map, item.getPatient());
         return "patient/hivSelfTestingForm";
     }
 
@@ -95,6 +96,7 @@ public class HIVSelfTestingController extends BaseController {
         if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
+        setViralLoad(model, item);
         model.addAttribute("items", hIVSelfTestingService.getByPatient(item));
         return "patient/hivSelfTestingList";
     }

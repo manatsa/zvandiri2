@@ -44,5 +44,8 @@ public class MedicalHistValidator implements Validator {
         if (item.getPatient().getDateOfBirth() != null && item.getHospWhen() != null && item.getHospWhen().before(item.getPatient().getDateOfBirth())) {
             errors.rejectValue("hospWhen", "date.beforebirth");
         }
+        if (item.getOutcome() == null) {
+        	errors.rejectValue("outcome", "field.empty");
+        }
     }
 }

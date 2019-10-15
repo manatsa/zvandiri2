@@ -5,9 +5,13 @@
  */
 package zw.org.zvandiri.business.domain;
 
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
 import zw.org.zvandiri.business.domain.util.Result;
 import zw.org.zvandiri.business.domain.util.TbTreatmentOutcome;
 import zw.org.zvandiri.business.domain.util.TbTreatmentStatus;
@@ -39,6 +43,9 @@ public class TbScreening extends BaseEntity {
     private TbTreatmentOutcome tbTreatmentOutcome;
     @ManyToOne
     private Patient patient;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date dateScreened;
 
     public TbScreening(Patient patient) {
         this.patient = patient;
@@ -127,5 +134,11 @@ public class TbScreening extends BaseEntity {
         this.patient = patient;
     }
 
-    
+    public Date getDateScreened() {
+        return dateScreened;
+    }
+
+    public void setDateScreened(Date dateScreened) {
+        this.dateScreened = dateScreened;
+    }
 }

@@ -31,6 +31,7 @@
                                         <th>District</th>
                                         <th>Clinic/ Hospital</th>
                                         <th>Cause</th>
+                                        <th>Outcome <smal>(Resolved)</smal></th>
                                         <th>&nbsp;</th>
                                     </tr>
                                 </thead>
@@ -42,6 +43,7 @@
                                             <td>${medHist.primaryClinic.district.name}</td>
                                             <td>${medHist.primaryClinic.name}</td>
                                             <td>${medHist.hospCause.name}</td>
+                                            <td>${medHist.outcome.name}</td>
                                             <td>
                                                 <a href="item.form?itemId=${medHist.id}">Edit</a> |
                                                 <c:if test="${canEdit}"><a href="item.delete?id=${medHist.id}">Delete</a></c:if>

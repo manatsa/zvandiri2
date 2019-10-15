@@ -19,7 +19,6 @@ package zw.org.zvandiri.business.util.dto;
 import java.io.Serializable;
 import java.util.Date;
 import zw.org.zvandiri.business.domain.util.Gender;
-import zw.org.zvandiri.business.domain.util.YesNo;
 
 /**
  *

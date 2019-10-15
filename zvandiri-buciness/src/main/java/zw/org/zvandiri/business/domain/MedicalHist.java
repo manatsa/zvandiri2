@@ -17,12 +17,15 @@ package zw.org.zvandiri.business.domain;
 
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import zw.org.zvandiri.business.domain.util.YesNo;
 
 /**
  *
@@ -45,6 +48,8 @@ public class MedicalHist extends BaseEntity {
     private District district;
     @ManyToOne
     private HospCause hospCause;
+    @Enumerated
+    private YesNo outcome;
 
     public MedicalHist() {
     }
@@ -100,5 +105,14 @@ public class MedicalHist extends BaseEntity {
     public void setDistrict(District district) {
         this.district = district;
     }
+
+	public YesNo getOutcome() {
+		return outcome;
+	}
+
+	public void setOutcome(YesNo outcome) {
+		this.outcome = outcome;
+	}
+    
     
 }

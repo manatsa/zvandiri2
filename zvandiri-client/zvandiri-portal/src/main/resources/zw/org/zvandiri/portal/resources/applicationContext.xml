@@ -100,6 +100,7 @@
                 <bean class="zw.org.zvandiri.portal.web.converter.ServiceOfferedConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.ContactAssessmentConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.VisitOutcomeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.MentalHealthScreeningTypeConverter"/>
             </set>
         </property>
     </bean> 

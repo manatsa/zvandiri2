@@ -23,7 +23,7 @@ public interface ContactInnerJoin {
 
     public final String CONTACT_INNER_JOIN = "left join fetch c.patient left join fetch c.location "
             + "left join fetch c.internalReferral left join fetch c.externalReferral "
-            + "left join fetch c.assessments left join fetch c.stables "
-            + "left join fetch c.enhanceds "
+            + "left join fetch c.clinicalAssessments left join fetch c.stables "
+            + "left join fetch c.enhanceds left join fetch c.nonClinicalAssessments "
             + "left join fetch c.parent left join fetch c.referredPerson ";
 }

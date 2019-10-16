@@ -72,7 +72,7 @@ public class LaboratoryTestResultsController extends BaseController {
             model.addAttribute("items", patientReportService.getPatientLabResultsList(item.getInstance(item)));
         }
         model.addAttribute("item", item.getInstance(item));
-        return "report/detailedPatientReport";
+        return "report/laboratoryDetailedReport";
     }
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)

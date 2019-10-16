@@ -20,7 +20,7 @@
                             <form:hidden path="patient" value="${item.patient.id}"/>
                             <div class="form-group">
                                 <label>Patient Status</label>
-                                <form:select path="patient.status" class="form-control">
+                                <form:select path="patient.status" id="status" class="form-control">
                                     <form:option value="" label="--Select Item"/>
                                     <form:options itemValue="code" itemLabel="name"/>
                                 </form:select>
@@ -40,3 +40,14 @@
     </div>
 </div>
 <%@include file="../template/footer.jspf" %>
+<script type="text/javascript">
+var patientId = "<c:out value="${item.patient.id}"/>"
+$("#status").change(function () {
+    var name = $.trim($("#status :selected").text());
+    if (name === "Change Location") {
+        location.href = path+"/patient/change-facility/item.form?id="+patientId;
+    } else if (name === "Deceased"){
+    	location.href = path+"/patient/patient-death/item.form?id="+patientId;
+    }
+});
+</script>

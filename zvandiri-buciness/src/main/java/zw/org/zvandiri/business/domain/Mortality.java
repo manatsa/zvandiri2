@@ -6,6 +6,8 @@
 package zw.org.zvandiri.business.domain;
 
 import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
@@ -27,6 +29,9 @@ public class Mortality extends BaseEntity{
     private Date dateOfDeath;
     @Enumerated
     private CauseOfDeath causeOfDeath;
+    private String cancerType;
+    private String acuteInfectionType;
+    private String otherCauseOfDeath;
     @Enumerated
     private YesNo receivingEnhancedCare;
     @Temporal(TemporalType.DATE)
@@ -39,7 +44,9 @@ public class Mortality extends BaseEntity{
     private String facility;
     private String cats;
     private String zm;
-    private String others;
+    private Date dateOfContactWithZim;
+    @Column(columnDefinition = "text")
+    private String descriptionOfcase;
     private String learningPoints;
     private String actionPlan;
     @ManyToOne
@@ -133,14 +140,6 @@ public class Mortality extends BaseEntity{
         this.zm = zm;
     }
 
-    public String getOthers() {
-        return others;
-    }
-
-    public void setOthers(String others) {
-        this.others = others;
-    }
-
     public String getLearningPoints() {
         return learningPoints;
     }
@@ -164,5 +163,7 @@ public class Mortality extends BaseEntity{
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
+    
+    
     
 }

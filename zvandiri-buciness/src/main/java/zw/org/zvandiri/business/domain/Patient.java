@@ -80,7 +80,7 @@ public class Patient extends GenericPatient {
     }
 
     public void setDistrict(District district) {
-    	this.district = district;
+        this.district = district;
     }
 
     public Province getProvince() {
@@ -206,19 +206,19 @@ public class Patient extends GenericPatient {
         item.setPatient(patient);
     }
 
-	public String getCurrentArvRegimen() {
-		return currentArvRegimen;
-	}
+    public String getCurrentArvRegimen() {
+        return currentArvRegimen;
+    }
 
-	public Integer getDisabilitySeverity() {
-		return disabilitySeverity;
-	}
+    public Integer getDisabilitySeverity() {
+        return disabilitySeverity;
+    }
 
-	public DisabilitySeverity getDisabilityStatus() {
-		if (disabilitySeverity != null) {
-			return DisabilitySeverity.get(disabilitySeverity);
-		}
-		return null;
-	}
-    
+    public DisabilitySeverity getDisabilityStatus() {
+        if (disabilitySeverity != null) {
+            return DisabilitySeverity.get(disabilitySeverity + 1);
+        }
+        return null;
+    }
+
 }

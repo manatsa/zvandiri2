@@ -46,7 +46,7 @@
 									<td>${item.patient.mobileNumber}</td>
 									<td>${item.patient.primaryClinic.district.name}</td>
 									<td>${item.patient.primaryClinic.name}</td>
-									<td>${item.careLevel.name}</td>
+									<td>${item.currentCareLevel.name}</td>
 									<td><spring:eval expression="item.contactDate" /></td>
 									<td>${item.followUp.name}</td>
 									<td>${item.location}</td>

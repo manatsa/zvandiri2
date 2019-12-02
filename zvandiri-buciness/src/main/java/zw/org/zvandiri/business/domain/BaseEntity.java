@@ -18,6 +18,8 @@ package zw.org.zvandiri.business.domain;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import zw.org.zvandiri.business.domain.util.RecordSource;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -49,6 +51,8 @@ abstract public class BaseEntity implements Serializable {
     private Long version;
     private Boolean active = Boolean.TRUE;
     private Boolean deleted = Boolean.FALSE;
+    @Enumerated
+    private RecordSource recordSource = RecordSource.WEB_APP;
 
     
     public BaseEntity(){
@@ -131,7 +135,15 @@ abstract public class BaseEntity implements Serializable {
         this.deleted = deleted;
     }
     
-    @Override
+    public RecordSource getRecordSource() {
+		return recordSource;
+	}
+
+	public void setRecordSource(RecordSource recordSource) {
+		this.recordSource = recordSource;
+	}
+
+	@Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;

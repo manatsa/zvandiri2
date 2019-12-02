@@ -123,9 +123,7 @@
             </tr>
             <tr>
                 <td><a href="${page}/admin/service-offered/">Manage Service Offered</a> </td>
-                <td>
-                    &nbsp;
-                </td>
+                <td><a href="${page}/admin/lab-service/">Manage Lab Task</a> </td>
             </tr>
         </table>
     </div>

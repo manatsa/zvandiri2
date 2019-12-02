@@ -57,6 +57,7 @@ import zw.org.zvandiri.portal.web.validator.BeneficiaryContactValidator;
  *
  * @author Judge Muzinda
  */
+
 @Controller
 @RequestMapping("/beneficiary/contact")
 public class ContactController extends BaseController {

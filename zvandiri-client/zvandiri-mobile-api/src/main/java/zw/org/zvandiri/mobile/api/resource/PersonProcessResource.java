@@ -16,9 +16,11 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import zw.org.zvandiri.business.domain.Dsd;
 import zw.org.zvandiri.business.domain.HIVSelfTesting;
 import zw.org.zvandiri.business.domain.Mortality;
 import zw.org.zvandiri.business.domain.TbIpt;
+import zw.org.zvandiri.business.service.DsdService;
 import zw.org.zvandiri.business.service.HIVSelfTestingService;
 import zw.org.zvandiri.business.service.MortalityService;
 import zw.org.zvandiri.business.service.PatientService;
@@ -42,6 +44,8 @@ public class PersonProcessResource {
     private MortalityService mortalityService;
     @Resource
     private TbIptService tbIptService;
+    @Resource
+    private DsdService dsdService;
 
     @POST
     @Path("/add-self-testing")
@@ -85,6 +89,22 @@ public class PersonProcessResource {
         } catch (Exception e) {
             e.printStackTrace();
             map.put("message", "System error occurred saving TbIpt");
+            return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        map.put("message", "Item saved");
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+    
+    @POST
+    @Path("/add-dsd")
+    public ResponseEntity<Map<String, Object>> addDsd(Dsd item) {
+        Map<String, Object> map = new HashMap<>();
+        try {
+            item.setPatient(patientService.get(item.getPatient().getId()));
+            dsdService.save(item);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("message", "System error occurred saving Dsd");
             return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         map.put("message", "Item saved");

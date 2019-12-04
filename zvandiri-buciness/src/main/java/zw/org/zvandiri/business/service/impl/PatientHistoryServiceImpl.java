@@ -21,9 +21,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import zw.org.zvandiri.business.domain.Mortality;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.PatientHistory;
 import zw.org.zvandiri.business.repo.PatientHistoryRepo;
+import zw.org.zvandiri.business.service.MortalityService;
 import zw.org.zvandiri.business.service.PatientHistoryService;
 import zw.org.zvandiri.business.service.PatientService;
 import zw.org.zvandiri.business.service.UserService;
@@ -43,6 +45,8 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     private UserService userService;
     @Resource
     private PatientService patientService;
+    @Resource
+    private MortalityService mortalityService;
 
     @Override
     public List<PatientHistory> getAll() {
@@ -98,6 +102,13 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     public void saveItem(PatientHistory history, Patient patient) {
         save(history);
         patientService.save(patient);
+    }
+    
+    @Override
+    @Transactional
+    public void saveMortality(PatientHistory history, Patient patient, Mortality mortality) {
+        saveItem(history, patient);
+        mortalityService.save(mortality);
     }
     
 }

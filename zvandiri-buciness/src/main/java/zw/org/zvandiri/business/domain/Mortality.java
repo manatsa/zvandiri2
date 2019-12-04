@@ -22,16 +22,14 @@ import zw.org.zvandiri.business.domain.util.YesNo;
  * @author tasu
  */
 @Entity
-public class Mortality extends BaseEntity{
-    
+public class Mortality extends BaseEntity {
+
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateOfDeath;
     @Enumerated
     private CauseOfDeath causeOfDeath;
-    private String cancerType;
-    private String acuteInfectionType;
-    private String otherCauseOfDeath;
+    private String causeOfDeathDetails;
     @Enumerated
     private YesNo receivingEnhancedCare;
     @Temporal(TemporalType.DATE)
@@ -43,7 +41,10 @@ public class Mortality extends BaseEntity{
     private String beneficiary;
     private String facility;
     private String cats;
-    private String zm;
+    private String other;
+    private YesNo contactWithZM;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateOfContactWithZim;
     @Column(columnDefinition = "text")
     private String descriptionOfcase;
@@ -51,6 +52,13 @@ public class Mortality extends BaseEntity{
     private String actionPlan;
     @ManyToOne
     private Patient patient;
+
+    public Mortality() {
+    }
+
+    public Mortality(Patient patient) {
+        this.patient = patient;
+    }
 
     public Date getDateOfDeath() {
         return dateOfDeath;
@@ -66,6 +74,14 @@ public class Mortality extends BaseEntity{
 
     public void setCauseOfDeath(CauseOfDeath causeOfDeath) {
         this.causeOfDeath = causeOfDeath;
+    }
+
+    public String getCauseOfDeathDetails() {
+        return causeOfDeathDetails;
+    }
+
+    public void setCauseOfDeathDetails(String causeOfDeathDetails) {
+        this.causeOfDeathDetails = causeOfDeathDetails;
     }
 
     public YesNo getReceivingEnhancedCare() {
@@ -132,12 +148,36 @@ public class Mortality extends BaseEntity{
         this.cats = cats;
     }
 
-    public String getZm() {
-        return zm;
+    public String getOther() {
+        return other;
     }
 
-    public void setZm(String zm) {
-        this.zm = zm;
+    public void setOther(String other) {
+        this.other = other;
+    }
+
+    public YesNo getContactWithZM() {
+        return contactWithZM;
+    }
+
+    public void setContactWithZM(YesNo contactWithZM) {
+        this.contactWithZM = contactWithZM;
+    }
+
+    public Date getDateOfContactWithZim() {
+        return dateOfContactWithZim;
+    }
+
+    public void setDateOfContactWithZim(Date dateOfContactWithZim) {
+        this.dateOfContactWithZim = dateOfContactWithZim;
+    }
+
+    public String getDescriptionOfcase() {
+        return descriptionOfcase;
+    }
+
+    public void setDescriptionOfcase(String descriptionOfcase) {
+        this.descriptionOfcase = descriptionOfcase;
     }
 
     public String getLearningPoints() {
@@ -163,7 +203,5 @@ public class Mortality extends BaseEntity{
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
-    
-    
-    
+
 }

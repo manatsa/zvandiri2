@@ -23,17 +23,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import zw.org.zvandiri.business.domain.Mortality;
 import zw.org.zvandiri.business.domain.PatientHistory;
-import zw.org.zvandiri.business.service.DistrictService;
-import zw.org.zvandiri.business.service.FacilityService;
+import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.service.PatientHistoryService;
 import zw.org.zvandiri.business.service.PatientService;
-import zw.org.zvandiri.business.service.ProvinceService;
 import zw.org.zvandiri.business.util.dto.PatientDTO;
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 import zw.org.zvandiri.portal.web.controller.BaseController;
-import zw.org.zvandiri.portal.web.validator.PatientChangeEventValidator;
+import zw.org.zvandiri.portal.web.validator.MortalityValidator;
 
 /**
  *
@@ -42,53 +41,42 @@ import zw.org.zvandiri.portal.web.validator.PatientChangeEventValidator;
 @Controller
 @RequestMapping("/patient/patient-death")
 public class PatientMortalityController extends BaseController {
-    
+
     @Resource
     private PatientService patientService;
     @Resource
-    private PatientChangeEventValidator patientChangeEventValidator;
-    @Resource
-    private ProvinceService provinceService;
-    @Resource
-    private DistrictService districtService;
-    @Resource
-    private FacilityService facilityService;
+    private MortalityValidator mortalityValidator;
     @Resource
     private PatientHistoryService patientHistoryService;
-    
-    public String setUpModel(ModelMap model, PatientDTO item){
-        model.addAttribute("pageTitle", APP_PREFIX+item.getPatient().getName()+" : Transfer to Another Clinic");
+
+    public String setUpModel(ModelMap model, Mortality item) {
+        model.addAttribute("pageTitle", APP_PREFIX + item.getPatient().getName() + " : Record Patient Death");
         model.addAttribute("item", item);
         model.addAttribute("patient", item.getPatient());
-        model.addAttribute("provinces", provinceService.getAll());
         getPatientStatus(item.getPatient(), model);
         setViralLoad(model, item.getPatient());
-        if(item.getPatient().getProvince() != null){
-            model.addAttribute("districts", districtService.getDistrictByProvince(item.getPatient().getProvince()));
-            if(item.getPatient().getDistrict() != null){
-                model.addAttribute("facilities", facilityService.getOptByDistrict(item.getPatient().getDistrict()));
-            }
-        }
-        return "patient/patientChangeFacilityForm";
+        return "patient/patientMortalityForm";
     }
-    
+
     @RequestMapping(value = "/item.form", method = RequestMethod.GET)
-    public String getForm(ModelMap model, @RequestParam String id){     
-        return setUpModel(model, new PatientDTO(patientService.get(id)));
+    public String getForm(ModelMap model, @RequestParam String id) {
+        return setUpModel(model, new Mortality(patientService.get(id)));
     }
-    
+
     @RequestMapping(value = "/item", method = RequestMethod.POST)
-    public String saveItem(ModelMap model,@ModelAttribute("item") PatientDTO item, BindingResult result){
+    public String saveItem(ModelMap model, @ModelAttribute("item") Mortality item, BindingResult result) {
         if (!item.getPatient().getPatientStatus()) {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message(INACTIVE_MESSAGE).messageType(MessageType.ERROR).build());
             return setUpModel(model, item);
         }
-        patientChangeEventValidator.validateChangeFacility(item, result);
-        if(result.hasErrors()){
+        mortalityValidator.validate(item, result);
+        if (result.hasErrors()) {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
             return setUpModel(model, item);
         }
-        patientHistoryService.saveItem(new PatientHistory(item.getPatient()), item.getFacilityInstance(item));
-        return "redirect:../dashboard/profile.htm?type=1&id="+item.getPatient().getId();
+        PatientDTO dto = new PatientDTO(item.getPatient());
+        dto.getPatient().setStatus(PatientChangeEvent.DECEASED);
+        patientHistoryService.saveMortality(new PatientHistory(item.getPatient()), dto.getPatientStatusInstance(dto), item);
+        return "redirect:../dashboard/profile.htm?type=1&id=" + item.getPatient().getId();
     }
 }

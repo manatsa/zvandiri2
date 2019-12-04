@@ -16,6 +16,7 @@
 package zw.org.zvandiri.business.service;
 
 import java.util.List;
+import zw.org.zvandiri.business.domain.Mortality;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.PatientHistory;
 
@@ -28,4 +29,6 @@ public interface PatientHistoryService extends GenericService<PatientHistory> {
     public List<PatientHistory> getByPatient(Patient patient);
     
     public void saveItem(PatientHistory history, Patient patient);
+    
+    public void saveMortality(PatientHistory history, Patient patient, Mortality mortality);
 }

@@ -6,7 +6,7 @@
 package zw.org.zvandiri.business.repo;
 
 import java.util.List;
-import zw.org.zvandiri.business.domain.Person;
+import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.TbScreening;
 
 /**
@@ -14,5 +14,6 @@ import zw.org.zvandiri.business.domain.TbScreening;
  * @author tasu
  */
 public interface TbScreeningRepo extends AbstractRepo<TbScreening, String>{
-    public List<TbScreening> findByPerson(Person person);
+    
+    public List<TbScreening> findByPatient(Patient patient);
 }

@@ -20,13 +20,11 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import org.hibernate.annotations.Formula;
+
+import zw.org.zvandiri.business.domain.util.DisabilitySeverity;
 import zw.org.zvandiri.business.domain.util.Gender;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.util.DateUtil;
@@ -38,12 +36,9 @@ import zw.org.zvandiri.business.util.DateUtil;
 @Entity
 public class Patient extends GenericPatient {
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, fetch = FetchType.EAGER)
-    @JoinTable(name = "patient_disability_category", joinColumns = {
-        @JoinColumn(name = "patient_id", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "disability_category_id", nullable = false)})
-    private Set<DisabilityCategory> disabilityCategorys;
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
+    private Set<PatientDisability> disabilityCategorys = new HashSet<>();
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private Set<PatientHistory> patientHistories = new HashSet<>();
     @Transient
     private District district;
@@ -73,13 +68,19 @@ public class Patient extends GenericPatient {
     private Integer viralLoad;
     @Formula("(Select i.result From investigation_test i where i.patient = id and i.test_type = 1 order by i.date_created desc limit 0,1)")
     private Integer cd4Count;
+    @Formula("(Select concat(a1.name, ', ', a2.name, ', ', a3.name) From arv_hist a inner join arv_medicine a1 on a1.id=a.arv_medicine inner join arv_medicine a2 on a2.id=a.arv_medicine2 inner join arv_medicine a3 on a3.id=a.arv_medicine3 where a.patient = id order by a.start_date desc limit 0,1)")
+    private String currentArvRegimen;
+    @Formula("(Select p.severity From patient_disability p where p.patient = id order by p.date_screened desc limit 0,1)")
+    private Integer disabilitySeverity;
+    @Transient
+    private DisabilitySeverity disabilityStatus;
 
     public District getDistrict() {
         return district;
     }
 
     public void setDistrict(District district) {
-        this.district = district;
+    	this.district = district;
     }
 
     public Province getProvince() {
@@ -110,11 +111,11 @@ public class Patient extends GenericPatient {
         return getFirstName() + (getMiddleName() != null && !getMiddleName().equals("") ? " " + getMiddleName() : "") + " " + getLastName();
     }
 
-    public Set<DisabilityCategory> getDisabilityCategorys() {
+    public Set<PatientDisability> getDisabilityCategorys() {
         return disabilityCategorys;
     }
 
-    public void setDisabilityCategorys(Set<DisabilityCategory> disabilityCategorys) {
+    public void setDisabilityCategorys(Set<PatientDisability> disabilityCategorys) {
         this.disabilityCategorys = disabilityCategorys;
     }
 
@@ -199,5 +200,25 @@ public class Patient extends GenericPatient {
     public Integer getCd4Count() {
         return cd4Count != null ? cd4Count : 0;
     }
+
+    public void add(PatientDisability item, Patient patient) {
+        disabilityCategorys.add(item);
+        item.setPatient(patient);
+    }
+
+	public String getCurrentArvRegimen() {
+		return currentArvRegimen;
+	}
+
+	public Integer getDisabilitySeverity() {
+		return disabilitySeverity;
+	}
+
+	public DisabilitySeverity getDisabilityStatus() {
+		if (disabilitySeverity != null) {
+			return DisabilitySeverity.get(disabilitySeverity);
+		}
+		return null;
+	}
     
 }

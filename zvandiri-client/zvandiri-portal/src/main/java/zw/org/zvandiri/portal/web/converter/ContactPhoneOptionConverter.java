@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 tasu.
+ * Copyright 2019 jmuzinda.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,21 +15,21 @@
  */
 package zw.org.zvandiri.portal.web.converter;
 
-import javax.annotation.Resource;
 import org.springframework.core.convert.converter.Converter;
-import zw.org.zvandiri.business.domain.Person;
-import zw.org.zvandiri.business.service.PersonService;
+import zw.org.zvandiri.business.domain.util.ContactPhoneOption;
 
 /**
  *
- * @author tasu
+ * @author jmuzinda
  */
-public class PersonConverter implements Converter<String, Person>{
-    @Resource
-    private PersonService personService;
+public class ContactPhoneOptionConverter  implements Converter<String, ContactPhoneOption> {
 
     @Override
-    public Person convert(String s) {
-        return s.equals("") ? null : personService.get(s);
+    public ContactPhoneOption convert(String s) {
+        
+        if (s.equals("")) {
+            return null;
+        }
+        return ContactPhoneOption.get(Integer.valueOf(s));
     }
 }

@@ -5,12 +5,12 @@
  */
 package zw.org.zvandiri.business.service;
 
-import zw.org.zvandiri.business.domain.Person;
+import zw.org.zvandiri.business.domain.Dsd;
 
 /**
  *
  * @author tasu
  */
-public interface PersonService extends GenericService<Person>{
+public interface DsdService extends GenericPatientHistoryService<Dsd>{
     
 }

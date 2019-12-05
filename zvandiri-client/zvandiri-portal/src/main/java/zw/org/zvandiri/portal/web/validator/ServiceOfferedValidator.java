@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 tasu.
+ * Copyright 2019 jmuzinda.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,28 +15,43 @@
  */
 package zw.org.zvandiri.portal.web.validator;
 
+import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-import zw.org.zvandiri.business.domain.Person;
+import zw.org.zvandiri.business.domain.ServiceOffered;
+import zw.org.zvandiri.business.service.ServiceOfferedService;
 
 /**
  *
- * @author tasu
+ * @author jmuzinda
  */
 @Component
-public class PersonValidator implements Validator{
-    
+public class ServiceOfferedValidator implements Validator {
+
+    @Resource
+    private ServiceOfferedService serviceOfferedService;
+
     @Override
-    public boolean supports(Class<?> type){
-        return Person.class.equals(type);
+    public boolean supports(Class<?> type) {
+        return type.equals(ServiceOffered.class);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        ValidationUtils.rejectIfEmpty(errors, "nameOfClient", "field.empty");
-        ValidationUtils.rejectIfEmpty(errors, "nameOfMother", "field.empty");
-        ValidationUtils.rejectIfEmpty(errors, "gender", "field.empty");
+        ValidationUtils.rejectIfEmpty(errors, "name", "field.empty");
+        /**
+         * @param name item name must always be unique
+         */
+        ServiceOffered current = (ServiceOffered) o;
+        ServiceOffered old = null;
+        if (current.getId() != null) {
+            old = serviceOfferedService.get(current.getId());
+        }
+        if (serviceOfferedService.checkDuplicate(current, old)) {
+            errors.rejectValue("name", "item.duplicate");
+        }
+
     }
 }

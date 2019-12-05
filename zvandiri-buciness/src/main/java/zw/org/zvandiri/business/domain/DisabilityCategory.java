@@ -30,5 +30,4 @@ public class DisabilityCategory extends BaseName {
     public DisabilityCategory(String id) {
         super(id);
     }
-    
 }

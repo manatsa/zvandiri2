@@ -20,6 +20,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -82,6 +83,7 @@ public class DashboardController extends BaseController {
     }
     
     @RequestMapping(value = "/contact-distribution-past-six-months/bar-graph", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_DATA_CLERK') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
     public void displayChart(HttpServletResponse response, SearchDTO dto) {
         response.setContentType("image/png");
         JFreeChart barGraph = null;
@@ -95,6 +97,7 @@ public class DashboardController extends BaseController {
     }
     
     @RequestMapping(value = "/contact-trend-by-care-level/trend", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_DATA_CLERK') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
     public void displayTrend(HttpServletResponse response, SearchDTO dto) {
         response.setContentType("image/png");
         JFreeChart barGraph = null;

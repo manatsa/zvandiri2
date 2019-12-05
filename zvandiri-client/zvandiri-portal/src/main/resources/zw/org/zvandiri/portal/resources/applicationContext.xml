@@ -90,12 +90,17 @@
                 <bean class="zw.org.zvandiri.portal.web.converter.ArtStartedConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.TestTypeConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.ResultConverter"/>
-                <bean class="zw.org.zvandiri.portal.web.converter.PersonConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.CatsMentorshipConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.TbTreatmentOutcomeConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.TbTreatmentStatusConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.MentalScreenResultConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.IdentifiedRiskConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.DisabilitySeverityConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ContactPhoneOptionConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ServiceOfferedConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ContactAssessmentConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.VisitOutcomeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.MentalHealthScreeningTypeConverter"/>
             </set>
         </property>
     </bean> 

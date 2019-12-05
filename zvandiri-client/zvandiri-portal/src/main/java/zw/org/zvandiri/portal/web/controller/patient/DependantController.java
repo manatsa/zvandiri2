@@ -53,6 +53,7 @@ public class DependantController extends BaseController {
         model.addAttribute("patient", item.getPatient());
         model.addAttribute("item", item);
         getPatientStatus(item.getPatient(), model);
+        setViralLoad(model, item.getPatient());
         return "patient/dependantForm";
     }
 

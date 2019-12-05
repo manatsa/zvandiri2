@@ -56,6 +56,7 @@ public class EidTestController extends BaseController {
         model.addAttribute("viralLoad", Boolean.FALSE);
         model.addAttribute("eid", Boolean.TRUE);
         getPatientStatus(item.getPatient(), model);
+        setViralLoad(model, item.getPatient());
         return "patient/labResultForm";
     }
 

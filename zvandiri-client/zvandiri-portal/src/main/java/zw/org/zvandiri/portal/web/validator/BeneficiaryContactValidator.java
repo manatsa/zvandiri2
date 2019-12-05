@@ -79,9 +79,6 @@ public class BeneficiaryContactValidator implements Validator {
                 errors.rejectValue("enhanceds", "item.select.one");
             }
         }
-        if (item.getAssessments() == null) {
-            errors.rejectValue("assessments", "field.empty");
-        }
         if (item.getContactDate() != null && item.getContactDate().after(new Date())) {
             errors.rejectValue("contactDate", "date.aftertoday");
         }
@@ -97,5 +94,10 @@ public class BeneficiaryContactValidator implements Validator {
         if (item.getLastClinicAppointmentDate() != null && item.getAttendedClinicAppointment() == null) {
             errors.rejectValue("attendedClinicAppointment", "field.empty");
         }
+        if (item.getActionTaken() != null && item.getActionTaken().getName().equalsIgnoreCase("Internal Referral") 
+                && item.getReferredPerson() == null) {
+            errors.rejectValue("referredPerson", "field.empty");
+        }
     }
+    
 }

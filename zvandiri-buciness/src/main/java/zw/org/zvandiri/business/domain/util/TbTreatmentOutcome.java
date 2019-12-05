@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package zw.org.zvandiri.business.domain.util;
+
 import zw.org.zvandiri.business.util.StringUtils;
 
 /**
@@ -11,8 +12,8 @@ import zw.org.zvandiri.business.util.StringUtils;
  * @author tasu
  */
 public enum TbTreatmentOutcome {
-    
-     SUCCESSFUL(1), FAILED(2);
+
+    SUCCESSFUL(1), FAILED(2);
     private final Integer code;
 
     private TbTreatmentOutcome(Integer code) {
@@ -24,9 +25,10 @@ public enum TbTreatmentOutcome {
     }
 
     public static TbTreatmentOutcome get(Integer code) {
-        for(TbTreatmentOutcome item : values()){
-            if(item.getCode().equals(code))
+        for (TbTreatmentOutcome item : values()) {
+            if (item.getCode().equals(code)) {
                 return item;
+            }
         }
         throw new IllegalArgumentException("Unknown parameter passes to method: " + code);
     }

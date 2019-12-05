@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 tasu.
+ * Copyright 2016 Judge Muzinda.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,11 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package zw.org.zvandiri.portal.web.converter;
+
+import org.springframework.core.convert.converter.Converter;
+
+import zw.org.zvandiri.business.domain.util.MentalHealthScreeningType;
 
 /**
  *
- * @author tasu
+ * @author Judge Muzinda
  */
-public enum mentalHealthScreeningForm {
+public class MentalHealthScreeningTypeConverter implements Converter<String, MentalHealthScreeningType> {
+
+    @Override
+    public MentalHealthScreeningType convert(String s) {
+        if(s.equals("")) return null;
+        return MentalHealthScreeningType.get(Integer.valueOf(s));
+    }
     
 }

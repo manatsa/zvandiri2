@@ -15,17 +15,13 @@
  */
 package zw.org.zvandiri.report.api.service.impl;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Resource;
-import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.District;
 import zw.org.zvandiri.business.domain.Province;
-import zw.org.zvandiri.business.domain.util.CareLevel;
 import zw.org.zvandiri.business.domain.util.TbTreatmentOutcome;
 import zw.org.zvandiri.business.domain.util.TbTreatmentStatus;
 import zw.org.zvandiri.business.domain.util.YesNo;

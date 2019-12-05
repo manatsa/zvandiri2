@@ -48,17 +48,18 @@ public class ChangePatientStatusController extends BaseController {
     @Resource
     private PatientHistoryService patientHistoryService;
 
-    public String setUpModel(ModelMap model, PatientDTO item) {
+    public String setUpModel(ModelMap model, PatientDTO item, String view) {
         model.addAttribute("pageTitle", APP_PREFIX + item.getPatient().getName() + ": Change Status");
         model.addAttribute("item", item);
         model.addAttribute("patient", item.getPatient());
         getPatientStatus(item.getPatient(), model);
-        return "patient/patientChangeStatusForm";
+        setViralLoad(model, item.getPatient());
+        return view;
     }
 
     @RequestMapping(value = "/item.form", method = RequestMethod.GET)
     public String getForm(ModelMap model, @RequestParam String id) {
-        return setUpModel(model, new PatientDTO(patientService.get(id)));
+        return setUpModel(model, new PatientDTO(patientService.get(id)), "patient/patientChangeStatusForm");
     }
 
     @RequestMapping(value = "/item", method = RequestMethod.POST)
@@ -66,9 +67,14 @@ public class ChangePatientStatusController extends BaseController {
         patientChangeEventValidator.validateChangeStatus(item, result);
         if (result.hasErrors()) {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
-            return setUpModel(model, item);
+            return setUpModel(model, item, "patient/patientChangeStatusForm");
         }
         patientHistoryService.saveItem(new PatientHistory(item.getPatient()), item.getFacilityInstance(item));
         return "redirect:../dashboard/profile.htm?type=1&id=" + item.getPatient().getId();
+    }
+    
+    @RequestMapping(value = "reload-form", method = RequestMethod.POST)
+    public String reloadForm(ModelMap model, @ModelAttribute("item") PatientDTO item) {
+        return setUpModel(model, item, "contactForm");
     }
 }

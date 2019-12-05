@@ -19,7 +19,6 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.Resource;
-import org.apache.commons.validator.EmailValidator;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -217,9 +216,6 @@ public class PatientValidator implements Validator {
                 if (item.gethIVDisclosureLocation() == null) {
                     errors.rejectValue("hIVDisclosureLocation", "field.empty");
                 }
-            }
-            if (item.getDisability() != null && item.getDisability().equals(YesNo.YES) && item.getDisabilityCategorys() == null) {
-                errors.rejectValue("disabilityCategorys", "item.select.one");
             }
         }
     }

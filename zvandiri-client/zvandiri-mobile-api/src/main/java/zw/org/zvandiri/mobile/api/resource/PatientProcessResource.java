@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.annotation.Resource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -34,6 +35,7 @@ import org.springframework.stereotype.Component;
 import zw.org.zvandiri.business.domain.CatDetail;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.PatientDisability;
 import zw.org.zvandiri.business.domain.Referral;
 import zw.org.zvandiri.business.domain.util.FollowUp;
 import zw.org.zvandiri.business.domain.util.Gender;
@@ -55,7 +57,7 @@ import zw.org.zvandiri.business.util.dto.NameIdDTO;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class PatientProcessResource {
-    
+
     @Resource
     private CatDetailService catDetailService;
     @Resource
@@ -64,76 +66,100 @@ public class PatientProcessResource {
     private PatientService patientService;
     @Resource
     private ReferralService referralService;
-    
+
     @GET
     @Path("/cats-patients")
-    public List<NameIdDTO> getCatPatients(@QueryParam("email") String email){
+    public List<NameIdDTO> getCatPatients(@QueryParam("email") String email) {
         return catDetailService.getCatPatients(catDetailService.getByEmail(email));
     }
-    
+
     @GET
     @Path("/get-cats")
-    public CatDetail getCats(@QueryParam("email") String email){
+    public CatDetail getCats(@QueryParam("email") String email) {
         return catDetailService.getByEmail(email);
     }
-    
+
     @POST
     @Path("/add-contact")
-    public ResponseEntity<Map<String, Object>> addContact(Contact contact){
+    public ResponseEntity<Map<String, Object>> addContact(Contact contact) {
         Map<String, Object> response = validateContact(contact);
-        if(!response.isEmpty()) {
+        if (!response.isEmpty()) {
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
-        try{
+        try {
             contactService.save(contact);
-        } catch (Exception e){
+        } catch (Exception e) {
             response.put("message", "System error occurred saving contact");
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         response.put("message", "Contact created sucessfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    
+
     @POST
     @Path("/add-patient")
-    public ResponseEntity<Map<String, Object>>  addPatient(Patient patient){
+    public ResponseEntity<Map<String, Object>> addPatient(Patient patient) {
         Map<String, Object> response = validatePatient(patient);
-        if(!response.isEmpty()) {
+        if (!response.isEmpty()) {
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
-        try{
+        try {
             patientService.save(patient);
-        } catch (Exception e){
+        } catch (Exception e) {
             response.put("message", "System error occurred saving patient");
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         response.put("message", "Patient created sucessfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    
+
     @POST
-    @Path("/add-referral")
-    public ResponseEntity<Map<String, Object>> addReferral(Referral referral){
-        Map<String, Object> response = validateReferral(referral);
-        if(!response.isEmpty()) {
+    @Path("/add-disability")
+    public ResponseEntity<Map<String, Object>> addPatientDisabilities(Patient patient) {
+        Map<String, Object> response = new HashMap<>();
+        if (!response.isEmpty()) {
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
-        try{
+        try {
+            Set<PatientDisability> disabilitys = patient.getDisabilityCategorys();
+            Patient item = patientService.get(patient.getId());
+            for(PatientDisability disability : disabilitys) {
+                disability.setPatient(item);
+            }
+            item.setDisabilityCategorys(disabilitys);
+            patientService.save(item);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("message", "System error occurred saving patient");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        response.put("message", "Patient created sucessfully");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @POST
+    @Path("/add-referral")
+    public ResponseEntity<Map<String, Object>> addReferral(Referral referral) {
+        Map<String, Object> response = validateReferral(referral);
+        if (!response.isEmpty()) {
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+        try {
             referralService.save(referral);
-        } catch (Exception e){
+        } catch (Exception e) {
             response.put("message", "System error occurred saving referral");
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         response.put("message", "Referral created sucessfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    
-    private Map<String, Object> validateReferral(Referral item){
+
+    private Map<String, Object> validateReferral(Referral item) {
         Map<String, Object> response = new HashMap<>();
-        if(item.getReferralDate() == null){
+        if (item.getReferralDate() == null) {
             response.put("referralDate", "Field is required");
         }
-        if(item.getOrganisation()== null){
+        if (item.getOrganisation() == null) {
             response.put("organisation", "Field is required");
         }
         if (item.getReferralDate() != null && item.getReferralDate().after(new Date())) {
@@ -153,25 +179,25 @@ public class PatientProcessResource {
         }
         // check that @least one section is checked
         boolean serviceReq = false;
-        if ((item.getHivStiServicesReq() != null && !item.getHivStiServicesReq().isEmpty())){
+        if ((item.getHivStiServicesReq() != null && !item.getHivStiServicesReq().isEmpty())) {
             serviceReq = true;
         }
-        if (!serviceReq && (item.getLaboratoryReq() != null && !item.getLaboratoryReq().isEmpty())){
+        if (!serviceReq && (item.getLaboratoryReq() != null && !item.getLaboratoryReq().isEmpty())) {
             serviceReq = true;
         }
-        if (!serviceReq && (item.getOiArtReq() != null && !item.getOiArtReq().isEmpty())){
+        if (!serviceReq && (item.getOiArtReq() != null && !item.getOiArtReq().isEmpty())) {
             serviceReq = true;
         }
-        if (!serviceReq && (item.getLegalReq() != null && !item.getLegalReq().isEmpty())){
+        if (!serviceReq && (item.getLegalReq() != null && !item.getLegalReq().isEmpty())) {
             serviceReq = true;
         }
-        if (!serviceReq && (item.getPsychReq() != null && !item.getPsychReq().isEmpty())){
+        if (!serviceReq && (item.getPsychReq() != null && !item.getPsychReq().isEmpty())) {
             serviceReq = true;
         }
-        if (!serviceReq && (item.getSrhReq() != null && !item.getSrhReq().isEmpty())){
+        if (!serviceReq && (item.getSrhReq() != null && !item.getSrhReq().isEmpty())) {
             serviceReq = true;
         }
-        if (!serviceReq && (item.getTbReq() != null && !item.getTbReq().isEmpty())){
+        if (!serviceReq && (item.getTbReq() != null && !item.getTbReq().isEmpty())) {
             serviceReq = true;
         }
         if (!serviceReq) {
@@ -190,11 +216,11 @@ public class PatientProcessResource {
         }
         return response;
     }
-    
-    private Map<String, Object> validatePatient(Patient item){
+
+    private Map<String, Object> validatePatient(Patient item) {
         Map<String, Object> response = new HashMap<>();
-        String ZIMBABWE="\\d{10}";
-        if(StringUtils.isEmpty(item.getFirstName())){
+        String ZIMBABWE = "\\d{10}";
+        if (StringUtils.isEmpty(item.getFirstName())) {
             response.put("firstName", "Field is required");
         }
         if (StringUtils.isEmpty(item.getLastName())) {
@@ -241,7 +267,7 @@ public class PatientProcessResource {
         if ((item.getOwnSecondaryMobile() != null && item.getOwnSecondaryMobile().equals(YesNo.NO)) && StringUtils.isEmpty(item.getSecondaryMobileOwnerName())) {
             response.put("secondaryMobileOwnerName", "Field is required");
         }
-        if(StringUtils.isEmpty(item.getAddress())){
+        if (StringUtils.isEmpty(item.getAddress())) {
             response.put("address", "Field is required");
         }
         if (item.getPrimaryClinic() == null) {
@@ -250,7 +276,7 @@ public class PatientProcessResource {
         if (item.getSupportGroup() == null) {
             response.put("supportGroup", "Field is required");
         }
-        if (StringUtils.isNotEmpty(item.getFirstName()) && StringUtils.isNotEmpty(item.getLastName()) && item.getDateOfBirth() != null && item.getPrimaryClinic()!= null) {
+        if (StringUtils.isNotEmpty(item.getFirstName()) && StringUtils.isNotEmpty(item.getLastName()) && item.getDateOfBirth() != null && item.getPrimaryClinic() != null) {
             if (patientService.checkDuplicate(item, null)) {
                 response.put("patientExist", "Patient already exists");
             }
@@ -312,10 +338,10 @@ public class PatientProcessResource {
         }
         return response;
     }
-    
-    private Map<String, Object> validateContact(Contact item){
-        Map<String, Object> response = new HashMap<>();   
-        if(item.getContactDate() == null){
+
+    private Map<String, Object> validateContact(Contact item) {
+        Map<String, Object> response = new HashMap<>();
+        if (item.getContactDate() == null) {
             response.put("contactDate", "Field is required");
         }
         if (item.getCareLevel() == null) {
@@ -351,9 +377,6 @@ public class PatientProcessResource {
             if (item.getFollowUp().equals(FollowUp.ENHANCED) && item.getEnhanceds() == null) {
                 response.put("enhanceds", "Select at least one item in this list");
             }
-        }
-        if (item.getAssessments() == null) {
-            response.put("assessments", "Field is required");
         }
         if (item.getContactDate() != null && item.getContactDate().after(new Date())) {
             response.put("contactDate", "Date cannot be in the future");

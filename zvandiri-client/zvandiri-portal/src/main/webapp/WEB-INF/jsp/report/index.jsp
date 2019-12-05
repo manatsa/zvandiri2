@@ -85,7 +85,7 @@
                                     <a href="${page}/report/detailed/range.htm">Beneficiaries By Date Range</a>
                                 </td>
                                 <td>
-                                    <a href="${page}/report/test-results/index.htm">Laboratory Results Report</a>
+                                    <a href="${page}/report/test-results/index.htm?type=viral-load">Viral Load Results Report</a>
                                 </td>
                             </tr>
                             <tr>
@@ -93,12 +93,11 @@
                                     <a href="${page}/report/hiv-self-testing/detailed.htm">HIV Self Testing Report</a>
                                 </td>
                                 <td><a href="${page}/report/detailed/hei.htm">HEI Report</a></td>
-                                <td>&nbsp;</td>
                             </tr>
                             <tr>
                                 <td>
                                     <a href="${page}/report/tb-screening/screening">TB Screening Report</a>
-                                    <td>&nbsp;</td>
+                                    <td><a href="${page}/report/test-results/index.htm?type=cd4-count">CD4 Count Results Report</a></td>
                                 </td>
                             </tr>
                             <tr>
@@ -119,6 +118,10 @@
                             <tr>
                                 <td><a href="${page}/report/graphs/contact-care-level-distribution">Contact Distribution By Care Level</a></td>
                                 <td><a href="${page}/report/graphs/patient-contact-distribution">Patient Distribution By Contact</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="${page}/report/graphs/patient-viral-load-distribution">Viral Load Distribution</a></td>
+                                 <td><a href="${page}/report/graphs/patient-viral-suppression-distribution">Viral Load Suppression</a></td>
                             </tr>
                             <tr>
                                 <td><a href="${page}/report/graphs/tb-screening-treatment-status">TB Screening By Treatment Status</a></td>

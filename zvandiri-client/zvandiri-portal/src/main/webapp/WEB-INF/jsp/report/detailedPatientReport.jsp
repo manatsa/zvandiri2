@@ -62,10 +62,14 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="panel-footer">
-                    &nbsp;
-                </div>
             </div>
+        </div>
+            <div class="panel-footer" style="text-align: right">
+                    Export/ View As
+                    <a href="${page}${excelExport}">
+                        <img src="<c:url value="/resources/images/excel.jpeg"/>"/>
+                    </a>
+                </div>
         </div>
 
         <%@include file="../template/footer.jspf" %>

@@ -59,6 +59,7 @@ public class ChronicInfectionItemController extends BaseController {
         model.addAttribute("item", item);
         getPatientStatus(item.getPatient(), model);
         model.addAttribute("chronicInfections", chronicInfectionService.getAll());
+        setViralLoad(model, item.getPatient());
         return "patient/chronicInfectionForm";
     }
 
@@ -98,6 +99,7 @@ public class ChronicInfectionItemController extends BaseController {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
         getPatientStatus(item, model);
+        setViralLoad(model, item);
         model.addAttribute("infections", chronicInfectionItemService.getByPatient(item));
         return "patient/chronicInfectionList";
     }

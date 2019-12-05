@@ -141,13 +141,15 @@ public class OfficeExportServiceImpl implements OfficeExportService {
 
             header = patientDetails.createRow(rowNum++);
             Cell id = header.createCell(count);
-            id.setCellValue(patient.getId());
+            id.setCellValue(patient.getPatientNumber());
             Cell patientName = header.createCell(++count);
             patientName.setCellValue(patient.getName());
             Cell artNumber = header.createCell(++count);
             artNumber.setCellValue(patient.getoINumber());
             Cell dateOfBirth = header.createCell(++count);
             dateOfBirth.setCellValue(patient.getDateOfBirth());
+            Cell age = header.createCell(++count);
+            age.setCellValue(patient.getAge());
             dateOfBirth.setCellStyle(cellStyle);
             Cell dateJoined = header.createCell(++count);
             if (patient.getDateJoined() != null) {
@@ -159,12 +161,12 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             dateJoined.setCellStyle(cellStyle);
             Cell gender = header.createCell(++count);
             gender.setCellValue(patient.getGender().getName());
-            String addressDetails = patient.getAddress() + " , " + patient.getAddress1();
+            String addressDetails = patient.getAddress() != null ? patient.getAddress() : " "
+                    + " , " + patient.getAddress1() != null ? patient.getAddress1() : "";
             Cell address = header.createCell(++count);
             address.setCellValue(addressDetails);
             Cell mobileNumber = header.createCell(++count);
             mobileNumber.setCellValue(patient.getMobileNumber());
-            Cell email = header.createCell(++count);
             Cell consetToMHelaath = header.createCell(++count);
             consetToMHelaath.setCellValue(patient.getConsentToMHealth() != null
                     ? patient.getConsentToMHealth().getName() : null);
@@ -196,7 +198,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell hivDisclosureLoc = header.createCell(++count);
             hivDisclosureLoc.setCellValue(
                     patient.gethIVDisclosureLocation() != null
-                    ? patient.gethIVDisclosureLocation().getName() : null
+                            ? patient.gethIVDisclosureLocation().getName() : null
             );
             Cell hasDisability = header.createCell(++count);
             hasDisability.setCellValue(
@@ -213,15 +215,15 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell transMode = header.createCell(++count);
             transMode.setCellValue(
                     patient.getTransmissionMode() != null
-                    ? patient.getTransmissionMode().getName() : null);
+                            ? patient.getTransmissionMode().getName() : null);
             Cell hivStatusKnown = header.createCell(++count);
             hivStatusKnown.setCellValue(
                     patient.getHivStatusKnown() != null
-                    ? patient.getHivStatusKnown().getName() : null);
+                            ? patient.getHivStatusKnown().getName() : null);
             Cell patientStatus = header.createCell(++count);
             patientStatus.setCellValue(
                     patient.getStatus() != null
-                    ? patient.getStatus().getName() : null);
+                            ? patient.getStatus().getName() : null);
             Cell dateStatusChanged = header.createCell(++count);
             if (patient.getStatusChangeDate() != null) {
                 dateStatusChanged.setCellValue(patient.getStatusChangeDate());
@@ -248,9 +250,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             int count = 0;
             contactHeader = contactDetails.createRow(contactRowNum++);
             Cell id = contactHeader.createCell(count);
-            id.setCellValue(contact.getPatient().getId());
+            id.setCellValue(contact.getPatient().getPatientNumber());
             Cell patientName = contactHeader.createCell(++count);
             patientName.setCellValue(contact.getPatient().getName());
+            Cell dateOfBirth = contactHeader.createCell(++count);
+            dateOfBirth.setCellValue(contact.getPatient().getDateOfBirth());
+            dateOfBirth.setCellStyle(cellStyle);
+            Cell age = contactHeader.createCell(++count);
+            age.setCellValue(contact.getPatient().getAge());
+            Cell sex = contactHeader.createCell(++count);
+            sex.setCellValue(contact.getPatient().getGender().getName());
             Cell province = contactHeader.createCell(++count);
             province.setCellValue(contact.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
             Cell district = contactHeader.createCell(++count);
@@ -289,6 +298,9 @@ public class OfficeExportServiceImpl implements OfficeExportService {
 
             Cell attendedClinicAppointment = contactHeader.createCell(++count);
             attendedClinicAppointment.setCellValue(contact.getAttendedClinicAppointment() != null ? contact.getAttendedClinicAppointment().getName() : "");
+            if (contactRowNum >= 65535) {
+                break;
+            }
         }
 
         // add contact assessments
@@ -301,14 +313,25 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             cell.setCellValue(title);
         }
         for (Contact contact : contacts) {
-            if (!contact.getAssessments().isEmpty()) {
-                for (Assessment item : contact.getAssessments()) {
+            if (!contact.getClinicalAssessments().isEmpty() || !contact.getNonClinicalAssessments().isEmpty()) {
+                Set<Assessment> clinicalAssessment = contact.getClinicalAssessments();
+                if (clinicalAssessment != null) {
+                    clinicalAssessment.addAll(contact.getNonClinicalAssessments());
+                }
+                for (Assessment item : contact.getClinicalAssessments()) {
                     int count = 0;
                     assessmentHeader = assessmentDetails.createRow(assessmentRowNum++);
                     Cell id = assessmentHeader.createCell(count);
-                    id.setCellValue(contact.getPatient().getId());
+                    id.setCellValue(contact.getPatient().getPatientNumber());
                     Cell patientName = assessmentHeader.createCell(++count);
                     patientName.setCellValue(contact.getPatient().getName());
+                    Cell dateOfBirth = assessmentHeader.createCell(++count);
+                    dateOfBirth.setCellValue(contact.getPatient().getDateOfBirth());
+                    dateOfBirth.setCellStyle(cellStyle);
+                    Cell age = assessmentHeader.createCell(++count);
+                    age.setCellValue(contact.getPatient().getAge());
+                    Cell sex = assessmentHeader.createCell(++count);
+                    sex.setCellValue(contact.getPatient().getGender().getName());
                     Cell province = assessmentHeader.createCell(++count);
                     province.setCellValue(contact.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
                     Cell district = assessmentHeader.createCell(++count);
@@ -320,9 +343,14 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     contactDate.setCellStyle(cellStyle);
                     Cell careLevel = assessmentHeader.createCell(++count);
                     careLevel.setCellValue(contact.getCareLevel().getName());
+                    Cell assessmentType = assessmentHeader.createCell(++count);
+                    assessmentType.setCellValue(item.getContactAssessment().getName());
                     Cell assessment = assessmentHeader.createCell(++count);
                     assessment.setCellValue(item.toString());
                 }
+            }
+            if (assessmentRowNum >= 65535) {
+                break;
             }
         }
         // add referrals
@@ -338,9 +366,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             int count = 0;
             referralRow = referralDetails.createRow(referralRowNum++);
             Cell id = referralRow.createCell(count);
-            id.setCellValue(referral.getPatient().getId());
+            id.setCellValue(referral.getPatient().getPatientNumber());
             Cell patientName = referralRow.createCell(++count);
             patientName.setCellValue(referral.getPatient().getName());
+            Cell dateOfBirth = referralRow.createCell(++count);
+            dateOfBirth.setCellValue(referral.getPatient().getDateOfBirth());
+            dateOfBirth.setCellStyle(cellStyle);
+            Cell age = referralRow.createCell(++count);
+            age.setCellValue(referral.getPatient().getAge());
+            Cell sex = referralRow.createCell(++count);
+            sex.setCellValue(referral.getPatient().getGender().getName());
             Cell province = referralRow.createCell(++count);
             province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
             Cell district = referralRow.createCell(++count);
@@ -414,6 +449,9 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell legalRec = referralRow.createCell(++count);
             legalRec.setCellValue(!referral.getLegalAvailed().isEmpty()
                     ? referral.getLegalAvailed().toString() : null);
+            if (referralRowNum >= 65535) {
+                break;
+            }
         }
 
         // add hiv sti services referred
@@ -431,9 +469,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     int count = 0;
                     hivStiReferredRow = hivStiReferredDetails.createRow(hivStiReferredRowNum++);
                     Cell id = hivStiReferredRow.createCell(count);
-                    id.setCellValue(referral.getPatient().getId());
+                    id.setCellValue(referral.getPatient().getPatientNumber());
                     Cell patientName = hivStiReferredRow.createCell(++count);
                     patientName.setCellValue(referral.getPatient().getName());
+                    Cell dateOfBirth = hivStiReferredRow.createCell(++count);
+                    dateOfBirth.setCellValue(referral.getPatient().getDateOfBirth());
+                    dateOfBirth.setCellStyle(cellStyle);
+                    Cell age = hivStiReferredRow.createCell(++count);
+                    age.setCellValue(referral.getPatient().getAge());
+                    Cell sex = hivStiReferredRow.createCell(++count);
+                    sex.setCellValue(referral.getPatient().getGender().getName());
                     Cell province = hivStiReferredRow.createCell(++count);
                     province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
                     Cell district = hivStiReferredRow.createCell(++count);
@@ -487,9 +532,17 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     int count = 0;
                     hivStiProvidedRow = hivStiProvidedDetails.createRow(hivStiProvidedRowNum++);
                     Cell id = hivStiProvidedRow.createCell(count);
-                    id.setCellValue(referral.getPatient().getId());
+                    id.setCellValue(referral.getPatient().getPatientNumber());
                     Cell patientName = hivStiProvidedRow.createCell(++count);
                     patientName.setCellValue(referral.getPatient().getName());
+                    Cell dateOfBirth = hivStiProvidedRow.createCell(++count);
+                    dateOfBirth.setCellValue(referral.getPatient().getDateOfBirth());
+                    dateOfBirth.setCellStyle(cellStyle);
+                    Cell age = hivStiProvidedRow.createCell(++count);
+                    age.setCellValue(referral.getPatient().getAge());
+                    Cell sex = hivStiProvidedRow.createCell(++count);
+                    sex.setCellValue(referral.getPatient().getGender().getName());
+                    sex.setCellValue(referral.getPatient().getGender().getName());
                     Cell province = hivStiProvidedRow.createCell(++count);
                     province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
                     Cell district = hivStiProvidedRow.createCell(++count);
@@ -543,9 +596,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     int count = 0;
                     oiArtReferredRow = oiArtReferredDetails.createRow(oiArtReferredRowNum++);
                     Cell id = oiArtReferredRow.createCell(count);
-                    id.setCellValue(referral.getPatient().getId());
+                    id.setCellValue(referral.getPatient().getPatientNumber());
                     Cell patientName = oiArtReferredRow.createCell(++count);
                     patientName.setCellValue(referral.getPatient().getName());
+                    Cell dateOfBirth = oiArtReferredRow.createCell(++count);
+                    dateOfBirth.setCellValue(referral.getPatient().getDateOfBirth());
+                    dateOfBirth.setCellStyle(cellStyle);
+                    Cell age = oiArtReferredRow.createCell(++count);
+                    age.setCellValue(referral.getPatient().getAge());
+                    Cell sex = oiArtReferredRow.createCell(++count);
+                    sex.setCellValue(referral.getPatient().getGender().getName());
                     Cell province = oiArtReferredRow.createCell(++count);
                     province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
                     Cell district = oiArtReferredRow.createCell(++count);
@@ -599,9 +659,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     int count = 0;
                     oiArtProvidedRow = oiArtProvidedDetails.createRow(oiArtProvidedRowNum++);
                     Cell id = oiArtProvidedRow.createCell(count);
-                    id.setCellValue(referral.getPatient().getId());
+                    id.setCellValue(referral.getPatient().getPatientNumber());
                     Cell patientName = oiArtProvidedRow.createCell(++count);
                     patientName.setCellValue(referral.getPatient().getName());
+                    Cell dateOfBirth = oiArtProvidedRow.createCell(++count);
+                    dateOfBirth.setCellValue(referral.getPatient().getDateOfBirth());
+                    dateOfBirth.setCellStyle(cellStyle);
+                    Cell age = oiArtProvidedRow.createCell(++count);
+                    age.setCellValue(referral.getPatient().getAge());
+                    Cell sex = oiArtProvidedRow.createCell(++count);
+                    sex.setCellValue(referral.getPatient().getGender().getName());
                     Cell province = oiArtProvidedRow.createCell(++count);
                     province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
                     Cell district = oiArtProvidedRow.createCell(++count);
@@ -655,9 +722,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     int count = 0;
                     srhReferredRow = srhReferredDetails.createRow(srhReferredRowNum++);
                     Cell id = srhReferredRow.createCell(count);
-                    id.setCellValue(referral.getPatient().getId());
+                    id.setCellValue(referral.getPatient().getPatientNumber());
                     Cell patientName = srhReferredRow.createCell(++count);
                     patientName.setCellValue(referral.getPatient().getName());
+                    Cell dateOfBirth = srhReferredRow.createCell(++count);
+                    dateOfBirth.setCellValue(referral.getPatient().getDateOfBirth());
+                    dateOfBirth.setCellStyle(cellStyle);
+                    Cell age = srhReferredRow.createCell(++count);
+                    age.setCellValue(referral.getPatient().getAge());
+                    Cell sex = srhReferredRow.createCell(++count);
+                    sex.setCellValue(referral.getPatient().getGender().getName());
                     Cell province = srhReferredRow.createCell(++count);
                     province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
                     Cell district = srhReferredRow.createCell(++count);
@@ -711,9 +785,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     int count = 0;
                     srhProvidedRow = srhProvidedDetails.createRow(srhProvidedRowNum++);
                     Cell id = srhProvidedRow.createCell(count);
-                    id.setCellValue(referral.getPatient().getId());
+                    id.setCellValue(referral.getPatient().getPatientNumber());
                     Cell patientName = srhProvidedRow.createCell(++count);
                     patientName.setCellValue(referral.getPatient().getName());
+                    Cell dateOfBirth = srhProvidedRow.createCell(++count);
+                    dateOfBirth.setCellValue(referral.getPatient().getDateOfBirth());
+                    dateOfBirth.setCellStyle(cellStyle);
+                    Cell age = srhProvidedRow.createCell(++count);
+                    age.setCellValue(referral.getPatient().getAge());
+                    Cell sex = srhProvidedRow.createCell(++count);
+                    sex.setCellValue(referral.getPatient().getGender().getName());
                     Cell province = srhProvidedRow.createCell(++count);
                     province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
                     Cell district = srhProvidedRow.createCell(++count);
@@ -767,9 +848,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     int count = 0;
                     laboratoryReferredRow = laboratoryReferredDetails.createRow(laboratoryReferredRowNum++);
                     Cell id = laboratoryReferredRow.createCell(count);
-                    id.setCellValue(referral.getPatient().getId());
+                    id.setCellValue(referral.getPatient().getPatientNumber());
                     Cell patientName = laboratoryReferredRow.createCell(++count);
                     patientName.setCellValue(referral.getPatient().getName());
+                    Cell dateOfBirth = laboratoryReferredRow.createCell(++count);
+                    dateOfBirth.setCellValue(referral.getPatient().getDateOfBirth());
+                    dateOfBirth.setCellStyle(cellStyle);
+                    Cell age = laboratoryReferredRow.createCell(++count);
+                    age.setCellValue(referral.getPatient().getAge());
+                    Cell sex = laboratoryReferredRow.createCell(++count);
+                    sex.setCellValue(referral.getPatient().getGender().getName());
                     Cell province = laboratoryReferredRow.createCell(++count);
                     province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
                     Cell district = laboratoryReferredRow.createCell(++count);
@@ -823,9 +911,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     int count = 0;
                     laboratoryProvidedRow = laboratoryProvidedDetails.createRow(laboratoryProvidedRowNum++);
                     Cell id = laboratoryProvidedRow.createCell(count);
-                    id.setCellValue(referral.getPatient().getId());
+                    id.setCellValue(referral.getPatient().getPatientNumber());
                     Cell patientName = laboratoryProvidedRow.createCell(++count);
                     patientName.setCellValue(referral.getPatient().getName());
+                    Cell dateOfBirth = laboratoryProvidedRow.createCell(++count);
+                    dateOfBirth.setCellValue(referral.getPatient().getDateOfBirth());
+                    dateOfBirth.setCellStyle(cellStyle);
+                    Cell age = laboratoryProvidedRow.createCell(++count);
+                    age.setCellValue(referral.getPatient().getAge());
+                    Cell sex = laboratoryProvidedRow.createCell(++count);
+                    sex.setCellValue(referral.getPatient().getGender().getName());
                     Cell province = laboratoryProvidedRow.createCell(++count);
                     province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
                     Cell district = laboratoryProvidedRow.createCell(++count);
@@ -879,9 +974,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     int count = 0;
                     tbReferredRow = tbReferredDetails.createRow(tbReferredRowNum++);
                     Cell id = tbReferredRow.createCell(count);
-                    id.setCellValue(referral.getPatient().getId());
+                    id.setCellValue(referral.getPatient().getPatientNumber());
                     Cell patientName = tbReferredRow.createCell(++count);
                     patientName.setCellValue(referral.getPatient().getName());
+                    Cell dateOfBirth = tbReferredRow.createCell(++count);
+                    dateOfBirth.setCellValue(referral.getPatient().getDateOfBirth());
+                    dateOfBirth.setCellStyle(cellStyle);
+                    Cell age = tbReferredRow.createCell(++count);
+                    age.setCellValue(referral.getPatient().getAge());
+                    Cell sex = tbReferredRow.createCell(++count);
+                    sex.setCellValue(referral.getPatient().getGender().getName());
                     Cell province = tbReferredRow.createCell(++count);
                     province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
                     Cell district = tbReferredRow.createCell(++count);
@@ -935,9 +1037,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     int count = 0;
                     tbProvidedRow = tbProvidedDetails.createRow(tbProvidedRowNum++);
                     Cell id = tbProvidedRow.createCell(count);
-                    id.setCellValue(referral.getPatient().getId());
+                    id.setCellValue(referral.getPatient().getPatientNumber());
                     Cell patientName = tbProvidedRow.createCell(++count);
                     patientName.setCellValue(referral.getPatient().getName());
+                    Cell dateOfBirth = tbProvidedRow.createCell(++count);
+                    dateOfBirth.setCellValue(referral.getPatient().getDateOfBirth());
+                    dateOfBirth.setCellStyle(cellStyle);
+                    Cell age = tbProvidedRow.createCell(++count);
+                    age.setCellValue(referral.getPatient().getAge());
+                    Cell sex = tbProvidedRow.createCell(++count);
+                    sex.setCellValue(referral.getPatient().getGender().getName());
                     Cell province = tbProvidedRow.createCell(++count);
                     province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
                     Cell district = tbProvidedRow.createCell(++count);
@@ -991,9 +1100,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     int count = 0;
                     psychReferredRow = psychReferredDetails.createRow(psychReferredRowNum++);
                     Cell id = psychReferredRow.createCell(count);
-                    id.setCellValue(referral.getPatient().getId());
+                    id.setCellValue(referral.getPatient().getPatientNumber());
                     Cell patientName = psychReferredRow.createCell(++count);
                     patientName.setCellValue(referral.getPatient().getName());
+                    Cell dateOfBirth = psychReferredRow.createCell(++count);
+                    dateOfBirth.setCellValue(referral.getPatient().getDateOfBirth());
+                    dateOfBirth.setCellStyle(cellStyle);
+                    Cell age = psychReferredRow.createCell(++count);
+                    age.setCellValue(referral.getPatient().getAge());
+                    Cell sex = psychReferredRow.createCell(++count);
+                    sex.setCellValue(referral.getPatient().getGender().getName());
                     Cell province = psychReferredRow.createCell(++count);
                     province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
                     Cell district = psychReferredRow.createCell(++count);
@@ -1047,9 +1163,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     int count = 0;
                     psychProvidedRow = psychProvidedDetails.createRow(psychProvidedRowNum++);
                     Cell id = psychProvidedRow.createCell(count);
-                    id.setCellValue(referral.getPatient().getId());
+                    id.setCellValue(referral.getPatient().getPatientNumber());
                     Cell patientName = psychProvidedRow.createCell(++count);
                     patientName.setCellValue(referral.getPatient().getName());
+                    Cell dateOfBirth = psychProvidedRow.createCell(++count);
+                    dateOfBirth.setCellValue(referral.getPatient().getDateOfBirth());
+                    dateOfBirth.setCellStyle(cellStyle);
+                    Cell age = psychProvidedRow.createCell(++count);
+                    age.setCellValue(referral.getPatient().getAge());
+                    Cell sex = psychProvidedRow.createCell(++count);
+                    sex.setCellValue(referral.getPatient().getGender().getName());
                     Cell province = psychProvidedRow.createCell(++count);
                     province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
                     Cell district = psychProvidedRow.createCell(++count);
@@ -1103,9 +1226,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     int count = 0;
                     legalReferredRow = legalReferredDetails.createRow(legalReferredRowNum++);
                     Cell id = legalReferredRow.createCell(count);
-                    id.setCellValue(referral.getPatient().getId());
+                    id.setCellValue(referral.getPatient().getPatientNumber());
                     Cell patientName = legalReferredRow.createCell(++count);
                     patientName.setCellValue(referral.getPatient().getName());
+                    Cell dateOfBirth = legalReferredRow.createCell(++count);
+                    dateOfBirth.setCellValue(referral.getPatient().getDateOfBirth());
+                    dateOfBirth.setCellStyle(cellStyle);
+                    Cell age = legalReferredRow.createCell(++count);
+                    age.setCellValue(referral.getPatient().getAge());
+                    Cell sex = legalReferredRow.createCell(++count);
+                    sex.setCellValue(referral.getPatient().getGender().getName());
                     Cell province = legalReferredRow.createCell(++count);
                     province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
                     Cell district = legalReferredRow.createCell(++count);
@@ -1159,9 +1289,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     int count = 0;
                     legalProvidedRow = legalProvidedDetails.createRow(legalProvidedRowNum++);
                     Cell id = legalProvidedRow.createCell(count);
-                    id.setCellValue(referral.getPatient().getId());
+                    id.setCellValue(referral.getPatient().getPatientNumber());
                     Cell patientName = legalProvidedRow.createCell(++count);
                     patientName.setCellValue(referral.getPatient().getName());
+                    Cell dateOfBirth = legalProvidedRow.createCell(++count);
+                    dateOfBirth.setCellValue(referral.getPatient().getDateOfBirth());
+                    dateOfBirth.setCellStyle(cellStyle);
+                    Cell age = legalProvidedRow.createCell(++count);
+                    age.setCellValue(referral.getPatient().getAge());
+                    Cell sex = legalProvidedRow.createCell(++count);
+                    sex.setCellValue(referral.getPatient().getGender().getName());
                     Cell province = legalProvidedRow.createCell(++count);
                     province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
                     Cell district = legalProvidedRow.createCell(++count);
@@ -1213,9 +1350,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             int count = 0;
             dependantRow = dependantDetails.createRow(dependantRowNum++);
             Cell id = dependantRow.createCell(count);
-            id.setCellValue(dependent.getPatient().getId());
+            id.setCellValue(dependent.getPatient().getPatientNumber());
             Cell patientName = dependantRow.createCell(++count);
             patientName.setCellValue(dependent.getPatient().getName());
+            Cell patientDateOfBirth = dependantRow.createCell(++count);
+            patientDateOfBirth.setCellValue(dependent.getPatient().getDateOfBirth());
+            patientDateOfBirth.setCellStyle(cellStyle);
+            Cell age = dependantRow.createCell(++count);
+            age.setCellValue(dependent.getPatient().getAge());
+            Cell sex = dependantRow.createCell(++count);
+            sex.setCellValue(dependent.getPatient().getGender().getName());
             Cell dependantName = dependantRow.createCell(++count);
             dependantName.setCellValue(dependent.getName());
             Cell province = dependantRow.createCell(++count);
@@ -1245,8 +1389,15 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             int count = 0;
             opportunisticInfectionRow = opportunisticInfectionDetails.createRow(opportunisticInfectionRowNum++);
             Cell id = opportunisticInfectionRow.createCell(count);
-            id.setCellValue(chronicInfectionItem.getPatient().getId());
+            id.setCellValue(chronicInfectionItem.getPatient().getPatientNumber());
             Cell patientName = opportunisticInfectionRow.createCell(++count);
+            Cell dateOfBirth = opportunisticInfectionRow.createCell(++count);
+            dateOfBirth.setCellValue(chronicInfectionItem.getPatient().getDateOfBirth());
+            dateOfBirth.setCellStyle(cellStyle);
+            Cell age = opportunisticInfectionRow.createCell(++count);
+            age.setCellValue(chronicInfectionItem.getPatient().getAge());
+            Cell sex = opportunisticInfectionRow.createCell(++count);
+            sex.setCellValue(chronicInfectionItem.getPatient().getGender().getName());
             Cell province = opportunisticInfectionRow.createCell(++count);
             province.setCellValue(chronicInfectionItem.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
             Cell district = opportunisticInfectionRow.createCell(++count);
@@ -1281,9 +1432,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             int count = 0;
             hivCoInfectionRow = hivCoInfectionDetails.createRow(hivCoInfectionRowNum++);
             Cell id = hivCoInfectionRow.createCell(count);
-            id.setCellValue(hivConInfectionItem.getPatient().getId());
+            id.setCellValue(hivConInfectionItem.getPatient().getPatientNumber());
             Cell patientName = hivCoInfectionRow.createCell(++count);
             patientName.setCellValue(hivConInfectionItem.getPatient().getName());
+            Cell dateOfBirth = hivCoInfectionRow.createCell(++count);
+            dateOfBirth.setCellValue(hivConInfectionItem.getPatient().getDateOfBirth());
+            dateOfBirth.setCellStyle(cellStyle);
+            Cell age = hivCoInfectionRow.createCell(++count);
+            age.setCellValue(hivConInfectionItem.getPatient().getAge());
+            Cell sex = hivCoInfectionRow.createCell(++count);
+            sex.setCellValue(hivConInfectionItem.getPatient().getGender().getName());
             Cell province = hivCoInfectionRow.createCell(++count);
             province.setCellValue(hivConInfectionItem.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
             Cell district = hivCoInfectionRow.createCell(++count);
@@ -1317,8 +1475,15 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             int count = 0;
             mentalHealthRow = mentalHealthDetails.createRow(mentalHealthRowNum++);
             Cell id = mentalHealthRow.createCell(count);
-            id.setCellValue(mentalHealthItem.getPatient().getId());
+            id.setCellValue(mentalHealthItem.getPatient().getPatientNumber());
             Cell patientName = mentalHealthRow.createCell(++count);
+            Cell dateOfBirth = mentalHealthRow.createCell(++count);
+            dateOfBirth.setCellValue(mentalHealthItem.getPatient().getDateOfBirth());
+            dateOfBirth.setCellStyle(cellStyle);
+            Cell age = mentalHealthRow.createCell(++count);
+            age.setCellValue(mentalHealthItem.getPatient().getAge());
+            Cell sex = mentalHealthRow.createCell(++count);
+            sex.setCellValue(mentalHealthItem.getPatient().getGender().getName());
             patientName.setCellValue(mentalHealthItem.getPatient().getName());
             Cell province = mentalHealthRow.createCell(++count);
             province.setCellValue(mentalHealthItem.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
@@ -1335,7 +1500,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell receiveProfessionalHelp = mentalHealthRow.createCell(++count);
             receiveProfessionalHelp.setCellValue(
                     mentalHealthItem.getReceivedProfessionalHelp() != null
-                    ? mentalHealthItem.getReceivedProfessionalHelp().getName() : ""
+                            ? mentalHealthItem.getReceivedProfessionalHelp().getName() : ""
             );
             Cell helpStartDate = mentalHealthRow.createCell(++count);
             if (mentalHealthItem.getProfHelpStart() != null) {
@@ -1353,25 +1518,11 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             }
             Cell medication = mentalHealthRow.createCell(++count);
             medication.setCellValue(mentalHealthItem.getMedication());
-            Cell medStartDate = mentalHealthRow.createCell(++count);
-            if (mentalHealthItem.getStartDate() != null) {
-                medStartDate.setCellValue(mentalHealthItem.getStartDate());
-                medStartDate.setCellStyle(cellStyle);
-            } else {
-                medStartDate.setCellValue("");
-            }
-            Cell medEndDate = mentalHealthRow.createCell(++count);
-            if (mentalHealthItem.getEndDate() != null) {
-                medEndDate.setCellValue(mentalHealthItem.getEndDate());
-                medEndDate.setCellStyle(cellStyle);
-            } else {
-                medEndDate.setCellValue("");
-            }
 
             Cell hosp = mentalHealthRow.createCell(++count);
             hosp.setCellValue(
                     mentalHealthItem.getBeenHospitalized() != null
-                    ? mentalHealthItem.getBeenHospitalized().getName() : ""
+                            ? mentalHealthItem.getBeenHospitalized().getName() : ""
             );
             Cell desc = mentalHealthRow.createCell(++count);
             desc.setCellValue(mentalHealthItem.getMentalHistText());
@@ -1389,9 +1540,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             int count = 0;
             obsRow = obsDetails.createRow(obsRowNum++);
             Cell id = obsRow.createCell(count);
-            id.setCellValue(obstercHist.getPatient().getId());
+            id.setCellValue(obstercHist.getPatient().getPatientNumber());
             Cell patientName = obsRow.createCell(++count);
             patientName.setCellValue(obstercHist.getPatient().getName());
+            Cell dateOfBirth = obsRow.createCell(++count);
+            dateOfBirth.setCellValue(obstercHist.getPatient().getDateOfBirth());
+            dateOfBirth.setCellStyle(cellStyle);
+            Cell age = obsRow.createCell(++count);
+            age.setCellValue(obstercHist.getPatient().getAge());
+            Cell sex = obsRow.createCell(++count);
+            sex.setCellValue(obstercHist.getPatient().getGender().getName());
             Cell province = obsRow.createCell(++count);
             province.setCellValue(obstercHist.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
             Cell district = obsRow.createCell(++count);
@@ -1405,22 +1563,22 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell currentPreg = obsRow.createCell(++count);
             currentPreg.setCellValue(
                     obstercHist.getPregCurrent() != null
-                    ? obstercHist.getPregCurrent().getName() : ""
+                            ? obstercHist.getPregCurrent().getName() : ""
             );
             Cell numAncVisit = obsRow.createCell(++count);
             numAncVisit.setCellValue(
                     obstercHist.getNumberOfANCVisit() != null
-                    ? obstercHist.getNumberOfANCVisit().getName() : ""
+                            ? obstercHist.getNumberOfANCVisit().getName() : ""
             );
             Cell gestAge = obsRow.createCell(++count);
             gestAge.setCellValue(
                     obstercHist.getGestationalAge() != null
-                    ? obstercHist.getGestationalAge().getName() : ""
+                            ? obstercHist.getGestationalAge().getName() : ""
             );
             Cell artStarted = obsRow.createCell(++count);
             artStarted.setCellValue(
                     obstercHist.getArtStarted() != null
-                    ? obstercHist.getArtStarted().getName() : ""
+                            ? obstercHist.getArtStarted().getName() : ""
             );
             Cell numChildren = obsRow.createCell(++count);
             numChildren.setCellValue(obstercHist.getChildren() != null ? obstercHist.getChildren() : 0);
@@ -1438,8 +1596,15 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             int count = 0;
             socialHistRow = socialHistDetails.createRow(socialHistRowNum++);
             Cell id = socialHistRow.createCell(count);
-            id.setCellValue(socialHist.getPatient().getId());
+            id.setCellValue(socialHist.getPatient().getPatientNumber());
             Cell patientName = socialHistRow.createCell(++count);
+            Cell dateOfBirth = socialHistRow.createCell(++count);
+            dateOfBirth.setCellValue(socialHist.getPatient().getDateOfBirth());
+            dateOfBirth.setCellStyle(cellStyle);
+            Cell age = socialHistRow.createCell(++count);
+            age.setCellValue(socialHist.getPatient().getAge());
+            Cell sex = socialHistRow.createCell(++count);
+            sex.setCellValue(socialHist.getPatient().getGender().getName());
             patientName.setCellValue(socialHist.getPatient().getName());
             Cell province = socialHistRow.createCell(++count);
             province.setCellValue(socialHist.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
@@ -1452,7 +1617,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             Cell relationship = socialHistRow.createCell(++count);
             relationship.setCellValue(
                     socialHist.getRelationship() != null
-                    ? socialHist.getRelationship().getName() : ""
+                            ? socialHist.getRelationship().getName() : ""
             );
             Cell abused = socialHistRow.createCell(++count);
             abused.setCellValue(
@@ -1467,7 +1632,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     socialHist.getFeelSafe() != null ? socialHist.getFeelSafe().getName() : ""
             );
             Cell abuseType = socialHistRow.createCell(++count);
-            abuseType.setCellValue(socialHist.getAbuseType() != null ? socialHist.getAbuseType().getName() : "");
+            abuseType.setCellValue((socialHist.getAbuseTypes() != null && !socialHist.getAbuseTypes().isEmpty()) ? socialHist.getAbuseTypes().toString() : "");
             Cell abuseOutcome = socialHistRow.createCell(++count);
             abuseOutcome.setCellValue(socialHist.getAbuseOutcome() != null ? socialHist.getAbuseOutcome().getName() : "");
 
@@ -1485,9 +1650,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             int count = 0;
             substanceUseRow = substanceUseDetails.createRow(substanceUseRowNum++);
             Cell id = substanceUseRow.createCell(count);
-            id.setCellValue(substanceItem.getPatient().getId());
+            id.setCellValue(substanceItem.getPatient().getPatientNumber());
             Cell patientName = substanceUseRow.createCell(++count);
             patientName.setCellValue(substanceItem.getPatient().getName());
+            Cell dateOfBirth = substanceUseRow.createCell(++count);
+            dateOfBirth.setCellValue(substanceItem.getPatient().getDateOfBirth());
+            dateOfBirth.setCellStyle(cellStyle);
+            Cell age = substanceUseRow.createCell(++count);
+            age.setCellValue(substanceItem.getPatient().getAge());
+            Cell sex = substanceUseRow.createCell(++count);
+            sex.setCellValue(substanceItem.getPatient().getGender().getName());
             Cell province = substanceUseRow.createCell(++count);
             province.setCellValue(substanceItem.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
             Cell district = substanceUseRow.createCell(++count);
@@ -1535,9 +1707,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             int count = 0;
             cd4Row = cd4CountDetails.createRow(cd4RowNum++);
             Cell id = cd4Row.createCell(count);
-            id.setCellValue(cd4Count.getPatient().getId());
+            id.setCellValue(cd4Count.getPatient().getPatientNumber());
             Cell patientName = cd4Row.createCell(++count);
             patientName.setCellValue(cd4Count.getPatient().getName());
+            Cell dateOfBirth = cd4Row.createCell(++count);
+            dateOfBirth.setCellValue(cd4Count.getPatient().getDateOfBirth());
+            dateOfBirth.setCellStyle(cellStyle);
+            Cell age = cd4Row.createCell(++count);
+            age.setCellValue(cd4Count.getPatient().getAge());
+            Cell sex = cd4Row.createCell(++count);
+            sex.setCellValue(cd4Count.getPatient().getGender().getName());
             Cell province = cd4Row.createCell(++count);
             province.setCellValue(cd4Count.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
             Cell district = cd4Row.createCell(++count);
@@ -1579,9 +1758,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             int count = 0;
             arvHistRow = arvHistDetails.createRow(arvHistRowNum++);
             Cell id = arvHistRow.createCell(count);
-            id.setCellValue(arvHist.getPatient().getId());
+            id.setCellValue(arvHist.getPatient().getPatientNumber());
             Cell patientName = arvHistRow.createCell(++count);
             patientName.setCellValue(arvHist.getPatient().getName());
+            Cell dateOfBirth = arvHistRow.createCell(++count);
+            dateOfBirth.setCellValue(arvHist.getPatient().getDateOfBirth());
+            dateOfBirth.setCellStyle(cellStyle);
+            Cell age = arvHistRow.createCell(++count);
+            age.setCellValue(arvHist.getPatient().getAge());
+            Cell sex = arvHistRow.createCell(++count);
+            sex.setCellValue(arvHist.getPatient().getGender().getName());
             Cell province = arvHistRow.createCell(++count);
             province.setCellValue(arvHist.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
             Cell district = arvHistRow.createCell(++count);

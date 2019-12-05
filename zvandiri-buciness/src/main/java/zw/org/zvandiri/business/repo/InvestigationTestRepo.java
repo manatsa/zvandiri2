@@ -30,7 +30,7 @@ import zw.org.zvandiri.business.domain.util.TestType;
  */
 public interface InvestigationTestRepo extends AbstractRepo<InvestigationTest, String> {
     
-    @Query("from InvestigationTest c left join fetch c.patient where c.patient=:patient and c.testType=:testType")
+    @Query("from InvestigationTest c left join fetch c.patient where c.patient=:patient and c.testType=:testType order By c.dateTaken DESC")
     public List<InvestigationTest> findByPatientAndTestType(@Param("patient") Patient patient, @Param("testType") TestType testType);
     
     @Query("from InvestigationTest c left join fetch c.patient where c.id=:id")

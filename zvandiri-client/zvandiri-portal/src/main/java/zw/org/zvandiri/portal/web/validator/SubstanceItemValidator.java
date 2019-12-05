@@ -43,6 +43,7 @@ public class SubstanceItemValidator implements Validator {
         SubstanceItem item = (SubstanceItem) o;
         SubstanceItem old = null;
         ValidationUtils.rejectIfEmpty(errors, "startDate", "field.empty");
+        ValidationUtils.rejectIfEmpty(errors, "howOften", "field.empty");
         if (item.getPatient() != null && item.getSubstance() != null) {
             if (item.getPatient() != null) {
                 old = substanceItemService.getByPatientAndSubstance(item.getPatient(), item.getSubstance());

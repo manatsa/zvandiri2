@@ -22,6 +22,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.Assessment;
+import zw.org.zvandiri.business.domain.util.ContactAssessment;
 import zw.org.zvandiri.business.repo.AssessmentRepo;
 import zw.org.zvandiri.business.service.AssessmentService;
 import zw.org.zvandiri.business.service.UserService;
@@ -107,4 +108,10 @@ public class AssessmentServiceImpl implements AssessmentService {
         }
         return false;
     }
+
+    @Override
+    public List<Assessment> getByAssessmentType(ContactAssessment contactAssessment) {
+        return assessmentRepo.findByContactAssessmentOrderByNameAsc(contactAssessment);
+    }
+    
 }

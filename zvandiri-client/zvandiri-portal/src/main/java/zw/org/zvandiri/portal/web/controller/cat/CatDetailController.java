@@ -57,7 +57,7 @@ public class CatDetailController extends BaseController {
     private CatDetailValidator catDetailValidator;
 
     public String setUpModel(ModelMap model, CatDetail item) {
-        model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit CAT :" + item.getPatient().getName());
+        model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit CATS :" + item.getPatient().getName());
         model.addAttribute("provinces", provinceService.getAll());
         model.addAttribute("formAction", "item.form");
         if (item.getPrimaryClinic() != null && item.getDistrict() == null) {

@@ -67,6 +67,7 @@ public class MedicalHistController extends BaseController {
         model.addAttribute("provinces", provinceService.getAll());
         model.addAttribute("causes", hospCauseService.getAll());
         getPatientStatus(item.getPatient(), model);
+        setViralLoad(model, item.getPatient());
         if (item.getProvince() != null) {
             model.addAttribute("districts", districtService.getDistrictByProvince(item.getProvince()));
             if (item.getDistrict() != null) {
@@ -113,6 +114,7 @@ public class MedicalHistController extends BaseController {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
         getPatientStatus(item, model);
+        setViralLoad(model, item);
         model.addAttribute("medHists", medicalHistService.getByPatient(item));
         return "patient/pastMedHistList";
     }

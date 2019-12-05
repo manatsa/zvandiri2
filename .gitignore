@@ -24,3 +24,4 @@ zvandiri-client/zvandiri-report-api/nb-configuration.xml
 zvandiri-client/zvandiri-report-api/.project
 zvandiri-client/zvandiri-report-api/.settings/
 nb-configuration.xml
+zvandiri-buciness/src/main/resources/zw/org/zvandiri/business/resources/application.properties

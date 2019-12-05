@@ -9,9 +9,16 @@
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
+                        <div class="panel panel-default">                            
+                            <%@include file="../template/dashboard/patientProfile.jspf" %>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-10">
                         <form:form commandName="item" action="${formAction}">
                             <%@include file="../template/formState.jspf" %>
-                            <form:hidden path="person" value="${item.person.id}"/>
+                            <form:hidden path="patient" value="${item.patient.id}"/>
                             <label>TB Screening Questions</label>
                             <div class="form-group">
                                 <label>Are you coughing?</label>

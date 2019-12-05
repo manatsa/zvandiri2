@@ -7,12 +7,13 @@ package zw.org.zvandiri.business.service;
 
 import java.util.List;
 import zw.org.zvandiri.business.domain.HIVSelfTesting;
-import zw.org.zvandiri.business.domain.Person;
+import zw.org.zvandiri.business.domain.Patient;
 
 /**
  *
  * @author tasu
  */
 public interface HIVSelfTestingService extends GenericService<HIVSelfTesting>{
-    public List<HIVSelfTesting> getByPerson(Person person);
+    
+    public List<HIVSelfTesting> getByPatient(Patient patient);
 }

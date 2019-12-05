@@ -5,6 +5,8 @@
  */
 package zw.org.zvandiri.business.domain.util;
 
+import zw.org.zvandiri.business.util.StringUtils;
+
 /**
  *
  * @author jmuzinda
@@ -30,5 +32,9 @@ public enum CatsMentorship {
             }
         }
         throw new IllegalArgumentException("Un recognised code passed to method : " + code);
+    }
+    
+    public String getName() {
+        return StringUtils.toCamelCase3(super.name());
     }
 }

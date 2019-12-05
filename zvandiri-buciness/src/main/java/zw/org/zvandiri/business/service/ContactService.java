@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.User;
 
 /**
  *
@@ -29,4 +30,8 @@ public interface ContactService extends GenericService<Contact> {
     public List<Contact> getByPatient(Patient patient);
     
     public List<Contact> findByPatientAndContactDate(Patient patient, Date start, Date end);
+    
+    public List<Contact> findByReferredPersonAndOpen(User referredPerson);
+    
+    public Contact findLatestContact(Patient patient);
 }

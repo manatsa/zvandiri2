@@ -57,6 +57,7 @@ public class ViralLoadController extends BaseController {
         model.addAttribute("investigationTest", Boolean.TRUE);
         model.addAttribute("eid", Boolean.FALSE);
         getPatientStatus(item.getPatient(), model);
+        setViralLoad(model, item.getPatient());
         return "patient/labResultForm";
     }
 

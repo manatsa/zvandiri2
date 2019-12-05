@@ -6,7 +6,7 @@
 package zw.org.zvandiri.business.service;
 
 import java.util.List;
-import zw.org.zvandiri.business.domain.Person;
+import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.TbScreening;
 
 /**
@@ -14,5 +14,6 @@ import zw.org.zvandiri.business.domain.TbScreening;
  * @author tasu
  */
 public interface TbScreeningService extends GenericService<TbScreening>{
-    public List<TbScreening> getByPerson(Person person);
+    
+    public List<TbScreening> getByPatient(Patient patient);
 }

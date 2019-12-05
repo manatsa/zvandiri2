@@ -764,7 +764,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         count = arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto));
         row.add(count.toString());
         Date startDate = DateUtil.getDateDiffDate(-DateRangeItem.ABOVE_THIRTY_SIX_MONTHS.getEnd());
-        Date endDate = DateUtil.getDateDiffDate(-DateRangeItem.ABOVE_THIRTY_SIX_MONTHS.getStart());
+        Date endDate = DateUtil.getDateDiffDate(-(DateRangeItem.ABOVE_THIRTY_SIX_MONTHS.getStart() -1));
         dto.setStartDate(startDate);
         dto.setEndDate(endDate);
         count = arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto));

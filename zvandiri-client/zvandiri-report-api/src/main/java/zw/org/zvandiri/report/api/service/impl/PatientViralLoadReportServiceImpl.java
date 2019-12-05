@@ -53,7 +53,8 @@ public class PatientViralLoadReportServiceImpl implements PatientViralLoadReport
         row.add(withViralLoad.toString());
         rowCount += withViralLoad;
         dto.setTestType(TestType.VIRAL_LOAD);
-        Long withoutViralLoad = patientReportService.getPatientWithoutViralLoad(dto);
+        Long totalPatients = patientReportService.getCount(dto);
+        Long withoutViralLoad = totalPatients - withViralLoad;
         row.add(withoutViralLoad.toString());
         rowCount += withoutViralLoad;
         row.add(rowCount.toString());
@@ -76,7 +77,9 @@ public class PatientViralLoadReportServiceImpl implements PatientViralLoadReport
         Long rowCount = 0L;
         row.add("Counts");
         Long withViralLoad = patientReportService.getPatientWithViralLoad(dto);
-        Long withSuppression = patientReportService.getPatientWithViralSuppression(dto);
+        // for suppression below 1000
+        dto.setMaxViralLoad(1000);
+        Long withSuppression = patientReportService.getPatientWithViralLoad(dto);
         row.add(withSuppression.toString());
         rowCount += withSuppression;
         Long withoutSuppression = withViralLoad - withSuppression;

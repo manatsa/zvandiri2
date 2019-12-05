@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.User;
 import zw.org.zvandiri.business.repo.ContactRepo;
 import zw.org.zvandiri.business.service.ContactService;
 import zw.org.zvandiri.business.service.UserService;
@@ -96,4 +97,17 @@ public class ContactServiceImpl implements ContactService {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public List<Contact> findByReferredPersonAndOpen(User referredPerson) {
+        return contactRepo.findByReferredPersonAndOpenOrderByContactDateDesc(referredPerson, Boolean.FALSE);
+    }
+
+    @Override
+    public Contact findLatestContact(Patient patient) {
+        for(Contact contact : contactRepo.findTop1ByPatientOrderByContactDateDesc(patient)) {
+            return contact;
+        }
+        return null;
+    }
+    
 }

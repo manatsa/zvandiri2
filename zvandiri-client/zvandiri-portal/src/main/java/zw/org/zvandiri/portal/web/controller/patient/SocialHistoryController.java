@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.SocialHist;
+import zw.org.zvandiri.business.domain.util.AbuseType;
 import zw.org.zvandiri.business.domain.util.Gender;
 import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.PatientService;
@@ -61,7 +62,9 @@ public class SocialHistoryController extends BaseController {
         model.addAttribute("item", item);
         model.addAttribute("relationships", relationshipService.getAll());
         model.addAttribute("abuse", Boolean.FALSE);
+        model.addAttribute("abuseTypes", AbuseType.values());
         getPatientStatus(item.getPatient(), model);
+        setViralLoad(model, item.getPatient());
         if(item.getAbuse() != null && item.getAbuse().equals(YesNo.YES)){
             model.addAttribute("abuse", Boolean.TRUE);
         }
@@ -116,6 +119,7 @@ public class SocialHistoryController extends BaseController {
             model.addAttribute("abuse", Boolean.TRUE);
         }
         getPatientStatus(patient, model);
+        setViralLoad(model, patient);
         model.addAttribute("socialHist", item);
         return "patient/socialHistList";
     }

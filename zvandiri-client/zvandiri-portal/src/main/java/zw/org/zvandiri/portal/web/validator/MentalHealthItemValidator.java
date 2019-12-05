@@ -45,8 +45,8 @@ public class MentalHealthItemValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "past", "field.empty");
         ValidationUtils.rejectIfEmpty(errors, "current", "field.empty");
         ValidationUtils.rejectIfEmpty(errors, "mentalHistText", "field.empty");
-        ValidationUtils.rejectIfEmpty(errors, "startDate", "field.empty");
-        ValidationUtils.rejectIfEmpty(errors, "endDate", "field.empty");
+        ValidationUtils.rejectIfEmpty(errors, "age", "field.empty");
+        ValidationUtils.rejectIfEmpty(errors, "professionalCareProvidedBy", "field.empty");        
         MentalHealthItem item = (MentalHealthItem) o;
         MentalHealthItem old = null;
         if (item.getPatient() != null && item.getMentalHealth() != null) {
@@ -82,18 +82,6 @@ public class MentalHealthItemValidator implements Validator {
             if (item.getProfHelpEnd() != null && item.getPatient().getDateOfBirth() != null && item.getProfHelpEnd().before(item.getPatient().getDateOfBirth())) {
                 errors.rejectValue("profHelpEnd", "date.beforebirth");
             }
-        }
-        if (item.getStartDate() != null && item.getStartDate().after(new Date())) {
-            errors.rejectValue("startDate", "date.aftertoday");
-        }
-        if (item.getStartDate() != null && item.getPatient().getDateOfBirth() != null && item.getStartDate().before(item.getPatient().getDateOfBirth())) {
-            errors.rejectValue("startDate", "date.beforebirth");
-        }
-        if (item.getEndDate() != null && item.getEndDate().after(new Date())) {
-            errors.rejectValue("endDate", "date.aftertoday");
-        }
-        if (item.getEndDate() != null && item.getPatient().getDateOfBirth() != null && item.getEndDate().before(item.getPatient().getDateOfBirth())) {
-            errors.rejectValue("endDate", "date.beforebirth");
         }
     }
 

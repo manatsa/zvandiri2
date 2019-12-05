@@ -58,6 +58,7 @@ public class Cd4CountController extends BaseController {
         model.addAttribute("viralLoad", Boolean.FALSE);
         model.addAttribute("eid", Boolean.FALSE);
         getPatientStatus(item.getPatient(), model);
+        setViralLoad(model, item.getPatient());
         return "patient/labResultForm";
     }
 

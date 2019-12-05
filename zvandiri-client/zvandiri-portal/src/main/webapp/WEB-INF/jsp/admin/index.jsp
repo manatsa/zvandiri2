@@ -37,10 +37,10 @@
             </tr>
             <tr>
                 <td>
-                    <a href="${page}/admin/location/">Manage Location</a>
+                    <a href="${page}/admin/location/">Manage Place of Contact</a>
                 </td>  
                 <td>
-                    <a href="${page}/admin/position/">Manage Position</a> 
+                    <a href="${page}/admin/position/">Manage Contacted By</a> 
                 </td>  
             </tr>
             <tr>
@@ -119,6 +119,12 @@
                 <td><a href="${page}/admin/action-taken/">Manage Action Taken</a> </td>
                 <td>
                     <a href="${page}/admin/reason-for-not-reaching-olevel/">Manage Reason For Not Reaching O-Level</a> 
+                </td>
+            </tr>
+            <tr>
+                <td><a href="${page}/admin/service-offered/">Manage Service Offered</a> </td>
+                <td>
+                    &nbsp;
                 </td>
             </tr>
         </table>

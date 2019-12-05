@@ -17,7 +17,7 @@
             <tr>
                 <td><spring:eval expression="cd4.dateTaken"/></td>
             <td>${cd4.result}</td>
-            <td><c:if test="${cd4.nextTestDate != null}"><spring:eval expression="${cd4.nextTestDate}"/></c:if></td>
+            <td><c:if test="${cd4.nextTestDate != null}"><spring:eval expression="cd4.nextTestDate"/></c:if></td>
             <td>${cd4.source.name}</td>
             <td>
                 <a href="${page}/patient/cd-4-count/item.form?itemId=${cd4.id}">Edit</a> |
@@ -46,7 +46,7 @@
             <tr>
                 <td><spring:eval expression="viral.dateTaken"/></td>
             <td>${viral.result}</td>
-            <td><c:if test="${viral.nextTestDate != null}"><spring:eval expression="${viral.nextTestDate}"/></c:if></td>
+            <td><c:if test="${viral.nextTestDate != null}"><spring:eval expression="viral.nextTestDate"/></c:if></td>
             <td>${viral.source.name}</td>
             <td>
                 <a href="${page}/patient/viral-load/item.form?itemId=${viral.id}">Edit</a> |
@@ -76,7 +76,7 @@
                 <tr>
                     <td><spring:eval expression="eid.dateTaken"/></td>
                 <td>${eid.testResult}</td>
-                <td><c:if test="${eid.nextTestDate != null}"><spring:eval expression="${eid.nextTestDate}"/></c:if></td>
+                <td><c:if test="${eid.nextTestDate != null}"><spring:eval expression="eid.nextTestDate"/></c:if></td>
                 <td>${eid.source.name}</td>
                 <td>
                     <a href="${page}/patient/eid/item.form?itemId=${eid.id}">Edit</a> |

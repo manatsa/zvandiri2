@@ -41,6 +41,7 @@ import zw.org.zvandiri.business.service.RelationshipService;
 import zw.org.zvandiri.business.service.SupportGroupService;
 import zw.org.zvandiri.business.util.dto.ItemDeleteDTO;
 import zw.org.zvandiri.business.util.dto.PatientSearchDTO;
+import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 import zw.org.zvandiri.portal.web.controller.BaseController;
@@ -163,7 +164,7 @@ public class PatientController extends BaseController {
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String getPatientIndex(ModelMap model, @RequestParam(required = false) Integer type) {
-        model.addAttribute("pageTitle", APP_PREFIX + "Search Clinets");
+        model.addAttribute("pageTitle", APP_PREFIX + "Search Clients");
         if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
@@ -174,7 +175,8 @@ public class PatientController extends BaseController {
     @ResponseBody
     public List<PatientSearchDTO> searchPatient(@RequestParam("search") String search) {
         String[] names = search.split(" ");
-        return PatientSearchDTO.getInstance(patientService.search(names));
+        SearchDTO item = getUserLevelObjectState(new SearchDTO());
+        return PatientSearchDTO.getInstance(patientService.search(item, names));
     }
 
     @RequestMapping(value = "item.delete", method = RequestMethod.GET)

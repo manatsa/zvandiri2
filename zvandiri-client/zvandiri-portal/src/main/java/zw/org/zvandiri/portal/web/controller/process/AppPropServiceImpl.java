@@ -53,10 +53,7 @@ public class AppPropServiceImpl implements AppPropService {
 
     @Override
     public Boolean getHeu(Patient patient) {
-        if (patient.getHei().equals(YesNo.YES)){
-            return Boolean.TRUE;
-        }
-        return Boolean.FALSE;
+        return patient.getHei().equals(YesNo.YES);
     }
     
 }

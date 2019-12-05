@@ -17,6 +17,7 @@ package zw.org.zvandiri.business.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.Transient;
 
 import zw.org.zvandiri.business.domain.util.TestType;
 
@@ -29,6 +30,8 @@ public class InvestigationTest extends TestResult {
 
     @Enumerated
     private TestType testType;
+    @Transient
+    private String viralLoadSuppressionStatus;
 
     public InvestigationTest() {
     }
@@ -46,4 +49,10 @@ public class InvestigationTest extends TestResult {
         this.testType = testType;
     }
 
+    public String getViralLoadSuppressionStatus() {
+        if (testType.equals(TestType.VIRAL_LOAD)) {
+            return getResult() >= 1000 ? "Suppressed" : "Unsuppressed";
+        }
+        return null;
+    }
 }

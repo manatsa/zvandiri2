@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -23,11 +24,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.Settings;
 import zw.org.zvandiri.business.domain.User;
+import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.domain.util.UserLevel;
+import zw.org.zvandiri.business.service.ContactService;
 import zw.org.zvandiri.business.service.DatePropertyService;
+import zw.org.zvandiri.business.service.InvestigationTestService;
 import zw.org.zvandiri.business.service.SettingsService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
@@ -47,6 +52,10 @@ abstract public class BaseController implements IAppTitle {
     @Resource
     private SettingsService settingsService;
     public Settings settings = null;
+    @Resource
+    private ContactService contactService;
+    @Resource
+    private InvestigationTestService investigationTestService;
 
     @ModelAttribute("currentuser")
     public User getUserName() {
@@ -67,6 +76,14 @@ abstract public class BaseController implements IAppTitle {
             return UserLevel.NATIONAL;
         }
         return userService.getCurrentUser().getUserLevel();
+    }
+    
+    @ModelAttribute("userContacts")
+    public List<Contact> getUserContacts() {
+        if (getUserName() == null) {
+            return null;
+        }
+        return contactService.findByReferredPersonAndOpen(getUserName());
     }
     
     public SearchDTO getUserLevelObjectState(SearchDTO dto){
@@ -142,6 +159,10 @@ abstract public class BaseController implements IAppTitle {
         } catch (IOException e) {
             System.err.println("Error occured writing file");
         }
+    }
+    
+    public void setViralLoad(ModelMap model, Patient item) {
+        model.addAttribute("latestViralLoad", investigationTestService.getLatestTestByTestType(item, TestType.VIRAL_LOAD));
     }
     
     @PostConstruct

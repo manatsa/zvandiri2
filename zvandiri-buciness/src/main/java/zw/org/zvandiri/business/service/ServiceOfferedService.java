@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package zw.org.zvandiri.business.repo;
+package zw.org.zvandiri.business.service;
 
-import zw.org.zvandiri.business.domain.Person;
+import zw.org.zvandiri.business.domain.ServiceOffered;
 
 /**
  *
- * @author tasu
+ * @author jmuzinda
  */
-public interface PersonRepo extends AbstractRepo<Person, String> {
-
+public interface ServiceOfferedService  extends GenericNameService<ServiceOffered> {
     
 }

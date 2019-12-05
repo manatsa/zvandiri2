@@ -51,10 +51,34 @@
                                 </p>
                             </div> 
                             <div class="form-group">
+                                <label>Is the substance problematic</label>
+                                <form:select path="problematic" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options itemValue="code" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="problematic" class="alert-danger"/>
+                                </p>
+                            </div> 
+                            <div class="form-group">
                                 <label>Type/ Amount</label>
                                 <form:input path="typeAmount" class="form-control"/>
                                 <p class="help-block">
                                     <form:errors path="typeAmount" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label>How Often</label>
+                                <form:input path="howOften" class="form-control"/>
+                                <p class="help-block">
+                                    <form:errors path="howOften" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label>Reason</label>
+                                <form:input path="reason" class="form-control"/>
+                                <p class="help-block">
+                                    <form:errors path="reason" class="alert-danger"/>
                                 </p>
                             </div>
                             <div class="form-group">
@@ -64,7 +88,7 @@
                                     <form:errors path="startDate" class="alert-danger"/>
                                 </p>
                             </div>
-                                <div class="form-group">
+                            <div class="form-group">
                                 <label>End Date (Using substance)</label>
                                 <form:input path="endDate" class="form-control general"/>
                                 <p class="help-block">
@@ -100,22 +124,22 @@
         dateFormat: "dd/mm/yy"
     });
     $("form").validate({
-       rules: {
-           startDate: {
-               required: true
-           },
-           substance: {
-               required: true
-           },
-           current: {
-               required: true
-           },
-           past: {
-               required: true
-           },
-           drugIntervention: {
-               required: true
-           }
-       } 
+        rules: {
+            startDate: {
+                required: true
+            },
+            substance: {
+                required: true
+            },
+            current: {
+                required: true
+            },
+            past: {
+                required: true
+            },
+            drugIntervention: {
+                required: true
+            }
+        }
     });
 </script>

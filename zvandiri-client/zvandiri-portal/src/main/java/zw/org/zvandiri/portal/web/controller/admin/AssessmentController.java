@@ -59,7 +59,7 @@ public class AssessmentController extends BaseController {
             item = assessmentService.get(id);
         }
         setUpModel(model, item);
-        return "admin/nameForm";
+        return "admin/assessmentForm";
     }
 
     @RequestMapping(value = "/item.form", method = RequestMethod.POST)
@@ -69,7 +69,7 @@ public class AssessmentController extends BaseController {
         if (result.hasErrors()) {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
             setUpModel(model, item);
-            return "admin/nameForm";
+            return "admin/assessmentForm";
         }
         assessmentService.save(item);
         return "redirect:item.list?type=1";
@@ -83,7 +83,7 @@ public class AssessmentController extends BaseController {
         if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
-        return "admin/nameList";
+        return "admin/assessmentList";
     }
 
     @RequestMapping(value = "item.delete", method = RequestMethod.GET)

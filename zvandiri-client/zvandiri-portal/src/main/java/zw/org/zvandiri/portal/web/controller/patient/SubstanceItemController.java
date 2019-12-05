@@ -57,6 +57,7 @@ public class SubstanceItemController extends BaseController {
         model.addAttribute("patient", item.getPatient());
         model.addAttribute("substances", substanceService.getAll());
         getPatientStatus(item.getPatient(), model);
+        setViralLoad(model, item.getPatient());
         model.addAttribute("item", item);
         return "patient/substanceForm";
     }
@@ -97,6 +98,7 @@ public class SubstanceItemController extends BaseController {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
         getPatientStatus(item, model);
+        setViralLoad(model, item);
         model.addAttribute("substances", substanceItemService.getByPatient(item));
         return "patient/substanceList";
     }

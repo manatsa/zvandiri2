@@ -64,6 +64,7 @@ public class ObstetricController extends BaseController {
             model.addAttribute("pregCurrent", Boolean.TRUE);
         }
         model.addAttribute("item", item);
+        setViralLoad(model, item.getPatient());
         return "patient/obstetricForm";
     }
 
@@ -113,6 +114,7 @@ public class ObstetricController extends BaseController {
                 model.addAttribute("pregCurrent", Boolean.TRUE);
             }
         }
+        setViralLoad(model, item);
         getPatientStatus(item, model);
         model.addAttribute("obstericHist", obstercHist);
         return "patient/obstetricList";

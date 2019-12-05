@@ -27,19 +27,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.CareLevel;
+import zw.org.zvandiri.business.domain.util.ContactAssessment;
 import zw.org.zvandiri.business.domain.util.Reason;
+import zw.org.zvandiri.business.domain.util.UserLevel;
 import zw.org.zvandiri.business.service.ActionTakenService;
 import zw.org.zvandiri.business.service.AssessmentService;
 import zw.org.zvandiri.business.service.ContactService;
+import zw.org.zvandiri.business.service.DistrictService;
 import zw.org.zvandiri.business.service.EnhancedService;
 import zw.org.zvandiri.business.service.ExternalReferralService;
 import zw.org.zvandiri.business.service.InternalReferralService;
 import zw.org.zvandiri.business.service.LocationService;
 import zw.org.zvandiri.business.service.PatientService;
 import zw.org.zvandiri.business.service.PositionService;
+import zw.org.zvandiri.business.service.ProvinceService;
+import zw.org.zvandiri.business.service.ServiceOfferedService;
 import zw.org.zvandiri.business.service.StableService;
+import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.ItemDeleteDTO;
+import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 import zw.org.zvandiri.portal.web.controller.BaseController;
@@ -76,6 +83,14 @@ public class ContactController extends BaseController {
     private AssessmentService assessmentService;
     @Resource
     private ActionTakenService actionTakenService;
+    @Resource
+    private UserService userService;
+    @Resource
+    private ServiceOfferedService serviceOfferedService;
+    @Resource
+    private DistrictService districtService;
+    @Resource
+    private ProvinceService provinceService;
 
     public String setUpModel(ModelMap model, Contact item, String view) {
         Patient patient = item.getPatient();
@@ -90,8 +105,27 @@ public class ContactController extends BaseController {
         model.addAttribute("stable", Boolean.FALSE);
         model.addAttribute("enhanced", Boolean.FALSE);
         model.addAttribute("intensive", Boolean.FALSE);
-        model.addAttribute("assessments", assessmentService.getAll());
+        model.addAttribute("internalStaff", Boolean.FALSE);
+        model.addAttribute("clinicalAssessments", assessmentService.getByAssessmentType(ContactAssessment.CLINICAL));
+        model.addAttribute("nonClinicalAssessments", assessmentService.getByAssessmentType(ContactAssessment.NON_CLINICAL));
         model.addAttribute("actionTaken", actionTakenService.getAll());
+        model.addAttribute("servicesOffered", serviceOfferedService.getAll());
+        model.addAttribute("showProvince", Boolean.FALSE);
+        model.addAttribute("showDistrict", Boolean.FALSE);
+        if (item.getUserLevel() != null) {
+            if (item.getUserLevel().equals(UserLevel.PROVINCE)) {
+                model.addAttribute("provinces", provinceService.getAll());
+                model.addAttribute("showProvince", Boolean.TRUE);
+            } else if (item.getUserLevel().equals(UserLevel.DISTRICT)) {
+                model.addAttribute("provinces", provinceService.getAll());
+                /*if (item.getId() != null) {
+                    item.setProvince(item.getDistrict().getProvince());
+                }*/
+                model.addAttribute("showProvince", Boolean.TRUE);
+                model.addAttribute("showDistrict", Boolean.TRUE);
+                model.addAttribute("districts", districtService.getDistrictByProvince(item.getProvince()));
+            }
+        }
         if (item.getReason() != null) {
             if (item.getReason().equals(Reason.EXTERNAL_REFERRAL)) {
                 model.addAttribute("external", Boolean.TRUE);
@@ -108,10 +142,29 @@ public class ContactController extends BaseController {
             } else if (item.getCareLevel().equals(CareLevel.ENHANCED)) {
                 model.addAttribute("enhanced", Boolean.TRUE);
                 model.addAttribute("enhanceds", enhancedService.getAll());
-            } 
+            }
         }
+        if (item.getActionTaken() != null && item.getActionTaken().getName().equalsIgnoreCase("Internal Referral")) {
+            // create a local SearchDTO instance here
+            SearchDTO searchDTO = new SearchDTO();
+            searchDTO.setUserLevel(item.getUserLevel());
+            searchDTO.setProvince(item.getProvince());
+            searchDTO.setDistrict(item.getDistrict());
+            model.addAttribute("staff", userService.getUsers(searchDTO.getInstance(searchDTO)));
+            model.addAttribute("internalStaff", Boolean.TRUE);
+        }
+        // only do this when contact date is null meaning user is not in edit or view mode
+        if (item.getContactDate() == null) {
+            Contact latestContact = contactService.findLatestContact(patient);
+            if (latestContact != null) {
+                item.setLastClinicAppointmentDate(latestContact.getContactDate());
+                item.setCareLevel(latestContact.getCareLevel());
+            }
+        }
+
         getPatientStatus(item.getPatient(), model);
-        return "patient/"+view;
+        setViralLoad(model, item.getPatient());
+        return "patient/" + view;
     }
 
     @RequestMapping(value = "/item.form", method = RequestMethod.GET)
@@ -123,7 +176,7 @@ public class ContactController extends BaseController {
         }
         return setUpModel(model, new Contact(patientService.get(patientId)), "contactForm");
     }
-    
+
     @RequestMapping(value = "/item.view", method = RequestMethod.GET)
     public String getContactView(ModelMap model, @RequestParam(required = false) String patientId, @RequestParam(required = false) String id) {
         Contact item;

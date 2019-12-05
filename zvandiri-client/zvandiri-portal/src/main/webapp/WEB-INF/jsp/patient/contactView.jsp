@@ -82,8 +82,14 @@
                             ${item.objective}
                         </div> 
                         <div class="form-group">
-                            <label>Assessment :</label><br/>
-                            <c:forEach items="${item.assessments}" var="assessment">
+                            <label>Clinical Assessment :</label><br/>
+                            <c:forEach items="${item.clinicalAssessments}" var="assessment">
+                                ${assessment.name} <br/>
+                            </c:forEach>
+                        </div>
+                        <div class="form-group">
+                            <label>Non Clinical Assessment :</label><br/>
+                            <c:forEach items="${item.nonClinicalAssessments}" var="assessment">
                                 ${assessment.name} <br/>
                             </c:forEach>
                         </div>

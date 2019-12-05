@@ -48,7 +48,7 @@
                                         </p>
                                     </div>
                                     <div class="form-group">
-                                        <label>Level of Care</label>
+                                        <label>Current Level of Care</label>
                                         <form:select path="careLevel" class="form-control">
                                             <form:option value="" label="--Select Item"/>
                                             <form:options itemValue="code" itemLabel="name"/>
@@ -58,7 +58,7 @@
                                         </p>
                                     </div>
                                     <div class="form-group">
-                                        <label>Location</label>
+                                        <label>Place of Contact</label>
                                         <form:select path="location" class="form-control">
                                             <form:option value="" label="--Select Item"/>
                                             <form:options items="${locations}" itemValue="id" itemLabel="name"/>
@@ -68,7 +68,7 @@
                                         </p>
                                     </div>
                                     <div class="form-group">
-                                        <label>Position</label>
+                                        <label>Contacted By</label>
                                         <form:select path="position" class="form-control">
                                             <form:option value="" label="--Select Item"/>
                                             <form:options items="${positions}" itemValue="id" itemLabel="name"/>
@@ -88,19 +88,26 @@
                                         </p>
                                     </div>
                                     <div class="form-group">
-                                        <label>Subjective</label>
+                                        <label>Client's Observations <small>(What is the Client saying)</small></label>
                                         <form:textarea path="subjective" rows="5" class="form-control"/>
                                         <p class="help-block">
                                             <form:errors path="subjective" class="alert-danger"/>
                                         </p>
                                     </div> 
                                     <div class="form-group">
-                                        <label>Objective</label>
+                                        <label>Findings <small>(What are you noticing)</small></label>
                                         <form:textarea path="objective" rows="5" class="form-control"/>
                                         <p class="help-block">
                                             <form:errors path="objective" class="alert-danger"/>
                                         </p>
                                     </div> 
+                                    <div class="form-group">
+                                        <label>Services Offered</label><br/>
+                                        <form:checkboxes path="serviceOffereds" items="${servicesOffered}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
+                                        <p class="help-block">
+                                            <form:errors path="serviceOffereds" class="alert-danger"/>
+                                        </p>
+                                    </div>
                                     <div class="form-group">
                                         <label>Plan</label>
                                         <form:textarea path="plan" rows="5" class="form-control"/>
@@ -110,7 +117,6 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-
                                     <c:if test="${external}">
                                         <div class="form-group">
                                             <label>External Referral</label>
@@ -154,10 +160,17 @@
                                         </div>
                                     </c:if>
                                     <div class="form-group">
-                                        <label>Assessment</label><br/>
-                                        <form:checkboxes path="assessments" items="${assessments}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
+                                        <label>Clinical Assessment</label><br/>
+                                        <form:checkboxes path="clinicalAssessments" items="${clinicalAssessments}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
                                         <p class="help-block">
-                                            <form:errors path="assessments" class="alert-danger"/>
+                                            <form:errors path="clinicalAssessments" class="alert-danger"/>
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Non Clinical Assessment</label><br/>
+                                        <form:checkboxes path="nonClinicalAssessments" items="${nonClinicalAssessments}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
+                                        <p class="help-block">
+                                            <form:errors path="nonClinicalAssessments" class="alert-danger"/>
                                         </p>
                                     </div>
                                     <div class="form-group">
@@ -180,12 +193,54 @@
                                             <form:errors path="actionTaken" class="alert-danger"/>
                                         </p>
                                     </div>
-
+                                    <c:if test="${internalStaff}">
+                                        <div class="form-group">
+                                            <label>User Level</label>
+                                            <form:select path="userLevel" class="form-control">
+                                                <form:option value="" label="--Select Item"/>
+                                                <form:options itemValue="code" itemLabel="name"/>
+                                            </form:select>
+                                            <p class="help-block">
+                                                <form:errors path="userLevel" class="alert-danger"/>
+                                            </p>
+                                        </div>
+                                        <c:if test="${showProvince}">
+                                            <div class="form-group">
+                                                <label>Region</label>
+                                                <form:select path="province" class="form-control">
+                                                    <form:option value="" label="--Select Item"/>
+                                                    <form:options items="${provinces}" itemValue="id" itemLabel="name"/>
+                                                </form:select>
+                                                <p class="help-block">
+                                                    <form:errors path="province" class="alert-danger"/>
+                                                </p>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${showDistrict}">
+                                            <div class="form-group">
+                                                <label>District</label>
+                                                <form:select path="district" class="form-control">
+                                                    <form:option value="" label="--Select Item"/>
+                                                    <form:options items="${districts}" itemValue="id" itemLabel="name"/>
+                                                </form:select>
+                                                <p class="help-block">
+                                                    <form:errors path="district" class="alert-danger"/>
+                                                </p>
+                                            </div>
+                                        </c:if>
+                                        <div class="form-group">
+                                            <label>Zvandiri Staff Member</label><br/><br/>
+                                            <form:select path="referredPerson" class="form-control">
+                                                <form:option value="" label="--Select Item"/>
+                                                <form:options items="${staff}" itemValue="id" itemLabel="displayName"/>
+                                            </form:select>
+                                            <p class="help-block">
+                                                <form:errors path="referredPerson" class="alert-danger"/>
+                                            </p>
+                                        </div>
+                                    </c:if>
                                 </div>
                             </div>
-
-
-
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Save</button>
                                 <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}"><button class="btn btn-primary" type="button">Cancel</button></a>
@@ -202,6 +257,30 @@
     $("#reason").change(function () {
         $("#currentElement").val($(window).scrollTop());
         $("form").attr("action", "reload-form").submit();
+    });
+
+    $("#actionTaken").change(function () {
+        $("#currentElement").val($(window).scrollTop());
+        $("form").attr("action", "reload-form").submit();
+    });
+    
+    $("#province").change(function () {
+        $("#currentElement").val($(window).scrollTop());
+        $("form").attr("action", "reload-form").submit();
+    });
+    
+    $("#district").change(function () {
+        $("#currentElement").val($(window).scrollTop());
+        $("form").attr("action", "reload-form").submit();
+    });
+
+    $("#userLevel").change(function () {
+        $this = $(this);
+        var userLevel = $.trim($this.val());
+        if (userLevel !== "" || userLevel !== 1) {
+            $("#currentElement").val($(window).scrollTop());
+            $("form").attr("action", "reload-form").submit();
+        }
     });
     $(window).scrollTop("<c:out value="${item.currentElement}"/>");
     //actionTaken

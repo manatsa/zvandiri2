@@ -49,16 +49,12 @@ public class MentalHealthItem extends BaseEntity {
     @DateTimeFormat(pattern = "dd/MM/yyy")
     private Date profHelpEnd;
     private String medication;
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd/MM/yyy")
-    private Date startDate;
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd/MM/yyy")
-    private Date endDate;
     @Enumerated
     private YesNo beenHospitalized;
     @Column(columnDefinition = "text")
     private String mentalHistText;
+    private String age;
+    private String professionalCareProvidedBy;
 
     public MentalHealthItem() {
     }
@@ -107,22 +103,6 @@ public class MentalHealthItem extends BaseEntity {
         this.medication = medication;
     }
 
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
     public YesNo getReceivedProfessionalHelp() {
         return receivedProfessionalHelp;
     }
@@ -161,6 +141,22 @@ public class MentalHealthItem extends BaseEntity {
 
     public void setMentalHistText(String mentalHistText) {
         this.mentalHistText = mentalHistText;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getProfessionalCareProvidedBy() {
+        return professionalCareProvidedBy;
+    }
+
+    public void setProfessionalCareProvidedBy(String professionalCareProvidedBy) {
+        this.professionalCareProvidedBy = professionalCareProvidedBy;
     }
     
 }

@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
+import zw.org.zvandiri.business.domain.util.Result;
+import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.service.DistrictService;
 import zw.org.zvandiri.business.service.FacilityService;
 import zw.org.zvandiri.business.service.ProvinceService;
@@ -345,6 +347,7 @@ public class GraphicalReportController extends BaseController{
     @RequestMapping(value = "/patient-viral-load-distribution", method = RequestMethod.POST)
     public String showPatientViralLoadChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
         setUpModel(map, dto);
+        dto.setTestType(TestType.VIRAL_LOAD);
         map.addAttribute("pageTitle", APP_PREFIX + "Distribution Of Patients By Viral Load");
         map.addAttribute("report", "/patient-viral-load-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
@@ -355,7 +358,6 @@ public class GraphicalReportController extends BaseController{
         response.setContentType("image/png");
         JFreeChart barGraph = null;
         try {
-            dto.setStatus(PatientChangeEvent.ACTIVE);
             barGraph = aggregateVisualReportService.getDefaultPieChart(new ChartModelItem("", "", ""), patientViralLoadReportService.getDefaultPieData(dto), "Counts");
             ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, GRAPH_WIDTH, GRAPH_HEIGHT);
         } catch (IOException ex) {
@@ -367,7 +369,8 @@ public class GraphicalReportController extends BaseController{
     public String showPatientViralSuppressionChart(ModelMap map){
         SearchDTO dto = new SearchDTO();
         setUpModel(map, dto);
-        map.addAttribute("reportTitle", "Distribution Of Patients By Viral Suppression");
+        dto.setTestType(TestType.VIRAL_LOAD);
+        map.addAttribute("pageTitle", APP_PREFIX + "Distribution Of Patients By Viral Suppression");
         map.addAttribute("report", "/patient-viral-suppression-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
     }
@@ -375,7 +378,7 @@ public class GraphicalReportController extends BaseController{
     @RequestMapping(value = "/patient-viral-suppression-distribution", method = RequestMethod.POST)
     public String showPatientViralSuppressionChartPost(ModelMap map, @ModelAttribute("item") SearchDTO dto){
         setUpModel(map, dto);
-        map.addAttribute("reportTitle", "Distribution Of Patients By Viral Suppression");
+        map.addAttribute("pageTitle", APP_PREFIX + "Distribution Of Patients By Viral Suppression");
         map.addAttribute("report", "/patient-viral-suppression-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
         return "report/graphs";
     }
@@ -385,7 +388,6 @@ public class GraphicalReportController extends BaseController{
         response.setContentType("image/png");
         JFreeChart barGraph = null;
         try {
-            dto.setStatus(PatientChangeEvent.ACTIVE);
             barGraph = aggregateVisualReportService.getDefaultPieChart(new ChartModelItem("", "", ""), patientViralLoadReportService.getViralSuppressionPieData(dto), "Counts");
             ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, GRAPH_WIDTH, GRAPH_HEIGHT);
         } catch (IOException ex) {

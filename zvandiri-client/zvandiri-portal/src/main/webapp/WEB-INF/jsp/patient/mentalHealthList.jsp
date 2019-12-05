@@ -40,7 +40,7 @@
                                             <td>${mental.past}</td>
                                             <td>${mental.current}</td>
                                             <td>${mental.medication}</td>
-                                            <td><spring:eval expression="mental.startDate"/> - <spring:eval expression="mental.endDate"/></td>
+                                            <td>${mental.age}</td>
                                             <td>
                                                 <a href="${page}/beneficiary/mental-health/item.form?itemId=${mental.id}">Edit</a> |
                                                 <c:if test="${canEdit}"><a href="${page}/beneficiary/mental-health/item.delete?id=${mental.id}">Delete</a></c:if>

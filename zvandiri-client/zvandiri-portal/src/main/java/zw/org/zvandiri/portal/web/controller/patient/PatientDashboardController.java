@@ -98,6 +98,7 @@ public class PatientDashboardController extends BaseController {
         model.addAttribute("cd4counts", investigationTestService.getByPatientAndTestType(item, TestType.CD4_COUNT));
         model.addAttribute("viralLoads", investigationTestService.getByPatientAndTestType(item, TestType.VIRAL_LOAD));
         model.addAttribute("eids", eidTestService.getByPatient(item));
+        setViralLoad(model, item);
         return "patient/dashboard";
     }
 

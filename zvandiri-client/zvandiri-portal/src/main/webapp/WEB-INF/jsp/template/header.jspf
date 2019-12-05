@@ -26,10 +26,6 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
         <style type="text/css">
-            .navbar-brand{
-                /*background: url(../../../resources/images/vmahs.png) no-repeat;
-                min-width: 278px;*/
-            }
             .even{
                 background: #F5F5F5;
             }

@@ -12,8 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.HIVSelfTesting;
-import zw.org.zvandiri.business.domain.Person;
-import zw.org.zvandiri.business.domain.util.YesNo;
+import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.repo.HIVSelfTestingRepo;
 import zw.org.zvandiri.business.service.HIVSelfTestingService;
 import zw.org.zvandiri.business.service.UserService;
@@ -79,7 +78,7 @@ public class HIVSelfTestingServiceImpl implements HIVSelfTestingService{
     }
     
     @Override
-    public List<HIVSelfTesting> getByPerson(Person person){
-        return repo.findByPerson(person);
+    public List<HIVSelfTesting> getByPatient(Patient patient){
+        return repo.findByPatient(patient);
     }
 }

@@ -46,7 +46,7 @@ public class LocationAdminController extends BaseController {
     private LocationValidator locationValidator;
 
     public void setUpModel(ModelMap model, Location item) {
-        model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit Location");
+        model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit Place of Contact");
         model.addAttribute("item", item);
         model.addAttribute("itemDelete", "item.list?type=3");
     }
@@ -77,7 +77,7 @@ public class LocationAdminController extends BaseController {
     @RequestMapping(value = {"/item.list", "/"}, method = RequestMethod.GET)
     public String itemList(ModelMap model, @RequestParam(required = false) Integer type) {
         model.addAttribute("message", new AppMessage.MessageBuilder().build());
-        model.addAttribute("pageTitle", APP_PREFIX + "Location List");
+        model.addAttribute("pageTitle", APP_PREFIX + "Place of Contact");
         model.addAttribute("items", locationService.getAll());
         if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
@@ -88,10 +88,10 @@ public class LocationAdminController extends BaseController {
     @RequestMapping(value = "item.delete", method = RequestMethod.GET)
     public String getDeleteForm(@RequestParam("id") String id, ModelMap model) {
         Location item = locationService.get(id);
-        ItemDeleteDTO dto = new ItemDeleteDTO(id, item.getName() + " Location", "item.list?type=3");
+        ItemDeleteDTO dto = new ItemDeleteDTO(id, item.getName() + " Place of Contact", "item.list?type=3");
         model.addAttribute("item", dto);
         model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Are you sure you want to delete this record").messageType(MessageType.WARNING).build());
-        model.addAttribute("pageTitle", APP_PREFIX + "Delete " + item.getName() + " Location");
+        model.addAttribute("pageTitle", APP_PREFIX + "Delete " + item.getName() + " Place of Contact");
         return "admin/deleteItem";
     }
 

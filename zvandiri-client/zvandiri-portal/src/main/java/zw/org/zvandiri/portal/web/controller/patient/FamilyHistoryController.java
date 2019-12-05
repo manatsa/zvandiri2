@@ -58,6 +58,7 @@ public class FamilyHistoryController extends BaseController {
         model.addAttribute("orphanStatuses", orphanStatusService.getAll());
         model.addAttribute("item", item);
         getPatientStatus(item.getPatient(), model);
+        setViralLoad(model, item.getPatient());
         return "patient/familyHistForm";
     }
 
@@ -96,6 +97,7 @@ public class FamilyHistoryController extends BaseController {
         if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
+        setViralLoad(model, item);
         getPatientStatus(item, model);
         model.addAttribute("family", familyService.getByPatient(item));
         return "patient/familyHistList";

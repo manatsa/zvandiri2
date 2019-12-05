@@ -33,8 +33,10 @@ import javax.persistence.Transient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 import zw.org.zvandiri.business.domain.util.CareLevel;
+import zw.org.zvandiri.business.domain.util.ContactPhoneOption;
 import zw.org.zvandiri.business.domain.util.FollowUp;
 import zw.org.zvandiri.business.domain.util.Reason;
+import zw.org.zvandiri.business.domain.util.UserLevel;
 import zw.org.zvandiri.business.domain.util.YesNo;
 
 /**
@@ -53,6 +55,8 @@ public class Contact extends BaseEntity {
     private CareLevel careLevel;
     @ManyToOne
     private Location location;
+    private ContactPhoneOption contactPhoneOption;
+    private Integer numberOfSms;
     @ManyToOne
     private Position position;
     @Enumerated
@@ -70,10 +74,15 @@ public class Contact extends BaseEntity {
     @Column(columnDefinition = "text")
     private String objective;
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinTable(name = "contact_assessment", joinColumns = {
+    @JoinTable(name = "contact_clinical_assessment", joinColumns = {
         @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "assessment_id", nullable = false)})
-    private Set<Assessment> assessments = new HashSet<>();
+    private Set<Assessment> clinicalAssessments = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinTable(name = "contact_non_clinical_assessment", joinColumns = {
+        @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "assessment_id", nullable = false)})
+    private Set<Assessment> nonClinicalAssessments = new HashSet<>();
     @Column(columnDefinition = "text")
     private String plan;
     @ManyToOne
@@ -88,6 +97,11 @@ public class Contact extends BaseEntity {
         @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "enhanced_id", nullable = false)})
     private Set<Enhanced> enhanceds = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinTable(name = "contact_service_offered", joinColumns = {
+        @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "service_offered_id", nullable = false)})
+    private Set<ServiceOffered> serviceOffereds = new HashSet<>();
     @ManyToOne
     @JsonIgnore
     private Contact parent;
@@ -98,8 +112,18 @@ public class Contact extends BaseEntity {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date lastClinicAppointmentDate;
     private YesNo attendedClinicAppointment;
+    @Column(name = "`open`")
+    private Boolean open = Boolean.FALSE;
+    @Column(columnDefinition = "text")
+    private String defaultMessage;
     @Transient
     private String currentElement;
+    @Transient
+    private UserLevel userLevel;
+    @Transient
+    private District district;
+    @Transient
+    private Province province;
 
     public Contact(Patient patient) {
         this.patient = patient;
@@ -196,12 +220,20 @@ public class Contact extends BaseEntity {
         this.objective = objective;
     }
 
-    public Set<Assessment> getAssessments() {
-        return assessments;
+    public Set<Assessment> getClinicalAssessments() {
+        return clinicalAssessments;
     }
 
-    public void setAssessments(Set<Assessment> assessments) {
-        this.assessments = assessments;
+    public void setClinicalAssessments(Set<Assessment> clinicalAssessments) {
+        this.clinicalAssessments = clinicalAssessments;
+    }
+
+    public Set<Assessment> getNonClinicalAssessments() {
+        return nonClinicalAssessments;
+    }
+
+    public void setNonClinicalAssessments(Set<Assessment> nonClinicalAssessments) {
+        this.nonClinicalAssessments = nonClinicalAssessments;
     }
 
     public String getPlan() {
@@ -282,6 +314,73 @@ public class Contact extends BaseEntity {
 
     public void setAttendedClinicAppointment(YesNo attendedClinicAppointment) {
         this.attendedClinicAppointment = attendedClinicAppointment;
+    }
+
+    public Boolean getOpen() {
+        if (open == null) {
+            return Boolean.TRUE;
+        }
+        return open;
+    }
+
+    public void setOpen(Boolean open) {
+        this.open = open;
+    }
+
+    public String getDefaultMessage() {
+        return defaultMessage;
+    }
+
+    public void setDefaultMessage(String defaultMessage) {
+        this.defaultMessage = defaultMessage;
+    }
+
+    public ContactPhoneOption getContactPhoneOption() {
+        return contactPhoneOption;
+    }
+
+    public void setContactPhoneOption(ContactPhoneOption contactPhoneOption) {
+        this.contactPhoneOption = contactPhoneOption;
+    }
+
+    public Integer getNumberOfSms() {
+        return numberOfSms;
+    }
+
+    public void setNumberOfSms(Integer numberOfSms) {
+        this.numberOfSms = numberOfSms;
+    }
+
+    public Set<ServiceOffered> getServiceOffereds() {
+        return serviceOffereds;
+    }
+
+    public void setServiceOffereds(Set<ServiceOffered> serviceOffereds) {
+        this.serviceOffereds = serviceOffereds;
+    }
+
+    public UserLevel getUserLevel() {
+        return userLevel;
+    }
+
+    public void setUserLevel(UserLevel userLevel) {
+        this.userLevel = userLevel;
+    }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
+    }
+
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
     }
     
 }

@@ -49,6 +49,7 @@ public class BeneficiaryContactController extends BaseController {
         model.addAttribute("pageTitle", APP_PREFIX + " " + item.getPatient().getName() + "'s Contact Details");
         model.addAttribute("patient", item.getPatient());
         getPatientStatus(item.getPatient(), model);
+        setViralLoad(model, item.getPatient());
         model.addAttribute("item", item);
     }
 

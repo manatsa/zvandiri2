@@ -41,8 +41,8 @@ import zw.org.zvandiri.report.api.service.OfficeExportService;
  */
 @Controller
 @RequestMapping("/report/contact")
-public class ContactReportController extends BaseController{
-    
+public class ContactReportController extends BaseController {
+
     @Resource
     private ProvinceService provinceService;
     @Resource
@@ -56,7 +56,7 @@ public class ContactReportController extends BaseController{
     @Resource
     private DetailedReportService detailedReportService;
 
-    public String setUpModel(ModelMap model, SearchDTO item) {
+    public String setUpModel(ModelMap model, SearchDTO item, boolean post) {
         item = getUserLevelObjectState(item);
         model.addAttribute("pageTitle", APP_PREFIX + "Contact Detailed Report");
         model.addAttribute("provinces", provinceService.getAll());
@@ -66,22 +66,24 @@ public class ContactReportController extends BaseController{
                 model.addAttribute("facilities", facilityService.getOptByDistrict(item.getDistrict()));
             }
         }
-        model.addAttribute("excelExport", "/report/contact/export/excel" + item.getQueryString(item.getInstance(item)));
-        model.addAttribute("items", contactReportService.get(item.getInstance(item)));
+        if (post) {
+            model.addAttribute("excelExport", "/report/contact/export/excel" + item.getQueryString(item.getInstance(item)));
+            model.addAttribute("items", contactReportService.get(item.getInstance(item)));
+        }
         model.addAttribute("item", item.getInstance(item));
         return "report/contactDetailedReport";
     }
 
     @RequestMapping(value = "/detailed", method = RequestMethod.GET)
     public String getReferralReportIndex(ModelMap model) {
-        return setUpModel(model, new SearchDTO());
+        return setUpModel(model, new SearchDTO(), false);
     }
 
     @RequestMapping(value = "/detailed", method = RequestMethod.POST)
     public String getReferralReportIndex(ModelMap model, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
-        return setUpModel(model, item);
+        return setUpModel(model, item, true);
     }
-    
+
     @RequestMapping(value = "/export/excel", method = RequestMethod.GET)
     public void getExcelExport(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Detailed_Contact_Report");

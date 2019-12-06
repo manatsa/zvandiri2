@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Judge Muzinda.
+ * Copyright 2017 User.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,20 +15,12 @@
  */
 package zw.org.zvandiri.business.service;
 
-import java.util.List;
-import zw.org.zvandiri.business.domain.Mortality;
-import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.domain.PatientHistory;
+import zw.org.zvandiri.business.domain.LabTask;
 
 /**
  *
- * @author Judge Muzinda
+ * @author User
  */
-public interface PatientHistoryService extends GenericService<PatientHistory> {
- 
-    public List<PatientHistory> getByPatient(Patient patient);
+public interface LabTaskService extends GenericNameService<LabTask>{
     
-    public void saveItem(PatientHistory history, Patient patient);
-    
-    public void saveMortality(PatientHistory history, Patient patient, Mortality mortality);
 }

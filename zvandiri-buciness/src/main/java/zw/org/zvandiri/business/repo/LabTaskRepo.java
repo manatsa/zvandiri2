@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Judge Muzinda.
+ * Copyright 2017 User.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package zw.org.zvandiri.business.service;
+package zw.org.zvandiri.business.repo;
 
 import java.util.List;
-import zw.org.zvandiri.business.domain.Mortality;
-import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.domain.PatientHistory;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import zw.org.zvandiri.business.domain.ActionTaken;
+import zw.org.zvandiri.business.domain.LabTask;
 
 /**
  *
- * @author Judge Muzinda
+ * @author User
  */
-public interface PatientHistoryService extends GenericService<PatientHistory> {
- 
-    public List<PatientHistory> getByPatient(Patient patient);
+public interface LabTaskRepo extends AbstractNameDescRepo<LabTask, String>{
     
-    public void saveItem(PatientHistory history, Patient patient);
-    
-    public void saveMortality(PatientHistory history, Patient patient, Mortality mortality);
+    @Query("from LabTask a left join fetch a.createdBy left join fetch a.modifiedBy where a.active=:active Order By a.name ASC")
+    public List<LabTask> getOptAll(@Param("active") Boolean active);
 }

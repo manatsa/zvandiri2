@@ -31,13 +31,16 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.annotations.Formula;
 import org.springframework.format.annotation.DateTimeFormat;
 import zw.org.zvandiri.business.domain.util.CareLevel;
 import zw.org.zvandiri.business.domain.util.ContactPhoneOption;
 import zw.org.zvandiri.business.domain.util.FollowUp;
 import zw.org.zvandiri.business.domain.util.Reason;
 import zw.org.zvandiri.business.domain.util.UserLevel;
+import zw.org.zvandiri.business.domain.util.VisitOutcome;
 import zw.org.zvandiri.business.domain.util.YesNo;
+import zw.org.zvandiri.business.service.LabTaskService;
 
 /**
  *
@@ -73,6 +76,11 @@ public class Contact extends BaseEntity {
     private String subjective;
     @Column(columnDefinition = "text")
     private String objective;
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinTable(name = "contact_lab_service", joinColumns = {
+        @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "lab_service_id", nullable = false)})
+    private Set<LabTask> labTasks = new HashSet<>();
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(name = "contact_clinical_assessment", joinColumns = {
         @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
@@ -124,6 +132,12 @@ public class Contact extends BaseEntity {
     private District district;
     @Transient
     private Province province;
+    @Formula("(Select c.care_level From contact c where c.patient = patient order by c.contact_date desc limit 1,1)")
+    private Integer previousCareLevel;
+    @Transient
+    private CareLevel currentCareLevel;
+    @Transient
+    private VisitOutcome visitOutcome;
 
     public Contact(Patient patient) {
         this.patient = patient;
@@ -381,6 +395,17 @@ public class Contact extends BaseEntity {
 
     public void setProvince(Province province) {
         this.province = province;
+    }
+
+    public Integer getPreviousCareLevel() {
+        return previousCareLevel;
+    }
+
+    public CareLevel getCurrentCareLevel() {
+        if (previousCareLevel != null) {
+            return CareLevel.get(previousCareLevel + 1);
+        }
+        return null;
     }
     
 }

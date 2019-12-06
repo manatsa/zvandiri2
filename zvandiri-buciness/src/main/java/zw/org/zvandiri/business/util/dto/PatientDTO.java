@@ -58,10 +58,4 @@ public class PatientDTO implements Serializable {
         p.setStatus(item.getPatient().getStatus());
         return p;
     }
-    
-    public Patient getPatientDeathInstance(PatientDTO item) {
-        Patient p = item.getPatient();
-        p.setStatus(item.getPatient().getStatus());
-        return p;
-    }
 }

@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package zw.org.zvandiri.business.service;
+package zw.org.zvandiri.portal.web.converter;
 
-import java.util.List;
-import zw.org.zvandiri.business.domain.Mortality;
-import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.domain.PatientHistory;
+import org.springframework.core.convert.converter.Converter;
+
+import zw.org.zvandiri.business.domain.util.DifferentiatedService;
 
 /**
  *
  * @author Judge Muzinda
  */
-public interface PatientHistoryService extends GenericService<PatientHistory> {
- 
-    public List<PatientHistory> getByPatient(Patient patient);
+public class DifferentiatedServiceConverter implements Converter<String, DifferentiatedService> {
+
+    @Override
+    public DifferentiatedService convert(String s) {
+        if(s.equals("")) return null;
+        return DifferentiatedService.get(Integer.valueOf(s));
+    }
     
-    public void saveItem(PatientHistory history, Patient patient);
-    
-    public void saveMortality(PatientHistory history, Patient patient, Mortality mortality);
 }

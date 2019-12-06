@@ -101,6 +101,7 @@
                 <bean class="zw.org.zvandiri.portal.web.converter.ContactAssessmentConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.VisitOutcomeConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.MentalHealthScreeningTypeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.CauseOfDeathConverter"/>
             </set>
         </property>
     </bean> 

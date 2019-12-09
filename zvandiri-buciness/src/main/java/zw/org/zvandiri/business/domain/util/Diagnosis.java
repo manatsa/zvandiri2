@@ -11,30 +11,35 @@ import zw.org.zvandiri.business.util.StringUtils;
  *
  * @author tasu
  */
-public enum IdentifiedRisk {
+public enum Diagnosis {
     
-    DEPRESSION(1), ANXIETY(2), POST_TRAUMATIC_STRESS(3), SUBSTANCE_ABUSE(4), SUICIDE(5), PSYCHOSIS(6);
-    
+    DEPRESSION(1), ANXIETY(2), PTSD(3), SUBSTANCE_ABUSE(4), PSYCHOSIS(5), OTHER(6);
+
     private final Integer code;
 
-    private IdentifiedRisk(Integer code) {
+    Diagnosis(Integer code) {
         this.code = code;
     }
 
     public Integer getCode() {
         return code;
     }
-    
-    public final static IdentifiedRisk get(Integer code){
-        for(IdentifiedRisk risk : values()){
-            if(code.equals(risk.getCode())){
-                return risk;
+
+    public static final Diagnosis get(Integer code){
+        for(Diagnosis item : values()){
+            if(item.getCode().equals(code)){
+                return item;
             }
         }
-        throw new IllegalArgumentException("Parameter passed to method not recognized: " + code);
+        throw new IllegalArgumentException("Parameter passed to method not recognized:" + code);
     }
-    
+
     public String getName(){
         return StringUtils.toCamelCase3(super.name());
+    }
+
+    @Override
+    public String toString() {
+        return super.name().replace("_", " ");
     }
 }

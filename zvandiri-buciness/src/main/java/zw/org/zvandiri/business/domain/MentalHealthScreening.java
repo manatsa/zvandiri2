@@ -5,12 +5,22 @@
  */
 package zw.org.zvandiri.business.domain;
 
+import java.util.Set;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import zw.org.zvandiri.business.domain.util.Diagnosis;
 import zw.org.zvandiri.business.domain.util.IdentifiedRisk;
-import zw.org.zvandiri.business.domain.util.MentalScreenResult;
+import zw.org.zvandiri.business.domain.util.Intervention;
+import zw.org.zvandiri.business.domain.util.Referral;
+import zw.org.zvandiri.business.domain.util.Screening;
+import zw.org.zvandiri.business.domain.util.Support;
 import zw.org.zvandiri.business.domain.util.YesNo;
 
 /**
@@ -26,16 +36,46 @@ public class MentalHealthScreening extends BaseEntity{
     @Enumerated
     private YesNo screenedForMentalHealth;
     @Enumerated
-    private IdentifiedRisk identifiedRisk;
-    @ManyToOne
-    private ActionTaken actionTaken;
-    private String actionTakenText;
+    private Screening screening;
     @Enumerated
-    private MentalScreenResult mentalScreenResult;
-    @ManyToOne
-    private ActionTaken rescreenActionTaken;
+    private YesNo risk;
+    @ElementCollection(targetClass = IdentifiedRisk.class)
+    @CollectionTable(name = "mental_health_screening_risk",
+            joinColumns = @JoinColumn(name = "screening_id"))
+    @Column(name = "risk_id")
+    private Set<IdentifiedRisk> identifiedRisks;
     @Enumerated
-    private IdentifiedRisk rescreenIdentifiedRisk;
+    private YesNo support;
+    @ElementCollection(targetClass = Support.class)
+    @CollectionTable(name = "mental_health_screening_support",
+            joinColumns = @JoinColumn(name = "screening_id"))
+    @Column(name = "support_id")
+    private Set<Support> supports;
+    @Enumerated
+    private YesNo referral;
+    @ElementCollection(targetClass = zw.org.zvandiri.business.domain.util.Referral.class)
+    @CollectionTable(name = "mental_health_screening_referral",
+            joinColumns = @JoinColumn(name = "screening_id"))
+    @Column(name = "referral_id")
+    private Set<zw.org.zvandiri.business.domain.util.Referral> referrals;
+    @Enumerated
+    private YesNo diagnosis;
+    @ElementCollection(targetClass = Diagnosis.class)
+    @CollectionTable(name = "mental_health_screening_diagnosis",
+            joinColumns = @JoinColumn(name = "screening_id"))
+    @Column(name = "diagnosis_id")
+    private Set<Diagnosis> diagnoses;
+    private String otherDiagnosis;
+    @Enumerated
+    private YesNo intervention;
+    @ElementCollection(targetClass = Intervention.class)
+    @CollectionTable(name = "mental_health_screening_intervention",
+            joinColumns = @JoinColumn(name = "screening_id"))
+    @Column(name = "intervention_id")
+    private Set<Intervention> interventions;
+    private String otherIntervention;
+    @Transient
+    private String patientId;
     
     public MentalHealthScreening(Patient patient){
         this.patient = patient;
@@ -61,51 +101,116 @@ public class MentalHealthScreening extends BaseEntity{
         this.screenedForMentalHealth = screenedForMentalHealth;
     }
 
-    public IdentifiedRisk getIdentifiedRisk() {
-        return identifiedRisk;
+    public Screening getScreening() {
+        return screening;
     }
 
-    public void setIdentifiedRisk(IdentifiedRisk identifiedRisk) {
-        this.identifiedRisk = identifiedRisk;
+    public void setScreening(Screening screening) {
+        this.screening = screening;
     }
 
-    public ActionTaken getActionTaken() {
-        return actionTaken;
+    public YesNo getRisk() {
+        return risk;
     }
 
-    public void setActionTaken(ActionTaken actionTaken) {
-        this.actionTaken = actionTaken;
+    public void setRisk(YesNo risk) {
+        this.risk = risk;
     }
 
-    public String getActionTakenText() {
-        return actionTakenText;
+    public YesNo getSupport() {
+        return support;
     }
 
-    public void setActionTakenText(String actionTakenText) {
-        this.actionTakenText = actionTakenText;
+    public void setSupport(YesNo support) {
+        this.support = support;
     }
 
-    public MentalScreenResult getMentalScreenResult() {
-        return mentalScreenResult;
+    public YesNo getReferral() {
+        return referral;
     }
 
-    public void setMentalScreenResult(MentalScreenResult mentalScreenResult) {
-        this.mentalScreenResult = mentalScreenResult;
+    public void setReferral(YesNo referral) {
+        this.referral = referral;
     }
 
-    public ActionTaken getRescreenActionTaken() {
-        return rescreenActionTaken;
+    public YesNo getDiagnosis() {
+        return diagnosis;
     }
 
-    public void setRescreenActionTaken(ActionTaken rescreenActionTaken) {
-        this.rescreenActionTaken = rescreenActionTaken;
+    public void setDiagnosis(YesNo diagnosis) {
+        this.diagnosis = diagnosis;
     }
 
-    public IdentifiedRisk getRescreenIdentifiedRisk() {
-        return rescreenIdentifiedRisk;
+    public String getOtherDiagnosis() {
+        return otherDiagnosis;
     }
 
-    public void setRescreenIdentifiedRisk(IdentifiedRisk rescreenIdentifiedRisk) {
-        this.rescreenIdentifiedRisk = rescreenIdentifiedRisk;
+    public void setOtherDiagnosis(String otherDiagnosis) {
+        this.otherDiagnosis = otherDiagnosis;
     }
+
+    public YesNo getIntervention() {
+        return intervention;
+    }
+
+    public void setIntervention(YesNo intervention) {
+        this.intervention = intervention;
+    }
+
+    public String getOtherIntervention() {
+        return otherIntervention;
+    }
+
+    public void setOtherIntervention(String otherIntervention) {
+        this.otherIntervention = otherIntervention;
+    }
+
+    public Set<IdentifiedRisk> getIdentifiedRisks() {
+        return identifiedRisks;
+    }
+
+    public void setIdentifiedRisks(Set<IdentifiedRisk> identifiedRisks) {
+        this.identifiedRisks = identifiedRisks;
+    }
+
+    public Set<Support> getSupports() {
+        return supports;
+    }
+
+    public void setSupports(Set<Support> supports) {
+        this.supports = supports;
+    }
+
+    public Set<Referral> getReferrals() {
+        return referrals;
+    }
+
+    public void setReferrals(Set<Referral> referrals) {
+        this.referrals = referrals;
+    }
+
+    public Set<Diagnosis> getDiagnoses() {
+        return diagnoses;
+    }
+
+    public void setDiagnoses(Set<Diagnosis> diagnoses) {
+        this.diagnoses = diagnoses;
+    }
+
+    public Set<Intervention> getInterventions() {
+        return interventions;
+    }
+
+    public void setInterventions(Set<Intervention> interventions) {
+        this.interventions = interventions;
+    }
+
+    public String getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
+    }
+    
 }

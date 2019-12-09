@@ -45,6 +45,7 @@ import zw.org.zvandiri.business.service.CatDetailService;
 import zw.org.zvandiri.business.service.ContactService;
 import zw.org.zvandiri.business.service.PatientService;
 import zw.org.zvandiri.business.service.ReferralService;
+import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.NameIdDTO;
 
@@ -66,6 +67,8 @@ public class PatientProcessResource {
     private PatientService patientService;
     @Resource
     private ReferralService referralService;
+    @Resource
+    private UserService userService;
 
     @GET
     @Path("/cats-patients")
@@ -87,6 +90,9 @@ public class PatientProcessResource {
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
         try {
+            if(contact.getReferredPersonId() != null) {
+                contact.setReferredPerson(userService.get(contact.getReferredPersonId()));
+            }
             contactService.save(contact);
         } catch (Exception e) {
             response.put("message", "System error occurred saving contact");

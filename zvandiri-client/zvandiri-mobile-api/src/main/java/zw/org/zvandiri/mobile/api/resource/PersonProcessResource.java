@@ -19,11 +19,13 @@ import org.springframework.stereotype.Component;
 import zw.org.zvandiri.business.domain.Dsd;
 import zw.org.zvandiri.business.domain.HIVSelfTesting;
 import zw.org.zvandiri.business.domain.Mortality;
+import zw.org.zvandiri.business.domain.Person;
 import zw.org.zvandiri.business.domain.TbIpt;
 import zw.org.zvandiri.business.service.DsdService;
 import zw.org.zvandiri.business.service.HIVSelfTestingService;
 import zw.org.zvandiri.business.service.MortalityService;
 import zw.org.zvandiri.business.service.PatientService;
+import zw.org.zvandiri.business.service.PersonService;
 import zw.org.zvandiri.business.service.TbIptService;
 import zw.org.zvandiri.business.util.DateUtil;
 
@@ -47,6 +49,24 @@ public class PersonProcessResource {
     private TbIptService tbIptService;
     @Resource
     private DsdService dsdService;
+    @Resource
+    private PersonService personService;
+    
+    @POST
+    @Path("/add-person")
+    public ResponseEntity<Map<String, Object>> addPerson(Person person) {
+        Map<String, Object> map = new HashMap<>();
+        String id = "";
+        try {
+            person.setDateOfBirth(DateUtil.getDateFromStringRest(person.getDob()));
+            id = personService.save(person).getId();
+        } catch (Exception e) {
+            map.put("message", "System error occurred saving person");
+            return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        map.put("message", id);
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
 
     @POST
     @Path("/add-self-testing")

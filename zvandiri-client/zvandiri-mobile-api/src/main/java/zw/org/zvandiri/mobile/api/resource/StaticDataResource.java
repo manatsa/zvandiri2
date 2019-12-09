@@ -15,6 +15,7 @@
  */
 package zw.org.zvandiri.mobile.api.resource;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.ws.rs.GET;
@@ -49,6 +50,7 @@ import zw.org.zvandiri.business.domain.ServicesReferred;
 import zw.org.zvandiri.business.domain.Stable;
 import zw.org.zvandiri.business.domain.Substance;
 import zw.org.zvandiri.business.domain.SupportGroup;
+import zw.org.zvandiri.business.domain.User;
 import zw.org.zvandiri.business.service.ActionTakenService;
 import zw.org.zvandiri.business.service.ArvMedicineService;
 import zw.org.zvandiri.business.service.AssessmentService;
@@ -76,6 +78,8 @@ import zw.org.zvandiri.business.service.ServicesReferredService;
 import zw.org.zvandiri.business.service.StableService;
 import zw.org.zvandiri.business.service.SubstanceService;
 import zw.org.zvandiri.business.service.SupportGroupService;
+import zw.org.zvandiri.business.service.UserService;
+import zw.org.zvandiri.business.util.dto.UserDTO;
 
 /**
  *
@@ -140,6 +144,8 @@ public class StaticDataResource {
     private ReasonForNotReachingOLevelService reasonForNotReachingOLevelService;
     @Resource
     private ServiceOfferedService serviceOfferedService;
+    @Resource
+    private UserService userService;
     
     @GET
     @Path("/province")
@@ -301,5 +307,15 @@ public class StaticDataResource {
     @Path("/service-offered")
     public List<ServiceOffered> getServicesOffered() {
         return serviceOfferedService.getAll();
+    }
+    
+    @GET
+    @Path("/user")
+    public List<UserDTO> getUsers() {
+        List<UserDTO> list = new ArrayList<>();
+        for(User user : userService.getAll()) {
+            list.add(UserDTO.getInstance(user));
+        }
+        return list;
     }
 }

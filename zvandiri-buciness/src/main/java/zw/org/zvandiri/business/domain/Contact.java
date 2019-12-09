@@ -138,6 +138,8 @@ public class Contact extends BaseEntity {
     private CareLevel currentCareLevel;
     @Transient
     private VisitOutcome visitOutcome;
+    @Transient
+    private String referredPersonId;
 
     public Contact(Patient patient) {
         this.patient = patient;
@@ -406,6 +408,14 @@ public class Contact extends BaseEntity {
             return CareLevel.get(previousCareLevel + 1);
         }
         return null;
+    }
+
+    public String getReferredPersonId() {
+        return referredPersonId;
+    }
+
+    public void setReferredPersonId(String referredPersonId) {
+        this.referredPersonId = referredPersonId;
     }
     
 }

@@ -27,6 +27,11 @@
                                         <th>Date Received Mentorship</th>
                                         <th>Date Issued</th>
                                         <th>Mentorship Type</th>
+                                        <th>Assigned Phone</th>
+                                        <th>Phone Model</th>
+                                        <th>Serial Number</th>
+                                        <th>Phone Status</th>
+                                        <th>Issued Bicycle</th>
                                         <th>Province</th>
                                         <th>District</th>
                                         <th>&nbsp;</th>
@@ -39,6 +44,11 @@
                                             <td><spring:eval expression="act.dateReceivedMentorship"/></td>
                                             <td><spring:eval expression="act.dateIssued"/></td>
                                             <td>${act.catsMentorship}</td>
+                                            <td>${act.assignedPhone}</td>
+                                            <td>${act.phoneModel}</td>
+                                            <td>${act.serialNumber}</td>
+                                            <td>${act.phoneStatus}</td>
+                                            <td>${act.issuedBicycle}</td>
                                             <td>${act.district.province.name}</td>
                                             <td>${act.district.name}</td>
                                             <td>

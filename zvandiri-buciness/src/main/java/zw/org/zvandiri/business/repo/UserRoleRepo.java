@@ -17,6 +17,8 @@
 package zw.org.zvandiri.business.repo;
 
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -36,4 +38,7 @@ public interface UserRoleRepo extends CrudRepository<UserRole, String> {
     
     @Query("from UserRole p "+IRepoConstant.USER_ROLE_CONSTANT+" where p.name=:name")
     public UserRole getUserRoleByName(@Param("name") String name);
+    
+    @Query("from UserRole p "+IRepoConstant.USER_ROLE_CONSTANT+" where p.name in (:names)")
+    public Set<UserRole> findByNamesIn(@Param("names") Set<String> names);
 }

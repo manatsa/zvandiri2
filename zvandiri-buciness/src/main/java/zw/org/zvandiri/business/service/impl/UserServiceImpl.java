@@ -143,7 +143,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getUsers(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("from User u ");
+        StringBuilder builder = new StringBuilder("from User u left join fetch u.userRoles");
         int position = 0;
         if (dto.getProvince() != null) {
             if (position == 0) {
@@ -177,6 +177,14 @@ public class UserServiceImpl implements UserService {
                 builder.append(" and u.userLevel=:userLevel");
             }
         }
+        if (dto.getUserRoles() != null) {
+            if (position == 0) {
+                builder.append("where u.userRoles in (:userRoles)");
+                position++;
+            } else {
+                builder.append(" and u.userRoles in (:userRoles)");
+            }
+        }
         builder.append(" order by u.lastName, u.firstName ASC");
         TypedQuery<User> query = entityManager.createQuery(builder.toString(), User.class);
         if (dto.getProvince() != null) {
@@ -190,6 +198,9 @@ public class UserServiceImpl implements UserService {
         }
         if (dto.getUserLevel() != null) {
             query.setParameter("userLevel", dto.getUserLevel());
+        }
+        if (dto.getUserRoles() != null) {
+            query.setParameter("userRoles", dto.getUserRoles());
         }
         return query.getResultList();
     }

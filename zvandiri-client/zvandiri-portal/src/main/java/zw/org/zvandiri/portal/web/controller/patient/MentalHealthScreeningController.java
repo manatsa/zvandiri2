@@ -104,15 +104,13 @@ public class MentalHealthScreeningController extends BaseController{
     @RequestMapping(value = "/item.list", method = RequestMethod.GET)
     public String getItemList(@RequestParam String id, @RequestParam(required = false) Integer type, ModelMap model) {
         Patient patient = patientService.get(id);
-        MentalHealthScreening item = service.getByPatient(patient);
         model.addAttribute("pageTitle", APP_PREFIX + " " + patient.getName() + ": Mental Health Screening");
         model.addAttribute("patient", patient);
         if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
         getPatientStatus(patient, model);
-        setViralLoad(model, item.getPatient());
-        model.addAttribute("item", item);
+        setViralLoad(model, patient);
         return "patient/mentalHealthScreeningList";
     }
     

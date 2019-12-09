@@ -183,6 +183,7 @@
                                             <form:errors path="followUp" class="alert-danger"/>
                                         </p>
                                     </div>
+                                    
                                     <div class="form-group">
                                         <label>Action Taken</label><br/><br/>
                                         <form:select path="actionTaken" class="form-control">

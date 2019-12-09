@@ -70,6 +70,7 @@
                     var referral_url = "<a href='"+path+"/patient/referral/item.list?id=" + pat[i].id + "'>";
                     var tb_screening_url = "<a href='"+path+"/patient/tb-screening/item.list?id=" + pat[i].id + "'>";
                     var hiv_self_testing_url = "<a href='"+path+"/patient/hiv-self-testing/item.list?id=" + pat[i].id + "'>";
+                    var mental_health_screening_url = "<a href='"+path+"/beneficiary/mental-health-screening/item.list?id=" + pat[i].id + "'>";
                     $("#patientListing").dataTable().fnAddData([part_url +pat[i].name+ "</a>",
                         pat[i].patientNumber,
                         pat[i].gender,
@@ -78,7 +79,7 @@
                         pat[i].district,
                         pat[i].primaryClinic,
                         pat[i].active === true ? 
-                        contact_url+"Contact | </a>"+referral_url+"Referral | </a>" + tb_screening_url+"TB Screening</a>" : ""]);
+                        contact_url+"Contact | </a>"+referral_url+"Referral | </a>" + tb_screening_url+"TB Screening | </a>" + mental_health_screening_url + "Mental Health Screening</a>" : ""]);
                 }
             });
         } else {

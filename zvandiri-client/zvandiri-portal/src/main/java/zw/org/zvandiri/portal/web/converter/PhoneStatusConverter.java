@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Judge Muzinda.
+ * Copyright 2016 Judge Muzinda.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package zw.org.zvandiri.portal.web.converter;
 
-package zw.org.zvandiri.business.service;
+import org.springframework.core.convert.converter.Converter;
 
-import java.util.Set;
-
-import zw.org.zvandiri.business.domain.UserRole;
-
-
+import zw.org.zvandiri.business.domain.util.PhoneStatus;
 
 /**
  *
  * @author Judge Muzinda
  */
-public interface UserRoleService extends GenericNameService<UserRole> {
- 
-	public Set<UserRole> findByNamesIn(Set<String> names);
+public class PhoneStatusConverter implements Converter<String, PhoneStatus> {
+
+    @Override
+    public PhoneStatus convert(String s) {
+        if(s.equals("")) return null;
+        return PhoneStatus.get(Integer.valueOf(s));
+    }
+    
 }

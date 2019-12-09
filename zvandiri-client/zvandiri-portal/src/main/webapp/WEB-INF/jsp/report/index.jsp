@@ -19,7 +19,7 @@
                                                    hasRole('ROLE_M_AND_E_OFFICER') or
                                                    hasRole('ROLE_HOD_M_AND_E')
                                                    ">
-                                        <a href="${page}/report/pivot/patient/index.htm">Patient Pivot Report</a>
+                                        <a href="${page}/report/pivot/patient/index.htm">Client Pivot Report</a>
                                     </sec:authorize>
                                 </td>
                                 <td>
@@ -28,7 +28,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <a href="${page}/report/pivot/patient/patients-exiting-program.htm">Patients Exiting Program Pivot Report</a>
+                                    <a href="${page}/report/pivot/patient/patients-exiting-program.htm">Client Exiting Program Pivot Report</a>
                                 </td>
                                 <td>
                                     <sec:authorize access="
@@ -82,7 +82,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <a href="${page}/report/detailed/range.htm">Beneficiaries By Date Range</a>
+                                    <a href="${page}/report/detailed/range.htm">Client Detailed Report</a>
                                 </td>
                                 <td>
                                     <a href="${page}/report/test-results/index.htm?type=viral-load">Viral Load Results Report</a>
@@ -108,16 +108,16 @@
                                 <td><a href="${page}/report/graphs/contact-level-of-care">Contact Trends By Care Level</a></td>
                             </tr>
                             <tr>
-                                <td><a href="${page}/report/graphs/patient-gender-distribution">Patient Distribution By Gender</a></td>
-                                <td><a href="${page}/report/graphs/patient-age-group-distribution.htm">Patient Distribution By Age Group</a></td>
+                                <td><a href="${page}/report/graphs/patient-gender-distribution">Client Distribution By Gender</a></td>
+                                <td><a href="${page}/report/graphs/patient-age-group-distribution.htm">Client Distribution By Age Group</a></td>
                             </tr>
                             <tr>
-                                <td><a href="${page}/report/graphs/patient-status-distribution">Patient Distribution By Status</a></td>
-                                <td><a href="${page}/report/graphs/referral-distribution">Number of External Patient Referrals Past 6 Months</a></td>
+                                <td><a href="${page}/report/graphs/patient-status-distribution">Client Distribution By Status</a></td>
+                                <td><a href="${page}/report/graphs/referral-distribution">Number of External Client Referrals Past 6 Months</a></td>
                             </tr>
                             <tr>
                                 <td><a href="${page}/report/graphs/contact-care-level-distribution">Contact Distribution By Care Level</a></td>
-                                <td><a href="${page}/report/graphs/patient-contact-distribution">Patient Distribution By Contact</a></td>
+                                <td><a href="${page}/report/graphs/patient-contact-distribution">Client Distribution By Contact</a></td>
                             </tr>
                             <tr>
                                 <td><a href="${page}/report/graphs/patient-viral-load-distribution">Viral Load Distribution</a></td>

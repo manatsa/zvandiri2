@@ -102,6 +102,7 @@
                 <bean class="zw.org.zvandiri.portal.web.converter.VisitOutcomeConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.MentalHealthScreeningTypeConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.CauseOfDeathConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.PhoneStatusConverter"/>
             </set>
         </property>
     </bean> 

@@ -34,7 +34,7 @@
                                     <form:errors path="lastName" class="alert-danger"/>
                                 </p>
                             </div>
-                            <div cla
+                            <div>
                                  <div class="form-group">
                                     <label>Date Of Birth</label>
                                     <form:input path="dateOfBirth" class="form-control"/>

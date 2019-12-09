@@ -15,6 +15,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import org.springframework.format.annotation.DateTimeFormat;
 import zw.org.zvandiri.business.domain.util.CatsMentorship;
+import zw.org.zvandiri.business.domain.util.PhoneStatus;
+import zw.org.zvandiri.business.domain.util.YesNo;
 
 /**
  *
@@ -34,6 +36,14 @@ public class CatActivity extends BaseEntity {
     private Date dateReceivedMentorship;
     @Enumerated
     private CatsMentorship catsMentorship;
+    @Enumerated
+    private YesNo assignedPhone;
+    private String phoneModel;
+    private String serialNumber;
+    @Enumerated
+    private PhoneStatus phoneStatus;
+    @Enumerated
+    private YesNo issuedBicycle;
     @ManyToOne
     private District district;
     @Transient
@@ -111,5 +121,45 @@ public class CatActivity extends BaseEntity {
     public void setDescription(String description) {
         this.description = description;
     }
+
+	public YesNo getAssignedPhone() {
+		return assignedPhone;
+	}
+
+	public void setAssignedPhone(YesNo assignedPhone) {
+		this.assignedPhone = assignedPhone;
+	}
+
+	public String getPhoneModel() {
+		return phoneModel;
+	}
+
+	public void setPhoneModel(String phoneModel) {
+		this.phoneModel = phoneModel;
+	}
+
+	public String getSerialNumber() {
+		return serialNumber;
+	}
+
+	public void setSerialNumber(String serialNumber) {
+		this.serialNumber = serialNumber;
+	}
+
+	public PhoneStatus getPhoneStatus() {
+		return phoneStatus;
+	}
+
+	public void setPhoneStatus(PhoneStatus phoneStatus) {
+		this.phoneStatus = phoneStatus;
+	}
+
+	public YesNo getIssuedBicycle() {
+		return issuedBicycle;
+	}
+
+	public void setIssuedBicycle(YesNo issuedBicycle) {
+		this.issuedBicycle = issuedBicycle;
+	}
     
 }

@@ -136,10 +136,13 @@ public class Contact extends BaseEntity {
     private Integer previousCareLevel;
     @Transient
     private CareLevel currentCareLevel;
-    @Transient
+    @Enumerated
     private VisitOutcome visitOutcome;
     @Transient
     private String referredPersonId;
+    private TestResult viralLoad;
+    @Transient
+    private TestResult cd4Count;
 
     public Contact(Patient patient) {
         this.patient = patient;
@@ -417,5 +420,29 @@ public class Contact extends BaseEntity {
     public void setReferredPersonId(String referredPersonId) {
         this.referredPersonId = referredPersonId;
     }
-    
+
+    public TestResult getViralLoad() {
+        return viralLoad;
+    }
+
+    public void setViralLoad(TestResult viralLoad) {
+        this.viralLoad = viralLoad;
+    }
+
+    public TestResult getCd4Count() {
+        return cd4Count;
+    }
+
+    public void setCd4Count(TestResult cd4Count) {
+        this.cd4Count = cd4Count;
+    }
+
+    public VisitOutcome getVisitOutcome() {
+        return visitOutcome;
+    }
+
+    public void setVisitOutcome(VisitOutcome visitOutcome) {
+        this.visitOutcome = visitOutcome;
+    }
+
 }

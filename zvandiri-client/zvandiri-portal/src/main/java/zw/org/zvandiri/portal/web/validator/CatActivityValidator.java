@@ -21,6 +21,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import zw.org.zvandiri.business.domain.CatActivity;
+import zw.org.zvandiri.business.domain.util.YesNo;
 
 /**
  *
@@ -41,10 +42,10 @@ public class CatActivityValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "certificateNumber", "field.empty");
         ValidationUtils.rejectIfEmpty(errors, "dateIssued", "field.empty");
         ValidationUtils.rejectIfEmpty(errors, "dateReceivedMentorship", "field.empty");
-        if (item.getDateIssued().after(new Date())) {
+        if (item.getDateIssued() != null && item.getDateIssued().after(new Date())) {
             errors.rejectValue("dateIssued", "date.aftertoday");
         }
-        if (item.getDateReceivedMentorship().after(new Date())) {
+        if (item.getDateReceivedMentorship() != null && item.getDateReceivedMentorship().after(new Date())) {
             errors.rejectValue("dateReceivedMentorship", "date.aftertoday");
         }
         if (item.getCatsMentorship() == null) {
@@ -52,6 +53,19 @@ public class CatActivityValidator implements Validator {
         }
         if (item.getDistrict() == null) {
             errors.rejectValue("district", "field.empty");
+        }
+        if (item.getAssignedPhone() == null) {
+        	errors.rejectValue("assignedPhone", "field.empty");
+        }
+        if (item.getAssignedPhone() != null && item.getAssignedPhone().equals(YesNo.YES)) {
+        	ValidationUtils.rejectIfEmpty(errors, "phoneModel", "field.empty");
+        	ValidationUtils.rejectIfEmpty(errors, "serialNumber", "field.empty");
+        	if (item.getPhoneStatus() == null) {
+        		errors.rejectValue("phoneStatus", "field.empty");
+        	}
+        }
+        if (item.getIssuedBicycle() == null) {
+        	errors.rejectValue("issuedBicycle", "field.empty");
         }
     }
 

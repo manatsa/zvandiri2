@@ -2,6 +2,8 @@ package zw.org.zvandiri.business.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
 import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -90,4 +92,10 @@ public class UserRoleServiceImpl implements UserRoleService {
         }
         return false;
     }
+
+	@Override
+	public Set<UserRole> findByNamesIn(Set<String> names) {
+		return userRoleRepo.findByNamesIn(names);
+	}
+    
 }

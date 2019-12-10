@@ -18,8 +18,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import zw.org.zvandiri.business.domain.util.Diagnosis;
 import zw.org.zvandiri.business.domain.util.IdentifiedRisk;
 import zw.org.zvandiri.business.domain.util.Intervention;
+import zw.org.zvandiri.business.domain.util.MentalHealthScreeningType;
 import zw.org.zvandiri.business.domain.util.Referral;
-import zw.org.zvandiri.business.domain.util.Screening;
 import zw.org.zvandiri.business.domain.util.Support;
 import zw.org.zvandiri.business.domain.util.YesNo;
 
@@ -36,7 +36,7 @@ public class MentalHealthScreening extends BaseEntity{
     @Enumerated
     private YesNo screenedForMentalHealth;
     @Enumerated
-    private Screening screening;
+    private MentalHealthScreeningType screening;
     @Enumerated
     private YesNo risk;
     @ElementCollection(targetClass = IdentifiedRisk.class)
@@ -92,23 +92,7 @@ public class MentalHealthScreening extends BaseEntity{
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
-
-    public YesNo getScreenedForMentalHealth() {
-        return screenedForMentalHealth;
-    }
-
-    public void setScreenedForMentalHealth(YesNo screenedForMentalHealth) {
-        this.screenedForMentalHealth = screenedForMentalHealth;
-    }
-
-    public Screening getScreening() {
-        return screening;
-    }
-
-    public void setScreening(Screening screening) {
-        this.screening = screening;
-    }
-
+    
     public YesNo getRisk() {
         return risk;
     }
@@ -211,6 +195,22 @@ public class MentalHealthScreening extends BaseEntity{
 
     public void setPatientId(String patientId) {
         this.patientId = patientId;
+    }
+
+    public YesNo getScreenedForMentalHealth() {
+        return screenedForMentalHealth;
+    }
+
+    public void setScreenedForMentalHealth(YesNo screenedForMentalHealth) {
+        this.screenedForMentalHealth = screenedForMentalHealth;
+    }
+
+    public MentalHealthScreeningType getScreening() {
+        return screening;
+    }
+
+    public void setScreening(MentalHealthScreeningType screening) {
+        this.screening = screening;
     }
     
 }

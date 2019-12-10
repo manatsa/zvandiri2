@@ -30,9 +30,8 @@ import zw.org.zvandiri.business.domain.util.Diagnosis;
 import zw.org.zvandiri.business.domain.util.Gender;
 import zw.org.zvandiri.business.domain.util.IdentifiedRisk;
 import zw.org.zvandiri.business.domain.util.Intervention;
-import zw.org.zvandiri.business.domain.util.MentalScreenResult;
+import zw.org.zvandiri.business.domain.util.MentalHealthScreeningType;
 import zw.org.zvandiri.business.domain.util.Referral;
-import zw.org.zvandiri.business.domain.util.Screening;
 import zw.org.zvandiri.business.domain.util.Support;
 import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.ActionTakenService;
@@ -69,19 +68,19 @@ public class MentalHealthScreeningController extends BaseController{
         model.addAttribute("patient", item.getPatient());
         model.addAttribute("item", item);
         model.addAttribute("risks", IdentifiedRisk.values());
-        model.addAttribute("screeningModes", Screening.values());
-        model.addAttribute("risks", IdentifiedRisk.values());
         model.addAttribute("supports", Support.values());
         model.addAttribute("referrals", Referral.values());
         model.addAttribute("diagnoses", Diagnosis.values());
         model.addAttribute("interventions", Intervention.values());
         model.addAttribute("yesNo", YesNo.values());
+        model.addAttribute("mentalHealthScreeningType", MentalHealthScreeningType.values());
         model.addAttribute("showForm", Boolean.FALSE);
         model.addAttribute("showRisk", Boolean.FALSE);
         model.addAttribute("showSupport", Boolean.FALSE);
         model.addAttribute("showReferral", Boolean.FALSE);
         model.addAttribute("showDiagnosis", Boolean.FALSE);
         model.addAttribute("showIntervention", Boolean.FALSE);
+        model.addAttribute("formAction", "item.form");
         if(item.getScreenedForMentalHealth() != null) {
             if(item.getScreenedForMentalHealth().equals(YesNo.YES)) {
                 model.addAttribute("showForm", Boolean.TRUE);
@@ -163,6 +162,7 @@ public class MentalHealthScreeningController extends BaseController{
         Patient patient = patientService.get(id);
         model.addAttribute("pageTitle", APP_PREFIX + " " + patient.getName() + ": Mental Health Screening");
         model.addAttribute("patient", patient);
+        model.addAttribute("screens", service.findByPatient(patient));
         if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
@@ -191,7 +191,6 @@ public class MentalHealthScreeningController extends BaseController{
     
     @RequestMapping(value = "reload-form", method = RequestMethod.POST)
     public String reloadForm(ModelMap model, @ModelAttribute("item") MentalHealthScreening item) {
-        System.err.println("We are here bitches");
         return setUpModel(model, item);
     }
 }

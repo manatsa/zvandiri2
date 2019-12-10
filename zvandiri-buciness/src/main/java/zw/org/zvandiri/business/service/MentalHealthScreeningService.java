@@ -5,12 +5,14 @@
  */
 package zw.org.zvandiri.business.service;
 
+import java.util.List;
 import zw.org.zvandiri.business.domain.MentalHealthScreening;
+import zw.org.zvandiri.business.domain.Patient;
 
 /**
  *
  * @author tasu
  */
 public interface MentalHealthScreeningService extends GenericPatientHistoryService<MentalHealthScreening>{
-    
+    List<MentalHealthScreening> findByPatient(Patient patient);
 }

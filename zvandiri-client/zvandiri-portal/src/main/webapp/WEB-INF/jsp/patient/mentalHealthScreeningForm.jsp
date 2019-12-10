@@ -17,7 +17,7 @@
                 <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back To ${patient.name} Dashboard</a><br/><br/>
                 <div class="row">
                     <div class="col-lg-10">
-                        <form:form commandName="item">
+                        <form:form commandName="item" action="${formAction}">
                             <%@include file="../template/formState.jspf" %>
                             <form:hidden path="patient" value="${item.patient.id}"/>    
                             <div class="form-group">
@@ -32,10 +32,10 @@
                             </div>
                             <c:if test="${showForm}">
                                 <div class="form-group">
-                                    <label>Screening</label>
+                                    <label>Screening Type</label>
                                     <form:select path="screening" class="form-control">
                                         <form:option value="" label="--Select Item"/>
-                                        <form:options items="${screeningModes}" itemValue="code" itemLabel="name"/>
+                                        <form:options items="${mentalHealthScreeningType}" itemValue="code" itemLabel="name"/>
                                     </form:select>
                                     <p class="help-block">
                                         <form:errors path="screening" class="alert-danger"/>
@@ -181,9 +181,6 @@
         $("form").attr("action", "reload-form").submit();
     });
     $("#intervention").change(function () {
-        $("form").attr("action", "reload-form").submit();
-    });
-    $("#screening").change(function () {
         $("form").attr("action", "reload-form").submit();
     });
 </script>

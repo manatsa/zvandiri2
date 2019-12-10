@@ -95,6 +95,13 @@ public class MentalHealthScreeningServiceImpl implements MentalHealthScreeningSe
 
     @Override
     public MentalHealthScreening getByPatient(Patient patient) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    @Override
+    public List<MentalHealthScreening> findByPatient(Patient patient) {
         return repo.findByPatient(patient);
     }
+    
 }

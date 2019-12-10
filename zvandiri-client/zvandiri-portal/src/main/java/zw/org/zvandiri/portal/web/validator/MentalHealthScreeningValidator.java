@@ -21,6 +21,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import zw.org.zvandiri.business.domain.MentalHealthScreening;
+import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.MentalHealthScreeningService;
 
 /**
@@ -41,11 +42,41 @@ public class MentalHealthScreeningValidator implements Validator{
     @Override
     public void validate(Object o, Errors errors) {
         ValidationUtils.rejectIfEmpty(errors, "screenedForMentalHealth", "field.empty");
-        ValidationUtils.rejectIfEmpty(errors, "identifiedRisk", "field.empty");
-        ValidationUtils.rejectIfEmpty(errors, "actionTaken", "field.empty");
-        ValidationUtils.rejectIfEmpty(errors, "mentalScreenResult", "field.empty");
         MentalHealthScreening item = (MentalHealthScreening) o;
         MentalHealthScreening old = null;
+        if(item.getScreenedForMentalHealth() != null && item.getScreenedForMentalHealth().equals(YesNo.YES)) {
+            ValidationUtils.rejectIfEmpty(errors, "screening", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "risk", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "support", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "referral", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "diagnosis", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "intervention", "field.empty");
+            if(item.getRisk() != null && item.getRisk().equals(YesNo.YES)) {
+                if(item.getIdentifiedRisks() == null) {
+                    ValidationUtils.rejectIfEmpty(errors, "identifiedRisks", "item.select.one");
+                }
+            }
+            if(item.getSupport()!= null && item.getSupport().equals(YesNo.YES)) {
+                if(item.getSupports() == null) {
+                    ValidationUtils.rejectIfEmpty(errors, "supports", "item.select.one");
+                }
+            }
+            if(item.getReferral()!= null && item.getReferral().equals(YesNo.YES)) {
+                if(item.getReferrals() == null) {
+                    ValidationUtils.rejectIfEmpty(errors, "referrals", "item.select.one");
+                }
+            }
+            if(item.getDiagnosis()!= null && item.getDiagnosis().equals(YesNo.YES)) {
+                if(item.getDiagnoses() == null) {
+                    ValidationUtils.rejectIfEmpty(errors, "diagnoses", "item.select.one");
+                }
+            }
+            if(item.getIntervention()!= null && item.getIntervention().equals(YesNo.YES)) {
+                if(item.getInterventions() == null) {
+                    ValidationUtils.rejectIfEmpty(errors, "interventions", "item.select.one");
+                }
+            }
+        }
         if(item.getPatient() != null){
             old = service.getByPatient(item.getPatient());
         }

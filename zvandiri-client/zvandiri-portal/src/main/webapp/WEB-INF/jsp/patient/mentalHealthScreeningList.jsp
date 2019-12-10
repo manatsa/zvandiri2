@@ -21,47 +21,39 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <b class="titleHeader">Mental Health Screening Detail</b><hr/>
-                        <c:if test="${item != null}">
-                            <table class="table-condensed" width="100%">
-                                <tr>
-                                    <th>Screened For Mental Health</th>
-                                    <td>${item.screenedForMentalHealth}</td>
-                                </tr>
-                                <tr>
-                                    <th>Identified Risks</th>
-                                    <td>${item.identifiedRisk}</td>
-                                </tr>
-                                <tr>
-                                    <th>Action Taken</th>
-                                    <td>${item.actionTaken.name}</td>
-                                </tr>
-                                <tr>
-                                    <th>Other</th>
-                                    <td>${item.actionTakenText}</td>
-                                </tr>
-                                <tr>
-                                    <th>Rescreened For Mental Health</th>
-                                    <td>${item.mentalScreenResult}</td>
-                                </tr>
-                                <tr>
-                                    <th>Identified Risks</th>
-                                    <td>${item.rescreenIdentifiedRisk}</td>
-                                </tr>
-                                <tr>
-                                    <th>Action Taken</th>
-                                    <td>${item.rescreenActionTaken.name}</td>
-                                </tr>
-                                <td>&nbsp;</td>
-                                <td>
-                                    <a href="${page}/beneficiary/mental-health-screening/item.form?itemId=${item.id}">Edit</a> | 
-                                    <c:if test="${canEdit}"><a href="${page}/beneficiary/mental-health-screening/item.delete?itemId=${item.id}">Delete</a></c:if>
-                                    </td>
+                        <div class="table-responsive">
+                            <table class="itemList" class="display" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Screened For Mental Health</th>
+                                        <th>Screening Type</th>
+                                        <th>Risk</th>
+                                        <td>Support</td>
+                                        <th>Referral</th>
+                                        <td>Diagnosis</td>
+                                        <td>Intervention</td>
+                                        <th>&nbsp;</th>
                                     </tr>
-                                </table>            
-                        </c:if>
-                        <c:if test="${item == null}">
-                            <c:if test="${canEdit}"><a href="${page}/beneficiary/mental-health-screening/item.form?patientId=${patient.id}">Add Mental Health Screening </a></c:if>
-                        </c:if>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="mental" items="${screens}">
+                                        <tr>
+                                            <td>${mental.screenedForMentalHealth}</td>
+                                            <td>${mental.screening}</td>
+                                            <td>${mental.risk}</td>
+                                            <td>${mental.support}</td>
+                                            <td>${mental.referral}</td>
+                                            <td>${mental.diagnosis}</td>
+                                            <td>${mental.intervention}</td>
+                                            <td>
+                                                <a href="${page}/beneficiary/mental-health-screening/item.form?itemId=${mental.id}">Edit</a> |
+                                                <c:if test="${canEdit}"><a href="${page}/beneficiary/mental-health-screening/item.delete?id=${mental.id}">Delete</a></c:if>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

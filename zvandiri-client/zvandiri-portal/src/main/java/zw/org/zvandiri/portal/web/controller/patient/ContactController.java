@@ -17,6 +17,8 @@ package zw.org.zvandiri.portal.web.controller.patient;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -99,6 +101,7 @@ public class ContactController extends BaseController {
     private ProvinceService provinceService;
     @Resource
     private UserRoleService userRoleService;
+    private final Logger LOG = Logger.getLogger(ContactController.class);
 
     public String setUpModel(ModelMap model, Contact item, String view) {
         Patient patient = item.getPatient();
@@ -159,6 +162,7 @@ public class ContactController extends BaseController {
             searchDTO.setProvince(item.getProvince());
             searchDTO.setDistrict(item.getDistrict());
             searchDTO.setUserRoles(userRoleService.findByNamesIn(new HashSet<>(Arrays.asList(new String [] {"ROLE_PSYCHOLOGIST", "ROLE_DOCTOR"}))));
+            LOG.debug("*********************** : " + searchDTO.getUserRoles());
             model.addAttribute("staff", userService.getUsers(searchDTO.getInstance(searchDTO)));
             model.addAttribute("internalStaff", Boolean.TRUE);
         }

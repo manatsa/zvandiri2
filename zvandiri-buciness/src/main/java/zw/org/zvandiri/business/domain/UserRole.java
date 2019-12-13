@@ -56,4 +56,10 @@ public class UserRole extends BaseName {
     public String getPrintName(){
         return StringUtils.toCamelCase3(super.getName());
     }
+
+	@Override
+	public String toString() {
+		return "UserRole [printName=" + printName + ", users=" + users + ", getName()=" + getName() + "]";
+	}
+    
 }

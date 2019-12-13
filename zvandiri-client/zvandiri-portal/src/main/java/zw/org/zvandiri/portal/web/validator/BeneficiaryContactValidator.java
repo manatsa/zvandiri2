@@ -98,6 +98,9 @@ public class BeneficiaryContactValidator implements Validator {
                 && item.getReferredPerson() == null) {
             errors.rejectValue("referredPerson", "field.empty");
         }
+        if (item.getVisitOutcome() == null) {
+            errors.rejectValue("visitOutcome", "field.empty");
+        }
         // validating viral load and cd4 count
         
     }

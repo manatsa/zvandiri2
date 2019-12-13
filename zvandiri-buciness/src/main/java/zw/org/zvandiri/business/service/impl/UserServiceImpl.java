@@ -143,7 +143,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getUsers(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("from User u left join fetch u.userRoles");
+        StringBuilder builder = new StringBuilder("from User u ");
         int position = 0;
         if (dto.getProvince() != null) {
             if (position == 0) {
@@ -177,12 +177,12 @@ public class UserServiceImpl implements UserService {
                 builder.append(" and u.userLevel=:userLevel");
             }
         }
-        if (dto.getUserRoles() != null) {
+        if (dto.getUserRoles() != null && !dto.getUserRoles().isEmpty()) {
             if (position == 0) {
-                builder.append("where u.userRoles in (:userRoles)");
+                builder.append("where u.userRoles in :userRoles");
                 position++;
             } else {
-                builder.append(" and u.userRoles in (:userRoles)");
+                builder.append(" and u.userRoles in :userRoles");
             }
         }
         builder.append(" order by u.lastName, u.firstName ASC");

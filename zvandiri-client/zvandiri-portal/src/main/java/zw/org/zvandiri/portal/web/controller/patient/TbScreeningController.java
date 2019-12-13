@@ -25,13 +25,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.domain.TbScreening;
+import zw.org.zvandiri.business.domain.TbIpt;
 import zw.org.zvandiri.business.domain.util.Result;
+import zw.org.zvandiri.business.domain.util.TbIdentificationOutcome;
+import zw.org.zvandiri.business.domain.util.TbSymptom;
 import zw.org.zvandiri.business.domain.util.TbTreatmentOutcome;
 import zw.org.zvandiri.business.domain.util.TbTreatmentStatus;
 import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.PatientService;
-import zw.org.zvandiri.business.service.TbScreeningService;
+import zw.org.zvandiri.business.service.TbIptService;
 import zw.org.zvandiri.business.util.dto.ItemDeleteDTO;
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
@@ -50,36 +52,61 @@ public class TbScreeningController extends BaseController {
     @Resource
     private PatientService patientService;
     @Resource
-    private TbScreeningService service;
+    private TbIptService service;
     @Resource
     private TbScreeningValidator validator;
 
-    public String setUpModel(ModelMap map, TbScreening item) {
+    public String setUpModel(ModelMap map, TbIpt item) {
         map.addAttribute("pageTitle", APP_PREFIX + " " + item.getPatient().getName()+ "'s Tb Screening History");
         map.addAttribute("item", item);
         map.addAttribute("patient", item.getPatient());
-        map.addAttribute("results", Result.values());
         map.addAttribute("yesNo", YesNo.values());
         map.addAttribute("outcomes", TbTreatmentOutcome.values());
-        map.addAttribute("status", TbTreatmentStatus.values());
+        map.addAttribute("symptoms", TbSymptom.values());
+        map.addAttribute("tbIdentificationOutcomes", TbIdentificationOutcome.values());
         setViralLoad(map, item.getPatient());
         map.addAttribute("formAction", "item.form");
+        map.addAttribute("showForm", Boolean.FALSE);
+        map.addAttribute("showActionTaken", Boolean.FALSE);
+        map.addAttribute("onTbTreatment", Boolean.FALSE);
+        map.addAttribute("onIpt", Boolean.FALSE);
+        
+        if(item.getScreenedForTb() != null && item.getScreenedForTb().equals(YesNo.YES)) {
+            map.addAttribute("showForm", Boolean.TRUE);
+        }else{
+            map.addAttribute("showForm", Boolean.FALSE);
+        }
+        if(item.getIdentifiedWithTb()!= null && item.getIdentifiedWithTb().equals(YesNo.YES)) {
+            map.addAttribute("showActionTaken", Boolean.TRUE);
+        }else{
+            map.addAttribute("showActionTaken", Boolean.FALSE);
+        }
+        if(item.getTbIdentificationOutcome()!= null && item.getTbIdentificationOutcome().equals(TbIdentificationOutcome.ON_TB_TREATMENT)) {
+            map.addAttribute("onTbTreatment", Boolean.TRUE);
+        }else{
+            map.addAttribute("onTbTreatment", Boolean.FALSE);
+        }
+        if(item.getOnIpt()!= null && item.getOnIpt().equals(YesNo.YES)) {
+            map.addAttribute("onIpt", Boolean.TRUE);
+        }else{
+            map.addAttribute("onIpt", Boolean.FALSE);
+        }
         return "patient/tbScreeningForm";
     }
 
     @RequestMapping(value = "item.form", method = RequestMethod.GET)
     public String getForm(ModelMap map, @RequestParam(required = false) String id, @RequestParam(required = false) String patientId) {
-        TbScreening item;
+        TbIpt item;
         if (id != null) {
             item = service.get(id);
             return setUpModel(map, item);
         }
-        item = new TbScreening(patientService.get(patientId));
+        item = new TbIpt(patientService.get(patientId));
         return setUpModel(map, item);
     }
 
     @RequestMapping(value = "item.form", method = RequestMethod.POST)
-    public String saveItem(ModelMap map, @ModelAttribute("item") @Valid TbScreening item, BindingResult result) {
+    public String saveItem(ModelMap map, @ModelAttribute("item") @Valid TbIpt item, BindingResult result) {
         validator.validate(item, result);
         map.addAttribute("message", new AppMessage.MessageBuilder().build());
         if (result.hasErrors()) {
@@ -98,8 +125,9 @@ public class TbScreeningController extends BaseController {
         if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
+        getPatientStatus(item, model);
         setViralLoad(model, item);
-        model.addAttribute("items", service.getByPatient(item));
+        model.addAttribute("tbScreen", service.getByPatient(item));
         return "patient/tbScreeningList";
     }
 
@@ -115,9 +143,14 @@ public class TbScreeningController extends BaseController {
 
     @RequestMapping(value = "item.delete", method = RequestMethod.POST)
     public String delete(@Valid ItemDeleteDTO dto) {
-        TbScreening item = service.get(dto.getId());
+        TbIpt item = service.get(dto.getId());
         Patient patient = item.getPatient();
         service.delete(item);
         return "redirect:item.list?type=2&id=" + patient.getId();
+    }
+    
+    @RequestMapping(value = "reload-form", method = RequestMethod.POST)
+    public String reloadForm(ModelMap model, @ModelAttribute("item") TbIpt item) {
+        return setUpModel(model, item);
     }
 }

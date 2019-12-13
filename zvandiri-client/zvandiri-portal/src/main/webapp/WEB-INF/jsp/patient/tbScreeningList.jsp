@@ -15,46 +15,66 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-lg-6"><a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back To ${patient.name} Dashboard</a></div>
+                </div> 
+                <br/>
+                <div class="row">
                     <div class="col-lg-12">
-                        <b class="titleHeader">TB Screening Detail</b> | <a href="item.form?patientId=${patient.id}">Add TB Screening Item </a>
-                        <hr/>
-                        <div class="table-responsive">
-                            <table class="itemList" class="display" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>Are You Coughing?</th>
-                                        <th>Are You Sweating?</th>
-                                        <th>Have you had Unintentional weight loss in last 6 months?</th>
-                                        <th>Have you had a fever ?</th>
-                                        <th>Currently On TB Treatment?</th>
-                                        <th>Type Of Drug</th>
-                                        <th>TB Outcome</th>
-                                        <th>TB Contacts Page</th>
-                                        <th>TB Treatment Outcome</th>
-                                        <th>&nbsp;</th>
+                        <b class="titleHeader">TB Screening Detail</b><hr/>
+                        <c:if test="${tbScreen != null}">
+                            <table class="table-condensed" width="100%">
+                                <tr>
+                                    <th>Screened For Tb</th>
+                                    <td>${tbScreen.screenedForTb}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date Screened</th>
+                                    <td>${tbScreen.dateScreened}</td>
+                                </tr>
+                                <tr>
+                                    <th>Presence with signs or symptoms of TB</th>
+                                    <td>${tbScreen.tbSymptoms}</td>
+                                </tr>
+                                <tr>
+                                    <th>Identified with TB</th>
+                                    <td>${tbScreen.identifiedWithTb}</td>
+                                </tr>
+                                <tr>
+                                    <th>Action Taken</th>
+                                    <td>${tbScreen.tbIdentificationOutcome}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date Started Treatment</th>
+                                    <td>${tbScreen.dateStartedTreatment}</td>
+                                </tr>
+                                <tr>
+                                    <th>Outcome</th>
+                                    <td>${tbScreen.tbTreatmentOutcome}</td>
+                                </tr>
+                                <tr>
+                                    <th>Referred For IPT</th>
+                                    <td>${tbScreen.referredForIpt}</td>
+                                </tr>
+                                <tr>
+                                    <th>On IPT</th>
+                                    <td>${tbScreen.onIpt}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date Started On IPT</th>
+                                    <td>${tbScreen.dateStartedIpt}</td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        <a href="${page}/patient/tb-screening/item.form?id=${tbScreen.id}">Edit</a> | 
+                                        <c:if test="${canEdit}"><a href="${page}/patient/tb-screening/item.delete?id=${tbScreen.id}">Delete</a></c:if>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="item" items="${items}">
-                                        <tr>
-                                            <td>${item.coughing}</td>
-                                            <td>${item.sweating}</td>
-                                            <td>${item.weightLoss}</td>
-                                            <td>${item.fever}</td>
-                                            <td>${item.currentlyOnTreatment}</td>
-                                            <td>${item.typeOfDrug}</td>
-                                            <td>${item.tbOutcome}</td>
-                                            <td>${item.tbTreatmentStatus}</td>
-                                            <td>${item.tbTreatmentOutcome}</td>
-                                            <td>
-                                                <a href="item.form?id=${item.id}">Edit</a> |
-                                                <a href="item.delete?id=${item.id}">Delete</a>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
+                                </table>            
+                        </c:if>
+                        <c:if test="${tbScreen == null}">
+                            <c:if test="${canEdit}"><a href="${page}/patient/tb-screening/item.form?patientId=${patient.id}">Add TB Screening </a></c:if>
+                        </c:if>
                     </div>
                 </div>
             </div>

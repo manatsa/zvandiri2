@@ -19,94 +19,102 @@
                         <form:form commandName="item" action="${formAction}">
                             <%@include file="../template/formState.jspf" %>
                             <form:hidden path="patient" value="${item.patient.id}"/>
-                            <label>TB Screening Questions</label>
                             <div class="form-group">
-                                <label>Are you coughing?</label>
-                                <form:select path="coughing" class="form-control">
+                                <label>Screened For Tb</label>
+                                <form:select path="screenedForTb" class="form-control">
                                     <form:option value="" label="--Select Item"/>
                                     <form:options items="${yesNo}" itemValue="code" itemLabel="name"/>
                                 </form:select>
                                 <p class="help-block">
-                                    <form:errors path="coughing" class="alert-danger"/>
+                                    <form:errors path="screenedForTb" class="alert-danger"/>
                                 </p>
                             </div>
-                            <div class="form-group">
-                                <label>Are you sweating?</label>
-                                <form:select path="sweating" class="form-control">
-                                    <form:option value="" label="--Select Item"/>
-                                    <form:options items="${yesNo}" itemValue="code" itemLabel="name"/>
-                                </form:select>
-                                <p class="help-block">
-                                    <form:errors path="sweating" class="alert-danger"/>
-                                </p>
-                            </div>
-                            <div class="form-group">
-                                <label>Have you had Unintentional weight loss in last 6months?</label>
-                                <form:select path="weightLoss" class="form-control">
-                                    <form:option value="" label="--Select Item"/>
-                                    <form:options items="${yesNo}" itemValue="code" itemLabel="name"/>
-                                </form:select>
-                                <p class="help-block">
-                                    <form:errors path="weightLoss" class="alert-danger"/>
-                                </p>
-                            </div>
-                            <div class="form-group">
-                                <label>Have you had a fever ?</label>
-                                <form:select path="fever" class="form-control">
-                                    <form:option value="" label="--Select Item"/>
-                                    <form:options items="${yesNo}" itemValue="code" itemLabel="name"/>
-                                </form:select>
-                                <p class="help-block">
-                                    <form:errors path="fever" class="alert-danger"/>
-                                </p>
-                            </div>
-                            <div class="form-group">
-                                <label>Currently On TB Treatment</label>
-                                <form:select path="currentlyOnTreatment" class="form-control">
-                                    <form:option value="" label="--Select Item"/>
-                                    <form:options items="${yesNo}" itemValue="code" itemLabel="name"/>
-                                </form:select>
-                                <p class="help-block">
-                                    <form:errors path="currentlyOnTreatment" class="alert-danger"/>
-                                </p>
-                            </div>
-                            <div class="form-group">
-                                <label>Type Of Drug</label>
-                                <form:input path="typeOfDrug" class="form-control"/>
-                                <p class="help-block">
-                                    <form:errors path="typeOfDrug" class="alert-danger"/>
-                                </p>
-                            </div>
-                            <div class="form-group">
-                                <label>TB Outcome</label>
-                                <form:select path="tbOutcome" class="form-control">
-                                    <form:option value="" label="--Select Item"/>
-                                    <form:options items="${results}" itemValue="code" itemLabel="name"/>
-                                </form:select>
-                                <p class="help-block">
-                                    <form:errors path="tbOutcome" class="alert-danger"/>
-                                </p>
-                            </div>
-                            <div class="form-group">
-                                <label>TB Contacts Page</label>
-                                <form:select path="tbTreatmentStatus" class="form-control">
-                                    <form:option value="" label="--Select Item"/>
-                                    <form:options items="${status}" itemValue="code" itemLabel="name"/>
-                                </form:select>
-                                <p class="help-block">
-                                    <form:errors path="tbTreatmentStatus" class="alert-danger"/>
-                                </p>
-                            </div>
-                            <div class="form-group">
-                                <label>TB Treatment Outcome</label>
-                                <form:select path="tbTreatmentOutcome" class="form-control">
-                                    <form:option value="" label="--Select Item"/>
-                                    <form:options items="${outcomes}" itemValue="code" itemLabel="name"/>
-                                </form:select>
-                                <p class="help-block">
-                                    <form:errors path="tbTreatmentOutcome" class="alert-danger"/>
-                                </p>
-                            </div>
+                            <c:if test="${showForm}">
+                                <div class="form-group">
+                                    <label>Date Screened</label>
+                                    <form:input path="dateScreened" class="form-control general"/>
+                                    <p class="help-block">
+                                        <form:errors path="dateScreened" class="alert-danger"/>
+                                    </p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Presence with signs or symptoms of TB</label><br/>
+                                    <form:checkboxes path="tbSymptoms" items="${symptoms}" itemLabel="name" itemValue="code" delimiter="<br/>"/>
+                                    <p class="help-block">
+                                        <form:errors path="tbSymptoms" class="alert-danger"/>
+                                    </p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Identified with TB</label>
+                                    <form:select path="identifiedWithTb" class="form-control">
+                                        <form:option value="" label="--Select Item"/>
+                                        <form:options items="${yesNo}" itemValue="code" itemLabel="name"/>
+                                    </form:select>
+                                    <p class="help-block">
+                                        <form:errors path="identifiedWithTb" class="alert-danger"/>
+                                    </p>
+                                </div>
+                                <c:if test="${showActionTaken}">
+                                    <div class="form-group">
+                                        <label>Action Taken</label>
+                                        <form:select path="tbIdentificationOutcome" class="form-control">
+                                            <form:option value="" label="--Select Item"/>
+                                            <form:options items="${tbIdentificationOutcomes}" itemValue="code" itemLabel="name"/>
+                                        </form:select>
+                                        <p class="help-block">
+                                            <form:errors path="tbIdentificationOutcome" class="alert-danger"/>
+                                        </p>
+                                    </div>
+                                    <c:if test="${onTbTreatment}">
+                                        <div class="form-group">
+                                            <label>Date Started Treatment</label>
+                                            <form:input path="dateStartedTreatment" class="form-control general"/>
+                                            <p class="help-block">
+                                                <form:errors path="dateStartedTreatment" class="alert-danger"/>
+                                            </p>
+                                        </div>
+                                    </c:if>
+                                </c:if>
+                                <div class="form-group">
+                                    <label>Outcome</label>
+                                    <form:select path="tbTreatmentOutcome" class="form-control">
+                                        <form:option value="" label="--Select Item"/>
+                                        <form:options items="${outcomes}" itemValue="code" itemLabel="name"/>
+                                    </form:select>
+                                    <p class="help-block">
+                                        <form:errors path="tbTreatmentOutcome" class="alert-danger"/>
+                                    </p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Referred For IPT</label>
+                                    <form:select path="referredForIpt" class="form-control">
+                                        <form:option value="" label="--Select Item"/>
+                                        <form:options items="${yesNo}" itemValue="code" itemLabel="name"/>
+                                    </form:select>
+                                    <p class="help-block">
+                                        <form:errors path="referredForIpt" class="alert-danger"/>
+                                    </p>
+                                </div>
+                                <div class="form-group">
+                                    <label>On IPT</label>
+                                    <form:select path="onIpt" class="form-control">
+                                        <form:option value="" label="--Select Item"/>
+                                        <form:options items="${yesNo}" itemValue="code" itemLabel="name"/>
+                                    </form:select>
+                                    <p class="help-block">
+                                        <form:errors path="onIpt" class="alert-danger"/>
+                                    </p>
+                                </div>
+                                <c:if test="${onIpt}">
+                                    <div class="form-group">
+                                        <label>Date Started On IPT</label>
+                                        <form:input path="dateStartedIpt" class="form-control general"/>
+                                        <p class="help-block">
+                                            <form:errors path="dateStartedIpt" class="alert-danger"/>
+                                        </p>
+                                    </div>
+                                </c:if>
+                            </c:if>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Save</button>
                                 <a href="#"><button class="btn btn-primary" type="button">Cancel</button></a>
@@ -120,4 +128,16 @@
 </div>
 <%@include file="../template/footer.jspf" %>
 <script type="text/javascript">
+    $("#screenedForTb").change(function () {
+        $("form").attr("action", "reload-form").submit();
+    });
+    $("#identifiedWithTb").change(function () {
+        $("form").attr("action", "reload-form").submit();
+    });
+    $("#tbIdentificationOutcome").change(function () {
+        $("form").attr("action", "reload-form").submit();
+    });
+    $("#onIpt").change(function () {
+        $("form").attr("action", "reload-form").submit();
+    });
 </script>

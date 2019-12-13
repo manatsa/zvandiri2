@@ -139,6 +139,7 @@ public class Contact extends BaseEntity {
     @Enumerated
     private VisitOutcome visitOutcome;
     @Transient
+    private String referredPersonId;
     private TestResult viralLoad;
     @Transient
     private TestResult cd4Count;
@@ -412,28 +413,36 @@ public class Contact extends BaseEntity {
         return null;
     }
 
-	public TestResult getViralLoad() {
-		return viralLoad;
-	}
+    public String getReferredPersonId() {
+        return referredPersonId;
+    }
 
-	public void setViralLoad(TestResult viralLoad) {
-		this.viralLoad = viralLoad;
-	}
+    public void setReferredPersonId(String referredPersonId) {
+        this.referredPersonId = referredPersonId;
+    }
 
-	public TestResult getCd4Count() {
-		return cd4Count;
-	}
+    public TestResult getViralLoad() {
+        return viralLoad;
+    }
 
-	public void setCd4Count(TestResult cd4Count) {
-		this.cd4Count = cd4Count;
-	}
+    public void setViralLoad(TestResult viralLoad) {
+        this.viralLoad = viralLoad;
+    }
 
-	public VisitOutcome getVisitOutcome() {
-		return visitOutcome;
-	}
+    public TestResult getCd4Count() {
+        return cd4Count;
+    }
 
-	public void setVisitOutcome(VisitOutcome visitOutcome) {
-		this.visitOutcome = visitOutcome;
-	}
-    
+    public void setCd4Count(TestResult cd4Count) {
+        this.cd4Count = cd4Count;
+    }
+
+    public VisitOutcome getVisitOutcome() {
+        return visitOutcome;
+    }
+
+    public void setVisitOutcome(VisitOutcome visitOutcome) {
+        this.visitOutcome = visitOutcome;
+    }
+
 }

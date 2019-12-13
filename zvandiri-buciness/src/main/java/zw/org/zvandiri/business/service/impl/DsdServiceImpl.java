@@ -8,13 +8,13 @@ package zw.org.zvandiri.business.service.impl;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.domain.MentalHealthScreening;
-import zw.org.zvandiri.business.repo.MentalHealthScreeningRepo;
-import zw.org.zvandiri.business.service.MentalHealthScreeningService;
+import zw.org.zvandiri.business.domain.Dsd;
+import zw.org.zvandiri.business.repo.DsdRepo;
+import zw.org.zvandiri.business.service.DsdService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.UUIDGen;
 
@@ -22,22 +22,22 @@ import zw.org.zvandiri.business.util.UUIDGen;
  *
  * @author tasu
  */
-@Repository
+@Service
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
-public class MentalHealthScreeningServiceImpl implements MentalHealthScreeningService{
-    
+public class DsdServiceImpl implements DsdService {
+
     @Resource
-    private MentalHealthScreeningRepo repo;
+    private DsdRepo repo;
     @Resource
     private UserService userService;
-    
+
     @Override
-    public List<MentalHealthScreening> getAll() {
+    public List<Dsd> getAll() {
         return repo.findByActive(Boolean.TRUE);
     }
 
     @Override
-    public MentalHealthScreening get(String id) {
+    public Dsd get(String id) {
         if (id == null) {
             throw new IllegalStateException("Item to be does not exist :" + id);
         }
@@ -45,7 +45,7 @@ public class MentalHealthScreeningServiceImpl implements MentalHealthScreeningSe
     }
 
     @Override
-    public void delete(MentalHealthScreening t) {
+    public void delete(Dsd t) {
         if (t.getId() == null) {
             throw new IllegalStateException("Item to be deleted is in an inconsistent state");
         }
@@ -53,12 +53,12 @@ public class MentalHealthScreeningServiceImpl implements MentalHealthScreeningSe
     }
 
     @Override
-    public List<MentalHealthScreening> getPageable() {
+    public List<Dsd> getPageable() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public MentalHealthScreening save(MentalHealthScreening t) {
+    public Dsd save(Dsd t) {
         if (t.getId() == null) {
             t.setId(UUIDGen.generateUUID());
             t.setCreatedBy(userService.getCurrentUser());
@@ -71,7 +71,7 @@ public class MentalHealthScreeningServiceImpl implements MentalHealthScreeningSe
     }
 
     @Override
-    public Boolean checkDuplicate(MentalHealthScreening current, MentalHealthScreening old) {
+    public Boolean checkDuplicate(Dsd current, Dsd old) {
         if (current.getId() != null) {
             /**
              * @param current is in existence
@@ -94,14 +94,7 @@ public class MentalHealthScreeningServiceImpl implements MentalHealthScreeningSe
     }
 
     @Override
-    public MentalHealthScreening getByPatient(Patient patient) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
-    @Override
-    public List<MentalHealthScreening> findByPatient(Patient patient) {
+    public Dsd getByPatient(Patient patient) {
         return repo.findByPatient(patient);
     }
-    
 }

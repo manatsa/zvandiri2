@@ -5,6 +5,7 @@
  */
 package zw.org.zvandiri.business.repo;
 
+import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import zw.org.zvandiri.business.domain.MentalHealthScreening;
@@ -16,5 +17,6 @@ import zw.org.zvandiri.business.domain.Patient;
  */
 public interface MentalHealthScreeningRepo extends AbstractRepo<MentalHealthScreening, String>{
     @Query("from MentalHealthScreening s left join fetch s.patient left join fetch s.modifiedBy left join fetch s.createdBy where s.patient=:patient")
-    public MentalHealthScreening findByPatient(@Param("patient") Patient patient);
+    //public MentalHealthScreening findByPatient(@Param("patient") Patient patient);
+    List<MentalHealthScreening> findByPatient(@Param("patient") Patient patient);
 }

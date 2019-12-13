@@ -26,9 +26,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.MentalHealthScreening;
+import zw.org.zvandiri.business.domain.util.Diagnosis;
 import zw.org.zvandiri.business.domain.util.Gender;
 import zw.org.zvandiri.business.domain.util.IdentifiedRisk;
-import zw.org.zvandiri.business.domain.util.MentalScreenResult;
+import zw.org.zvandiri.business.domain.util.Intervention;
+import zw.org.zvandiri.business.domain.util.MentalHealthScreeningType;
+import zw.org.zvandiri.business.domain.util.Referral;
+import zw.org.zvandiri.business.domain.util.Support;
 import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.ActionTakenService;
 import zw.org.zvandiri.business.service.MentalHealthScreeningService;
@@ -63,10 +67,62 @@ public class MentalHealthScreeningController extends BaseController{
         model.addAttribute("pageTitle", APP_PREFIX + " " + item.getPatient().getName() + ": Mental Health Screening");
         model.addAttribute("patient", item.getPatient());
         model.addAttribute("item", item);
-        model.addAttribute("actionTakens", actionTakenService.getAll());
         model.addAttribute("risks", IdentifiedRisk.values());
-        model.addAttribute("results", MentalScreenResult.values());
+        model.addAttribute("supports", Support.values());
+        model.addAttribute("referrals", Referral.values());
+        model.addAttribute("diagnoses", Diagnosis.values());
+        model.addAttribute("interventions", Intervention.values());
         model.addAttribute("yesNo", YesNo.values());
+        model.addAttribute("mentalHealthScreeningType", MentalHealthScreeningType.values());
+        model.addAttribute("showForm", Boolean.FALSE);
+        model.addAttribute("showRisk", Boolean.FALSE);
+        model.addAttribute("showSupport", Boolean.FALSE);
+        model.addAttribute("showReferral", Boolean.FALSE);
+        model.addAttribute("showDiagnosis", Boolean.FALSE);
+        model.addAttribute("showIntervention", Boolean.FALSE);
+        model.addAttribute("formAction", "item.form");
+        if(item.getScreenedForMentalHealth() != null) {
+            if(item.getScreenedForMentalHealth().equals(YesNo.YES)) {
+                model.addAttribute("showForm", Boolean.TRUE);
+            }else{
+                model.addAttribute("showForm", Boolean.FALSE);
+            }
+        }
+        if(item.getRisk()!= null) {
+            if(item.getRisk().equals(YesNo.YES)) {
+                model.addAttribute("showRisk", Boolean.TRUE);
+            }else{
+                model.addAttribute("showRisk", Boolean.FALSE);
+            }
+        }
+        if(item.getSupport()!= null) {
+            if(item.getSupport().equals(YesNo.YES)) {
+                model.addAttribute("showSupport", Boolean.TRUE);
+            }else{
+                model.addAttribute("showSupport", Boolean.FALSE);
+            }
+        }
+        if(item.getReferral()!= null) {
+            if(item.getRisk().equals(YesNo.YES)) {
+                model.addAttribute("showReferral", Boolean.TRUE);
+            }else{
+                model.addAttribute("showReferral", Boolean.FALSE);
+            }
+        }
+        if(item.getDiagnosis()!= null) {
+            if(item.getRisk().equals(YesNo.YES)) {
+                model.addAttribute("showDiagnosis", Boolean.TRUE);
+            }else{
+                model.addAttribute("showDiagnosis", Boolean.FALSE);
+            }
+        }
+        if(item.getIntervention()!= null) {
+            if(item.getRisk().equals(YesNo.YES)) {
+                model.addAttribute("showIntervention", Boolean.TRUE);
+            }else{
+                model.addAttribute("showIntervention", Boolean.FALSE);
+            }
+        }
         getPatientStatus(item.getPatient(), model);
         setViralLoad(model, item.getPatient());
         return "patient/mentalHealthScreeningForm";
@@ -106,6 +162,7 @@ public class MentalHealthScreeningController extends BaseController{
         Patient patient = patientService.get(id);
         model.addAttribute("pageTitle", APP_PREFIX + " " + patient.getName() + ": Mental Health Screening");
         model.addAttribute("patient", patient);
+        model.addAttribute("screens", service.findByPatient(patient));
         if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
@@ -130,5 +187,10 @@ public class MentalHealthScreeningController extends BaseController{
         Patient patient = item.getPatient();
         service.delete(item);
         return "redirect:item.list?type=2&id=" + patient.getId();
+    }
+    
+    @RequestMapping(value = "reload-form", method = RequestMethod.POST)
+    public String reloadForm(ModelMap model, @ModelAttribute("item") MentalHealthScreening item) {
+        return setUpModel(model, item);
     }
 }

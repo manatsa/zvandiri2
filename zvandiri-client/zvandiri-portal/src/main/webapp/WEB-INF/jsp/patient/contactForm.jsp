@@ -270,18 +270,11 @@
                                                 <form:errors path="viralLoad.dateTaken" class="alert-danger"/>
                                             </p>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group viralLoad hide">
                                             <label>Viral Load Result</label>
                                             <form:input path="viralLoad.result" class="form-control viralLoadVal"/>
                                             <p class="help-block">
                                                 <form:errors path="viralLoad.result" class="alert-danger"/>
-                                            </p>
-                                        </div>
-                                        <div class="form-group viralLoad hide">
-                                            <label>Viral Load TND</label>
-                                            <form:input path="viralLoad.tnd" class="form-control viralLoadVal"/>
-                                            <p class="help-block">
-                                                <form:errors path="viralLoad.tnd" class="alert-danger"/>
                                             </p>
                                         </div>
                                         <div class="form-group viralLoad hide">
@@ -320,10 +313,10 @@
                                             </p>
                                         </div>
                                         <div class="form-group cd4Count hide">
-                                            <label>CD4 Count  TND</label>
-                                            <form:input path="cd4Count.tnd" class="form-control cd4CountVal"/>
+                                            <label>CD4 Count  Result</label>
+                                            <form:input path="cd4Count.result" class="form-control cd4CountVal"/>
                                             <p class="help-block">
-                                                <form:errors path="cd4Count.tnd" class="alert-danger"/>
+                                                <form:errors path="cd4Count.result" class="alert-danger"/>
                                             </p>
                                         </div>
                                         <div class="form-group cd4Count hide">

@@ -21,8 +21,19 @@
                             <%@include file="../template/formState.jspf" %>
                             <form:hidden path="patient" value="${item.patient.id}"/>
                             <form:hidden path="parent" value="${item.parent.id}"/>
+                            <form:errors path="*"/>
                             <div class="row">
                                 <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Visit Outcome</label>
+                                        <form:select path="visitOutcome" class="form-control">
+                                            <form:option value="" label="--Select Item"/>
+                                            <form:options itemValue="code" itemLabel="name"/>
+                                        </form:select>
+                                        <p class="help-block">
+                                            <form:errors path="visitOutcome" class="alert-danger"/>
+                                        </p>
+                                    </div>
                                     <div class="form-group">
                                         <label>Date of Contact</label>
                                         <form:input path="contactDate" class="form-control general"/>
@@ -183,7 +194,7 @@
                                             <form:errors path="followUp" class="alert-danger"/>
                                         </p>
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         <label>Action Taken</label><br/><br/>
                                         <form:select path="actionTaken" class="form-control">
@@ -238,6 +249,99 @@
                                             <p class="help-block">
                                                 <form:errors path="referredPerson" class="alert-danger"/>
                                             </p>
+                                        </div> 
+                                    </c:if>
+                                    <c:if test="${item.id == null}">
+                                        <!-- start investigations section here -->
+                                        <div class="form-group">
+                                            <label>Viral Load Results Available</label>
+                                            <form:select path="viralLoad.resultTaken" id="viralLoadResultTaken" class="form-control">
+                                                <form:option value="" label="--Select Item"/>
+                                                <form:options itemValue="code" itemLabel="name"/>
+                                            </form:select>
+                                            <p class="help-block">
+                                                <form:errors path="viralLoad.resultTaken" class="alert-danger"/>
+                                            </p>
+                                        </div>
+                                        <div class="form-group viralLoad hide">
+                                            <label>Viral Load Date Taken</label>
+                                            <form:input path="viralLoad.dateTaken" class="form-control general viralLoadVal"/>
+                                            <p class="help-block">
+                                                <form:errors path="viralLoad.dateTaken" class="alert-danger"/>
+                                            </p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Viral Load Result</label>
+                                            <form:input path="viralLoad.result" class="form-control viralLoadVal"/>
+                                            <p class="help-block">
+                                                <form:errors path="viralLoad.result" class="alert-danger"/>
+                                            </p>
+                                        </div>
+                                        <div class="form-group viralLoad hide">
+                                            <label>Viral Load TND</label>
+                                            <form:input path="viralLoad.tnd" class="form-control viralLoadVal"/>
+                                            <p class="help-block">
+                                                <form:errors path="viralLoad.tnd" class="alert-danger"/>
+                                            </p>
+                                        </div>
+                                        <div class="form-group viralLoad hide">
+                                            <label>Viral Load Source</label>
+                                            <form:select path="viralLoad.source" class="form-control viralLoadVal">
+                                                <form:option value="" label="--Select Item"/>
+                                                <form:options itemValue="code" itemLabel="name"/>
+                                            </form:select>
+                                            <p class="help-block">
+                                                <form:errors path="viralLoad.source" class="alert-danger"/>
+                                            </p>
+                                        </div>
+                                        <div class="form-group viralLoad hide">
+                                            <label>Viral Load Next Lab Due</label>
+                                            <form:input path="viralLoad.nextTestDate" class="form-control otherdate viralLoadVal"/>
+                                            <p class="help-block">
+                                                <form:errors path="viralLoad.nextTestDate" class="alert-danger"/>
+                                            </p>
+                                        </div>
+                                        <!-- start CD4 count section here -->
+                                        <div class="form-group">
+                                            <label>CD4 Count Results Available</label>
+                                            <form:select path="cd4Count.resultTaken" id="cd4CountResultTaken" class="form-control">
+                                                <form:option value="" label="--Select Item"/>
+                                                <form:options itemValue="code" itemLabel="name"/>
+                                            </form:select>
+                                            <p class="help-block">
+                                                <form:errors path="cd4Count.resultTaken" class="alert-danger"/>
+                                            </p>
+                                        </div>
+                                        <div class="form-group cd4Count hide">
+                                            <label>CD4 Count  Date Taken</label>
+                                            <form:input path="cd4Count.dateTaken" class="form-control general cd4CountVal"/>
+                                            <p class="help-block">
+                                                <form:errors path="cd4Count.dateTaken" class="alert-danger"/>
+                                            </p>
+                                        </div>
+                                        <div class="form-group cd4Count hide">
+                                            <label>CD4 Count  TND</label>
+                                            <form:input path="cd4Count.tnd" class="form-control cd4CountVal"/>
+                                            <p class="help-block">
+                                                <form:errors path="cd4Count.tnd" class="alert-danger"/>
+                                            </p>
+                                        </div>
+                                        <div class="form-group cd4Count hide">
+                                            <label>CD4 Count Source</label>
+                                            <form:select path="cd4Count.source" class="form-control cd4CountVal">
+                                                <form:option value="" label="--Select Item"/>
+                                                <form:options itemValue="code" itemLabel="name"/>
+                                            </form:select>
+                                            <p class="help-block">
+                                                <form:errors path="cd4Count.source" class="alert-danger"/>
+                                            </p>
+                                        </div>
+                                        <div class="form-group cd4Count hide">
+                                            <label>CD4 Count Next Lab Due</label>
+                                            <form:input path="cd4Count.nextTestDate" class="form-control otherdate cd4CountVal"/>
+                                            <p class="help-block">
+                                                <form:errors path="cd4Count.nextTestDate" class="alert-danger"/>
+                                            </p>
                                         </div>
                                     </c:if>
                                 </div>
@@ -264,12 +368,12 @@
         $("#currentElement").val($(window).scrollTop());
         $("form").attr("action", "reload-form").submit();
     });
-    
+
     $("#province").change(function () {
         $("#currentElement").val($(window).scrollTop());
         $("form").attr("action", "reload-form").submit();
     });
-    
+
     $("#district").change(function () {
         $("#currentElement").val($(window).scrollTop());
         $("form").attr("action", "reload-form").submit();
@@ -282,6 +386,36 @@
             $("#currentElement").val($(window).scrollTop());
             $("form").attr("action", "reload-form").submit();
         }
+    });
+    $("#viralLoadResultTaken").change(function () {
+        var name = $("#viralLoadResultTaken :selected").text();
+        if (name === "Yes") {
+            $(".viralLoad").removeClass("hide");
+        } else {
+            $(".viralLoadVal").val('');
+            $(".viralLoad").addClass("hide");
+        }
+    });
+    $("#cd4CountResultTaken").change(function () {
+        var name = $("#cd4CountResultTaken :selected").text();
+        if (name === "Yes") {
+            $(".cd4Count").removeClass("hide");
+        } else {
+            $(".cd4CountVal").val('');
+            $(".cd4Count").addClass("hide");
+        }
+    });
+    $(function () {
+        window.onload = function () {
+            var name = $("#viralLoadResultTaken :selected").text();
+            if (name === "Yes") {
+                $(".viralLoad").removeClass("hide");
+            }
+            var name = $("#cd4CountResultTaken :selected").text();
+            if (name === "Yes") {
+                $(".cd4Count").removeClass("hide");
+            }
+        };
     });
     $(window).scrollTop("<c:out value="${item.currentElement}"/>");
     //actionTaken

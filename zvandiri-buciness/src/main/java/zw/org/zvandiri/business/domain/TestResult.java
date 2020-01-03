@@ -21,8 +21,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import org.springframework.format.annotation.DateTimeFormat;
 import zw.org.zvandiri.business.domain.util.Cd4CountResultSource;
+import zw.org.zvandiri.business.domain.util.YesNo;
 
 /**
  *
@@ -43,6 +45,8 @@ public class TestResult extends BaseEntity {
     private String tnd;
     @Enumerated
     private Cd4CountResultSource source;
+    @Transient
+    private YesNo resultTaken;
 
     public TestResult() {
     }
@@ -97,6 +101,19 @@ public class TestResult extends BaseEntity {
 
     public void setTnd(String tnd) {
         this.tnd = tnd;
+    }
+
+    public YesNo getResultTaken() {
+        return resultTaken;
+    }
+
+    public void setResultTaken(YesNo resultTaken) {
+        this.resultTaken = resultTaken;
+    }
+
+    @Override
+    public String toString() {
+        return "TestResult{" + "patient=" + patient + ", dateTaken=" + dateTaken + ", nextTestDate=" + nextTestDate + ", result=" + result + ", tnd=" + tnd + ", source=" + source + ", resultTaken=" + resultTaken + '}';
     }
     
 }

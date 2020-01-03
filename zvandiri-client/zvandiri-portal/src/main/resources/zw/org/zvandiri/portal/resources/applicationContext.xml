@@ -107,6 +107,8 @@
                 <bean class="zw.org.zvandiri.portal.web.converter.DiagnosisConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.ReferralConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.SupportConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.TbIdentificationOutcomeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.TbSymptomConverter"/>
             </set>
         </property>
     </bean> 

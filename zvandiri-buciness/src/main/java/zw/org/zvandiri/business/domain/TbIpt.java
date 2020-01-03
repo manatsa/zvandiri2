@@ -60,6 +60,13 @@ public class TbIpt extends BaseEntity {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateStartedIpt;
 
+    public TbIpt() {
+    }
+    
+    public TbIpt(Patient patient) {
+        this.patient = patient;
+    }
+
     public Patient getPatient() {
         return patient;
     }
@@ -154,6 +161,24 @@ public class TbIpt extends BaseEntity {
 
     public void setDateStartedIpt(Date dateStartedIpt) {
         this.dateStartedIpt = dateStartedIpt;
+    }
+    
+    public String getSymptoms() {
+        if(tbSymptoms.isEmpty()){
+            return "";
+        }
+        StringBuilder r = new StringBuilder();
+        int pos = 1;
+        for(TbSymptom role : tbSymptoms){
+            if(pos < tbSymptoms.size()) {
+                r.append(role.getName());
+                r.append(" ,");
+            }else{
+                r.append(role.getName());
+            }
+            pos++;
+        }
+        return r.toString();
     }
     
 }

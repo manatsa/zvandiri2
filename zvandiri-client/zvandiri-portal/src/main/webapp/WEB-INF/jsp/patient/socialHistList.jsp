@@ -14,7 +14,7 @@
                         </div>
                     </div>
                 </div>
-                        <div class="row">
+                <div class="row">
                     <div class="col-lg-6"><a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back To ${patient.name} Dashboard</a></div>
                     <div class="col-lg-6">
                         <c:if test="${female}">
@@ -23,7 +23,7 @@
                         <c:if test="${!female}">
                             <a href="${page}/beneficiary/mental-health/item.list?id=${patient.id}">Next To Mental History &DoubleRightArrow;</a>
                         </c:if>                       
-                    
+
                     </div>
                 </div> 
                 <br/>
@@ -75,9 +75,9 @@
                                     <td>
                                         <a href="${page}/beneficiary/socialhist/item.form?itemId=${socialHist.id}">Edit</a> | 
                                         <c:if test="${canEdit}"><a href="${page}/beneficiary/socialhist/item.delete?itemId=${socialHist.id}">Delete</a></c:if>
-                                    </td>
-                                </tr>
-                            </table>            
+                                        </td>
+                                    </tr>
+                                </table>            
                         </c:if>
                         <c:if test="${socialHist == null}">
                             <c:if test="${canEdit}"><a href="${page}/beneficiary/socialhist/item.form?patientId=${patient.id}">Add Social History </a></c:if>

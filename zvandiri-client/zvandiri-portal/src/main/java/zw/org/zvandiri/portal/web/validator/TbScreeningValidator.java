@@ -19,27 +19,41 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-import zw.org.zvandiri.business.domain.TbScreening;
+import zw.org.zvandiri.business.domain.TbIpt;
+import zw.org.zvandiri.business.domain.util.TbIdentificationOutcome;
+import zw.org.zvandiri.business.domain.util.YesNo;
 
 /**
  *
  * @author tasu
  */
 @Component
-public class TbScreeningValidator implements Validator{
-    
+public class TbScreeningValidator implements Validator {
+
     @Override
     public boolean supports(Class<?> type) {
-        return TbScreening.class.equals(type);
+        return TbIpt.class.equals(type);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        ValidationUtils.rejectIfEmpty(errors, "coughing", "field.empty");
-        ValidationUtils.rejectIfEmpty(errors, "sweating", "field.empty");
-        ValidationUtils.rejectIfEmpty(errors, "weightLoss", "field.empty");
-        ValidationUtils.rejectIfEmpty(errors, "fever", "field.empty");
-        ValidationUtils.rejectIfEmpty(errors, "currentlyOnTreatment", "field.empty");
-        ValidationUtils.rejectIfEmpty(errors, "tbOutcome", "field.empty");
+        ValidationUtils.rejectIfEmpty(errors, "screenedForTb", "field.empty");
+        TbIpt item = (TbIpt) o;
+        if (item.getScreenedForTb() != null && item.getScreenedForTb().equals(YesNo.YES)) {
+            ValidationUtils.rejectIfEmpty(errors, "dateScreened", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "identifiedWithTb", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "tbTreatmentOutcome", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "referredForIpt", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "onIpt", "field.empty");
+        }
+        if (item.getIdentifiedWithTb() != null && item.getIdentifiedWithTb().equals(YesNo.YES)) {
+            ValidationUtils.rejectIfEmpty(errors, "tbIdentificationOutcome", "field.empty");
+        }
+        if (item.getTbIdentificationOutcome() != null && item.getTbIdentificationOutcome().equals(TbIdentificationOutcome.ON_TB_TREATMENT)) {
+            ValidationUtils.rejectIfEmpty(errors, "dateStartedTreatment", "field.empty");
+        }
+        if (item.getOnIpt() != null && item.getOnIpt().equals(YesNo.YES)) {
+            ValidationUtils.rejectIfEmpty(errors, "dateStartedIpt", "field.empty");
+        }
     }
 }

@@ -109,6 +109,8 @@
                 <bean class="zw.org.zvandiri.portal.web.converter.SupportConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.TbIdentificationOutcomeConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.TbSymptomConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.LabTaskConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.DifferentiatedServiceConverter"/>
             </set>
         </property>
     </bean> 

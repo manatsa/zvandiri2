@@ -151,6 +151,16 @@
                                         </p>
                                     </div>
                                     <div class="form-group">
+                                        <label>Differentiated Service Delivery</label>
+                                        <form:select path="differentiatedService" class="form-control">
+                                            <form:option value="" label="--Select Item"/>
+                                            <form:options itemValue="code" itemLabel="name"/>
+                                        </form:select>
+                                        <p class="help-block">
+                                            <form:errors path="differentiatedService" class="alert-danger"/>
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
                                         <label>Plan</label>
                                         <form:textarea path="plan" rows="5" class="form-control"/>
                                         <p class="help-block">

@@ -35,6 +35,7 @@ import org.hibernate.annotations.Formula;
 import org.springframework.format.annotation.DateTimeFormat;
 import zw.org.zvandiri.business.domain.util.CareLevel;
 import zw.org.zvandiri.business.domain.util.ContactPhoneOption;
+import zw.org.zvandiri.business.domain.util.DifferentiatedService;
 import zw.org.zvandiri.business.domain.util.FollowUp;
 import zw.org.zvandiri.business.domain.util.Reason;
 import zw.org.zvandiri.business.domain.util.UserLevel;
@@ -79,6 +80,8 @@ public class Contact extends BaseEntity {
     private String subjective;
     @Column(columnDefinition = "text")
     private String objective;
+    @Enumerated
+    private DifferentiatedService differentiatedService;
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(name = "contact_lab_service", joinColumns = {
         @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
@@ -462,6 +465,14 @@ public class Contact extends BaseEntity {
 
     public void setLabTasks(Set<LabTask> labTasks) {
         this.labTasks = labTasks;
+    }
+
+    public DifferentiatedService getDifferentiatedService() {
+        return differentiatedService;
+    }
+
+    public void setDifferentiatedService(DifferentiatedService differentiatedService) {
+        this.differentiatedService = differentiatedService;
     }
 
 }

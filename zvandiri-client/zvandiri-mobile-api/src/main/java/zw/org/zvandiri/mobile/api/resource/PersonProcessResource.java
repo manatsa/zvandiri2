@@ -18,12 +18,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import zw.org.zvandiri.business.domain.Dsd;
 import zw.org.zvandiri.business.domain.HIVSelfTesting;
+import zw.org.zvandiri.business.domain.InvestigationTest;
 import zw.org.zvandiri.business.domain.MentalHealthScreening;
 import zw.org.zvandiri.business.domain.Mortality;
 import zw.org.zvandiri.business.domain.Person;
 import zw.org.zvandiri.business.domain.TbIpt;
 import zw.org.zvandiri.business.service.DsdService;
 import zw.org.zvandiri.business.service.HIVSelfTestingService;
+import zw.org.zvandiri.business.service.InvestigationTestService;
 import zw.org.zvandiri.business.service.MentalHealthScreeningService;
 import zw.org.zvandiri.business.service.MortalityService;
 import zw.org.zvandiri.business.service.PatientService;
@@ -55,6 +57,8 @@ public class PersonProcessResource {
     private PersonService personService;
     @Resource
     private MentalHealthScreeningService mentalHealthScreeningService;
+    @Resource
+    private InvestigationTestService investigationTestService;
 
     @POST
     @Path("/add-person")
@@ -77,7 +81,7 @@ public class PersonProcessResource {
     public ResponseEntity<Map<String, Object>> addHivSelfTesting(HIVSelfTesting item) {
         Map<String, Object> map = new HashMap<>();
         try {
-            item.setPatient(patientService.get(item.getPatient().getId()));
+            item.setPerson(personService.get(item.getPerson().getId()));
             hIVSelfTestingService.save(item);
         } catch (Exception e) {
             e.printStackTrace();
@@ -146,6 +150,22 @@ public class PersonProcessResource {
         } catch (Exception e) {
             e.printStackTrace();
             map.put("message", "System error occurred saving mental health screening");
+            return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        map.put("message", "Item saved");
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+    
+    @POST
+    @Path("/add-investigation-test")
+    public ResponseEntity<Map<String, Object>> addInvestigationTest(InvestigationTest item) {
+        Map<String, Object> map = new HashMap<>();
+        try {
+            item.setPatient(patientService.get(item.getPatient().getId()));
+            investigationTestService.save(item);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("message", "System error occurred saving Dsd");
             return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         map.put("message", "Item saved");

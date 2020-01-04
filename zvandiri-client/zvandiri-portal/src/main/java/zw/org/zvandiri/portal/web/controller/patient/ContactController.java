@@ -57,6 +57,7 @@ import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import zw.org.zvandiri.business.service.LabTaskService;
 
 import zw.org.zvandiri.portal.web.validator.BeneficiaryContactValidator;
 
@@ -101,6 +102,8 @@ public class ContactController extends BaseController {
     private ProvinceService provinceService;
     @Resource
     private UserRoleService userRoleService;
+    @Resource
+    private LabTaskService labTaskService;
     private final Logger LOG = Logger.getLogger(ContactController.class);
 
     public String setUpModel(ModelMap model, Contact item, String view) {
@@ -121,6 +124,7 @@ public class ContactController extends BaseController {
         model.addAttribute("nonClinicalAssessments", assessmentService.getByAssessmentType(ContactAssessment.NON_CLINICAL));
         model.addAttribute("actionTaken", actionTakenService.getAll());
         model.addAttribute("servicesOffered", serviceOfferedService.getAll());
+        model.addAttribute("labTasks", labTaskService.getAll());
         model.addAttribute("showProvince", Boolean.FALSE);
         model.addAttribute("showDistrict", Boolean.FALSE);
         if (item.getUserLevel() != null) {

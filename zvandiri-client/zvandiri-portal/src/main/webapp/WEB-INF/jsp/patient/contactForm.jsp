@@ -79,6 +79,23 @@
                                         </p>
                                     </div>
                                     <div class="form-group">
+                                        <label>Contact Type</label>
+                                        <form:select path="contactPhoneOption" class="form-control">
+                                            <form:option value="" label="--Select Item"/>
+                                            <form:options itemValue="code" itemLabel="name"/>
+                                        </form:select>
+                                        <p class="help-block">
+                                            <form:errors path="contactPhoneOption" class="alert-danger"/>
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Number of SMSes</label>
+                                        <form:input path="numberOfSms" class="form-control"/>
+                                        <p class="help-block">
+                                            <form:errors path="numberOfSms" class="alert-danger"/>
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
                                         <label>Contacted By</label>
                                         <form:select path="position" class="form-control">
                                             <form:option value="" label="--Select Item"/>

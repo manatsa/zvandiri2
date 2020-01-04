@@ -15,11 +15,16 @@
  */
 
 $('#tableList').dataTable({"aaSorting": []});
-    
+$('#userList').dataTable({"aaSorting": [], 
+    "search": {
+        "search": "Xxxxxxxxxx12345"
+    }});
+
 $('.itemList').dataTable({"aaSorting": []});
 $("#province").change(function () {
     $this = $(this);
-    if($this.val() === "") return;
+    if ($this.val() === "")
+        return;
     $("#supportGroup").html("--Select Item--");
     $("#primaryClinic").html("--Select Item--");
     $("#district").html("<option value=''>......... loading districts </option>");
@@ -64,7 +69,8 @@ $(".otherdate").datepicker({
 });
 $("#district").change(function () {
     $this = $(this);
-    if($this.val() === "") return;
+    if ($this.val() === "")
+        return;
     $("#primaryClinic").html("--Select Item--");
     $.get(path + "/global/getdistrictstations", {"district": $this.val()}, function (data) {
         $("#primaryClinic").html(processDropDown(data));
@@ -72,37 +78,39 @@ $("#district").change(function () {
 });
 $("#supportGroupDistrict").change(function () {
     $this = $(this);
-    if($this.val() === "") return;
+    if ($this.val() === "")
+        return;
     $("#supportGroup").html("<option value=''>......... loading support groups </option>");
     $.get(path + "/global/getdistrictsupportgroups", {"district": $this.val()}, function (data) {
         $("#supportGroup").html(processDropDown(data));
     });
 });
-$("#periodType").change(function(){
-   $this = $(this);
-   if($this.val() === "") return;
-   $.get(path+"/global/getperiods", {"periodType": $this.val()}, function(data){
-       if($this.val() === "1"){
-           $("#master-content-div").html(processPeriodDropDown(data, "period", "Month"));
-       } else if($this.val() === "2"){
-           $("#master-content-div").html(processPeriodDropDown(data, "quarterPeriod", "Quarters"));
-       } else if($this.val() === "3"){
-           $("#master-content-div").html(processPeriodDropDown(data, "halfYearPeriod", "Half Year"));
-       } else if($this.val() === "4"){
-           $("#master-content-div").html(processPeriodDropDown(data, "yearPeriod", "Year"));
-       }
-   });
+$("#periodType").change(function () {
+    $this = $(this);
+    if ($this.val() === "")
+        return;
+    $.get(path + "/global/getperiods", {"periodType": $this.val()}, function (data) {
+        if ($this.val() === "1") {
+            $("#master-content-div").html(processPeriodDropDown(data, "period", "Month"));
+        } else if ($this.val() === "2") {
+            $("#master-content-div").html(processPeriodDropDown(data, "quarterPeriod", "Quarters"));
+        } else if ($this.val() === "3") {
+            $("#master-content-div").html(processPeriodDropDown(data, "halfYearPeriod", "Half Year"));
+        } else if ($this.val() === "4") {
+            $("#master-content-div").html(processPeriodDropDown(data, "yearPeriod", "Year"));
+        }
+    });
 });
 
 function processDropDown(items) {
     var list = "<option value=''>--Select Item--</option>";
-    for(var x =0; x< items.length;x++){
-        list += "<option value='"+items[x].id+"'>"+items[x].name+"</option>";
+    for (var x = 0; x < items.length; x++) {
+        list += "<option value='" + items[x].id + "'>" + items[x].name + "</option>";
     }
     return list;
 }
-function processPeriodDropDown(items, elementName, elementLabel){
-    var str = "<label>"+elementLabel+"</label><select name='"+elementName+"' id ='"+elementName+"' class='form-control'>";
+function processPeriodDropDown(items, elementName, elementLabel) {
+    var str = "<label>" + elementLabel + "</label><select name='" + elementName + "' id ='" + elementName + "' class='form-control'>";
     str += processDropDown(items);
     str += "</select>";
     return str;
@@ -122,23 +130,23 @@ function monthDiff(d1, d2) {
 }
 
 // toggle side bar
-$("#toggle-rem-side-bar").click(function(){
-    if($("span.toggle-span").hasClass("fa-long-arrow-left")) {
-       $("span.toggle-span").removeClass("fa-long-arrow-left");
-       $("span.toggle-span").addClass("fa-long-arrow-right");
-       //hide side bar
-       $(".sidebar-nav").addClass("custom-side-bar-ref");
-       $("#page-wrapper").addClass("main-wrp");
-   }else if($("span.toggle-span").hasClass("fa-long-arrow-right")) {
-       $("span.toggle-span").removeClass("fa-long-arrow-right");
-       $("span.toggle-span").addClass("fa-long-arrow-left");
-       //restore side bar
-       $(".sidebar-nav").removeClass("custom-side-bar-ref");
-       $("#page-wrapper").removeClass("main-wrp");
-   }
+$("#toggle-rem-side-bar").click(function () {
+    if ($("span.toggle-span").hasClass("fa-long-arrow-left")) {
+        $("span.toggle-span").removeClass("fa-long-arrow-left");
+        $("span.toggle-span").addClass("fa-long-arrow-right");
+        //hide side bar
+        $(".sidebar-nav").addClass("custom-side-bar-ref");
+        $("#page-wrapper").addClass("main-wrp");
+    } else if ($("span.toggle-span").hasClass("fa-long-arrow-right")) {
+        $("span.toggle-span").removeClass("fa-long-arrow-right");
+        $("span.toggle-span").addClass("fa-long-arrow-left");
+        //restore side bar
+        $(".sidebar-nav").removeClass("custom-side-bar-ref");
+        $("#page-wrapper").removeClass("main-wrp");
+    }
 });
 
-$(".word-case").change(function(){
+$(".word-case").change(function () {
     $this = $(this);
     $this.val(jsUcfirst($this.val()));
 });
@@ -149,12 +157,12 @@ function jsUcfirst(string) {
     }
 }
 
-function gup( name, search_url ){
-    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-    var regexS = "[\\?&]"+name+"=([^&#]*)";
-    var regex = new RegExp( regexS );
-    var results = regex.exec( search_url );
-    if( results == null )
+function gup(name, search_url) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regexS = "[\\?&]" + name + "=([^&#]*)";
+    var regex = new RegExp(regexS);
+    var results = regex.exec(search_url);
+    if (results == null)
         return false;
     else
         return results[1];

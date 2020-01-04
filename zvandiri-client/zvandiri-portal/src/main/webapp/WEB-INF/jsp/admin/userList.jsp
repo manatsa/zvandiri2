@@ -10,7 +10,7 @@
             <%@include file="../template/message.jspf" %>
             <div class="row">
                 <div class="col-lg-10">
-                    <table id="tableList" class="display" cellspacing="0">
+                    <table id="userList" class="display" cellspacing="0">
                         <thead>
                         <th>Name</th>
                         <th>&nbsp</th>

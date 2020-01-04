@@ -143,7 +143,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getUsers(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("from User u ");
+        System.out.println("***********************************************************");
+        System.out.println("Whats this thing here : " + dto.getUserRoles().toString());
+        StringBuilder builder = new StringBuilder("from User u left join fetch u.userRoles");
         int position = 0;
         if (dto.getProvince() != null) {
             if (position == 0) {
@@ -155,7 +157,7 @@ public class UserServiceImpl implements UserService {
         }
         if (dto.getDistrict() != null) {
             if (position == 0) {
-                builder.append("where u.district=:district");
+                builder.append(" where u.district=:district");
                 position++;
             } else {
                 builder.append(" and u.district=:district");
@@ -163,7 +165,7 @@ public class UserServiceImpl implements UserService {
         }
         if (dto.getUserType() != null) {
             if (position == 0) {
-                builder.append("where u.userType=:userType");
+                builder.append(" where u.userType=:userType");
                 position++;
             } else {
                 builder.append(" and u.userType=:userType");
@@ -171,7 +173,7 @@ public class UserServiceImpl implements UserService {
         }
         if (dto.getUserLevel() != null) {
             if (position == 0) {
-                builder.append("where u.userLevel=:userLevel");
+                builder.append(" where u.userLevel=:userLevel");
                 position++;
             } else {
                 builder.append(" and u.userLevel=:userLevel");
@@ -179,10 +181,10 @@ public class UserServiceImpl implements UserService {
         }
         if (dto.getUserRoles() != null && !dto.getUserRoles().isEmpty()) {
             if (position == 0) {
-                builder.append("where u.userRoles in :userRoles");
+                builder.append(" where u.userRoles in (:userRoles)");
                 position++;
             } else {
-                builder.append(" and u.userRoles in :userRoles");
+                builder.append(" and u.userRoles in (:userRoles)");
             }
         }
         builder.append(" order by u.lastName, u.firstName ASC");
@@ -199,8 +201,8 @@ public class UserServiceImpl implements UserService {
         if (dto.getUserLevel() != null) {
             query.setParameter("userLevel", dto.getUserLevel());
         }
-        if (dto.getUserRoles() != null) {
-            query.setParameter("userRoles", dto.getUserRoles());
+        if (dto.getUserRoles() != null && !dto.getUserRoles().isEmpty()) {
+            query.setParameter("userRoles", dto.getUserRoles().toArray());
         }
         return query.getResultList();
     }

@@ -78,6 +78,23 @@
                                             <form:errors path="location" class="alert-danger"/>
                                         </p>
                                     </div>
+                                    <div class="form-group locationPhone hide">
+                                        <label>Contact Type</label>
+                                        <form:select path="contactPhoneOption" class="form-control">
+                                            <form:option value="" label="--Select Item"/>
+                                            <form:options itemValue="code" itemLabel="name"/>
+                                        </form:select>
+                                        <p class="help-block">
+                                            <form:errors path="contactPhoneOption" class="alert-danger"/>
+                                        </p>
+                                    </div>
+                                    <div class="form-group contactPhoneOptionSms hide">
+                                        <label>Number of SMSes</label>
+                                        <form:input path="numberOfSms" class="form-control"/>
+                                        <p class="help-block">
+                                            <form:errors path="numberOfSms" class="alert-danger"/>
+                                        </p>
+                                    </div>
                                     <div class="form-group">
                                         <label>Contacted By</label>
                                         <form:select path="position" class="form-control">
@@ -270,18 +287,11 @@
                                                 <form:errors path="viralLoad.dateTaken" class="alert-danger"/>
                                             </p>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group viralLoad hide">
                                             <label>Viral Load Result</label>
                                             <form:input path="viralLoad.result" class="form-control viralLoadVal"/>
                                             <p class="help-block">
                                                 <form:errors path="viralLoad.result" class="alert-danger"/>
-                                            </p>
-                                        </div>
-                                        <div class="form-group viralLoad hide">
-                                            <label>Viral Load TND</label>
-                                            <form:input path="viralLoad.tnd" class="form-control viralLoadVal"/>
-                                            <p class="help-block">
-                                                <form:errors path="viralLoad.tnd" class="alert-danger"/>
                                             </p>
                                         </div>
                                         <div class="form-group viralLoad hide">
@@ -320,10 +330,10 @@
                                             </p>
                                         </div>
                                         <div class="form-group cd4Count hide">
-                                            <label>CD4 Count  TND</label>
-                                            <form:input path="cd4Count.tnd" class="form-control cd4CountVal"/>
+                                            <label>CD4 Count  Result</label>
+                                            <form:input path="cd4Count.result" class="form-control cd4CountVal"/>
                                             <p class="help-block">
-                                                <form:errors path="cd4Count.tnd" class="alert-danger"/>
+                                                <form:errors path="cd4Count.result" class="alert-danger"/>
                                             </p>
                                         </div>
                                         <div class="form-group cd4Count hide">
@@ -405,6 +415,24 @@
             $(".cd4Count").addClass("hide");
         }
     });
+    $("#location").change(function () {
+        var name = $("#location :selected").text();
+        if (name === "Phone") {
+            $(".locationPhone").removeClass("hide");
+        } else {
+            $("#contactPhoneOption").val('');
+            $(".locationPhone").addClass("hide");
+        }
+    });
+    $("#contactPhoneOption").change(function () {
+        var name = $("#contactPhoneOption :selected").text();
+        if (name === "Sms") {
+            $(".contactPhoneOptionSms").removeClass("hide");
+        } else {
+            $("#numberOfSms").val('');
+            $(".contactPhoneOptionSms").addClass("hide");
+        }
+    });
     $(function () {
         window.onload = function () {
             var name = $("#viralLoadResultTaken :selected").text();
@@ -414,6 +442,14 @@
             var name = $("#cd4CountResultTaken :selected").text();
             if (name === "Yes") {
                 $(".cd4Count").removeClass("hide");
+            }
+            var name = $("#location :selected").text();
+            if (name === "Phone") {
+                $(".locationPhone").removeClass("hide");
+            }
+            var name = $("#contactPhoneOption :selected").text();
+            if (name === "Sms") {
+                $(".contactPhoneOptionSms").removeClass("hide");
             }
         };
     });

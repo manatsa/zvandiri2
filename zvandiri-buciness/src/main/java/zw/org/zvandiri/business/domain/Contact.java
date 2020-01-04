@@ -57,6 +57,7 @@ public class Contact extends BaseEntity {
     private CareLevel careLevel;
     @ManyToOne
     private Location location;
+    @Enumerated
     private ContactPhoneOption contactPhoneOption;
     private Integer numberOfSms;
     @ManyToOne

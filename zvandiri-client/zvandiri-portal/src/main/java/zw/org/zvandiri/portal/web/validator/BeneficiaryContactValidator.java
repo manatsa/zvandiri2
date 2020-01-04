@@ -27,6 +27,7 @@ import org.springframework.validation.Validator;
 
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.TestResult;
+import zw.org.zvandiri.business.domain.util.ContactPhoneOption;
 import zw.org.zvandiri.business.domain.util.FollowUp;
 import zw.org.zvandiri.business.domain.util.Reason;
 import zw.org.zvandiri.business.service.ContactService;
@@ -37,12 +38,12 @@ import zw.org.zvandiri.business.service.ContactService;
  */
 @Component
 public class BeneficiaryContactValidator implements Validator {
-    
+
     private final Logger LOG = Logger.getLogger("BeneficiaryContactValidator");
 
     @Resource
     private ContactService contactService;
-    
+
     @Override
     public boolean supports(Class<?> type) {
         return type.equals(Contact.class);
@@ -101,32 +102,44 @@ public class BeneficiaryContactValidator implements Validator {
         if (item.getLastClinicAppointmentDate() != null && item.getAttendedClinicAppointment() == null) {
             errors.rejectValue("attendedClinicAppointment", "field.empty");
         }
-        if (item.getActionTaken() != null && item.getActionTaken().getName().equalsIgnoreCase("Internal Referral") 
+        if (item.getActionTaken() != null && item.getActionTaken().getName().equalsIgnoreCase("Internal Referral")
                 && item.getReferredPerson() == null) {
             errors.rejectValue("referredPerson", "field.empty");
         }
         if (item.getVisitOutcome() == null) {
             errors.rejectValue("visitOutcome", "field.empty");
         }
+        if (item.getLocation() != null) {
+            if (item.getLocation().getName().equalsIgnoreCase("Phone")) {
+                if (item.getContactPhoneOption() == null) {
+                    errors.rejectValue("contactPhoneOption", "field.empty");
+                }
+                if (item.getContactPhoneOption() != null && item.getContactPhoneOption().equals(ContactPhoneOption.SMS)) {
+                    if (item.getNumberOfSms() == null || item.getNumberOfSms() == 0) {
+                        errors.rejectValue("numberOfSms", "field.empty");
+                    }
+                }
+            }
+        }
         // validating viral load and cd4 count
         if (item.getViralLoad() != null && item.getViralLoad().getDateTaken() != null) {
-                item.getViralLoad().setPatient(item.getPatient());
-        	validateViralLoad(item.getViralLoad(), errors);
+            item.getViralLoad().setPatient(item.getPatient());
+            validateViralLoad(item.getViralLoad(), errors);
         }
         // validating cd4 count
         if (item.getCd4Count() != null && item.getCd4Count().getDateTaken() != null) {
             item.getCd4Count().setPatient(item.getPatient());
-        	validateCd4Count(item.getCd4Count(), errors);
+            validateCd4Count(item.getCd4Count(), errors);
         }
-        
+
     }
-    
+
     public void validateViralLoad(TestResult item, Errors errors) {
         ValidationUtils.rejectIfEmpty(errors, "viralLoad.dateTaken", "field.empty");
-        if(item.getResult() != null && item.getTnd() != null){
+        if (item.getResult() != null && item.getTnd() != null) {
             errors.rejectValue("viralLoad.result", "tnd.viralload.both");
         }
-        if(item.getResult() == null && item.getTnd() == null){
+        if (item.getResult() == null && item.getTnd() == null) {
             errors.rejectValue("viralLoad.result", "tnd.viralload.missing");
         }
         if (item.getSource() == null) {
@@ -141,21 +154,21 @@ public class BeneficiaryContactValidator implements Validator {
         if (item.getDateTaken() != null && item.getDateTaken().after(new Date())) {
             errors.rejectValue("viralLoad.dateTaken", "date.aftertoday");
         }
-        if (item.getDateTaken() != null && 
-                item.getPatient().getDateOfBirth() != null && 
-                item.getDateTaken().before(
+        if (item.getDateTaken() != null
+                && item.getPatient().getDateOfBirth() != null
+                && item.getDateTaken().before(
                         item.getPatient().getDateOfBirth())) {
             errors.rejectValue("viralLoad.dateTaken", "date.beforebirth");
         }
     }
-    
+
     public void validateCd4Count(TestResult item, Errors errors) {
         ValidationUtils.rejectIfEmpty(errors, "cd4Count.dateTaken", "field.empty");
         ValidationUtils.rejectIfEmpty(errors, "cd4Count.result", "field.empty");
         if (item.getSource() == null) {
             errors.rejectValue("cd4Count.source", "field.empty");
         }
-        if(item.getResult() == null && item.getTnd() == null){
+        if (item.getResult() == null && item.getTnd() == null) {
             errors.rejectValue("cd4Count.result", "tnd.viralload.missing");
         }
         if (item.getDateTaken() != null && item.getDateTaken().after(new Date())) {
@@ -171,5 +184,5 @@ public class BeneficiaryContactValidator implements Validator {
             errors.rejectValue("cd4Count.nextTestDate", "date.future");
         }
     }
-    
+
 }

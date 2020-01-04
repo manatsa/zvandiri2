@@ -18,7 +18,7 @@
                     <div class="col-lg-10">
                         <form:form commandName="item" action="${formAction}">
                             <%@include file="../template/formState.jspf" %>
-                            <form:hidden path="patient" value="${item.patient.id}"/>
+                            <form:hidden path="person" value="${item.person.id}"/>
                             <div class="form-group">
                                 <label>Tested At Health Facility Result</label>
                                 <form:select path="testedAtHealthFacilityResult" class="form-control">

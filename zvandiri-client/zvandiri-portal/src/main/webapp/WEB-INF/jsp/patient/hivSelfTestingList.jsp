@@ -16,7 +16,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <b class="titleHeader">HIV Self-Testing Detail</b> | <a href="item.form?patientId=${patient.id}">Add HIV Self-Testing Item </a>
+                        <b class="titleHeader">HIV Self-Testing Detail</b> | <a href="item.form?patientId=${person.id}">Add HIV Self-Testing Item </a>
                         <hr/>
                         <div class="table-responsive">
                             <table class="itemList" class="display" cellspacing="0">

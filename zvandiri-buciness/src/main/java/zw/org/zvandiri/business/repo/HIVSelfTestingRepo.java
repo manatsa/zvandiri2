@@ -7,7 +7,7 @@ package zw.org.zvandiri.business.repo;
 
 import java.util.List;
 import zw.org.zvandiri.business.domain.HIVSelfTesting;
-import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.Person;
 
 /**
  *
@@ -15,5 +15,5 @@ import zw.org.zvandiri.business.domain.Patient;
  */
 public interface HIVSelfTestingRepo extends AbstractRepo<HIVSelfTesting, String>{
     
-    public List<HIVSelfTesting> findByPatient(Patient patient);
+    public List<HIVSelfTesting> findByPerson(Person person);
 }

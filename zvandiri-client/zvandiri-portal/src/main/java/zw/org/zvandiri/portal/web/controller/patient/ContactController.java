@@ -162,7 +162,6 @@ public class ContactController extends BaseController {
             searchDTO.setProvince(item.getProvince());
             searchDTO.setDistrict(item.getDistrict());
             searchDTO.setUserRoles(userRoleService.findByNamesIn(new HashSet<>(Arrays.asList(new String [] {"ROLE_PSYCHOLOGIST", "ROLE_DOCTOR"}))));
-            LOG.debug("*********************** : " + searchDTO.getUserRoles());
             model.addAttribute("staff", userService.getUsers(searchDTO.getInstance(searchDTO)));
             model.addAttribute("internalStaff", Boolean.TRUE);
         }

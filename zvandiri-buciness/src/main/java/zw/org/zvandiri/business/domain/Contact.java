@@ -40,7 +40,6 @@ import zw.org.zvandiri.business.domain.util.Reason;
 import zw.org.zvandiri.business.domain.util.UserLevel;
 import zw.org.zvandiri.business.domain.util.VisitOutcome;
 import zw.org.zvandiri.business.domain.util.YesNo;
-import zw.org.zvandiri.business.service.LabTaskService;
 
 /**
  *

@@ -25,12 +25,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import zw.org.zvandiri.business.domain.HIVSelfTesting;
-import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.Person;
 import zw.org.zvandiri.business.domain.util.Gender;
 import zw.org.zvandiri.business.domain.util.Result;
 import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.HIVSelfTestingService;
-import zw.org.zvandiri.business.service.PatientService;
+import zw.org.zvandiri.business.service.PersonService;
 import zw.org.zvandiri.business.util.dto.ItemDeleteDTO;
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
@@ -47,21 +47,20 @@ import zw.org.zvandiri.portal.web.validator.HIVSelfTestingValidator;
 public class HIVSelfTestingController extends BaseController {
 
     @Resource
-    private PatientService patientService;
+    private PersonService patientService;
     @Resource
     private HIVSelfTestingService hIVSelfTestingService;
     @Resource
     private HIVSelfTestingValidator validator;
 
     public String setUpModel(ModelMap map, HIVSelfTesting item) {
-        map.addAttribute("pageTitle", APP_PREFIX + " " + item.getPatient().getName() + "'s HIV Self Testing History");
+        map.addAttribute("pageTitle", APP_PREFIX + " " + item.getPerson().getNameOfClient()+ "'s HIV Self Testing History");
         map.addAttribute("item", item);
-        map.addAttribute("patient", item.getPatient());
+        map.addAttribute("person", item.getPerson());
         map.addAttribute("gender", Gender.values());
         map.addAttribute("results", Result.values());
         map.addAttribute("yesNo", YesNo.values());
         map.addAttribute("formAction", "item.form");
-        setViralLoad(map, item.getPatient());
         return "patient/hivSelfTestingForm";
     }
 
@@ -85,36 +84,35 @@ public class HIVSelfTestingController extends BaseController {
             return setUpModel(map, item);
         }
         hIVSelfTestingService.save(item);
-        return "redirect:item.list?type=1&id=" + item.getPatient().getId();
+        return "redirect:item.list?type=1&id=" + item.getPerson().getId();
     }
 
     @RequestMapping(value = "/item.list", method = RequestMethod.GET)
     public String getItemList(@RequestParam String id, @RequestParam(required = false) Integer type, ModelMap model) {
-        Patient item = patientService.get(id);
-        model.addAttribute("pageTitle", APP_PREFIX + " " + item.getName() + "'s HIV Self-Testing History");
+        Person item = patientService.get(id);
+        model.addAttribute("pageTitle", APP_PREFIX + " " + item.getNameOfClient()+ "'s HIV Self-Testing History");
         model.addAttribute("patient", item);
         if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
-        setViralLoad(model, item);
-        model.addAttribute("items", hIVSelfTestingService.getByPatient(item));
+        model.addAttribute("items", hIVSelfTestingService.getByPerson(item));
         return "patient/hivSelfTestingList";
     }
 
     @RequestMapping(value = "item.delete", method = RequestMethod.GET)
     public String getDeleteForm(@RequestParam("id") String id, ModelMap model) {
-        Patient patient = patientService.get(id);
-        ItemDeleteDTO dto = new ItemDeleteDTO(id, patient.getName(), "item.list");
+        Person patient = patientService.get(id);
+        ItemDeleteDTO dto = new ItemDeleteDTO(id, patient.getNameOfClient(), "item.list");
         model.addAttribute("item", dto);
         model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Are you sure you want to delete this record").messageType(MessageType.WARNING).build());
-        model.addAttribute("pageTitle", APP_PREFIX + "Delete " + patient.getName());
+        model.addAttribute("pageTitle", APP_PREFIX + "Delete " + patient.getNameOfClient());
         return "admin/deleteItem";
     }
 
     @RequestMapping(value = "item.delete", method = RequestMethod.POST)
     public String delete(@Valid ItemDeleteDTO dto) {
         HIVSelfTesting item = hIVSelfTestingService.get(dto.getId());
-        Patient patient = item.getPatient();
+        Person patient = item.getPerson();
         hIVSelfTestingService.delete(item);
         return "redirect:item.list?type=2&id=" + patient.getId();
     }

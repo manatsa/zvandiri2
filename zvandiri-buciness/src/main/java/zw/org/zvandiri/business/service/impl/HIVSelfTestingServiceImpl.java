@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.HIVSelfTesting;
-import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.Person;
 import zw.org.zvandiri.business.repo.HIVSelfTestingRepo;
 import zw.org.zvandiri.business.service.HIVSelfTestingService;
 import zw.org.zvandiri.business.service.UserService;
@@ -76,9 +76,10 @@ public class HIVSelfTestingServiceImpl implements HIVSelfTestingService{
     public Boolean checkDuplicate(HIVSelfTesting current, HIVSelfTesting old) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
-    public List<HIVSelfTesting> getByPatient(Patient patient){
-        return repo.findByPatient(patient);
+    public List<HIVSelfTesting> getByPerson(Person person) {
+        return repo.findByPerson(person);
     }
+    
 }

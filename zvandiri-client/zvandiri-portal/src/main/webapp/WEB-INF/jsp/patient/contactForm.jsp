@@ -237,7 +237,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Action Taken</label><br/><br/>
+                                        <label>Action Taken</label><br/>
                                         <form:select path="actionTaken" class="form-control">
                                             <form:option value="" label="--Select Item"/>
                                             <form:options items="${actionTaken}" itemValue="id" itemLabel="name"/>

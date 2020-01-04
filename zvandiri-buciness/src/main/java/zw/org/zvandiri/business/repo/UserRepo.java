@@ -16,10 +16,12 @@
 package zw.org.zvandiri.business.repo;
 
 import java.util.List;
+import java.util.Set;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import zw.org.zvandiri.business.domain.User;
+import zw.org.zvandiri.business.domain.UserRole;
 import zw.org.zvandiri.business.domain.util.UserType;
 import zw.org.zvandiri.business.util.IRepoConstant;
 
@@ -40,10 +42,10 @@ public interface UserRepo extends CrudRepository<User, String> {
 
     @Query("Select Distinct u from User u "+IRepoConstant.USER_CONSTANT+" where u.userName=:userName and u.active=:active")
     public User findByUserName(@Param("userName") String userName, @Param("active") Boolean active);
-
-//    @Query("from User p where p.userName=:userName")
-//    public boolean hasDuplicateUserName(User user, Boolean exists);
-    
+   
     @Query("Select Distinct u from User u "+IRepoConstant.USER_CONSTANT+" where u.userType in:userTypes")
     public List<User> findByUserType(@Param("userTypes") List<UserType> userTypes);
+    
+    @Query("Select Distinct u from User u "+IRepoConstant.USER_CONSTANT+" where u.userRoles in:userRoles")
+    public List<User> findByUserRoles(@Param("userRoles") Set<UserRole> userRoles);
 }

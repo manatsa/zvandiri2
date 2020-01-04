@@ -53,6 +53,9 @@ public class Contact extends BaseEntity {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date contactDate;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date nextClinicAppointmentDate;
     @Enumerated
     private CareLevel careLevel;
     @ManyToOne
@@ -173,6 +176,14 @@ public class Contact extends BaseEntity {
 
     public void setCareLevel(CareLevel careLevel) {
         this.careLevel = careLevel;
+    }
+
+    public Date getNextClinicAppointmentDate() {
+        return nextClinicAppointmentDate;
+    }
+
+    public void setNextClinicAppointmentDate(Date nextClinicAppointmentDate) {
+        this.nextClinicAppointmentDate = nextClinicAppointmentDate;
     }
 
     public Location getLocation() {
@@ -443,6 +454,14 @@ public class Contact extends BaseEntity {
 
     public void setVisitOutcome(VisitOutcome visitOutcome) {
         this.visitOutcome = visitOutcome;
+    }
+
+    public Set<LabTask> getLabTasks() {
+        return labTasks;
+    }
+
+    public void setLabTasks(Set<LabTask> labTasks) {
+        this.labTasks = labTasks;
     }
 
 }

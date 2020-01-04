@@ -163,14 +163,15 @@ public class ContactController extends BaseController {
             searchDTO.setDistrict(item.getDistrict());
             searchDTO.setUserRoles(userRoleService.findByNamesIn(new HashSet<>(Arrays.asList(new String [] {"ROLE_PSYCHOLOGIST", "ROLE_DOCTOR"}))));
             LOG.debug("*********************** : " + searchDTO.getUserRoles());
-            model.addAttribute("staff", userService.getUsers(searchDTO.getInstance(searchDTO)));
+            //model.addAttribute("staff", userService.getUsers(searchDTO.getInstance(searchDTO)));
+            model.addAttribute("staff", null);
             model.addAttribute("internalStaff", Boolean.TRUE);
         }
         // only do this when contact date is null meaning user is not in edit or view mode
         if (item.getContactDate() == null) {
             Contact latestContact = contactService.findLatestContact(patient);
             if (latestContact != null) {
-                item.setLastClinicAppointmentDate(latestContact.getContactDate());
+                item.setLastClinicAppointmentDate(latestContact.getNextClinicAppointmentDate());
                 item.setCareLevel(latestContact.getCareLevel());
             }
         }

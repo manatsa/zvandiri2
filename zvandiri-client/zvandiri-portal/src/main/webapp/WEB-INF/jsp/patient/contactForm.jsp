@@ -59,6 +59,13 @@
                                         </p>
                                     </div>
                                     <div class="form-group">
+                                        <label>Next Clinic Appointment Date</label>
+                                        <form:input path="nextClinicAppointmentDate" class="form-control general"/>
+                                        <p class="help-block">
+                                            <form:errors path="nextClinicAppointmentDate" class="alert-danger"/>
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
                                         <label>Current Level of Care</label>
                                         <form:select path="careLevel" class="form-control">
                                             <form:option value="" label="--Select Item"/>

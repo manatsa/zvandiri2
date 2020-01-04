@@ -121,6 +121,12 @@ public class BeneficiaryContactValidator implements Validator {
                 }
             }
         }
+        if (item.getNextClinicAppointmentDate() == null) {
+            errors.rejectValue("nextClinicAppointmentDate", "field.empty");
+        }
+        if (item.getNextClinicAppointmentDate() != null && item.getNextClinicAppointmentDate().before(new Date())) {
+            errors.rejectValue("nextClinicAppointmentDate", "date.future");
+        }
         // validating viral load and cd4 count
         if (item.getViralLoad() != null && item.getViralLoad().getDateTaken() != null) {
             item.getViralLoad().setPatient(item.getPatient());

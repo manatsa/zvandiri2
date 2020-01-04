@@ -78,7 +78,7 @@
                                             <form:errors path="location" class="alert-danger"/>
                                         </p>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group locationPhone hide">
                                         <label>Contact Type</label>
                                         <form:select path="contactPhoneOption" class="form-control">
                                             <form:option value="" label="--Select Item"/>
@@ -88,7 +88,7 @@
                                             <form:errors path="contactPhoneOption" class="alert-danger"/>
                                         </p>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group contactPhoneOptionSms hide">
                                         <label>Number of SMSes</label>
                                         <form:input path="numberOfSms" class="form-control"/>
                                         <p class="help-block">
@@ -415,6 +415,24 @@
             $(".cd4Count").addClass("hide");
         }
     });
+    $("#location").change(function () {
+        var name = $("#location :selected").text();
+        if (name === "Phone") {
+            $(".locationPhone").removeClass("hide");
+        } else {
+            $("#contactPhoneOption").val('');
+            $(".locationPhone").addClass("hide");
+        }
+    });
+    $("#contactPhoneOption").change(function () {
+        var name = $("#contactPhoneOption :selected").text();
+        if (name === "Sms") {
+            $(".contactPhoneOptionSms").removeClass("hide");
+        } else {
+            $("#numberOfSms").val('');
+            $(".contactPhoneOptionSms").addClass("hide");
+        }
+    });
     $(function () {
         window.onload = function () {
             var name = $("#viralLoadResultTaken :selected").text();
@@ -424,6 +442,14 @@
             var name = $("#cd4CountResultTaken :selected").text();
             if (name === "Yes") {
                 $(".cd4Count").removeClass("hide");
+            }
+            var name = $("#location :selected").text();
+            if (name === "Phone") {
+                $(".locationPhone").removeClass("hide");
+            }
+            var name = $("#contactPhoneOption :selected").text();
+            if (name === "Sms") {
+                $(".contactPhoneOptionSms").removeClass("hide");
             }
         };
     });

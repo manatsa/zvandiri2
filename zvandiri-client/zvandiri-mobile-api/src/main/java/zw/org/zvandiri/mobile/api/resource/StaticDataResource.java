@@ -37,6 +37,7 @@ import zw.org.zvandiri.business.domain.Facility;
 import zw.org.zvandiri.business.domain.HivCoInfection;
 import zw.org.zvandiri.business.domain.HospCause;
 import zw.org.zvandiri.business.domain.InternalReferral;
+import zw.org.zvandiri.business.domain.LabTask;
 import zw.org.zvandiri.business.domain.Location;
 import zw.org.zvandiri.business.domain.MentalHealth;
 import zw.org.zvandiri.business.domain.OrphanStatus;
@@ -65,6 +66,7 @@ import zw.org.zvandiri.business.service.FacilityService;
 import zw.org.zvandiri.business.service.HivCoInfectionService;
 import zw.org.zvandiri.business.service.HospCauseService;
 import zw.org.zvandiri.business.service.InternalReferralService;
+import zw.org.zvandiri.business.service.LabTaskService;
 import zw.org.zvandiri.business.service.LocationService;
 import zw.org.zvandiri.business.service.MentalHealthService;
 import zw.org.zvandiri.business.service.OrphanStatusService;
@@ -144,6 +146,8 @@ public class StaticDataResource {
     private ReasonForNotReachingOLevelService reasonForNotReachingOLevelService;
     @Resource
     private ServiceOfferedService serviceOfferedService;
+    @Resource
+    private LabTaskService labTaskService;
     @Resource
     private UserService userService;
     
@@ -317,5 +321,11 @@ public class StaticDataResource {
             list.add(UserDTO.getInstance(user));
         }
         return list;
+    }
+    
+    @GET
+    @Path("/lab-task-service")
+    public List<LabTask> getLabTaskService() {
+        return labTaskService.getAll();
     }
 }

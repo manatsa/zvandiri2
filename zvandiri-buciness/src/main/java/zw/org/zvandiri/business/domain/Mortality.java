@@ -41,13 +41,14 @@ public class Mortality extends BaseEntity {
     private String beneficiary;
     private String facility;
     private String cats;
+    private String zm;
     private String other;
     private YesNo contactWithZM;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateOfContactWithZim;
     @Column(columnDefinition = "text")
-    private String descriptionOfcase;
+    private String descriptionOfCase;
     private String learningPoints;
     private String actionPlan;
     @ManyToOne
@@ -172,12 +173,12 @@ public class Mortality extends BaseEntity {
         this.dateOfContactWithZim = dateOfContactWithZim;
     }
 
-    public String getDescriptionOfcase() {
-        return descriptionOfcase;
+    public String getDescriptionOfCase() {
+        return descriptionOfCase;
     }
 
-    public void setDescriptionOfcase(String descriptionOfcase) {
-        this.descriptionOfcase = descriptionOfcase;
+    public void setDescriptionOfCase(String descriptionOfCase) {
+        this.descriptionOfCase = descriptionOfCase;
     }
 
     public String getLearningPoints() {
@@ -204,4 +205,12 @@ public class Mortality extends BaseEntity {
         this.patient = patient;
     }
 
+    public String getZm() {
+        return zm;
+    }
+
+    public void setZm(String zm) {
+        this.zm = zm;
+    }
+    
 }

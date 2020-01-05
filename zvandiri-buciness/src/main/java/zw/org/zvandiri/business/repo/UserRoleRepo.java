@@ -22,6 +22,7 @@ import java.util.Set;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import zw.org.zvandiri.business.domain.User;
 import zw.org.zvandiri.business.domain.UserRole;
 import zw.org.zvandiri.business.util.IRepoConstant;
 /**
@@ -41,4 +42,7 @@ public interface UserRoleRepo extends CrudRepository<UserRole, String> {
     
     @Query("from UserRole p "+IRepoConstant.USER_ROLE_CONSTANT+" where p.name in (:names)")
     public Set<UserRole> findByNamesIn(@Param("names") Set<String> names);
+
+    @Query("Select distinct p.users from UserRole p left join p.users where p.name in (:names)")
+    public Set<User> findUsersInRoles(@Param("names") Set<String> names);
 }

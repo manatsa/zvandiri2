@@ -21,7 +21,6 @@
                             <%@include file="../template/formState.jspf" %>
                             <form:hidden path="patient" value="${item.patient.id}"/>
                             <form:hidden path="parent" value="${item.parent.id}"/>
-                            <form:errors path="*"/>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">

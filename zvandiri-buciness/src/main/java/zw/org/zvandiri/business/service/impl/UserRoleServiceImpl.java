@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import zw.org.zvandiri.business.domain.User;
 import zw.org.zvandiri.business.domain.UserRole;
 import zw.org.zvandiri.business.repo.UserRoleRepo;
 import zw.org.zvandiri.business.service.UserRoleService;
@@ -93,9 +94,15 @@ public class UserRoleServiceImpl implements UserRoleService {
         return false;
     }
 
-	@Override
-	public Set<UserRole> findByNamesIn(Set<String> names) {
-		return userRoleRepo.findByNamesIn(names);
-	}
-    
+    @Override
+    public Set<UserRole> findByNamesIn(Set<String> names) {
+        return userRoleRepo.findByNamesIn(names);
+    }
+
+    @Override
+    public Set<User> findUsersInRoles(Set<String> names) {
+        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&& : " + names);
+        return userRoleRepo.findUsersInRoles(names);
+    }
+
 }

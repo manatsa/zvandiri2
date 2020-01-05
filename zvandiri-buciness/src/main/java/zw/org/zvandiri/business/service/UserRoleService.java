@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package zw.org.zvandiri.business.service;
 
 import java.util.Set;
+import zw.org.zvandiri.business.domain.User;
 
 import zw.org.zvandiri.business.domain.UserRole;
-
-
 
 /**
  *
  * @author Judge Muzinda
  */
 public interface UserRoleService extends GenericNameService<UserRole> {
- 
-	public Set<UserRole> findByNamesIn(Set<String> names);
+
+    public Set<UserRole> findByNamesIn(Set<String> names);
+    
+    public Set<User> findUsersInRoles(Set<String> names);
 }

@@ -2,14 +2,12 @@ package zw.org.zvandiri.business.service.impl;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.Marker;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.User;
-import zw.org.zvandiri.business.domain.UserRole;
 import zw.org.zvandiri.business.domain.util.UserType;
 import zw.org.zvandiri.business.repo.UserRepo;
 import zw.org.zvandiri.business.service.UserRoleService;
@@ -149,7 +146,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getUsers(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("from User u");
+        StringBuilder builder = new StringBuilder("Select Distinct u from User u inner join u.userRoles");
         int position = 0;
         if (dto.getProvince() != null) {
             if (position == 0) {
@@ -183,14 +180,14 @@ public class UserServiceImpl implements UserService {
                 builder.append(" and u.userLevel=:userLevel");
             }
         }
-        /*if (dto.getUserRoles() != null && !dto.getUserRoles().isEmpty()) {
+        if (dto.getUserRoles() != null && !dto.getUserRoles().isEmpty()) {
             if (position == 0) {
-                builder.append(" where u.userRoles in (:userRoles)");
+                builder.append(" where :userRoles member of u.userRoles");
                 position++;
             } else {
-                builder.append(" and u.userRoles in (:userRoles)");
+                builder.append(" and :userRoles member of u.userRoles");
             }
-        }*/
+        }
         builder.append(" order by u.lastName, u.firstName ASC");
         TypedQuery<User> query = entityManager.createQuery(builder.toString(), User.class);
         if (dto.getProvince() != null) {

@@ -57,6 +57,7 @@ import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
 import zw.org.zvandiri.business.service.LabTaskService;
 
 import zw.org.zvandiri.portal.web.validator.BeneficiaryContactValidator;
@@ -161,14 +162,12 @@ public class ContactController extends BaseController {
         }
         if (item.getActionTaken() != null && item.getActionTaken().getName().equalsIgnoreCase("Internal Referral")) {
             // create a local SearchDTO instance here
-            SearchDTO searchDTO = new SearchDTO();
+            /*SearchDTO searchDTO = new SearchDTO();
             searchDTO.setUserLevel(item.getUserLevel());
             searchDTO.setProvince(item.getProvince());
             searchDTO.setDistrict(item.getDistrict());
-            searchDTO.setUserRoles(userRoleService.findByNamesIn(new HashSet<>(Arrays.asList(new String [] {"ROLE_PSYCHOLOGIST", "ROLE_DOCTOR"}))));
-            LOG.debug("*********************** : " + searchDTO.getUserRoles());
-            //model.addAttribute("staff", userService.getUsers(searchDTO.getInstance(searchDTO)));
-            model.addAttribute("staff", null);
+            searchDTO.setUserRoles(userRoleService.findByNamesIn(new HashSet<>(Arrays.asList(new String [] {"ROLE_PSYCHOLOGIST", "ROLE_DOCTOR"}))));*/
+            model.addAttribute("staff", userRoleService.findUsersInRoles(new HashSet<>(Arrays.asList(new String [] {"ROLE_PSYCHOLOGIST", "ROLE_DOCTOR"}))));
             model.addAttribute("internalStaff", Boolean.TRUE);
         }
         // only do this when contact date is null meaning user is not in edit or view mode

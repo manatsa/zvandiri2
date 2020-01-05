@@ -21,7 +21,6 @@
                             <%@include file="../template/formState.jspf" %>
                             <form:hidden path="patient" value="${item.patient.id}"/>
                             <form:hidden path="parent" value="${item.parent.id}"/>
-                            <form:errors path="*"/>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
@@ -237,7 +236,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Action Taken</label><br/><br/>
+                                        <label>Action Taken</label><br/>
                                         <form:select path="actionTaken" class="form-control">
                                             <form:option value="" label="--Select Item"/>
                                             <form:options items="${actionTaken}" itemValue="id" itemLabel="name"/>

@@ -127,9 +127,9 @@
                             </div> 
                             <div class="form-group">
                                 <label>Description of case </label>
-                                <form:textarea path="descriptionOfcase" rows="5" class="form-control"/>
+                                <form:textarea path="descriptionOfCase" rows="5" class="form-control" />
                                 <p class="help-block">
-                                    <form:errors path="descriptionOfcase" class="alert-danger"/>
+                                    <form:errors path="descriptionOfCase" class="alert-danger"/>
                                 </p>
                             </div> 
                             <div class="form-group">

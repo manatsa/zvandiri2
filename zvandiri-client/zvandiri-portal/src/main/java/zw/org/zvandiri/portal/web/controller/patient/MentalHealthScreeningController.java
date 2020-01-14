@@ -103,21 +103,21 @@ public class MentalHealthScreeningController extends BaseController{
             }
         }
         if(item.getReferral()!= null) {
-            if(item.getRisk().equals(YesNo.YES)) {
+            if(item.getReferral().equals(YesNo.YES)) {
                 model.addAttribute("showReferral", Boolean.TRUE);
             }else{
                 model.addAttribute("showReferral", Boolean.FALSE);
             }
         }
         if(item.getDiagnosis()!= null) {
-            if(item.getRisk().equals(YesNo.YES)) {
+            if(item.getDiagnosis().equals(YesNo.YES)) {
                 model.addAttribute("showDiagnosis", Boolean.TRUE);
             }else{
                 model.addAttribute("showDiagnosis", Boolean.FALSE);
             }
         }
         if(item.getIntervention()!= null) {
-            if(item.getRisk().equals(YesNo.YES)) {
+            if(item.getIntervention().equals(YesNo.YES)) {
                 model.addAttribute("showIntervention", Boolean.TRUE);
             }else{
                 model.addAttribute("showIntervention", Boolean.FALSE);

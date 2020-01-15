@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 jackie muzinda.
+ * Copyright 2020 jmuzinda.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,8 @@ import zw.org.zvandiri.report.api.GenericReportModel;
 
 /**
  *
- * @author jackie muzinda
+ * @author jmuzinda
  */
-public interface DataEntryReportService extends GenericReportService<GenericReportModel>{
+public interface DataEntryReportService extends GenericReportService<GenericReportModel> {
     
 }

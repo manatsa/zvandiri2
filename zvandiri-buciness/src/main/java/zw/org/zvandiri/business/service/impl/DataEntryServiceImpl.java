@@ -16,7 +16,6 @@
 package zw.org.zvandiri.business.service.impl;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
@@ -37,7 +36,7 @@ public class DataEntryServiceImpl implements DataEntryService{
     private EntityManager entityManager;
     
     @Override
-    public Long getCount(SearchDTO dto) {
+    public Long getPatientCount(SearchDTO dto) {
         StringBuilder builder = new StringBuilder("Select count(p) from Patient p");
         int position = 0;
         if(dto.getSearch(dto)){
@@ -114,5 +113,92 @@ public class DataEntryServiceImpl implements DataEntryService{
         return (Long) query.getSingleResult();
     }
     
+    @Override
+    public Long getContactCount(SearchDTO dto) {
+        StringBuilder builder = new StringBuilder("Select count(p) from Contact c");
+        int position = 0;
+        if(dto.getSearch(dto)){
+            builder.append(" where ");
+            if(dto.getCreatedBy() != null){
+                if(position == 0){
+                    builder.append("c.createdBy=:createdBy");
+                    position++;
+                }else{
+                    builder.append(" and c.createdBy=:createdBy");
+                }
+            }
+            if(dto.getStartDate() != null && dto.getEndDate() != null){
+                if(position == 0){
+                    builder.append("c.dateCreated between :startDate and :endDate");
+                    position++;
+                }else{
+                    builder.append(" and c.dateCreated between :startDate and :endDate");
+                }
+            }
+            if(dto.getUserType()!= null){
+                if(position == 0){
+                    builder.append("c.createdBy.userType=:userType");
+                    position++;
+                }else{
+                    builder.append(" and c.createdBy.userType=:userType");
+                }
+            }
+            if (dto.getProvince() != null) {
+                if (position == 0) {
+                    builder.append("c.patient.primaryClinic.district.province=:province");
+                    position++;
+                } else {
+                    builder.append(" and c.patient.primaryClinic.district.province=:province");
+                }
+            }
+            if (dto.getDistrict() != null) {
+                if (position == 0) {
+                    builder.append("c.patient.primaryClinic.district=:district");
+                    position++;
+                } else {
+                    builder.append(" and c.patient.primaryClinic.district=:district");
+                }
+            }
+            if (dto.getPrimaryClinic() != null) {
+                if (position == 0) {
+                    builder.append("c.patient.primaryClinic=:primaryClinic");
+                    position++;
+                } else {
+                    builder.append(" and c.patient.primaryClinic=:primaryClinic");
+                }
+            }
+        }
+        TypedQuery query = entityManager.createQuery(builder.toString(), Long.class);
+        if(dto.getCreatedBy() != null){
+            query.setParameter("createdBy", dto.getCreatedBy());
+        }
+        if(dto.getStartDate() != null && dto.getEndDate() != null){
+            query.setParameter("startDate", dto.getStartDate());
+            query.setParameter("endDate", dto.getEndDate());
+        }
+        if(dto.getUserType() != null){
+            query.setParameter("userType", dto.getUserType());
+        }
+        if (dto.getProvince() != null) {
+            query.setParameter("province", dto.getProvince());
+        }
+        if (dto.getDistrict() != null) {
+            query.setParameter("district", dto.getDistrict());
+        }
+        if (dto.getPrimaryClinic() != null) {
+            query.setParameter("primaryClinic", dto.getPrimaryClinic());
+        }
+        return (Long) query.getSingleResult();
+    }
+
+    @Override
+    public Long getReferralCount(SearchDTO dto) {
+        return 0L;
+    }
+
+    @Override
+    public Long getViralLoadCount(SearchDTO dto) {
+        return 1L;
+    }
     
 }

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package zw.org.zvandiri.business.domain;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -31,7 +30,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  */
 @MappedSuperclass
 abstract public class BaseEntity implements Serializable {
-    
+
     @Id
     private String id;
     private String uuid;
@@ -54,15 +53,14 @@ abstract public class BaseEntity implements Serializable {
     @Enumerated
     private RecordSource recordSource = RecordSource.WEB_APP;
 
-    
-    public BaseEntity(){
-        
+    public BaseEntity() {
+
     }
 
     public BaseEntity(String id) {
         this.id = id;
     }
-    
+
     public Long getVersion() {
         return version;
     }
@@ -70,12 +68,12 @@ abstract public class BaseEntity implements Serializable {
     public void setVersion(Long version) {
         this.version = version;
     }
-    
-    public String getId(){
+
+    public String getId() {
         return id;
     }
-    
-    public void setId(String id){
+
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -134,26 +132,26 @@ abstract public class BaseEntity implements Serializable {
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
     }
-    
+
     public RecordSource getRecordSource() {
-		return recordSource;
-	}
+        return recordSource;
+    }
 
-	public void setRecordSource(RecordSource recordSource) {
-		this.recordSource = recordSource;
-	}
+    public void setRecordSource(RecordSource recordSource) {
+        this.recordSource = recordSource;
+    }
 
-	@Override
+    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
         }
-        if (! (obj instanceof BaseEntity)) {
+        if (!(obj instanceof BaseEntity)) {
             return false;
         }
-        return this.getId().equals(((BaseEntity)obj).getId());
+        return this.getId().equals(((BaseEntity) obj).getId());
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;

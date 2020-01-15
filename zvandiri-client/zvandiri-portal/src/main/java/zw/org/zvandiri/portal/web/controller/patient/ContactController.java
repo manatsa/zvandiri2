@@ -221,9 +221,9 @@ public class ContactController extends BaseController {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
             return "patient/contactForm";
         }
-        //contactService.save(item);
+        contactService.save(item);
         //if external referral redirect to new referral form
-        if (item.getActionTaken().getName().equalsIgnoreCase("External Referral")) {
+        if (item.getActionTaken() != null && item.getActionTaken().getName().equalsIgnoreCase("External Referral")) {
             return "redirect:../../patient/referral/item.form?patientId=" + item.getPatient().getId();
         }
         return "redirect:../../patient/dashboard/profile.htm?type=1&id=" + item.getPatient().getId();

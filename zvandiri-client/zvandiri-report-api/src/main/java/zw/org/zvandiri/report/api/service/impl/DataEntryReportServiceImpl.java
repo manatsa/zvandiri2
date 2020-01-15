@@ -49,6 +49,8 @@ public class DataEntryReportServiceImpl implements DataEntryReportService{
         items.add("User");
         items.add("Records Captured");
         items.add("Contacts Captured");
+        items.add("Referrals Captured");
+        items.add("Viral Load Records Captured");
         list.add(new GenericReportModel(items));
         for(User user : users){
             dto.setCreatedBy(user);

@@ -36,4 +36,6 @@ public interface UserService extends GenericService<User> {
     public List<User> getByUserType();
     
     public List<User> getUsers(SearchDTO dto);
+    
+    public List<User> searchUsers(String [] names);
 }

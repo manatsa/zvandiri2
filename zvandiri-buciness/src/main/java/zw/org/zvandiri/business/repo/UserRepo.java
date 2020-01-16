@@ -48,4 +48,9 @@ public interface UserRepo extends CrudRepository<User, String> {
     
     @Query("Select Distinct u from User u "+IRepoConstant.USER_CONSTANT+" where u.userRoles in:userRoles")
     public List<User> findByUserRoles(@Param("userRoles") Set<UserRole> userRoles);
+    
+    @Query("Select Distinct u from User u "+IRepoConstant.USER_CONSTANT+" where (u.firstName LIKE :firstName% and lastName LIKE :lastName%) OR (u.firstName LIKE :lastName% and lastName LIKE :firstName%)")
+    public List<User> findByNames(String firstName, String lastName);
+
+    public List<User> findByUserNameLike(String string);
 }

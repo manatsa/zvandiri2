@@ -13,8 +13,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.Mortality;
 import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.repo.MortalityRepo;
 import zw.org.zvandiri.business.service.MortalityService;
+import zw.org.zvandiri.business.service.PatientService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.UUIDGen;
 
@@ -30,6 +32,8 @@ public class MortalityServiceImpl implements MortalityService{
     private MortalityRepo repo;
     @Resource
     private UserService userService;
+    @Resource
+    private PatientService patientService;
     
     @Override
     public List<Mortality> getAll() {
@@ -59,6 +63,9 @@ public class MortalityServiceImpl implements MortalityService{
 
     @Override
     public Mortality save(Mortality t) {
+        Patient patient = t.getPatient();
+        patient.setStatus(PatientChangeEvent.DECEASED);
+        patientService.save(patient);
         if (t.getId() == null) {
             t.setId(UUIDGen.generateUUID());
             t.setCreatedBy(userService.getCurrentUser());

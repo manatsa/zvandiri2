@@ -39,4 +39,6 @@ public interface CatDetailRepo extends AbstractRepo<CatDetail, String> {
     
     @Query("from Patient p left join fetch p.education left join fetch p.educationLevel left join fetch p.referer left join fetch p.primaryClinic left join fetch p.supportGroup where p.primaryClinic =:primaryClinic and p <> :patient order by p.lastName, p.firstName, p.middleName ASC")
     public List<Patient> findByPrimaryClinic(@Param("primaryClinic") Facility primaryClinic, @Param("patient") Patient patient);
+    
+    List<Patient> findByPrimaryClinic(Facility primaryClinic);
 }

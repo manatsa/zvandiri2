@@ -152,7 +152,7 @@ public class MentalHealthScreeningController extends BaseController{
         }
         service.save(item);
         if(item.getPatient().getGender() != null && item.getPatient().getGender().equals(Gender.MALE)){
-            return "redirect:../mental-health/item.list?type=1&id=" + item.getPatient().getId();
+            return "redirect:../mental-health-screening/item.list?type=1&id=" + item.getPatient().getId();
         }
         return "redirect:item.list?type=1&id=" + item.getPatient().getId();
     }

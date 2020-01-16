@@ -107,4 +107,5 @@ public class SrhHistServiceImpl implements SrhHistService {
     public SrhHist getByPatient(Patient patient) {
         return srhHistRepo.findByPatient(patient);
     }
+    
 }

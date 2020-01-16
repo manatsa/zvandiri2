@@ -99,8 +99,7 @@ public class InvestigationTestServiceImpl implements InvestigationTestService {
 
     @Override
     public InvestigationTest getLatestTestByTestType(Patient patient, TestType testType) {
-        
-        for (InvestigationTest item : getByPatientAndTestType(patient, testType)) {
+        for(InvestigationTest item : getByPatientAndTestType(patient, testType)){
             return item;
         }
         return null;

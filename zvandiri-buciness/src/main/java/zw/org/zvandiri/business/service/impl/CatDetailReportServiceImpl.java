@@ -18,14 +18,23 @@
 package zw.org.zvandiri.business.service.impl;
 
 import java.util.List;
+import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import zw.org.zvandiri.business.domain.ArvHist;
 import zw.org.zvandiri.business.domain.CatDetail;
+import zw.org.zvandiri.business.domain.InvestigationTest;
+import zw.org.zvandiri.business.domain.SrhHist;
+import zw.org.zvandiri.business.domain.util.TestType;
+import zw.org.zvandiri.business.domain.util.YesNo;
+import zw.org.zvandiri.business.service.ArvHistService;
 import zw.org.zvandiri.business.service.CatDetailReportService;
+import zw.org.zvandiri.business.service.InvestigationTestService;
+import zw.org.zvandiri.business.service.SrhHistService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 /**
@@ -38,8 +47,15 @@ public class CatDetailReportServiceImpl implements CatDetailReportService{
     
     @PersistenceContext
     private EntityManager entityManager;
+    @Resource
+    private InvestigationTestService investigationTestService;
+    @Resource
+    private ArvHistService arvHistService;
+    @Resource
+    private SrhHistService srhHistService;
 
-    public List<CatDetail> getCats(SearchDTO dto) {
+    @Override
+    public List<CatDetail> get(SearchDTO dto) {
         StringBuilder builder = new StringBuilder("Select Distinct p from CatDetail p");
         int position = 0;
         builder.append(" where ");
@@ -93,10 +109,10 @@ public class CatDetailReportServiceImpl implements CatDetailReportService{
         }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             if (position == 0) {
-                builder.append("p.patient.dateOfBirth between :startDate and :endDate");
+                builder.append("p.dateAsCat between :startDate and :endDate");
                 position++;
             } else {
-                builder.append(" and p.patient.dateOfBirth between :startDate and :endDate");
+                builder.append(" and p.dateAsCat between :startDate and :endDate");
             }
         }
 
@@ -124,6 +140,24 @@ public class CatDetailReportServiceImpl implements CatDetailReportService{
             query.setParameter("endDate", dto.getEndDate());
         }
         List<CatDetail> list = query.getResultList();
+        for(CatDetail catDetail : list) {
+            InvestigationTest test = investigationTestService.getLatestTestByTestType(catDetail.getPatient(), TestType.VIRAL_LOAD);
+            if(test != null) {
+                if(test.getResultTaken() == null) {
+                    test.setResultTaken(YesNo.YES);
+                }
+                catDetail.setVlDate(test.getDateTaken());
+                catDetail.setVlResultTaken(test.getResultTaken());
+            }
+            ArvHist hist = arvHistService.getLatest(catDetail.getPatient());
+            if(hist != null) {
+                catDetail.setRegimenDate(hist.getStartDate());
+            }
+            SrhHist srhHist = srhHistService.getByPatient(catDetail.getPatient());
+            if(srhHist != null) {
+                catDetail.setSexuallyActive(srhHist.getSexuallyActive());
+            }
+        }
         return list;
     }
 

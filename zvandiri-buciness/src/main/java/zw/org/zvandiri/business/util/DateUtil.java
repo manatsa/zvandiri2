@@ -89,6 +89,13 @@ public class DateUtil {
         cal.add(Calendar.DATE, factor);
         return cal.getTime();
     }
+    
+    public static Date getDateDiffYear(int factor, Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.YEAR, factor);
+        return cal.getTime();
+    }
 
     private static Integer getMonthEndDate() {
         Calendar cal = Calendar.getInstance();

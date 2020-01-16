@@ -77,7 +77,7 @@
                                     <a href="${page}/report/aggregate/data-entry.htm">Combined Data Entry Report</a>
                                 </td>
                                 <td>
-                                    &nbsp;
+                                    <a href="${page}/report/cat/detailed.htm">Cat Detailed Report</a>
                                 </td>
                             </tr>
                             <tr>

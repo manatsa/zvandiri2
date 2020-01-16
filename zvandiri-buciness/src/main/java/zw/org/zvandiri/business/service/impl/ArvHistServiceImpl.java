@@ -107,4 +107,13 @@ public class ArvHistServiceImpl implements ArvHistService {
     public List<ArvHist> getByPatient(Patient patient) {
         return arvHistRepo.findByPatient(patient);
     }
+
+    @Override
+    public ArvHist getLatest(Patient patient) {
+        for(ArvHist item : getByPatient(patient)) {
+            return item;
+        }
+        return null;
+    }
+    
 }

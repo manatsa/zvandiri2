@@ -15,6 +15,7 @@
  */
 package zw.org.zvandiri.business.service;
 
+import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.SrhHist;
 
 /**
@@ -22,5 +23,4 @@ import zw.org.zvandiri.business.domain.SrhHist;
  * @author Judge Muzinda
  */
 public interface SrhHistService extends GenericPatientHistoryService<SrhHist> {
-    
 }

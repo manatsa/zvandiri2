@@ -16,6 +16,7 @@
 package zw.org.zvandiri.report.api.service;
 
 import java.util.List;
+import zw.org.zvandiri.business.domain.CatDetail;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.report.api.GenericReportModel;
 
@@ -26,4 +27,5 @@ import zw.org.zvandiri.report.api.GenericReportModel;
 public interface DetailedReportService extends GenericReportService<GenericReportModel> {
     
     public List<GenericReportModel> get(List<Patient> patients);
+    List<GenericReportModel> getCatsDetailExcel(List<CatDetail> list);
 }

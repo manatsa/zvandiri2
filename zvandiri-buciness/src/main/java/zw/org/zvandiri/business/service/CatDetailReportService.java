@@ -15,6 +15,8 @@
  */
 package zw.org.zvandiri.business.service;
 
+import java.util.List;
+import zw.org.zvandiri.business.domain.CatDetail;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 /**
@@ -23,4 +25,5 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
  */
 public interface CatDetailReportService {
     public Long getPatientAboutToGraduate(SearchDTO dto);
+    List<CatDetail> get(SearchDTO dto);
 }

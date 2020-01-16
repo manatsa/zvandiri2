@@ -23,6 +23,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
+import zw.org.zvandiri.business.domain.util.YesNo;
+import zw.org.zvandiri.business.util.DateUtil;
 
 /**
  *
@@ -52,6 +54,19 @@ public class CatDetail extends BaseEntity {
     private District district;
     @Transient
     private String currentElement;
+    @Transient
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date vlDate;
+    @Transient
+    private YesNo vlResultTaken;
+    @Transient
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date regimenDate;
+    @Transient
+    private YesNo sexuallyActive;
+    
 
     public CatDetail() {
     }
@@ -138,5 +153,42 @@ public class CatDetail extends BaseEntity {
 
     public void setEmail(String email) {
         this.email = email;
-    }    
+    } 
+    
+    public String getGraduationDate() {
+        return DateUtil.formatDate(DateUtil.getDateDiffYear(24, patient.getDateOfBirth()));
+    }
+
+    public Date getVlDate() {
+        return vlDate;
+    }
+
+    public void setVlDate(Date vlDate) {
+        this.vlDate = vlDate;
+    }
+
+    public YesNo getVlResultTaken() {
+        return vlResultTaken;
+    }
+
+    public void setVlResultTaken(YesNo vlResultTaken) {
+        this.vlResultTaken = vlResultTaken;
+    }
+
+    public Date getRegimenDate() {
+        return regimenDate;
+    }
+
+    public void setRegimenDate(Date regimenDate) {
+        this.regimenDate = regimenDate;
+    }
+
+    public YesNo getSexuallyActive() {
+        return sexuallyActive;
+    }
+
+    public void setSexuallyActive(YesNo sexuallyActive) {
+        this.sexuallyActive = sexuallyActive;
+    }
+    
 }

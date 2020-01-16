@@ -148,9 +148,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> searchUsers(String [] names) {
         if (names.length == 1) {
-            return userRepo.findByUserNameLike("%"+names[0]);
+            return userRepo.findByUserNameLike(names[0]+"%");
         }
-        return userRepo.findByNames(names[0], names[1]);
+        //return userRepo.findByNames(names[0], names[1]);
+        return null;
     }
 
     @Override

@@ -17,7 +17,7 @@
                     <form method="post">
                         <div class="form-group">
                             <label>Search Users</label>
-                            <input type="text" name="search" placeholder="Search by username or first name or last name or both first name and lastname" id="search" class="form-control"/>
+                            <input type="text" name="search" placeholder="Search by username" id="search" class="form-control"/>
                         </div>
                     </form>
                     <table id="userListing" class="display hide" cellspacing="0">
@@ -54,7 +54,7 @@
             if (count - current >= 1) {
                 cancelAjaxRequest(search_url);
             }
-            search_url = $.get(path + "/user/search-users", {search: $this.val()}, function (us) {
+            search_url = $.get(path + "/admin/user/search-users", {search: $this.val()}, function (us) {
                 $("#userListing").dataTable().fnClearTable(true);
                 $("#userListing").removeClass("hide");
                 $("#userListing_paginate").removeClass("hide");
@@ -62,10 +62,10 @@
                 for (i = 0; i < us.length; i++) {
                     var user_url = "<a href='"+path+"/admin/user/user.form?id=" + us[i].id + "'>";
                     var manage_password_url = "<a href='"+path+"/admin/managepassword.htm?id=" + us[i].id + "'>";
-                    var change_priviledges_url = "<a href='"+path+"/admin/changeprivileges.htm?id=" + pat[i].id + "'>";
-                    var delete_user_url = "<a href='"+path+"/admin/user/user.delete?id=" + pat[i].id + "'>";
+                    var change_priviledges_url = "<a href='"+path+"/admin/changeprivileges.htm?id=" + us[i].id + "'>";
+                    var delete_user_url = "<a href='"+path+"/admin/user/user.delete?id=" + us[i].id + "'>";
                     $("#userListing").dataTable().fnAddData([user_url +us[i].userName+ "</a>",
-                        us[i].displayName,
+                        us[i].lastName +" "+us[i].firstName,
                         manage_password_url+"Change Password | </a>"+change_priviledges_url+"Edit Privileges | </a>" + delete_user_url+"Delete </a>"]);
                 }
             });

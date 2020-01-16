@@ -33,8 +33,6 @@ import zw.org.zvandiri.business.service.ProvinceService;
 import zw.org.zvandiri.business.service.UserRoleService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.dto.ItemDeleteDTO;
-import zw.org.zvandiri.business.util.dto.PatientSearchDTO;
-import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.business.util.dto.UserDTO;
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
@@ -128,7 +126,9 @@ public class UserController extends BaseController{
     @ResponseBody
     public List<UserDTO> searchPatient(@RequestParam("search") String search) {
         String[] names = search.split(" ");
-        return UserDTO.getInstance(userService.searchUsers(names));
+        List<UserDTO> users = UserDTO.getInstance(userService.searchUsers(names));
+        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& : " + users);
+        return users;
     }
     
     @RequestMapping(value = "user.delete", method = RequestMethod.GET)

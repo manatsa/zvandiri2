@@ -68,6 +68,7 @@ public class Contact extends BaseEntity {
     private Position position;
     @Enumerated
     private Reason reason;
+    private String otherReason;
     @ManyToOne
     private Period period;
     @ManyToOne
@@ -473,6 +474,14 @@ public class Contact extends BaseEntity {
 
     public void setDifferentiatedService(DifferentiatedService differentiatedService) {
         this.differentiatedService = differentiatedService;
+    }
+
+    public String getOtherReason() {
+        return otherReason;
+    }
+
+    public void setOtherReason(String otherReason) {
+        this.otherReason = otherReason;
     }
 
 }

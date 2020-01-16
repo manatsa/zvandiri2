@@ -30,7 +30,6 @@ import zw.org.zvandiri.business.domain.TestResult;
 import zw.org.zvandiri.business.domain.util.ContactPhoneOption;
 import zw.org.zvandiri.business.domain.util.FollowUp;
 import zw.org.zvandiri.business.domain.util.Reason;
-import zw.org.zvandiri.business.domain.util.VisitOutcome;
 import zw.org.zvandiri.business.service.ContactService;
 
 /**
@@ -69,6 +68,9 @@ public class BeneficiaryContactValidator implements Validator {
         }
         if (item.getReason() == null) {
             errors.rejectValue("reason", "field.empty");
+        }
+        if (item.getReason() != null && item.getReason().equals(Reason.OTHER)) {
+            ValidationUtils.rejectIfEmpty(errors, "otherReason", "field.empty");
         }
         if (item.getFollowUp() == null) {
             errors.rejectValue("followUp", "field.empty");

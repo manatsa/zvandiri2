@@ -121,6 +121,13 @@
                                             <form:errors path="reason" class="alert-danger"/>
                                         </p>
                                     </div>
+                                        <div class="form-group reason hide">
+                                        <label>Other Reason</label>
+                                        <form:input path="otherReason"  class="form-control"/>
+                                        <p class="help-block">
+                                            <form:errors path="otherReason" class="alert-danger"/>
+                                        </p>
+                                    </div>
                                     <div class="form-group">
                                         <label>Client's Observations <small>(What is the Client saying)</small></label>
                                         <form:textarea path="subjective" rows="5" class="form-control"/>
@@ -465,6 +472,15 @@
             location.href = path + "/patient/patient-death/item.form?id=" + patientId;
         }
     });
+    $("#reason").change(function () {
+        var name = $("#reason :selected").text();
+        if (name === "Other") {
+            $(".reason").removeClass("hide");
+        } else {
+            $("#otherReason").val('');
+            $(".reason").addClass("hide");
+        }
+    });
     $(function () {
         window.onload = function () {
             var name = $("#viralLoadResultTaken :selected").text();
@@ -482,6 +498,10 @@
             var name = $("#contactPhoneOption :selected").text();
             if (name === "Sms") {
                 $(".contactPhoneOptionSms").removeClass("hide");
+            }
+            var name = $("#reason :selected").text();
+            if (name === "Other") {
+                $(".reason").removeClass("hide");
             }
         };
     });

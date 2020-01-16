@@ -5,6 +5,7 @@
  */
 package zw.org.zvandiri.business.domain;
 
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -13,8 +14,11 @@ import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 import zw.org.zvandiri.business.domain.util.Diagnosis;
 import zw.org.zvandiri.business.domain.util.IdentifiedRisk;
 import zw.org.zvandiri.business.domain.util.Intervention;
@@ -28,8 +32,8 @@ import zw.org.zvandiri.business.domain.util.YesNo;
  * @author tasu
  */
 @Entity
-public class MentalHealthScreening extends BaseEntity{
-    
+public class MentalHealthScreening extends BaseEntity {
+
     @ManyToOne
     @JsonIgnore
     private Patient patient;
@@ -76,14 +80,18 @@ public class MentalHealthScreening extends BaseEntity{
     private String otherIntervention;
     @Transient
     private String patientId;
-    
-    public MentalHealthScreening(Patient patient){
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date dateScreened;
+    @Enumerated
+    private YesNo referralComplete;
+
+    public MentalHealthScreening(Patient patient) {
         this.patient = patient;
     }
 
     public MentalHealthScreening() {
     }
-    
 
     public Patient getPatient() {
         return patient;
@@ -92,7 +100,7 @@ public class MentalHealthScreening extends BaseEntity{
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
-    
+
     public YesNo getRisk() {
         return risk;
     }
@@ -211,6 +219,22 @@ public class MentalHealthScreening extends BaseEntity{
 
     public void setScreening(MentalHealthScreeningType screening) {
         this.screening = screening;
+    }
+
+    public Date getDateScreened() {
+        return dateScreened;
+    }
+
+    public void setDateScreened(Date dateScreened) {
+        this.dateScreened = dateScreened;
+    }
+
+    public YesNo getReferralComplete() {
+        return referralComplete;
+    }
+
+    public void setReferralComplete(YesNo referralComplete) {
+        this.referralComplete = referralComplete;
     }
     
 }

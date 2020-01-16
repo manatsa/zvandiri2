@@ -20,7 +20,7 @@
                 <br/>
                 <div class="row">
                     <div class="col-lg-12">
-                        <b class="titleHeader">Mental Health Screening Detail</b><hr/>
+                        <b class="titleHeader">Mental Health Screening Detail | <c:if test="${canEdit}">| <a href="${page}/beneficiary/mental-health-screening/item.form?patientId=${patient.id}">Add Mental Health Screening Detail </a></c:if><br/><br/></b><hr/>
                         <div class="table-responsive">
                             <table class="itemList" class="display" cellspacing="0">
                                 <thead>

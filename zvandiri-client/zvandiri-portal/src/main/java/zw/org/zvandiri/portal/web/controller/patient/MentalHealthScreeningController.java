@@ -103,21 +103,21 @@ public class MentalHealthScreeningController extends BaseController{
             }
         }
         if(item.getReferral()!= null) {
-            if(item.getRisk().equals(YesNo.YES)) {
+            if(item.getReferral().equals(YesNo.YES)) {
                 model.addAttribute("showReferral", Boolean.TRUE);
             }else{
                 model.addAttribute("showReferral", Boolean.FALSE);
             }
         }
         if(item.getDiagnosis()!= null) {
-            if(item.getRisk().equals(YesNo.YES)) {
+            if(item.getDiagnosis().equals(YesNo.YES)) {
                 model.addAttribute("showDiagnosis", Boolean.TRUE);
             }else{
                 model.addAttribute("showDiagnosis", Boolean.FALSE);
             }
         }
         if(item.getIntervention()!= null) {
-            if(item.getRisk().equals(YesNo.YES)) {
+            if(item.getIntervention().equals(YesNo.YES)) {
                 model.addAttribute("showIntervention", Boolean.TRUE);
             }else{
                 model.addAttribute("showIntervention", Boolean.FALSE);
@@ -152,7 +152,7 @@ public class MentalHealthScreeningController extends BaseController{
         }
         service.save(item);
         if(item.getPatient().getGender() != null && item.getPatient().getGender().equals(Gender.MALE)){
-            return "redirect:../mental-health/item.list?type=1&id=" + item.getPatient().getId();
+            return "redirect:../mental-health-screening/item.list?type=1&id=" + item.getPatient().getId();
         }
         return "redirect:item.list?type=1&id=" + item.getPatient().getId();
     }

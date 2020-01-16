@@ -13,7 +13,7 @@ import zw.org.zvandiri.business.util.StringUtils;
  */
 public enum Support {
     
-    BY_ZM_ZI(1), CATS(2);
+    BY_ZM_ZI(1), CATS(2), MENTAL_HEALTH_SPECIALIST(3);
 
     private final Integer code;
 

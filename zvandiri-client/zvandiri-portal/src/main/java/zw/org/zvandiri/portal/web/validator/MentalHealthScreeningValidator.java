@@ -51,6 +51,7 @@ public class MentalHealthScreeningValidator implements Validator{
             ValidationUtils.rejectIfEmpty(errors, "referral", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "diagnosis", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "intervention", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "dateScreened", "field.empty");
             if(item.getRisk() != null && item.getRisk().equals(YesNo.YES)) {
                 if(item.getIdentifiedRisks() == null) {
                     ValidationUtils.rejectIfEmpty(errors, "identifiedRisks", "item.select.one");
@@ -64,6 +65,7 @@ public class MentalHealthScreeningValidator implements Validator{
             if(item.getReferral()!= null && item.getReferral().equals(YesNo.YES)) {
                 if(item.getReferrals() == null) {
                     ValidationUtils.rejectIfEmpty(errors, "referrals", "item.select.one");
+                    ValidationUtils.rejectIfEmpty(errors, "referralComplete", "field.empty");
                 }
             }
             if(item.getDiagnosis()!= null && item.getDiagnosis().equals(YesNo.YES)) {
@@ -77,12 +79,12 @@ public class MentalHealthScreeningValidator implements Validator{
                 }
             }
         }
-        if(item.getPatient() != null){
-            old = service.getByPatient(item.getPatient());
+        /*if(item.getPatient() != null){
+            old = service.findByPatient(item.getPatient());
         }
         if (service.checkDuplicate(item, old)) {
             errors.rejectValue("uuid", "patient.mentalhealthscreenrecord");
-        }
+        }*/
     }
     
 }

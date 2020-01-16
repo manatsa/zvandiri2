@@ -32,6 +32,13 @@
                             </div>
                             <c:if test="${showForm}">
                                 <div class="form-group">
+                                    <label>Date Screened</label>
+                                    <form:input path="dateScreened" class="form-control general"/>
+                                    <p class="help-block">
+                                        <form:errors path="dateScreened" class="alert-danger"/>
+                                    </p>
+                                </div>
+                                <div class="form-group">
                                     <label>Screening Type</label>
                                     <form:select path="screening" class="form-control">
                                         <form:option value="" label="--Select Item"/>
@@ -95,6 +102,16 @@
                                         <form:checkboxes path="referrals" items="${referrals}" itemLabel="name" itemValue="code" delimiter="<br/>"/>
                                         <p class="help-block">
                                             <form:errors path="referrals" class="alert-danger"/>
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Referral Complete</label>
+                                        <form:select path="referralComplete" class="form-control">
+                                            <form:option value="" label="--Select Item"/>
+                                            <form:options items="${yesNo}" itemValue="code" itemLabel="name"/>
+                                        </form:select>
+                                        <p class="help-block">
+                                            <form:errors path="referralComplete" class="alert-danger"/>
                                         </p>
                                     </div>
                                 </c:if>

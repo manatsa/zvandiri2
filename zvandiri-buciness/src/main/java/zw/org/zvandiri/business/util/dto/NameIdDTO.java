@@ -19,6 +19,7 @@ package zw.org.zvandiri.business.util.dto;
 import java.io.Serializable;
 import java.util.Date;
 import zw.org.zvandiri.business.domain.util.Gender;
+import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 
 /**
  *
@@ -30,6 +31,8 @@ public class NameIdDTO implements Serializable {
     private String id;
     private Date dateOfBirth;
     private Gender gender;
+    private PatientChangeEvent status;
+    private Boolean active;
 
     public NameIdDTO() {
     }
@@ -39,11 +42,13 @@ public class NameIdDTO implements Serializable {
         this.id = id;
     }
 
-    public NameIdDTO(String name, String id, Date dateOfBirth, Gender gender) {
+    public NameIdDTO(String name, String id, Date dateOfBirth, Gender gender, PatientChangeEvent status, Boolean active) {
         this.name = name;
         this.id = id;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
+        this.status = status;
+        this.active = active;
     }
     
     public String getName() {
@@ -76,6 +81,22 @@ public class NameIdDTO implements Serializable {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public PatientChangeEvent getStatus() {
+        return status;
+    }
+
+    public void setStatus(PatientChangeEvent status) {
+        this.status = status;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
     
 }

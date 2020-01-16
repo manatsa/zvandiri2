@@ -20,7 +20,6 @@ import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.User;
-import zw.org.zvandiri.business.service.ContactEntryService;
 import zw.org.zvandiri.business.service.DataEntryService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
@@ -38,8 +37,6 @@ public class DataEntryReportServiceImpl implements DataEntryReportService{
     private UserService userService;
     @Resource
     private DataEntryService dataEntryService;
-    @Resource
-    private ContactEntryService contactEntryService;
     
     @Override
     public List<GenericReportModel> getDefaultReport(SearchDTO dto) {
@@ -49,16 +46,22 @@ public class DataEntryReportServiceImpl implements DataEntryReportService{
         items.add("User");
         items.add("Records Captured");
         items.add("Contacts Captured");
+        items.add("Referrals Captured");
+        items.add("Viral Load Records Captured");
         list.add(new GenericReportModel(items));
         for(User user : users){
             dto.setCreatedBy(user);
             GenericReportModel model = new GenericReportModel();
             List<String> row = new ArrayList<>();
             row.add(user.getFirstName() + " " + user.getLastName());
-            Long itemCount = dataEntryService.getCount(dto);
+            Long itemCount = dataEntryService.getPatientCount(dto);
             row.add(itemCount.toString());
-            Long contactCount = contactEntryService.getCount(dto);
+            Long contactCount = dataEntryService.getContactCount(dto);
             row.add(contactCount.toString());
+            Long referralCount = dataEntryService.getReferralCount(dto);
+            row.add(referralCount.toString());
+            Long viralLoadCount = dataEntryService.getViralLoadCount(dto);
+            row.add(viralLoadCount.toString());
             model.setRow(row);
             list.add(model);
         }

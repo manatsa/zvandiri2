@@ -30,6 +30,7 @@ import zw.org.zvandiri.business.domain.TestResult;
 import zw.org.zvandiri.business.domain.util.ContactPhoneOption;
 import zw.org.zvandiri.business.domain.util.FollowUp;
 import zw.org.zvandiri.business.domain.util.Reason;
+import zw.org.zvandiri.business.domain.util.VisitOutcome;
 import zw.org.zvandiri.business.service.ContactService;
 
 /**
@@ -53,6 +54,10 @@ public class BeneficiaryContactValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Contact item = (Contact) o;
         ValidationUtils.rejectIfEmpty(errors, "contactDate", "field.empty");
+        if (item.getVisitOutcome() == null) {
+            errors.rejectValue("visitOutcome", "field.empty");
+        }
+
         if (item.getCareLevel() == null) {
             errors.rejectValue("careLevel", "field.empty");
         }
@@ -106,9 +111,6 @@ public class BeneficiaryContactValidator implements Validator {
                 && item.getReferredPerson() == null) {
             errors.rejectValue("referredPerson", "field.empty");
         }
-        if (item.getVisitOutcome() == null) {
-            errors.rejectValue("visitOutcome", "field.empty");
-        }
         if (item.getLocation() != null) {
             if (item.getLocation().getName().equalsIgnoreCase("Phone")) {
                 if (item.getContactPhoneOption() == null) {
@@ -137,7 +139,6 @@ public class BeneficiaryContactValidator implements Validator {
             item.getCd4Count().setPatient(item.getPatient());
             validateCd4Count(item.getCd4Count(), errors);
         }
-
     }
 
     public void validateViralLoad(TestResult item, Errors errors) {

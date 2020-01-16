@@ -79,12 +79,6 @@ public class MentalHealthScreeningValidator implements Validator{
                 }
             }
         }
-        /*if(item.getPatient() != null){
-            old = service.findByPatient(item.getPatient());
-        }
-        if (service.checkDuplicate(item, old)) {
-            errors.rejectValue("uuid", "patient.mentalhealthscreenrecord");
-        }*/
     }
     
 }

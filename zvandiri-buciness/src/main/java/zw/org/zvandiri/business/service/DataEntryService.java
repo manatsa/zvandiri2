@@ -22,5 +22,12 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
  * @author jackie muzinda
  */
 public interface DataEntryService {
-    public Long getCount(SearchDTO dto);
+
+    public Long getPatientCount(SearchDTO dto);
+    
+    public Long getContactCount(SearchDTO dto);
+    
+    public Long getReferralCount(SearchDTO dto);
+    
+    public Long getViralLoadCount(SearchDTO dto);
 }

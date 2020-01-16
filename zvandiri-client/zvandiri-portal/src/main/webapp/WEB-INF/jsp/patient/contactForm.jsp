@@ -459,7 +459,7 @@
     var patientId = "<c:out value="${item.patient.id}"/>"
     $("#visitOutcome").change(function () {
         var name = $.trim($("#visitOutcome :selected").text());
-        if (name === "Change Location") {
+        if (name === "Changed Location") {
             location.href = path + "/patient/change-facility/item.form?id=" + patientId;
         } else if (name === "Deceased") {
             location.href = path + "/patient/patient-death/item.form?id=" + patientId;

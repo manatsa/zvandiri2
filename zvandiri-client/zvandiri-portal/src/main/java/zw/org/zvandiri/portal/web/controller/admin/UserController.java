@@ -15,6 +15,7 @@
  */
 package zw.org.zvandiri.portal.web.controller.admin;
 
+import java.util.List;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import zw.org.zvandiri.business.domain.User;
 import zw.org.zvandiri.business.domain.util.UserLevel;
 import zw.org.zvandiri.business.service.DistrictService;
@@ -31,6 +33,9 @@ import zw.org.zvandiri.business.service.ProvinceService;
 import zw.org.zvandiri.business.service.UserRoleService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.dto.ItemDeleteDTO;
+import zw.org.zvandiri.business.util.dto.PatientSearchDTO;
+import zw.org.zvandiri.business.util.dto.SearchDTO;
+import zw.org.zvandiri.business.util.dto.UserDTO;
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 import zw.org.zvandiri.portal.web.controller.BaseController;
@@ -116,7 +121,14 @@ public class UserController extends BaseController{
         if(type != null){
             model.addAttribute("message", getMessage(type));
         }
-        return "admin/userList";
+        return "admin/userModList";
+    }
+    
+    @RequestMapping(value = "/search-users", method = RequestMethod.GET)
+    @ResponseBody
+    public List<UserDTO> searchPatient(@RequestParam("search") String search) {
+        String[] names = search.split(" ");
+        return UserDTO.getInstance(userService.searchUsers(names));
     }
     
     @RequestMapping(value = "user.delete", method = RequestMethod.GET)

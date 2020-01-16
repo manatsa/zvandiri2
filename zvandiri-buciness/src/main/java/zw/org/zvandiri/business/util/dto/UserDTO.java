@@ -6,6 +6,8 @@
 package zw.org.zvandiri.business.util.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import zw.org.zvandiri.business.domain.District;
 import zw.org.zvandiri.business.domain.Province;
 import zw.org.zvandiri.business.domain.User;
@@ -101,5 +103,13 @@ public class UserDTO implements Serializable{
         item.setDistrict(user.getDistrict());
         item.setProvince(user.getProvince());
         return item;
+    }
+    
+    public static List<UserDTO> getInstance(List<User> users) {
+        List<UserDTO> items = new ArrayList<>();
+        for(User user : users){
+            items.add(getInstance(user));
+        }
+        return items;
     }
 }

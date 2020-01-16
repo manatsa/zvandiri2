@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.User;
 import zw.org.zvandiri.business.domain.util.UserType;
 import zw.org.zvandiri.business.repo.UserRepo;
+import zw.org.zvandiri.business.repo.UserRoleRepo;
 import zw.org.zvandiri.business.service.UserRoleService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.UUIDGen;
@@ -142,6 +143,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getByUserType() {
         return userRepo.findByUserType(UserType.getZvandiriStaff());
+    }
+
+    @Override
+    public List<User> searchUsers(String [] names) {
+        if (names.length == 1) {
+            return userRepo.findByUserNameLike("%"+names[0]);
+        }
+        return userRepo.findByNames(names[0], names[1]);
     }
 
     @Override

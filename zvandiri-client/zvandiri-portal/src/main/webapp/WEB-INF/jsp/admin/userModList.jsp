@@ -17,7 +17,7 @@
                     <form method="post">
                         <div class="form-group">
                             <label>Search Users</label>
-                            <input type="text" name="search" placeholder="Search by username" id="search" class="form-control"/>
+                            <input type="text" name="search" placeholder="Search by username or by combination of firstname and lastname" id="search" class="form-control"/>
                         </div>
                     </form>
                     <table id="userListing" class="display hide" cellspacing="0">

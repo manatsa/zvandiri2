@@ -150,8 +150,7 @@ public class UserServiceImpl implements UserService {
         if (names.length == 1) {
             return userRepo.findByUserNameLike(names[0]+"%");
         }
-        //return userRepo.findByNames(names[0], names[1]);
-        return null;
+        return userRepo.findByNames(names[0], names[1]);
     }
 
     @Override

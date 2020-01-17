@@ -47,8 +47,12 @@ public class BasePatientPivotDTO implements Serializable {
     private final String referer;
     @JsonProperty(value = "CATS Member")
     private final String cats;
+    @JsonProperty(value = "Have Children")
+    private final String haveChildren;
+    @JsonProperty(value = "On TB Treatment")
+    private final String onTbTreatment;
 
-    public BasePatientPivotDTO(String province, String ageGroup, String gender, Integer age, String status, String hivStatusKnown, String hasDisability, String transmissionMode, String education, String educationLevel, String referer, String cats) {
+    public BasePatientPivotDTO(String province, String ageGroup, String gender, Integer age, String status, String hivStatusKnown, String hasDisability, String transmissionMode, String education, String educationLevel, String referer, String cats, String haveChildren, String onTbTreatment) {
         this.province = province;
         this.ageGroup = ageGroup;
         this.gender = gender;
@@ -61,6 +65,8 @@ public class BasePatientPivotDTO implements Serializable {
         this.educationLevel = educationLevel;
         this.referer = referer;
         this.cats = cats;
+        this.haveChildren = haveChildren;
+        this.onTbTreatment = onTbTreatment;
     }
 
     public String getCats() {
@@ -113,6 +119,14 @@ public class BasePatientPivotDTO implements Serializable {
 
     public String getReferer() {
         return referer;
+    }
+
+    public String getHaveChildren() {
+        return haveChildren;
+    }
+
+    public String getOnTbTreatment() {
+        return onTbTreatment;
     }
 
     

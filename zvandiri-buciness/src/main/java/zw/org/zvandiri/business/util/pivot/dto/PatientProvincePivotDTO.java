@@ -23,8 +23,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
  */
 public class PatientProvincePivotDTO extends BasePatientPivotDTO {
 
-    public PatientProvincePivotDTO(String province, String ageGroup, String gender, Integer age, String status, String hivStatusKnown, String hasDisability, String transmissionMode, String education, String educationLevel, String referer, String cats) {
-        super(province, ageGroup, gender, age, status, hivStatusKnown, hasDisability, transmissionMode, education, educationLevel, referer, cats);
+    public PatientProvincePivotDTO(String province, String ageGroup, String gender, Integer age, String status, String hivStatusKnown, String hasDisability, String transmissionMode, String education, String educationLevel, String referer, String cats, String haveChildren, String onTbTreatment) {
+        super(province, ageGroup, gender, age, status, hivStatusKnown, hasDisability, transmissionMode, education, educationLevel, referer, cats, haveChildren, onTbTreatment);
     }
 
     @Override

@@ -73,7 +73,7 @@ public class PatientPivotServiceImpl implements PatientPivotService {
                         p.getEducation() != null ? p.getEducation().getName() : "No Value",
                         p.getEducationLevel() != null ? p.getEducationLevel().getName() : "No Value",
                         p.getReferer() != null ? p.getReferer().getName() : "No Value",
-                        isCats));
+                        isCats, "No Value", "No Value"));
             } else if (dto.getProvince() != null) {
                 items.add(new PatientProvincePivotDTO(
                         p.getPrimaryClinic().getDistrict().getName(),
@@ -87,7 +87,7 @@ public class PatientPivotServiceImpl implements PatientPivotService {
                         p.getEducation() != null ? p.getEducation().getName() : "No Value",
                         p.getEducationLevel() != null ? p.getEducationLevel().getName() : "No Value",
                         p.getReferer() != null ? p.getReferer().getName() : "No Value",
-                        isCats));
+                        isCats, "No Value", "No Value"));
             } else {
                 items.add(new PatientNationalPivotDTO(
                         p.getPrimaryClinic().getDistrict().getProvince().getName(),
@@ -101,7 +101,7 @@ public class PatientPivotServiceImpl implements PatientPivotService {
                         p.getEducation() != null ? p.getEducation().getName() : "No Value",
                         p.getEducationLevel() != null ? p.getEducationLevel().getName() : "No Value",
                         p.getReferer() != null ? p.getReferer().getName() : "No Value",
-                        isCats));
+                        isCats, "No Value", "No Value"));
             }
         }
         return items;

@@ -11,7 +11,6 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.TbScreeningReportService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
@@ -32,18 +31,18 @@ public class TbScreeningReportServiceImpl implements TbScreeningReportService {
         int position = 0;
         if (dto.getProvince() != null) {
             if (position == 0) {
-                builder.append(" where t.person.district.province=:province");
+                builder.append(" where t.patient.primaryClinic.district.province=:province");
                 position++;
             } else {
-                builder.append(" and t.person.district.province=:province");
+                builder.append(" and t.patient.primaryClinic.district.province=:province");
             }
         }
         if (dto.getDistrict() != null) {
             if (position == 0) {
-                builder.append(" where t.person.district=:district");
+                builder.append(" where t.patient.primaryClinic.district=:district");
                 position++;
             } else {
-                builder.append(" and t.person.district=:district");
+                builder.append(" and t.patient.primaryClinic.district=:district");
             }
         }
         if (dto.getYesNo() != null) {
@@ -119,18 +118,18 @@ public class TbScreeningReportServiceImpl implements TbScreeningReportService {
         int position = 0;
         if (dto.getProvince() != null) {
             if (position == 0) {
-                builder.append(" where t.person.district.province=:province");
+                builder.append(" where t.patient.primaryClinic.district.province=:province");
                 position++;
             } else {
-                builder.append(" and t.person.district.province=:province");
+                builder.append(" and t.patient.primaryClinic.district.province=:province");
             }
         }
         if (dto.getDistrict() != null) {
             if (position == 0) {
-                builder.append(" where t.person.district=:district");
+                builder.append(" where t.patient.primaryClinic.district=:district");
                 position++;
             } else {
-                builder.append(" and t.person.district=:district");
+                builder.append(" and t.patient.primaryClinic.district=:district");
             }
         }
         if (dto.getPeriod() != null) {

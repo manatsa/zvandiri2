@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
+import zw.org.zvandiri.business.domain.CatDetail;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.service.ContactReportService;
@@ -117,5 +118,37 @@ public class DetailedReportServiceImpl implements DetailedReportService {
         }
         return items;
     }
+
+    @Override
+    public List<GenericReportModel> getCatsDetailExcel(List<CatDetail> list) {
+        String [] headers = {"Name", "D.O.B", "Age", "Sex", "Certificate Number",
+        "Phone Number", "Date Joined", "Facility", "Graduation Date",
+        "Bled For VL", "VL Date", "VL Result", "Regimen",
+        "Date Started Regimen", "Sexually Active"};
+        List<GenericReportModel> items = new ArrayList<>();
+        items.add(new GenericReportModel(Arrays.asList(headers)));
+        for(CatDetail item : list) {
+            String inner [] = {
+                item.getPatient().getName(),
+                DateUtil.formatDate(item.getPatient().getDateOfBirth()),
+                String.valueOf(item.getPatient().getAge()),
+                item.getPatient().getGender().getName(),
+                "",
+                item.getPatient().getMobileNumber(),
+                DateUtil.formatDate(item.getDateAsCat()),
+                item.getPrimaryClinic().getName(),
+                item.getGraduationDate(),
+                item.getVlResultTaken() != null ? item.getVlResultTaken().getName() : "",
+                item.getVlDate() != null ? DateUtil.formatDate(item.getVlDate()) : "",
+                String.valueOf(item.getPatient().getViralLoad()),
+                item.getPatient().getCurrentArvRegimen(),
+                item.getRegimenDate() != null ? DateUtil.formatDate(item.getRegimenDate()) : "",
+                item.getSexuallyActive() != null ? item.getSexuallyActive().getName(): ""
+            };
+            items.add(new GenericReportModel(Arrays.asList(inner)));
+        }
+        return items;
+    }
+    
 
 }

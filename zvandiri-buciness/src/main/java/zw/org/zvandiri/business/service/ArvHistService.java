@@ -16,11 +16,12 @@
 package zw.org.zvandiri.business.service;
 
 import zw.org.zvandiri.business.domain.ArvHist;
+import zw.org.zvandiri.business.domain.Patient;
 
 /**
  *
  * @author Judge Muzinda
  */
 public interface ArvHistService extends GenericPatientService<ArvHist> {
-    
+    ArvHist getLatest(Patient patient);
 }

@@ -21,7 +21,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.AgeGroup;
+import zw.org.zvandiri.business.domain.util.TbIdentificationOutcome;
+import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.DetailedPatientReportService;
+import zw.org.zvandiri.business.service.TbIptService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.business.util.pivot.dto.BasePatientExitingProgramPivotDTO;
@@ -43,6 +46,8 @@ public class PatientPivotServiceImpl implements PatientPivotService {
 
     @Resource
     private DetailedPatientReportService detailedPatientReportService;
+    @Resource
+    private TbIptService tbIptService;
 
     @Override
     public List<BasePatientPivotDTO> get(SearchDTO dto) {
@@ -55,9 +60,12 @@ public class PatientPivotServiceImpl implements PatientPivotService {
     }
 
     private List<BasePatientPivotDTO> convertList(SearchDTO dto) {
+        
         List<BasePatientPivotDTO> items = new ArrayList<>();
         for (Patient p : detailedPatientReportService.get(dto)) {
             String isCats = (p.getCatId() != null && !p.getCatId().isEmpty()) ? "Yes" : "No";
+            boolean onTbTreatment = tbIptService.existsOnTbTreatment(p, TbIdentificationOutcome.ON_TB_TREATMENT);
+            boolean hasChildren =  p.getMotherOfHei() != null;
             if (dto.getDistrict() != null) {
                 // remove references to parent
                 dto.setProvince(null);
@@ -73,7 +81,7 @@ public class PatientPivotServiceImpl implements PatientPivotService {
                         p.getEducation() != null ? p.getEducation().getName() : "No Value",
                         p.getEducationLevel() != null ? p.getEducationLevel().getName() : "No Value",
                         p.getReferer() != null ? p.getReferer().getName() : "No Value",
-                        isCats, "No Value", "No Value"));
+                        isCats, onTbTreatment ? "Yes" : "No", hasChildren ? "Yes" : "No"));
             } else if (dto.getProvince() != null) {
                 items.add(new PatientProvincePivotDTO(
                         p.getPrimaryClinic().getDistrict().getName(),
@@ -87,7 +95,7 @@ public class PatientPivotServiceImpl implements PatientPivotService {
                         p.getEducation() != null ? p.getEducation().getName() : "No Value",
                         p.getEducationLevel() != null ? p.getEducationLevel().getName() : "No Value",
                         p.getReferer() != null ? p.getReferer().getName() : "No Value",
-                        isCats, "No Value", "No Value"));
+                        isCats, onTbTreatment ? "Yes" : "No", hasChildren ? "Yes" : "No"));
             } else {
                 items.add(new PatientNationalPivotDTO(
                         p.getPrimaryClinic().getDistrict().getProvince().getName(),
@@ -101,7 +109,7 @@ public class PatientPivotServiceImpl implements PatientPivotService {
                         p.getEducation() != null ? p.getEducation().getName() : "No Value",
                         p.getEducationLevel() != null ? p.getEducationLevel().getName() : "No Value",
                         p.getReferer() != null ? p.getReferer().getName() : "No Value",
-                        isCats, "No Value", "No Value"));
+                        isCats, onTbTreatment ? "Yes" : "No", hasChildren ? "Yes" : "No"));
             }
         }
         return items;

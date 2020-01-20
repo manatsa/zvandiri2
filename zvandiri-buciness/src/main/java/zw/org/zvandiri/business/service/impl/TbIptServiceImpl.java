@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.TbIpt;
 import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.util.TbIdentificationOutcome;
 import zw.org.zvandiri.business.repo.TbIptRepo;
 import zw.org.zvandiri.business.service.TbIptService;
 import zw.org.zvandiri.business.service.UserService;
@@ -97,4 +98,11 @@ public class TbIptServiceImpl implements TbIptService{
     public TbIpt getByPatient(Patient patient) {
         return repo.findByPatient(patient);
     }
+
+    @Override
+    public boolean existsOnTbTreatment(Patient patient, TbIdentificationOutcome yesNo) {
+        
+        return repo.existsByPatientAndTbIdentificationOutcome(patient, yesNo) >= 1;
+    }
+    
 }

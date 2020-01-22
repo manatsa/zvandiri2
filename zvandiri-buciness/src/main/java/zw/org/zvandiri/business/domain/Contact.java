@@ -484,4 +484,9 @@ public class Contact extends BaseEntity {
         this.otherReason = otherReason;
     }
 
+    @Override
+    public String toString() {
+        return super.toString().concat("Contact{" + "patient=" + patient + ", contactDate=" + contactDate + ", nextClinicAppointmentDate=" + nextClinicAppointmentDate + ", careLevel=" + careLevel + ", location=" + location + ", contactPhoneOption=" + contactPhoneOption + ", numberOfSms=" + numberOfSms + ", position=" + position + ", reason=" + reason + ", otherReason=" + otherReason + ", period=" + period + ", internalReferral=" + internalReferral + ", externalReferral=" + externalReferral + ", followUp=" + followUp + ", subjective=" + subjective + ", objective=" + objective + ", differentiatedService=" + differentiatedService + ", labTasks=" + labTasks + ", clinicalAssessments=" + clinicalAssessments + ", nonClinicalAssessments=" + nonClinicalAssessments + ", plan=" + plan + ", actionTaken=" + actionTaken + ", stables=" + stables + ", enhanceds=" + enhanceds + ", serviceOffereds=" + serviceOffereds + ", parent=" + parent + ", referredPerson=" + referredPerson + ", lastClinicAppointmentDate=" + lastClinicAppointmentDate + ", attendedClinicAppointment=" + attendedClinicAppointment + ", open=" + open + ", defaultMessage=" + defaultMessage + ", currentElement=" + currentElement + ", userLevel=" + userLevel + ", district=" + district + ", province=" + province + ", previousCareLevel=" + previousCareLevel + ", currentCareLevel=" + currentCareLevel + ", visitOutcome=" + visitOutcome + ", referredPersonId=" + referredPersonId + ", viralLoad=" + viralLoad + ", cd4Count=" + cd4Count + '}');
+    }
+
 }

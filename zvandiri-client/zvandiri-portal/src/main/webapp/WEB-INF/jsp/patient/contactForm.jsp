@@ -144,14 +144,14 @@
                                     </div> 
                                     <div class="form-group">
                                         <label>Services Offered</label><br/>
-                                        <form:checkboxes path="serviceOffereds" items="${labTasks}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
+                                        <form:checkboxes path="serviceOffereds" items="${servicesOffered}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
                                         <p class="help-block">
                                             <form:errors path="serviceOffereds" class="alert-danger"/>
                                         </p>
                                     </div>
                                     <div class="form-group">
                                         <label>Laboratory Requests</label><br/>
-                                        <form:checkboxes path="labTasks" items="${servicesOffered}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
+                                        <form:checkboxes path="labTasks" items="${labTasks}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
                                         <p class="help-block">
                                             <form:errors path="labTasks" class="alert-danger"/>
                                         </p>

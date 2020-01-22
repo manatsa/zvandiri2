@@ -72,10 +72,15 @@ public class ContactServiceImpl implements ContactService {
     @Transactional
     public Contact save(Contact t) {
         if (t.getId() == null || StringUtils.isBlank(t.getId())) {
+            try{
             t.setId(UUIDGen.generateUUID());
             t.setCreatedBy(userService.getCurrentUser());
             t.setDateCreated(new Date());
             return contactRepo.save(t);
+            } catch (Exception e) {
+                System.out.println("JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
+                e.printStackTrace();
+            }
         }
         t.setModifiedBy(userService.getCurrentUser());
         t.setDateModified(new Date());

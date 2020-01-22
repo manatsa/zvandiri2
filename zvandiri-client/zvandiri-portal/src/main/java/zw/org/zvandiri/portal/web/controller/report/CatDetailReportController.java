@@ -48,7 +48,7 @@ public class CatDetailReportController extends BaseController{
 
     public String setUpModel(ModelMap model, SearchDTO item, boolean post) {
         item = getUserLevelObjectState(item);
-        model.addAttribute("pageTitle", APP_PREFIX + "Cats Detailed Report");
+        model.addAttribute("pageTitle", APP_PREFIX + "CATS Detailed Report");
         model.addAttribute("provinces", provinceService.getAll());
         if (item.getProvince() != null) {
             model.addAttribute("districts", districtService.getDistrictByProvince(item.getProvince()));
@@ -76,7 +76,7 @@ public class CatDetailReportController extends BaseController{
 
     @RequestMapping(value = "/export/excel", method = RequestMethod.GET)
     public void getExcelExport(HttpServletResponse response, SearchDTO item) {
-        String name = DateUtil.getFriendlyFileName("Detailed_Cat_Report");
+        String name = DateUtil.getFriendlyFileName("Detailed_CATS_Report");
         forceDownLoad(officeExportService.exportExcelFile(detailedReportService.getCatsDetailExcel(reportService.get(item.getInstance(item))), name), name, response);
     }
 }

@@ -49,7 +49,6 @@ import zw.org.zvandiri.business.service.UserRoleService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.ItemDeleteDTO;
-import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 import zw.org.zvandiri.portal.web.controller.BaseController;
@@ -57,7 +56,6 @@ import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Set;
 import zw.org.zvandiri.business.service.LabTaskService;
 
 import zw.org.zvandiri.portal.web.validator.BeneficiaryContactValidator;
@@ -161,12 +159,6 @@ public class ContactController extends BaseController {
             }
         }
         if (item.getActionTaken() != null && item.getActionTaken().getName().equalsIgnoreCase("Internal Referral")) {
-            // create a local SearchDTO instance here
-            /*SearchDTO searchDTO = new SearchDTO();
-            searchDTO.setUserLevel(item.getUserLevel());
-            searchDTO.setProvince(item.getProvince());
-            searchDTO.setDistrict(item.getDistrict());
-            searchDTO.setUserRoles(userRoleService.findByNamesIn(new HashSet<>(Arrays.asList(new String [] {"ROLE_PSYCHOLOGIST", "ROLE_DOCTOR"}))));*/
             model.addAttribute("staff", userRoleService.findUsersInRoles(new HashSet<>(Arrays.asList(new String [] {"ROLE_PSYCHOLOGIST", "ROLE_DOCTOR"}))));
             model.addAttribute("internalStaff", Boolean.TRUE);
         }
@@ -221,7 +213,7 @@ public class ContactController extends BaseController {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
             return "patient/contactForm";
         }
-        contactService.save(item);
+        contactService.saveContactDTO(item);
         //if external referral redirect to new referral form
         if (item.getActionTaken() != null && item.getActionTaken().getName().equalsIgnoreCase("External Referral")) {
             return "redirect:../../patient/referral/item.form?patientId=" + item.getPatient().getId();

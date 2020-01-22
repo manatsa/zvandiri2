@@ -19,14 +19,20 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import zw.org.zvandiri.business.domain.Contact;
+import zw.org.zvandiri.business.domain.InvestigationTest;
 import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.TestResult;
 import zw.org.zvandiri.business.domain.User;
+import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.repo.ContactRepo;
 import zw.org.zvandiri.business.service.ContactService;
+import zw.org.zvandiri.business.service.InvestigationTestService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.UUIDGen;
 
@@ -42,6 +48,10 @@ public class ContactServiceImpl implements ContactService {
     private ContactRepo contactRepo;
     @Resource
     private UserService userService;
+    @Resource
+    private InvestigationTestService investigationTestService;
+    private final Logger LOG = Logger.getLogger(ContactServiceImpl.class);
+    
     @Override
     public List<Contact> getAll() {
         return contactRepo.findByAllContacts();
@@ -71,6 +81,9 @@ public class ContactServiceImpl implements ContactService {
     @Override
     @Transactional
     public Contact save(Contact t) {
+        
+        System.out.println("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU" +t.getId());
+        
         if (t.getId() == null || StringUtils.isBlank(t.getId())) {
             try{
             t.setId(UUIDGen.generateUUID());
@@ -80,6 +93,8 @@ public class ContactServiceImpl implements ContactService {
             } catch (Exception e) {
                 System.out.println("JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
                 e.printStackTrace();
+                LOG.debug("Is rollbackOnly: " + TransactionAspectSupport.currentTransactionStatus().isRollbackOnly());
+                return null;
             }
         }
         t.setModifiedBy(userService.getCurrentUser());
@@ -113,6 +128,26 @@ public class ContactServiceImpl implements ContactService {
             return contact;
         }
         return null;
+    }
+
+    @Override
+    @Transactional
+    public void saveContactDTO(Contact contact) {
+        
+        LOG.debug("Is rollbackOnly 1: " + TransactionAspectSupport.currentTransactionStatus().isRollbackOnly());
+        save(contact);
+        LOG.debug("Is rollbackOnly 3: " + TransactionAspectSupport.currentTransactionStatus().isRollbackOnly());
+        if (contact.getViralLoad() != null) {
+            InvestigationTest viralLoad = contact.getViralLoad();
+            viralLoad.setTestType(TestType.VIRAL_LOAD);
+            investigationTestService.save(viralLoad);            
+        }
+        if (contact.getCd4Count()!= null) {
+            InvestigationTest cd4Count = contact.getCd4Count();
+            cd4Count.setTestType(TestType.CD4_COUNT);
+            investigationTestService.save(cd4Count);            
+        }
+        
     }
     
 }

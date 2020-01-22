@@ -96,4 +96,23 @@ public interface DatabaseHeader {
         "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "ARV Medicine", 
         "Start Date", "End Date"
     };
+    
+    public final String [] MORTALITY_HEADER = {
+        "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "Date Of Death", 
+        "Cause of Death", "Cause of Death Details", "Received Enhanced Care", "Date Put On Enhanced Care", "Case Background", 
+        "Care Provided", "Home", "Beneficiary", "Facility", "CATS", "ZMs", "Other", "Contact with ZMs", "Date of Contact with ZMs", 
+        "Description of Case", "Learning Points", "Action Plan"
+    };
+    
+    public final String [] TB_IPT_HEADER = {
+        "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "Screened for TB", 
+        "Date Screened", "TB Symptoms", "Indentified with TB", "TB Identification Outcome", "Date Started Treatment", 
+        "Referral for Sputum", "TB Treatment Outcome", "Referred for IPT", "On IPT", "Date Started IPT"
+    };
+    
+    public final String [] MENTAL_HEALTH_SCREENING_HEADER = {
+        "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "Screened For Mental Health", "Date Screened", 
+        "Mental health Screening Type", "Risk", "Identified Risks", "Received Support", "Support Received", "Referral", 
+        "Referrals Received", "Diagnosis", "Diagnosis Done", "Other Diagnosis", "Intervention", "Interventions", "Other Interventions"
+    };
 }

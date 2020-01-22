@@ -34,4 +34,6 @@ public interface ContactService extends GenericService<Contact> {
     public List<Contact> findByReferredPersonAndOpen(User referredPerson);
     
     public Contact findLatestContact(Patient patient);
+    
+    public void saveContactDTO(Contact contact);
 }

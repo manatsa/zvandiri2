@@ -147,9 +147,9 @@ public class Contact extends BaseEntity {
     private VisitOutcome visitOutcome;
     @Transient
     private String referredPersonId;
-    private TestResult viralLoad;
+    private InvestigationTest viralLoad;
     @Transient
-    private TestResult cd4Count;
+    private InvestigationTest cd4Count;
 
     public Contact(Patient patient) {
         this.patient = patient;
@@ -436,19 +436,19 @@ public class Contact extends BaseEntity {
         this.referredPersonId = referredPersonId;
     }
 
-    public TestResult getViralLoad() {
+    public InvestigationTest getViralLoad() {
         return viralLoad;
     }
 
-    public void setViralLoad(TestResult viralLoad) {
+    public void setViralLoad(InvestigationTest viralLoad) {
         this.viralLoad = viralLoad;
     }
 
-    public TestResult getCd4Count() {
+    public InvestigationTest getCd4Count() {
         return cd4Count;
     }
 
-    public void setCd4Count(TestResult cd4Count) {
+    public void setCd4Count(InvestigationTest cd4Count) {
         this.cd4Count = cd4Count;
     }
 

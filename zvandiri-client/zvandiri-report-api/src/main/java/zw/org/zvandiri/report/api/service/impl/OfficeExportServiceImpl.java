@@ -38,12 +38,15 @@ import zw.org.zvandiri.business.domain.Dependent;
 import zw.org.zvandiri.business.domain.HivConInfectionItem;
 import zw.org.zvandiri.business.domain.InvestigationTest;
 import zw.org.zvandiri.business.domain.MentalHealthItem;
+import zw.org.zvandiri.business.domain.MentalHealthScreening;
+import zw.org.zvandiri.business.domain.Mortality;
 import zw.org.zvandiri.business.domain.ObstercHist;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.Referral;
 import zw.org.zvandiri.business.domain.ServicesReferred;
 import zw.org.zvandiri.business.domain.SocialHist;
 import zw.org.zvandiri.business.domain.SubstanceItem;
+import zw.org.zvandiri.business.domain.TbIpt;
 import zw.org.zvandiri.business.service.DetailedPatientReportService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.DatabaseHeader;
@@ -123,6 +126,9 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         Set<InvestigationTest> investigationTests = new HashSet<>();
         Set<ArvHist> arvHists = new HashSet<>();
         Set<HivConInfectionItem> hivConInfectionItems = new HashSet<>();
+        Set<TbIpt> tbIpts = new HashSet<>();
+        Set<Mortality> mortalitys = new HashSet<>();
+        Set<MentalHealthScreening> mentalHealthScreenings = new HashSet<>();
         int numPatient = 0;
         for (Patient patient : patients) {
             int count = 0;
@@ -138,6 +144,9 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             substanceItems.addAll(patient.getSubstanceItems());
             investigationTests.addAll(patient.getInvestigationTests());
             arvHists.addAll(patient.getArvHists());
+            tbIpts.addAll(patient.getTbIpts());
+            mortalitys.addAll(patient.getMortalitys());
+            mentalHealthScreenings.addAll(patient.getMentalHealthScreenings());
 
             header = patientDetails.createRow(rowNum++);
             Cell id = header.createCell(count);
@@ -1790,6 +1799,162 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 endDate.setCellStyle(cellStyle);
             } else {
                 endDate.setCellValue("");
+            }
+        }
+        // add mortality here
+        HSSFSheet mortalityDetails = workbook.createSheet("Patient_Mortality");
+        int mortalityRowNum = 0;
+        HSSFRow mortalityRow = mortalityDetails.createRow(mortalityRowNum++);
+        int mortalityCellNum = 0;
+        for (String title : DatabaseHeader.MORTALITY_HEADER) {
+            Cell cell = mortalityRow.createCell(mortalityCellNum++);
+            cell.setCellValue(title);
+        }
+
+        for (Mortality mortality : mortalitys) {
+            int count = 0;
+            mortalityRow = mortalityDetails.createRow(mortalityRowNum++);
+            Cell id = mortalityRow.createCell(count);
+            id.setCellValue(mortality.getPatient().getPatientNumber());
+            Cell patientName = mortalityRow.createCell(++count);
+            patientName.setCellValue(mortality.getPatient().getName());
+            Cell dateOfBirth = mortalityRow.createCell(++count);
+            dateOfBirth.setCellValue(mortality.getPatient().getDateOfBirth());
+            dateOfBirth.setCellStyle(cellStyle);
+            Cell age = mortalityRow.createCell(++count);
+            age.setCellValue(mortality.getPatient().getAge());
+            Cell sex = mortalityRow.createCell(++count);
+            sex.setCellValue(mortality.getPatient().getGender().getName());
+            Cell province = mortalityRow.createCell(++count);
+            province.setCellValue(mortality.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+            Cell district = mortalityRow.createCell(++count);
+            district.setCellValue(mortality.getPatient().getPrimaryClinic().getDistrict().getName());
+            Cell primaryClinic = mortalityRow.createCell(++count);
+            primaryClinic.setCellValue(mortality.getPatient().getPrimaryClinic().getName());
+
+            Cell dateOfDeath = mortalityRow.createCell(++count);
+            if (mortality.getDateOfDeath() != null) {
+                dateOfDeath.setCellValue(mortality.getDateOfDeath());
+                dateOfDeath.setCellStyle(cellStyle);
+            } else {
+                dateOfDeath.setCellValue("");
+            }
+            Cell causeOfDeath = mortalityRow.createCell(++count);
+            causeOfDeath.setCellValue(mortality.getCauseOfDeath() != null ? mortality.getCauseOfDeath().getName() : "");
+            Cell causeOfDeathDetails = mortalityRow.createCell(++count);
+            causeOfDeathDetails.setCellValue(mortality.getCauseOfDeathDetails());
+            Cell receivingEnhancedCare = mortalityRow.createCell(++count);
+            receivingEnhancedCare.setCellValue(mortality.getReceivingEnhancedCare() != null ? mortality.getReceivingEnhancedCare().getName() : "");
+            Cell datePutOnEnhancedCare = mortalityRow.createCell(++count);
+            if (mortality.getDatePutOnEnhancedCare() != null) {
+                datePutOnEnhancedCare.setCellValue(mortality.getDatePutOnEnhancedCare());
+                datePutOnEnhancedCare.setCellStyle(cellStyle);
+            } else {
+                datePutOnEnhancedCare.setCellValue("");
+            }
+            Cell caseBackground = mortalityRow.createCell(++count);
+            caseBackground.setCellValue(mortality.getCaseBackground());
+            Cell careProvided = mortalityRow.createCell(++count);
+            careProvided.setCellValue(mortality.getCareProvided());
+            Cell home = mortalityRow.createCell(++count);
+            home.setCellValue(mortality.getHome());
+
+            Cell beneficiary = mortalityRow.createCell(++count);
+            beneficiary.setCellValue(mortality.getBeneficiary());
+            Cell facility = mortalityRow.createCell(++count);
+            facility.setCellValue(mortality.getFacility());
+            Cell cats = mortalityRow.createCell(++count);
+            cats.setCellValue(mortality.getCats());
+            Cell zm = mortalityRow.createCell(++count);
+            zm.setCellValue(mortality.getZm());
+            Cell other = mortalityRow.createCell(++count);
+            other.setCellValue(mortality.getOther());
+            Cell contactWithZM = mortalityRow.createCell(++count);
+            contactWithZM.setCellValue(mortality.getContactWithZM() != null ? mortality.getContactWithZM().getName() : "");
+            Cell dateOfContactWithZim = mortalityRow.createCell(++count);
+            if (mortality.getDateOfContactWithZim() != null) {
+                dateOfContactWithZim.setCellValue(mortality.getDateOfContactWithZim());
+                dateOfContactWithZim.setCellStyle(cellStyle);
+            } else {
+                dateOfContactWithZim.setCellValue("");
+            }
+            Cell descriptionOfCase = mortalityRow.createCell(++count);
+            descriptionOfCase.setCellValue(mortality.getDescriptionOfCase());
+            Cell learningPoints = mortalityRow.createCell(++count);
+            learningPoints.setCellValue(mortality.getLearningPoints());
+            Cell actionPlan = mortalityRow.createCell(++count);
+            actionPlan.setCellValue(mortality.getActionPlan());
+
+        }
+
+        // tb Ipt here
+        HSSFSheet tbIptDetails = workbook.createSheet("Patient_TBIPT");
+        int tbIptRowNum = 0;
+        HSSFRow tbIptRow = tbIptDetails.createRow(tbIptRowNum++);
+        int tbIptCellNum = 0;
+        for (String title : DatabaseHeader.TB_IPT_HEADER) {
+            Cell cell = tbIptRow.createCell(tbIptCellNum++);
+            cell.setCellValue(title);
+        }
+
+        for (TbIpt tbIpt : tbIpts) {
+            int count = 0;
+            tbIptRow = tbIptDetails.createRow(tbIptRowNum++);
+            Cell id = tbIptRow.createCell(count);
+            id.setCellValue(tbIpt.getPatient().getPatientNumber());
+            Cell patientName = tbIptRow.createCell(++count);
+            patientName.setCellValue(tbIpt.getPatient().getName());
+            Cell dateOfBirth = tbIptRow.createCell(++count);
+            dateOfBirth.setCellValue(tbIpt.getPatient().getDateOfBirth());
+            dateOfBirth.setCellStyle(cellStyle);
+            Cell age = tbIptRow.createCell(++count);
+            age.setCellValue(tbIpt.getPatient().getAge());
+            Cell sex = tbIptRow.createCell(++count);
+            sex.setCellValue(tbIpt.getPatient().getGender().getName());
+            Cell province = tbIptRow.createCell(++count);
+            province.setCellValue(tbIpt.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+            Cell district = tbIptRow.createCell(++count);
+            district.setCellValue(tbIpt.getPatient().getPrimaryClinic().getDistrict().getName());
+            Cell primaryClinic = tbIptRow.createCell(++count);
+            primaryClinic.setCellValue(tbIpt.getPatient().getPrimaryClinic().getName());
+
+            Cell screenedForTb = tbIptRow.createCell(++count);
+            screenedForTb.setCellValue(tbIpt.getScreenedForTb() != null ? tbIpt.getScreenedForTb().getName() : "");
+            Cell dateScreened = tbIptRow.createCell(++count);
+            if (tbIpt.getDateScreened() != null) {
+                dateScreened.setCellValue(tbIpt.getDateScreened());
+                dateScreened.setCellStyle(cellStyle);
+            } else {
+                dateScreened.setCellValue("");
+            }
+            Cell tbSymptoms = tbIptRow.createCell(++count);
+            tbSymptoms.setCellValue((tbIpt.getTbSymptoms() != null && tbIpt.getTbSymptoms().isEmpty())
+                    ? tbIpt.getTbSymptoms().toString() : "");
+            Cell identifiedWithTb = tbIptRow.createCell(++count);
+            identifiedWithTb.setCellValue(tbIpt.getIdentifiedWithTb() != null ? tbIpt.getIdentifiedWithTb().getName() : "");
+            Cell tbIdentificationOutcome = tbIptRow.createCell(++count);
+            tbIdentificationOutcome.setCellValue(tbIpt.getTbIdentificationOutcome() != null ? tbIpt.getTbIdentificationOutcome().getName() : "");
+            Cell dateStartedTreatment = tbIptRow.createCell(++count);
+            if (tbIpt.getDateStartedTreatment() != null) {
+                dateStartedTreatment.setCellValue(tbIpt.getDateStartedTreatment());
+                dateStartedTreatment.setCellStyle(cellStyle);
+            } else {
+                dateStartedTreatment.setCellValue("");
+            }
+            Cell referralForSputum = tbIptRow.createCell(++count);
+            referralForSputum.setCellValue(tbIpt.getReferralForSputum());
+            Cell tbTreatmentOutcome = tbIptRow.createCell(++count);
+            tbTreatmentOutcome.setCellValue(tbIpt.getTbTreatmentOutcome() != null ? tbIpt.getTbTreatmentOutcome().getName() : "");
+            Cell referredForIpt = tbIptRow.createCell(++count);
+            referredForIpt.setCellValue(tbIpt.getReferredForIpt() != null ? tbIpt.getReferredForIpt().getName() : "");
+            Cell onIpt = tbIptRow.createCell(++count);
+            onIpt.setCellValue(tbIpt.getOnIpt() != null ? tbIpt.getOnIpt().getName() : "");
+            Cell dateStartedIpt = tbIptRow.createCell(++count);
+            if (tbIpt.getDateStartedTreatment() != null) {
+                dateStartedIpt.setCellValue(tbIpt.getDateStartedTreatment());
+                dateStartedIpt.setCellStyle(cellStyle);
+            } else {
+                dateStartedIpt.setCellValue("");
             }
         }
         /* end here    */

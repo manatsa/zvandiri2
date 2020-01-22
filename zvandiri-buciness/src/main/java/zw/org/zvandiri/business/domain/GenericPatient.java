@@ -154,6 +154,12 @@ public class GenericPatient extends BaseEntity {
     private Set<InvestigationTest> investigationTests = new HashSet<>();
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<CatDetail> catDetails = new HashSet<>();
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    private Set<Mortality> mortalitys = new HashSet<>();
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    private Set<MentalHealthScreening> mentalHealthScreenings = new HashSet<>();
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    private Set<TbIpt> tbIpts = new HashSet<>();
     /*
      new fields
      */
@@ -556,6 +562,14 @@ public class GenericPatient extends BaseEntity {
         this.familys = familys;
     }
 
+    public Set<Mortality> getMortalitys() {
+        return mortalitys;
+    }
+
+    public void setMortalitys(Set<Mortality> mortalitys) {
+        this.mortalitys = mortalitys;
+    }
+
     public PatientChangeEvent getStatus() {
         return status;
     }
@@ -667,6 +681,22 @@ public class GenericPatient extends BaseEntity {
         this.catDetails = catDetails;
     }
 
+    public Set<MentalHealthScreening> getMentalHealthScreenings() {
+        return mentalHealthScreenings;
+    }
+
+    public void setMentalHealthScreenings(Set<MentalHealthScreening> mentalHealthScreenings) {
+        this.mentalHealthScreenings = mentalHealthScreenings;
+    }
+
+    public Set<TbIpt> getTbIpts() {
+        return tbIpts;
+    }
+
+    public void setTbIpts(Set<TbIpt> tbIpts) {
+        this.tbIpts = tbIpts;
+    }
+
     public void add(InvestigationTest item, Patient patient) {
         investigationTests.add(item);
         item.setPatient(patient);
@@ -744,6 +774,21 @@ public class GenericPatient extends BaseEntity {
 
     public void add(Family item, Patient patient) {
         familys.add(item);
+        item.setPatient(patient);
+    }
+    
+    public void add(Mortality item, Patient patient) {
+        mortalitys.add(item);
+        item.setPatient(patient);
+    }
+    
+    public void add(TbIpt item, Patient patient) {
+        tbIpts.add(item);
+        item.setPatient(patient);
+    }
+    
+    public void add(MentalHealthScreening item, Patient patient) {
+        mentalHealthScreenings.add(item);
         item.setPatient(patient);
     }
 

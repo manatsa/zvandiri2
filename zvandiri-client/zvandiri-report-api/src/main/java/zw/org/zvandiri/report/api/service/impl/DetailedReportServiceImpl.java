@@ -131,7 +131,7 @@ public class DetailedReportServiceImpl implements DetailedReportService {
             "Phone Number", "Date Joined", "Facility", "Graduation Date",
             "Bled For VL", "VL Date", "VL Result", "Regimen",
             "Date Started Regimen", "Sexually Active", "Screened for TB", "TB Screening Date", 
-        "TB Outcome", "Received Treatment for TB", "TB Treatment Outcome"};
+        "TB Outcome", "Received Treatment for TB", "TB Treatment Outcome", "Has Children"};
         List<GenericReportModel> items = new ArrayList<>();
         items.add(new GenericReportModel(Arrays.asList(headers)));
         for (CatDetail item : list) {
@@ -151,9 +151,9 @@ public class DetailedReportServiceImpl implements DetailedReportService {
                 item.getPatient().getCurrentArvRegimen(),
                 item.getRegimenDate() != null ? DateUtil.formatDate(item.getRegimenDate()) : "",
                 item.getSexuallyActive() != null ? item.getSexuallyActive().getName() : "", 
-                item.getTbScreening().toString(),
+                item.getTbScreening() != null ? item.getTbScreening().getName() : "",
                 item.getTbScreeningDate() != null ? DateUtil.formatDate(item.getTbScreeningDate()) : "", 
-                item.getOutcome(), item.getReceivedTreatment(), item.getTreatmentOutcome()
+                item.getOutcome(), item.getReceivedTreatment(), item.getTreatmentOutcome(), item.getHaveChildren()
                 
             };
             items.add(new GenericReportModel(Arrays.asList(inner)));

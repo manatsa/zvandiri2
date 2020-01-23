@@ -149,6 +149,8 @@ abstract public class BaseEntity implements Serializable {
         if (!(obj instanceof BaseEntity)) {
             return false;
         }
+        System.out.println("%%%%%%%%%%%%%% this.getId() " + this.getId() + " Other.getId() : " 
+                + ((BaseEntity) obj).getId());
         return this.getId().equals(((BaseEntity) obj).getId());
     }
 

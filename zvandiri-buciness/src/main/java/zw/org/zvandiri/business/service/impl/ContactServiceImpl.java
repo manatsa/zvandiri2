@@ -23,11 +23,9 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.InvestigationTest;
 import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.domain.TestResult;
 import zw.org.zvandiri.business.domain.User;
 import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.repo.ContactRepo;
@@ -93,7 +91,6 @@ public class ContactServiceImpl implements ContactService {
             } catch (Exception e) {
                 System.out.println("JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
                 e.printStackTrace();
-                LOG.debug("Is rollbackOnly: " + TransactionAspectSupport.currentTransactionStatus().isRollbackOnly());
                 return null;
             }
         }
@@ -134,9 +131,7 @@ public class ContactServiceImpl implements ContactService {
     @Transactional
     public void saveContactDTO(Contact contact) {
         
-        LOG.debug("Is rollbackOnly 1: " + TransactionAspectSupport.currentTransactionStatus().isRollbackOnly());
         save(contact);
-        LOG.debug("Is rollbackOnly 3: " + TransactionAspectSupport.currentTransactionStatus().isRollbackOnly());
         if (contact.getViralLoad() != null) {
             InvestigationTest viralLoad = contact.getViralLoad();
             viralLoad.setTestType(TestType.VIRAL_LOAD);

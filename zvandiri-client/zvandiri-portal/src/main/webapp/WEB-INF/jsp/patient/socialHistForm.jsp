@@ -49,7 +49,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Type of abuse</label><br/><br/>
-                                <form:checkboxes path="abuseTypes" items="${abuseTypes}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
+                                <form:checkboxes path="abuseTypes" items="${abuseTypes}" itemLabel="name" itemValue="code" delimiter="<br/>"/>
                                 <p class="help-block">
                                     <form:errors path="abuseTypes" class="alert-danger"/>
                                 </p>

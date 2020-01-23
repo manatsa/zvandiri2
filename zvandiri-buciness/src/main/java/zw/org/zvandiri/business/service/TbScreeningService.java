@@ -16,4 +16,6 @@ import zw.org.zvandiri.business.domain.TbScreening;
 public interface TbScreeningService extends GenericService<TbScreening>{
     
     public List<TbScreening> getByPatient(Patient patient);
+    
+    public TbScreening getLatest(Patient patient);
 }

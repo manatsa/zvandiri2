@@ -27,7 +27,7 @@ import zw.org.zvandiri.business.domain.Patient;
  */
 public interface ArvHistRepo extends AbstractRepo<ArvHist, String> {
  
-    @Query("from ArvHist a left join fetch a.patient left join fetch a.modifiedBy left join fetch a.createdBy where a.patient=:patient")
+    @Query("from ArvHist a left join fetch a.patient left join fetch a.modifiedBy left join fetch a.createdBy where a.patient=:patient order by a.dateCreated DESC")
     public List<ArvHist> findByPatient(@Param("patient") Patient patient);
     
     @Query("Select count(Distinct a.patient.id) from ArvHist a")

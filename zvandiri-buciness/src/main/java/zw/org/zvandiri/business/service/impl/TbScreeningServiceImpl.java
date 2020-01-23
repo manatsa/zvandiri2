@@ -79,6 +79,16 @@ public class TbScreeningServiceImpl implements TbScreeningService{
     
     @Override
     public List<TbScreening> getByPatient(Patient patient){
-        return repo.findByPatient(patient);
+        return repo.findByPatientOrderByDateCreatedDesc(patient);
     }
+
+    @Override
+    public TbScreening getLatest(Patient patient) {
+        
+        for (TbScreening tbScreening : getByPatient(patient)) {
+            return tbScreening;
+        }
+        return null;
+    }
+    
 }

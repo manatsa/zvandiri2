@@ -29,12 +29,14 @@ import zw.org.zvandiri.business.domain.ArvHist;
 import zw.org.zvandiri.business.domain.CatDetail;
 import zw.org.zvandiri.business.domain.InvestigationTest;
 import zw.org.zvandiri.business.domain.SrhHist;
+import zw.org.zvandiri.business.domain.TbScreening;
 import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.ArvHistService;
 import zw.org.zvandiri.business.service.CatDetailReportService;
 import zw.org.zvandiri.business.service.InvestigationTestService;
 import zw.org.zvandiri.business.service.SrhHistService;
+import zw.org.zvandiri.business.service.TbScreeningService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 /**
@@ -43,8 +45,8 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
  */
 @Repository
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
-public class CatDetailReportServiceImpl implements CatDetailReportService{
-    
+public class CatDetailReportServiceImpl implements CatDetailReportService {
+
     @PersistenceContext
     private EntityManager entityManager;
     @Resource
@@ -53,6 +55,8 @@ public class CatDetailReportServiceImpl implements CatDetailReportService{
     private ArvHistService arvHistService;
     @Resource
     private SrhHistService srhHistService;
+    @Resource
+    private TbScreeningService tbScreeningService;
 
     @Override
     public List<CatDetail> get(SearchDTO dto) {
@@ -140,24 +144,34 @@ public class CatDetailReportServiceImpl implements CatDetailReportService{
             query.setParameter("endDate", dto.getEndDate());
         }
         List<CatDetail> list = query.getResultList();
-        for(CatDetail catDetail : list) {
+        for (CatDetail catDetail : list) {
             InvestigationTest test = investigationTestService.getLatestTestByTestType(catDetail.getPatient(), TestType.VIRAL_LOAD);
-            if(test != null) {
-                if(test.getResultTaken() == null) {
+            if (test != null) {
+                if (test.getResultTaken() == null) {
                     test.setResultTaken(YesNo.YES);
                 }
                 catDetail.setVlDate(test.getDateTaken());
                 catDetail.setVlResultTaken(test.getResultTaken());
             }
             ArvHist hist = arvHistService.getLatest(catDetail.getPatient());
-            if(hist != null) {
+            if (hist != null) {
                 catDetail.setRegimenDate(hist.getStartDate());
             }
             SrhHist srhHist = srhHistService.getByPatient(catDetail.getPatient());
-            if(srhHist != null) {
+            if (srhHist != null) {
                 catDetail.setSexuallyActive(srhHist.getSexuallyActive());
             }
+            TbScreening tbScreening = tbScreeningService.getLatest(catDetail.getPatient());
+            if (tbScreening != null) {
+                catDetail.setTbScreening(YesNo.YES);
+                catDetail.setTbScreeningDate(tbScreening.getDateScreened());
+                catDetail.setOutcome(tbScreening.getTbOutcome() != null ? tbScreening.getTbOutcome().getName() : "");
+                catDetail.setReceivedTreatment(tbScreening.getTbTreatmentStatus() != null ? tbScreening.getTbTreatmentStatus().getName() : "");
+                catDetail.setTreatmentOutcome(tbScreening.getTbTreatmentOutcome() != null ? tbScreening.getTbTreatmentOutcome().getName() : "");
+            }
+            catDetail.setHaveChildren(catDetail.getPatient().getMotherOfHei() != null ? "Yes" : "No");
         }
+
         return list;
     }
 

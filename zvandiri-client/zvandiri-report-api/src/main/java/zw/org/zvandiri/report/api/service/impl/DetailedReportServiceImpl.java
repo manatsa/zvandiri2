@@ -126,10 +126,12 @@ public class DetailedReportServiceImpl implements DetailedReportService {
 
     @Override
     public List<GenericReportModel> getCatsDetailExcel(List<CatDetail> list) {
+        
         String[] headers = {"Name", "D.O.B", "Age", "Sex", "Certificate Number",
             "Phone Number", "Date Joined", "Facility", "Graduation Date",
             "Bled For VL", "VL Date", "VL Result", "Regimen",
-            "Date Started Regimen", "Sexually Active"};
+            "Date Started Regimen", "Sexually Active", "Screened for TB", "TB Screening Date", 
+        "TB Outcome", "Received Treatment for TB", "TB Treatment Outcome"};
         List<GenericReportModel> items = new ArrayList<>();
         items.add(new GenericReportModel(Arrays.asList(headers)));
         for (CatDetail item : list) {
@@ -148,7 +150,11 @@ public class DetailedReportServiceImpl implements DetailedReportService {
                 String.valueOf(item.getPatient().getViralLoad()),
                 item.getPatient().getCurrentArvRegimen(),
                 item.getRegimenDate() != null ? DateUtil.formatDate(item.getRegimenDate()) : "",
-                item.getSexuallyActive() != null ? item.getSexuallyActive().getName() : ""
+                item.getSexuallyActive() != null ? item.getSexuallyActive().getName() : "", 
+                item.getTbScreening().toString(),
+                item.getTbScreeningDate() != null ? DateUtil.formatDate(item.getTbScreeningDate()) : "", 
+                item.getOutcome(), item.getReceivedTreatment(), item.getTreatmentOutcome()
+                
             };
             items.add(new GenericReportModel(Arrays.asList(inner)));
         }

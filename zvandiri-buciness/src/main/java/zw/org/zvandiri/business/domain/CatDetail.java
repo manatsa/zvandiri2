@@ -66,8 +66,23 @@ public class CatDetail extends BaseEntity {
     private Date regimenDate;
     @Transient
     private YesNo sexuallyActive;
+    @Transient
+    private YesNo tbScreening;
+    @Transient
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date tbScreeningDate;
+    @Transient
+    private YesNo cervicalCancerScreening;
+    @Transient
+    private String outcome;
+    @Transient
+    private String receivedTreatment;
+    @Transient 
+    private String treatmentOutcome;
+    @Transient
+    private String haveChildren;
     
-
     public CatDetail() {
     }
 
@@ -190,5 +205,62 @@ public class CatDetail extends BaseEntity {
     public void setSexuallyActive(YesNo sexuallyActive) {
         this.sexuallyActive = sexuallyActive;
     }
+
+    public YesNo getTbScreening() {
+        return tbScreening;
+    }
+
+    public void setTbScreening(YesNo tbScreening) {
+        this.tbScreening = tbScreening;
+    }
+
+    public Date getTbScreeningDate() {
+        return tbScreeningDate;
+    }
+
+    public void setTbScreeningDate(Date tbScreeningDate) {
+        this.tbScreeningDate = tbScreeningDate;
+    }
+
+    public YesNo getCervicalCancerScreening() {
+        return cervicalCancerScreening;
+    }
+
+    public void setCervicalCancerScreening(YesNo cervicalCancerScreening) {
+        this.cervicalCancerScreening = cervicalCancerScreening;
+    }
+
+    public String getOutcome() {
+        return outcome;
+    }
+
+    public void setOutcome(String outcome) {
+        this.outcome = outcome;
+    }
+
+    public String getReceivedTreatment() {
+        return receivedTreatment;
+    }
+
+    public void setReceivedTreatment(String receivedTreatment) {
+        this.receivedTreatment = receivedTreatment;
+    }
+
+    public String getTreatmentOutcome() {
+        return treatmentOutcome;
+    }
+
+    public void setTreatmentOutcome(String treatmentOutcome) {
+        this.treatmentOutcome = treatmentOutcome;
+    }
+
+    public String getHaveChildren() {
+        return haveChildren;
+    }
+
+    public void setHaveChildren(String haveChildren) {
+        this.haveChildren = haveChildren;
+    }
+    
     
 }

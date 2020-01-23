@@ -15,5 +15,5 @@ import zw.org.zvandiri.business.domain.TbScreening;
  */
 public interface TbScreeningRepo extends AbstractRepo<TbScreening, String>{
     
-    public List<TbScreening> findByPatient(Patient patient);
+    public List<TbScreening> findByPatientOrderByDateCreatedDesc(Patient patient);
 }

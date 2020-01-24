@@ -145,8 +145,8 @@ public class Contact extends BaseEntity {
     private CareLevel currentCareLevel;
     @Enumerated
     private VisitOutcome visitOutcome;
-    @Transient
     private String referredPersonId;
+    @Transient
     private InvestigationTest viralLoad;
     @Transient
     private InvestigationTest cd4Count;

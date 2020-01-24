@@ -48,6 +48,7 @@ import zw.org.zvandiri.business.domain.SocialHist;
 import zw.org.zvandiri.business.domain.SubstanceItem;
 import zw.org.zvandiri.business.domain.TbIpt;
 import zw.org.zvandiri.business.service.DetailedPatientReportService;
+import zw.org.zvandiri.business.service.MortalityService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.DatabaseHeader;
 import zw.org.zvandiri.report.api.GenericReportModel;
@@ -62,6 +63,8 @@ public class OfficeExportServiceImpl implements OfficeExportService {
 
     @Resource
     private DetailedPatientReportService detailedPatientReportService;
+    @Resource
+    private MortalityService mortalityService;
 
     @Override
     public Workbook exportExcelFile(List<GenericReportModel> rows, String name) {
@@ -145,7 +148,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             investigationTests.addAll(patient.getInvestigationTests());
             arvHists.addAll(patient.getArvHists());
             tbIpts.addAll(patient.getTbIpts());
-            mortalitys.addAll(patient.getMortalitys());
+            mortalitys.addAll(mortalityService.get(dto));
             mentalHealthScreenings.addAll(patient.getMentalHealthScreenings());
 
             header = patientDetails.createRow(rowNum++);

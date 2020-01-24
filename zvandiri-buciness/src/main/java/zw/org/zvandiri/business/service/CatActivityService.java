@@ -15,4 +15,6 @@ import zw.org.zvandiri.business.domain.CatActivity;
 public interface CatActivityService extends GenericService<CatActivity> {
  
     public List<CatActivity> getByCat(String catId);
+    
+    public CatActivity getLatest(String catId);
 }

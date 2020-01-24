@@ -80,4 +80,12 @@ public class CatActivityServiceImpl implements CatActivityService {
         return catActivityRepo.findByCatDetailIdOrderByDateIssuedDesc(catId);
     }
 
+    @Override
+    public CatActivity getLatest(String catId) {
+        for (CatActivity item : getByCat(catId)) {
+            return item;
+        }
+        return null;
+    }
+
 }

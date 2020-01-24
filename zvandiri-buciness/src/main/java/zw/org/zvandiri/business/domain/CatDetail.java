@@ -82,6 +82,14 @@ public class CatDetail extends BaseEntity {
     private String treatmentOutcome;
     @Transient
     private String haveChildren;
+    @Transient
+    private String currentStatus;
+    @Transient
+    private String bicycle;
+    @Transient
+    private String phone;
+    @Transient
+    private String phoneMode;
     
     public CatDetail() {
     }
@@ -260,6 +268,38 @@ public class CatDetail extends BaseEntity {
 
     public void setHaveChildren(String haveChildren) {
         this.haveChildren = haveChildren;
+    }
+
+    public String getCurrentStatus() {
+        return currentStatus;
+    }
+
+    public void setCurrentStatus(String currentStatus) {
+        this.currentStatus = currentStatus;
+    }
+
+    public String getBicycle() {
+        return bicycle;
+    }
+
+    public void setBicycle(String bicycle) {
+        this.bicycle = bicycle;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPhoneMode() {
+        return phoneMode;
+    }
+
+    public void setPhoneMode(String phoneMode) {
+        this.phoneMode = phoneMode;
     }
     
     

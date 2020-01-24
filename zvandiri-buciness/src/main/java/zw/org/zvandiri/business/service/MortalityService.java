@@ -5,7 +5,9 @@
  */
 package zw.org.zvandiri.business.service;
 
+import java.util.List;
 import zw.org.zvandiri.business.domain.Mortality;
+import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 /**
  *
@@ -13,4 +15,5 @@ import zw.org.zvandiri.business.domain.Mortality;
  */
 public interface MortalityService extends GenericPatientHistoryService<Mortality>{
     
+    public List<Mortality> get(SearchDTO searchDTO);
 }

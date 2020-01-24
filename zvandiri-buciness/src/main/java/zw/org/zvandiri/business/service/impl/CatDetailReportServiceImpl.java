@@ -26,16 +26,22 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.ArvHist;
+import zw.org.zvandiri.business.domain.CatActivity;
 import zw.org.zvandiri.business.domain.CatDetail;
+import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.InvestigationTest;
 import zw.org.zvandiri.business.domain.SrhHist;
+import zw.org.zvandiri.business.domain.TbIpt;
 import zw.org.zvandiri.business.domain.TbScreening;
 import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.ArvHistService;
+import zw.org.zvandiri.business.service.CatActivityService;
 import zw.org.zvandiri.business.service.CatDetailReportService;
+import zw.org.zvandiri.business.service.ContactService;
 import zw.org.zvandiri.business.service.InvestigationTestService;
 import zw.org.zvandiri.business.service.SrhHistService;
+import zw.org.zvandiri.business.service.TbIptService;
 import zw.org.zvandiri.business.service.TbScreeningService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
@@ -56,7 +62,11 @@ public class CatDetailReportServiceImpl implements CatDetailReportService {
     @Resource
     private SrhHistService srhHistService;
     @Resource
-    private TbScreeningService tbScreeningService;
+    private TbIptService tbIptService;
+    @Resource
+    private CatActivityService catActivityService;
+    @Resource
+    private ContactService contactService;
 
     @Override
     public List<CatDetail> get(SearchDTO dto) {
@@ -161,15 +171,27 @@ public class CatDetailReportServiceImpl implements CatDetailReportService {
             if (srhHist != null) {
                 catDetail.setSexuallyActive(srhHist.getSexuallyActive());
             }
-            TbScreening tbScreening = tbScreeningService.getLatest(catDetail.getPatient());
-            if (tbScreening != null) {
-                catDetail.setTbScreening(YesNo.YES);
-                catDetail.setTbScreeningDate(tbScreening.getDateScreened());
-                catDetail.setOutcome(tbScreening.getTbOutcome() != null ? tbScreening.getTbOutcome().getName() : "");
-                catDetail.setReceivedTreatment(tbScreening.getTbTreatmentStatus() != null ? tbScreening.getTbTreatmentStatus().getName() : "");
-                catDetail.setTreatmentOutcome(tbScreening.getTbTreatmentOutcome() != null ? tbScreening.getTbTreatmentOutcome().getName() : "");
+            TbIpt tbIpt = tbIptService.getByPatient(catDetail.getPatient());
+            if (tbIpt != null) {
+                catDetail.setTbScreening(tbIpt.getScreenedForTb());
+                catDetail.setTbScreeningDate(tbIpt.getDateScreened());
+                catDetail.setOutcome(tbIpt.getTbIdentificationOutcome()!= null ? tbIpt.getTbIdentificationOutcome().getName() : "");
+                catDetail.setReceivedTreatment(tbIpt.getDateStartedTreatment() != null ? "Yes" : "No");
+                catDetail.setTreatmentOutcome(tbIpt.getTbTreatmentOutcome() != null ? tbIpt.getTbTreatmentOutcome().getName() : "");
             }
             catDetail.setHaveChildren(catDetail.getPatient().getMotherOfHei() != null ? "Yes" : "No");
+            
+            Contact contact = contactService.findLatestContact(catDetail.getPatient());
+            if (contact != null) {
+                catDetail.setCurrentStatus(contact.getCurrentCareLevel() != null ? contact.getCurrentCareLevel().getName() : "");
+            }
+            CatActivity catActivity = catActivityService.getLatest(catDetail.getId());
+            if (catActivity != null) {
+                catDetail.setBicycle(catActivity.getIssuedBicycle() != null ? catActivity.getIssuedBicycle().getName() : "");
+                catDetail.setPhone(catActivity.getAssignedPhone() != null ? catActivity.getAssignedPhone().getName() : "");
+                catDetail.setPhoneMode(catActivity.getPhoneModel());
+            }
+            
         }
 
         return list;

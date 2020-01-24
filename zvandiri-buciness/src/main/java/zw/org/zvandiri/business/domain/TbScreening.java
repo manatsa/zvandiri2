@@ -141,4 +141,10 @@ public class TbScreening extends BaseEntity {
     public void setDateScreened(Date dateScreened) {
         this.dateScreened = dateScreened;
     }
+
+    @Override
+    public String toString() {
+        return "TbScreening{" + "coughing=" + coughing + ", sweating=" + sweating + ", weightLoss=" + weightLoss + ", fever=" + fever + ", currentlyOnTreatment=" + currentlyOnTreatment + ", typeOfDrug=" + typeOfDrug + ", tbOutcome=" + tbOutcome + ", tbTreatmentStatus=" + tbTreatmentStatus + ", tbTreatmentOutcome=" + tbTreatmentOutcome + ", patient=" + patient + ", dateScreened=" + dateScreened + '}';
+    }
+    
 }

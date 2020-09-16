@@ -15,22 +15,29 @@
  */
 package zw.org.zvandiri.portal.web.controller.report;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import zw.org.zvandiri.business.domain.MentalHealthScreening;
+import zw.org.zvandiri.business.domain.Mortality;
+import zw.org.zvandiri.business.domain.TbIpt;
 import zw.org.zvandiri.business.service.PeriodService;
 import zw.org.zvandiri.business.service.ProvinceService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
-import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
-import zw.org.zvandiri.report.api.service.DataEntryReportService;
+import zw.org.zvandiri.report.api.DatabaseHeader;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
 import zw.org.zvandiri.report.api.service.TbScreeningReportReportService;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -74,6 +81,92 @@ public class TbScreeningReportController extends BaseController{
     @RequestMapping(value = "/screening/export/excel", method = RequestMethod.GET)
     public void getExcelExportHealthCenter(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("TB Screening Report");
-        forceDownLoad(officeExportService.exportExcelFile(reportService.getDefaultReport(item.getInstance(item)), name), name, response);
+        forceDownLoadDatabase(officeExportService.exportExcelXLSXFile(reportService.getDefaultReport(item.getInstance(item)), name), name, response);
     }
+
+
+    public Workbook createTBIPTWorkbook() {
+
+        Workbook workbook = new XSSFWorkbook();
+        CellStyle cellStyle = workbook.createCellStyle();
+        CreationHelper createHelper = workbook.getCreationHelper();
+        cellStyle.setDataFormat(
+                createHelper.createDataFormat().getFormat("dd/MM/yyyy"));
+
+        List<TbIpt> tbIpts = new ArrayList<>();
+
+        // tb Ipt here
+        Sheet tbIptDetails = workbook.createSheet("Patient_TBIPT");
+        int tbIptRowNum = 0;
+        Row tbIptRow = tbIptDetails.createRow(tbIptRowNum++);
+        int tbIptCellNum = 0;
+        for (String title : DatabaseHeader.TB_IPT_HEADER) {
+            Cell cell = tbIptRow.createCell(tbIptCellNum++);
+            cell.setCellValue(title);
+        }
+
+        for (TbIpt tbIpt : tbIpts) {
+            int count = 0;
+            tbIptRow = tbIptDetails.createRow(tbIptRowNum++);
+            Cell id = tbIptRow.createCell(count);
+            id.setCellValue(tbIpt.getPatient().getPatientNumber());
+            Cell patientName = tbIptRow.createCell(++count);
+            patientName.setCellValue(tbIpt.getPatient().getName());
+            Cell dateOfBirth = tbIptRow.createCell(++count);
+            dateOfBirth.setCellValue(tbIpt.getPatient().getDateOfBirth());
+            dateOfBirth.setCellStyle(cellStyle);
+            Cell age = tbIptRow.createCell(++count);
+            age.setCellValue(tbIpt.getPatient().getAge());
+            Cell sex = tbIptRow.createCell(++count);
+            sex.setCellValue(tbIpt.getPatient().getGender().getName());
+            Cell province = tbIptRow.createCell(++count);
+            province.setCellValue(tbIpt.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+            Cell district = tbIptRow.createCell(++count);
+            district.setCellValue(tbIpt.getPatient().getPrimaryClinic().getDistrict().getName());
+            Cell primaryClinic = tbIptRow.createCell(++count);
+            primaryClinic.setCellValue(tbIpt.getPatient().getPrimaryClinic().getName());
+
+            Cell screenedForTb = tbIptRow.createCell(++count);
+            screenedForTb.setCellValue(tbIpt.getScreenedForTb() != null ? tbIpt.getScreenedForTb().getName() : "");
+            Cell dateScreened = tbIptRow.createCell(++count);
+            if (tbIpt.getDateScreened() != null) {
+                dateScreened.setCellValue(tbIpt.getDateScreened());
+                dateScreened.setCellStyle(cellStyle);
+            } else {
+                dateScreened.setCellValue("");
+            }
+            Cell tbSymptoms = tbIptRow.createCell(++count);
+            tbSymptoms.setCellValue((tbIpt.getTbSymptoms() != null && tbIpt.getTbSymptoms().isEmpty())
+                    ? tbIpt.getTbSymptoms().toString() : "");
+            Cell identifiedWithTb = tbIptRow.createCell(++count);
+            identifiedWithTb.setCellValue(tbIpt.getIdentifiedWithTb() != null ? tbIpt.getIdentifiedWithTb().getName() : "");
+            Cell tbIdentificationOutcome = tbIptRow.createCell(++count);
+            tbIdentificationOutcome.setCellValue(tbIpt.getTbIdentificationOutcome() != null ? tbIpt.getTbIdentificationOutcome().getName() : "");
+            Cell dateStartedTreatment = tbIptRow.createCell(++count);
+            if (tbIpt.getDateStartedTreatment() != null) {
+                dateStartedTreatment.setCellValue(tbIpt.getDateStartedTreatment());
+                dateStartedTreatment.setCellStyle(cellStyle);
+            } else {
+                dateStartedTreatment.setCellValue("");
+            }
+            Cell referralForSputum = tbIptRow.createCell(++count);
+            referralForSputum.setCellValue(tbIpt.getReferralForSputum());
+            Cell tbTreatmentOutcome = tbIptRow.createCell(++count);
+            tbTreatmentOutcome.setCellValue(tbIpt.getTbTreatmentOutcome() != null ? tbIpt.getTbTreatmentOutcome().getName() : "");
+            Cell referredForIpt = tbIptRow.createCell(++count);
+            referredForIpt.setCellValue(tbIpt.getReferredForIpt() != null ? tbIpt.getReferredForIpt().getName() : "");
+            Cell onIpt = tbIptRow.createCell(++count);
+            onIpt.setCellValue(tbIpt.getOnIpt() != null ? tbIpt.getOnIpt().getName() : "");
+            Cell dateStartedIpt = tbIptRow.createCell(++count);
+            if (tbIpt.getDateStartedTreatment() != null) {
+                dateStartedIpt.setCellValue(tbIpt.getDateStartedTreatment());
+                dateStartedIpt.setCellStyle(cellStyle);
+            } else {
+                dateStartedIpt.setCellValue("");
+            }
+        }
+
+        return workbook;
+    }
+
 }

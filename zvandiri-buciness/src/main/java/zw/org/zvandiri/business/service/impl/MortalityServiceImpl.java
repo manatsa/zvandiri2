@@ -107,6 +107,8 @@ public class MortalityServiceImpl implements MortalityService{
         return false;
     }
 
+
+
     @Override
     public Mortality getByPatient(Patient patient) {
         return repo.findByPatient(patient);

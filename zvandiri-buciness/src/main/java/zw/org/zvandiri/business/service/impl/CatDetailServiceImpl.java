@@ -21,6 +21,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.Resource;
+
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +46,7 @@ import zw.org.zvandiri.business.util.dto.NameIdDTO;
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 public class CatDetailServiceImpl implements CatDetailService {
 
+    private static final Logger LOGGER = Logger.getLogger(CatDetailServiceImpl.class);
     @Resource
     private CatDetailRepo catDetailRepo;
     @Resource
@@ -70,6 +73,7 @@ public class CatDetailServiceImpl implements CatDetailService {
             throw new IllegalStateException("Item to be deleted is in an inconsistent state");
         }
         t.setActive(Boolean.FALSE);
+        t.setDeleted(true);
         catDetailRepo.save(t);
     }
 
@@ -126,8 +130,11 @@ public class CatDetailServiceImpl implements CatDetailService {
     @Override
     public List<NameIdDTO> getCatPatients(CatDetail catDetail) {
         List<NameIdDTO> patients = new ArrayList<>();
-        for(Patient patient : catDetailRepo.findByPrimaryClinic(catDetail.getPrimaryClinic(), catDetail.getPatient())){
-            patients.add(new NameIdDTO(patient.getName(), patient.getId(), patient.getDateOfBirth(), patient.getGender(), patient.getStatus(), patient.getActive()));
+        for(Patient patient : catDetailRepo.findByPrimaryClinicAndDeletedIsFalseAndPatientEquals(catDetail.getPrimaryClinic(), catDetail.getPatient())){
+            if(!patient.getDeleted()){
+                LOGGER.error("*************************************Patient : "+patient.getDeleted());
+                patients.add(new NameIdDTO(patient.getName(), patient.getId(), patient.getDateOfBirth(), patient.getGender(), patient.getStatus(), patient.getActive()));
+            }
         }
         return patients;
     }

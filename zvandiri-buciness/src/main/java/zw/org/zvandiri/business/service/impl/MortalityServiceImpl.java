@@ -119,10 +119,7 @@ public class MortalityServiceImpl implements MortalityService{
         dto.setStatus(null);
         StringBuilder builder = new StringBuilder("Select Distinct m from Mortality m left join fetch m.patient p ");
         int position = 0;
-        String startDate = "dateJoined";
-        if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
-            startDate = "dateModified";
-        }
+
         if (dto.getSearch(dto)) {
             builder.append(" where ");
             if (dto.getProvince() != null) {
@@ -201,13 +198,11 @@ public class MortalityServiceImpl implements MortalityService{
             }
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
                 if (position == 0) {
-                    builder.append("p.");
-                    builder.append(startDate);
+                    builder.append(" m.dateOfDeath ");
                     builder.append(" between :startDate and :endDate");
                     position++;
                 } else {
-                    builder.append(" and (p.");
-                    builder.append(startDate);
+                    builder.append(" and m.dateOfDeath");
                     builder.append(" between :startDate and :endDate)");
                 }
             }
@@ -220,7 +215,7 @@ public class MortalityServiceImpl implements MortalityService{
                 }
             }
         }
-        builder.append(" order by p.lastName ASC, p.firstName ASC, p.middleName ASC, p.dateModified DESC, p.dateCreated DESC");
+        builder.append(" order by m.dateOfDeath DESC, p.lastName ASC, p.firstName ASC, p.middleName ASC, p.dateModified DESC, p.dateCreated DESC");
         TypedQuery<Mortality> query = entityManager.createQuery(builder.toString(), Mortality.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());

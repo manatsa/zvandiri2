@@ -15,6 +15,7 @@
  */
 package zw.org.zvandiri.business.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -23,6 +24,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import zw.org.zvandiri.business.domain.Mortality;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.HIVStatus;
 import zw.org.zvandiri.business.service.PatientReportService;
@@ -1552,46 +1554,88 @@ public class PatientReportServiceImpl implements PatientReportService {
         return  patients;
     }
 
+
+
     @Override
     public List<Patient> getUncontactedClients(SearchDTO dto) {
+        dto.setStatus(null);
+        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p  ");
+        int position = 0;
 
-        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p where p.id not in " +
-                "(select c.patient from Contact c where contact_date between :startDate and :endDate) ");
+        if (dto.getSearch(dto)) {
+            builder.append(" where ");
+            if (dto.getProvince() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic.district.province=:province");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district.province=:province");
+                }
+            }
+            if (dto.getDistrict() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic.district=:district");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district=:district");
+                }
+            }
+            if (dto.getPrimaryClinic() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic=:primaryClinic");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic=:primaryClinic");
+                }
+            }
+            if (dto.getSupportGroup() != null) {
+                if (position == 0) {
+                    builder.append("p.supportGroup=:supportGroup");
+                    position++;
+                } else {
+                    builder.append(" and p.supportGroup=:supportGroup");
+                }
+            }
+            if (dto.getGender() != null) {
+                if (position == 0) {
+                    builder.append("p.gender=:gender");
+                    position++;
+                } else {
+                    builder.append(" and p.gender=:gender");
+                }
+            }
 
-        if (dto.getProvince() != null) {
+            if (position == 0) {
+                builder.append(" p.id not in (select c.patient from Contact c ");
+            }else{
+                builder.append(" and p.id not in (select c.patient from Contact c ");
+            }
 
-            builder.append(" and p.primaryClinic.district.province=:province");
+
+            if (dto.getStartDate() != null && dto.getEndDate() != null) {
+                    builder.append(" where c.contactDate between :startDate and :endDate");
+
+            }
+
+            builder.append(" )");
+
         }
 
-        if (dto.getDistrict() != null) {
-
-            builder.append(" and p.primaryClinic.district=:district");
-        }
-
-        if (dto.getPrimaryClinic() != null) {
-            builder.append(" and p.primaryClinic=:primaryClinic");
-        }
-
-        if (dto.getSupportGroup() != null) {
-            builder.append(" and p.gender=:gender");
-        }
-
-
-
-        TypedQuery query = entityManager.createQuery(builder.toString(), Patient.class);
+        builder.append(" order by p.lastName ASC, p.firstName ASC, p.middleName ASC, p.dateModified DESC, p.dateCreated DESC");
+        TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());
         }
-
         if (dto.getDistrict() != null) {
             query.setParameter("district", dto.getDistrict());
         }
-
         if (dto.getPrimaryClinic() != null) {
             query.setParameter("primaryClinic", dto.getPrimaryClinic());
         }
-
         if (dto.getSupportGroup() != null) {
+            query.setParameter("supportGroup", dto.getSupportGroup());
+        }
+        if (dto.getGender() != null) {
             query.setParameter("gender", dto.getGender());
         }
 
@@ -1599,9 +1643,8 @@ public class PatientReportServiceImpl implements PatientReportService {
             query.setParameter("startDate", dto.getStartDate());
             query.setParameter("endDate", dto.getEndDate());
         }
-        List<Patient> patients=query.getResultList();
 
-        return  patients;
+        return query.getResultList();
     }
 
 

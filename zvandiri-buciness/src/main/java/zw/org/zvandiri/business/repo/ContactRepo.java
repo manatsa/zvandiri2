@@ -17,6 +17,8 @@ package zw.org.zvandiri.business.repo;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import zw.org.zvandiri.business.domain.Contact;
@@ -47,4 +49,13 @@ public interface ContactRepo extends AbstractRepo<Contact, String> {
     public List<Contact> findByReferredPersonAndOpenOrderByContactDateDesc(@Param("referredPerson") User referredPerson, @Param("open") Boolean open);
     
     public List<Contact> findTop1ByPatientOrderByContactDateDesc(Patient patient);
+
+    @Query("select c from Contact c join c.clinicalAssessments d  where d = ?1")
+    Set<Contact> findDeviceByClinicalAssessments(Contact contact);
+
+    @Query(value = "select c.* from zvandiri.contact c inner join zvandiri.contact_clinical_assessment cs" +
+            "on cs.contact_id=c.id inner join zvandiri.assessment a on cs.assessment_id=a.id " +
+            "where a.name='Unwell' " +
+            "and c.contact_date between :startDate and :endDate", nativeQuery = true)
+    List<Contact> findUnwellClients(@Param("startDate") Date startDate, @Param("endDate") Date endDate );
 }

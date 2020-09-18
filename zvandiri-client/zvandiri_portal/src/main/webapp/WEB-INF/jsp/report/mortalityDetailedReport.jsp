@@ -4,51 +4,66 @@
         <div class="panel-heading">${pageTitle}</div>
         <div class="panel-body">
             <a href="${page}/report/index.htm">&DoubleLeftArrow; Back To
-                Reports DashBoard Home</a><br />
+                Reports DashBoard Home</a><br /> <span class="text-error right" style="text-align: right;">Invisible columns will be visible in exported data!</span>
             <%@include file="../template/searchClientFragment.jspf"%>
             <div class="row">
                 <div class="col-lg-12">
                     <table id="tableList" class="display" cellspacing="0">
                         <thead>
                         <th>Name</th>
-                        <th>OI/ ART Number</th>
                         <th>Age</th>
+                        <th>OI/ ART Number</th>
                         <th>Date of Birth</th>
                         <th>Gender</th>
                         <th>Region</th>
                         <th>District</th>
                         <th>Primary Clinic</th>
-                        <th>Support Group</th>
-                        <th>Referrer</th>
-                        <th>Date Deceased</th>
+                        <th>Date Of Death</th>
+                        <th>Cause Of Death</th>
+                        <th>Cause of Death Details</th>
+                        <th>Received Enhanced Care</th>
+                        <th>Date Put On Enhanced Care</th>
+                        <th>Case Background</th>
+                        <th>Care Provided</th>
+                        <th>Home</th>
                         </thead>
                         <tfoot>
                         <th>Name</th>
-                        <th>OI/ ART Number</th>
                         <th>Age</th>
+                        <th>OI/ ART Number</th>
                         <th>Date of Birth</th>
                         <th>Gender</th>
                         <th>Region</th>
                         <th>District</th>
                         <th>Primary Clinic</th>
-                        <th>Support Group</th>
-                        <th>Referrer</th>
-                        <th>Date Deceased</th>
+                        <th>Date Of Death</th>
+                        <th>Cause Of Death</th>
+                        <th>Cause of Death Details</th>
+                        <th>Received Enhanced Care</th>
+                        <th>Date Put On Enhanced Care</th>
+                        <th>Case Background</th>
+                        <th>Care Provided</th>
+                        <th>Home</th>
                         </tfoot>
                         <tbody>
                         <c:forEach var="item" items="${items}">
                             <tr>
-                                <td>${item.name}</td>
-                                <td>${item.oINumber}</td>
-                                <td>${item.age}</td>
-                                <td><spring:eval expression="item.dateOfBirth" /></td>
-                                <td>${item.gender.name}</td>
-                                <td>${item.primaryClinic.district.province.name}</td>
-                                <td>${item.primaryClinic.district.name}</td>
-                                <td>${item.primaryClinic.name}</td>
-                                <td>${item.supportGroup.name}</td>
-                                <td>${item.referer.name}</td>
-                                <th>${item.dateModified}</th>
+                                <td>${item.patient.name}</td>
+                                <td>${item.patient.age}</td>
+                                <td>${item.patient.oINumber}</td>
+                                <td><spring:eval expression="item.patient.dateOfBirth" /></td>
+                                <td>${item.patient.gender.name}</td>
+                                <td>${item.patient.primaryClinic.district.province.name}</td>
+                                <td>${item.patient.primaryClinic.district.name}</td>
+                                <td>${item.patient.primaryClinic.name}</td>
+                                <td><spring:eval expression="item.dateOfDeath" /></td>
+                                <td>${item.causeOfDeath.name}</td>
+                                <td>${item.causeOfDeathDetails}</td>
+                                <td>${item.receivingEnhancedCare.name}</td>
+                                <td><spring:eval expression="item.datePutOnEnhancedCare" /></td>
+                                <td>${item.caseBackground}</td>
+                                <td>${item.careProvided}</td>
+                                <td>${item.home}</td>
                             </tr>
                         </c:forEach>
                         </tbody>

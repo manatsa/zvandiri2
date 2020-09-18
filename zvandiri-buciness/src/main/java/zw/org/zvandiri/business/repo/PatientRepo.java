@@ -87,4 +87,36 @@ public interface PatientRepo extends AbstractRepo<Patient, String> {
     public Patient getPatient(@Param("id") String id);
     
     public int countByPatientNumberNotNull();
+
+
+    @Query(value = "" +
+            "select u1.pid, u1.first_name, u1.last_name, u1.mobile_number, u1.facility, u1.district , \n" +
+            "    case c2.follow_up\n" +
+            "       when 0 then 'Stable'\n" +
+            "       when 1 then 'Enhanced'\n" +
+            "       when 2 then 'VST'\n" +
+            "       when 3 then 'Young_Mothers_Group'\n" +
+            "       when 4 then 'Youth_Group'\n" +
+            "       else 'null'\n" +
+            "    end last_status \n" +
+            "from (" +
+            "       select p.id pid, p.first_name first_name, p.last_name last_name,p.mobile_number, f.name facility, d.name district from zvandiri.patient p\n" +
+            "       left outer join (\n" +
+            "           select c.patient, max(c.contact_date) the_date, c.follow_up from zvandiri.contact c  \n" +
+            "               where c.contact_date between :startDate and :endDate -- str_to_date('30,5,2020','%d,%m,%Y')  \n" +
+            "                                    group by c.id \n" +
+            "           )c1 on p.id=c1.patient\n" +
+            "       inner  join zvandiri.facility f on p.primary_clinic=f.id\n" +
+            "       inner join zvandiri.district d on f.district=d.id\n" +
+            "       where  p.deleted=0 and p.status not in (0,1,2,3,4)  and d.name= :district\n" +
+            "       group by p.id\n" +
+            "       having count(c1.the_date)<1\n" +
+            "left outer join (\n" +
+            "   select c.patient, max(c.contact_date) the_date, c.follow_up \n" +
+            "   from zvandiri.contact c  \n" +
+            "   group by c.id \n" +
+            "              )c2 on u1.pid=c2.patient;" +
+            "", nativeQuery = true)
+    List<Patient> findDistinctBy(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("district") String district);
+
 }

@@ -31,14 +31,16 @@ public interface CatDetailRepo extends AbstractRepo<CatDetail, String> {
     @Query("from CatDetail c left join fetch c.patient left join fetch c.primaryClinic where c.patient=:patient")
     public CatDetail findByPatient(@Param("patient") Patient patient);
    
-    @Query("from CatDetail c left join fetch c.patient left join fetch c.primaryClinic left join fetch c.createdBy left join c.modifiedBy where c.email=:email")
+    @Query("from CatDetail c left join fetch c.patient left join fetch c.primaryClinic left join fetch c.createdBy left join c.modifiedBy where c.patient.deleted=false and c.email=:email")
     public CatDetail findByEmail(@Param("email") String email);
     
     @Query("from CatDetail c left join fetch c.patient left join fetch c.primaryClinic where c.id=:id")
     public CatDetail findById(@Param("id") String id);
     
-    @Query("from Patient p left join fetch p.education left join fetch p.educationLevel left join fetch p.referer left join fetch p.primaryClinic left join fetch p.supportGroup where p.primaryClinic =:primaryClinic and p <> :patient order by p.lastName, p.firstName, p.middleName ASC")
-    public List<Patient> findByPrimaryClinic(@Param("primaryClinic") Facility primaryClinic, @Param("patient") Patient patient);
+    /*@Query("from Patient p left join fetch p.education left join fetch p.educationLevel " +
+            "left join fetch p.referer left join fetch p.primaryClinic left join fetch p.supportGroup " +
+            "where p.deleted=false and p.primaryClinic =:primaryClinic and p <> :patient order by p.lastName, p.firstName, p.middleName ASC")*/
+    public List<Patient> findByPrimaryClinicAndDeletedIsFalseAndPatientEquals(@Param("primaryClinic") Facility primaryClinic, @Param("patient") Patient patient);
     
-    List<Patient> findByPrimaryClinic(Facility primaryClinic);
+    List<Patient> findByPrimaryClinicAndAndDeletedIsFalse(Facility primaryClinic);
 }

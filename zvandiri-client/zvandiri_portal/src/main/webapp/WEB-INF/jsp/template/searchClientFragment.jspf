@@ -1,4 +1,9 @@
 <form:form  role="form" modelAttribute="item" method="post">
+    <div class="row">
+        <div class="alert alert-danger">
+            <span>Please make sure to define the shortest period you want to check by selecting start date and end date.</span>
+        </div>
+    </div>
     <table class="table">
         <tbody>
             <tr>

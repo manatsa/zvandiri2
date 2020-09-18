@@ -81,7 +81,7 @@ public class MortalityReportController extends BaseController {
 
         if (post) {
             model.addAttribute("excelExport", "/report/mortality/export/excel" + item.getQueryString(item.getInstance(item)));
-            model.addAttribute("items", patientReportService.getPatientDeceased(item.getInstance(item)));
+            model.addAttribute("items", mortalityService.get(item.getInstance(item)));
         }
 
 
@@ -114,7 +114,6 @@ public class MortalityReportController extends BaseController {
     @RequestMapping(value = "/export/excel", method = RequestMethod.GET)
     public void getExcelExport(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Detailed_Mortality_Report");
-        List<Patient> items=patientReportService.getPatientDeceased(item);
         forceDownLoadDatabase(createMortalityWorkbook(item), name, response);
     }
 

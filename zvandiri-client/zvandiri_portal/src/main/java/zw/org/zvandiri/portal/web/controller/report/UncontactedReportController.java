@@ -101,6 +101,7 @@ public class UncontactedReportController extends BaseController {
 
         List<Patient> patients = patientReportService.getUncontactedClients(dto.getInstance(dto));
 
+        System.err.println("Patients : "+patients.size()+"\nFirst Patient : "+patients.get(0).toString());
 
         for (Patient patient : patients) {
 
@@ -118,7 +119,7 @@ public class UncontactedReportController extends BaseController {
                     Cell sex = assessmentHeader.createCell(++count);
                     sex.setCellValue(patient.getGender().getName());
                     Cell province = assessmentHeader.createCell(++count);
-                    province.setCellValue(patient.getPrimaryClinic().getDistrict().getProvince().getName());
+                    //province.setCellValue(patient.getPrimaryClinic().getDistrict().getProvince().getName());
                     Cell district = assessmentHeader.createCell(++count);
                     district.setCellValue(patient.getPrimaryClinic().getDistrict().getName());
                     Cell primaryClinic = assessmentHeader.createCell(++count);

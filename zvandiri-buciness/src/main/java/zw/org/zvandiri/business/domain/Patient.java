@@ -220,5 +220,10 @@ public class Patient extends GenericPatient {
         }
         return null;
     }
+
+    public String toString()
+    {
+        return "ID :"+getId()+"\nFirstname : "+getFirstName()+"\nLastname : "+getLastName()+"\nFacility : "+getPrimaryClinic()+"\nDistrict : "+getPrimaryClinic().getDistrict().getName()+"\nProvince : "+getPrimaryClinic().getDistrict().getProvince().getName();
+    }
     
 }

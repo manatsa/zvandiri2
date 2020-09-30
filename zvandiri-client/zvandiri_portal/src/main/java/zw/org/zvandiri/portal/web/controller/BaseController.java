@@ -26,6 +26,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -97,11 +98,17 @@ abstract public class BaseController implements IAppTitle {
             return dto.getInstance(dto);
         }
         else if (user.getUserLevel().equals(UserLevel.PROVINCE)){
+            //System.err.println("*********************** User Level: Province");
             dto.setProvince(user.getProvince());
         } else if (user.getUserLevel().equals(UserLevel.DISTRICT)){
+            //System.err.println("*********************** User Level: District, and is "+user.getDistrict());
             dto.setDistrict(user.getDistrict());
+        }else{
+            //System.err.println("*********************** User Level: Other");
         }
-        return dto.getInstance(dto);
+         
+       //System.err.println("*********************** User : "+user.toString()+"\t Dis");
+        return dto;
     }
     
     public void getPatientStatus(Patient patient, ModelMap model) {
@@ -156,7 +163,7 @@ abstract public class BaseController implements IAppTitle {
     }
 
     @ResponseBody
-    public void forceDownLoad(Workbook workbook, String name, HttpServletResponse response) {
+    public void forceDownLoadXLSX(XSSFWorkbook workbook, String name, HttpServletResponse response) {
         try(ServletOutputStream myOut = response.getOutputStream();) {
             //Write the workbook in file system
             response.setContentType("application/vnd.ms-excel");

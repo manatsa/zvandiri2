@@ -16,7 +16,6 @@ import org.springframework.data.web.PageableArgumentResolver;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -36,8 +35,8 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @ComponentScan(basePackages = {"zw.org.zvandiri.portal.web.*", "zw.org.zvandiri.business.service.impl",
     "zw.org.zvandiri.report.api.service.impl"})
-@ImportResource(value = {"classpath:zw/org/zvandiri/portal/resources/applicationContext.xml", "classpath:zw/org/zvandiri/portal/resources/securityContext.xml"})
-@PropertySource("classpath:zw/org/zvandiri/business/resources/application.properties")
+@ImportResource(value = {"classpath:applicationContext.xml", "classpath:securityContext.xml"})
+@PropertySource("classpath:application.properties")
 @Import(PeriodConfig.class)
 @EnableScheduling
 @EnableJpaRepositories(basePackages = "zw.org.zvandiri.business.repo")

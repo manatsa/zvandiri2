@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 import zw.org.zvandiri.business.domain.District;
 import zw.org.zvandiri.business.domain.Facility;
@@ -54,6 +55,7 @@ import zw.org.zvandiri.business.util.DateUtil;
  *
  * @author Judge Muzinda
  */
+@ToString
 public class SearchDTO implements Serializable {
 
 	private Period period;

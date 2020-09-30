@@ -15,8 +15,10 @@
  */
 package zw.org.zvandiri.business.domain;
 
+import java.util.ArrayList;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
@@ -37,7 +39,7 @@ public class Facility extends BaseName {
     private Province province;
     @JsonIgnore
     @OneToMany(mappedBy = "primaryClinic", cascade = CascadeType.REMOVE)
-    private Set<Patient> patients = new HashSet<>();
+    private List<Patient> patients = new ArrayList<>();
 
     public Facility() {
     }
@@ -62,12 +64,18 @@ public class Facility extends BaseName {
         this.province = province;
     }
 
-    public Set<Patient> getPatients() {
+    public List<Patient> getPatients() {
         return patients;
     }
 
-    public void setPatients(Set<Patient> patients) {
+    public void setPatients(List<Patient> patients) {
         this.patients = patients;
+    }
+    
+    
+    public List<Patient> getCatPatients()
+    {
+        return patients;
     }
     
 }

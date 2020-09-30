@@ -16,6 +16,7 @@
 package zw.org.zvandiri.business.service.impl;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -32,6 +33,7 @@ import zw.org.zvandiri.business.domain.ChronicInfectionItem;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Dependent;
 import zw.org.zvandiri.business.domain.EidTest;
+import zw.org.zvandiri.business.domain.Facility;
 import zw.org.zvandiri.business.domain.Family;
 import zw.org.zvandiri.business.domain.HivConInfectionItem;
 import zw.org.zvandiri.business.domain.InvestigationTest;
@@ -54,6 +56,7 @@ import zw.org.zvandiri.business.util.dto.PatientDuplicateDTO;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.business.domain.PatientDisability;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
+import zw.org.zvandiri.business.util.dto.NameIdDTO;
 
 /**
  *
@@ -391,4 +394,17 @@ public class PatientServiceImpl implements PatientService {
         }
     }
 
+    /**
+     *
+     * @param facility
+     * @return
+     */
+  
+    @Override
+    public List<NameIdDTO> getCatPatients(CatDetail catDetail) {
+        List<NameIdDTO> patients= catDetailService.getCatPatients(catDetail);
+        
+        return patients;
+    }
+   
 }

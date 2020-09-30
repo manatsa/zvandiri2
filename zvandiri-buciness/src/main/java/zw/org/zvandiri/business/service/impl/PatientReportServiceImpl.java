@@ -1559,6 +1559,7 @@ public class PatientReportServiceImpl implements PatientReportService {
     @Override
     public List<Patient> getUncontactedClients(SearchDTO dto) {
         dto.setStatus(null);
+        System.err.println("************************************************  : "+dto.toString()+" ***************************************************");
         StringBuilder builder = new StringBuilder("Select Distinct p from Patient p  ");
         int position = 0;
 
@@ -1574,7 +1575,7 @@ public class PatientReportServiceImpl implements PatientReportService {
             }
             if (dto.getDistrict() != null) {
                 if (position == 0) {
-                    builder.append("p.primaryClinic.district=:district");
+                    builder.append(" p.primaryClinic.district=:district");
                     position++;
                 } else {
                     builder.append(" and p.primaryClinic.district=:district");

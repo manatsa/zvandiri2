@@ -119,4 +119,9 @@ public interface PatientRepo extends AbstractRepo<Patient, String> {
             "", nativeQuery = true)
     List<Patient> findDistinctBy(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("district") String district);
 
+    
+
+//    @Query(" select p from Patient p inner join Facility f where f.name=:facility")
+//    public List<Patient> getPatients(@Param ("facility")Facility facility);
+    
 }

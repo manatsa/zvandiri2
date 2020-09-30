@@ -15,6 +15,7 @@
  */
 package zw.org.zvandiri.mobile.api.resource;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +34,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
 import zw.org.zvandiri.business.domain.CatDetail;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
@@ -42,6 +44,7 @@ import zw.org.zvandiri.business.domain.util.FollowUp;
 import zw.org.zvandiri.business.domain.util.Gender;
 import zw.org.zvandiri.business.domain.util.Reason;
 import zw.org.zvandiri.business.domain.util.YesNo;
+import zw.org.zvandiri.business.repo.PatientRepo;
 import zw.org.zvandiri.business.service.CatDetailService;
 import zw.org.zvandiri.business.service.ContactService;
 import zw.org.zvandiri.business.service.PatientService;
@@ -67,6 +70,8 @@ public class PatientProcessResource {
     @Resource
     private PatientService patientService;
     @Resource
+    PatientRepo patientRepo;
+    @Resource
     private ReferralService referralService;
     @Resource
     private UserService userService;
@@ -75,7 +80,11 @@ public class PatientProcessResource {
     @Path("/cats-patients")
     public List<NameIdDTO> getCatPatients(@QueryParam("email") String email) {
 
-        return catDetailService.getCatPatients(catDetailService.getByEmail(email));
+         CatDetail catDetail=catDetailService.getByEmail(email);
+        List<NameIdDTO> patients;
+        patients = patientService.getCatPatients(catDetail);
+       
+        return patients;
     }
 
     @GET

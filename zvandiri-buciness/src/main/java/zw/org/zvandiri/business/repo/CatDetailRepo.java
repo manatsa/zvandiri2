@@ -42,5 +42,5 @@ public interface CatDetailRepo extends AbstractRepo<CatDetail, String> {
             "where p.deleted=false and p.primaryClinic =:primaryClinic and p <> :patient order by p.lastName, p.firstName, p.middleName ASC")*/
     public List<Patient> findByPrimaryClinicAndDeletedIsFalseAndPatientEquals(@Param("primaryClinic") Facility primaryClinic, @Param("patient") Patient patient);
     
-    List<Patient> findByPrimaryClinicAndAndDeletedIsFalse(Facility primaryClinic);
+   
 }

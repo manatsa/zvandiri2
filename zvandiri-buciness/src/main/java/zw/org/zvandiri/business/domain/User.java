@@ -24,12 +24,14 @@ import zw.org.zvandiri.business.domain.util.Gender;
 import zw.org.zvandiri.business.domain.util.UserLevel;
 import zw.org.zvandiri.business.domain.util.UserType;
 
+
 /**
  *
  * @author Judge Muzinda
  */
 @Entity @JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "user")
+
 public class User extends BaseEntity {
 
     @Enumerated
@@ -191,6 +193,6 @@ public class User extends BaseEntity {
     @Override
     public String toString()
     {
-       return "FirstName:"+firstName+"\tLastName:"+lastName+"\tUsername:"+userName;
+       return "FirstName:"+firstName+"\tLastName:"+lastName+"\tUsername:"+userName+"\tDistrict :"+district+"\tProvince :"+province;
     }
 }

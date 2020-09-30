@@ -50,9 +50,13 @@ public class UncontactedReportController extends BaseController {
 
     @Resource
     private ContactRepo contactService;
+    
+    @Resource
+    UserService userService;
 
     public String setUpModel(ModelMap model, SearchDTO item, boolean post) {
         item = getUserLevelObjectState(item);
+        
         model.addAttribute("pageTitle", APP_PREFIX + "Uncontacted Clients Report");
         model.addAttribute("provinces", provinceService.getAll());
         if (item.getProvince() != null) {
@@ -76,7 +80,7 @@ public class UncontactedReportController extends BaseController {
 
     @RequestMapping(value = "/range", method = RequestMethod.POST)
     public String getUncontactedClients(HttpServletResponse response,ModelMap model, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
-
+       
         String name = DateUtil.getFriendlyFileName("Uncontacted_Clients_Report");
         forceDownLoadDatabase(uncontactedPatients(item), name, response);
         return setUpModel(model, item, true);
@@ -99,9 +103,11 @@ public class UncontactedReportController extends BaseController {
             cell.setCellValue(title);
         }
 
-        List<Patient> patients = patientReportService.getUncontactedClients(dto.getInstance(dto));
+        
+        List<Patient> patients = patientReportService.getUncontactedClients(dto);
+        
 
-        System.err.println("Patients : "+patients.size()+"\nFirst Patient : "+patients.get(0).toString());
+        
 
         for (Patient patient : patients) {
 

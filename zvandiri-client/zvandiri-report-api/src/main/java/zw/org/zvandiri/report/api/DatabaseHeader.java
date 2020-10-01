@@ -63,7 +63,7 @@ public interface DatabaseHeader {
     };
 
     public final String [] UNCONTACTED_CLIENTS_HEADER = {
-            "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "Contact Date", "Care Level", "Type", "Assessment"
+             "Client Name","Date of Birth", "Age", "Gender", "Address", "Mobile Number", "Region", "District","Primary Clinic"
     };
 
     public final String [] SOCIAL_HISTORY_HEADER = {

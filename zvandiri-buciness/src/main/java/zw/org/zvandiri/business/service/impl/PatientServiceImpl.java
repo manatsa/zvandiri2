@@ -396,15 +396,16 @@ public class PatientServiceImpl implements PatientService {
 
     /**
      *
-     * @param facility
+     * @param catDetail
      * @return
      */
   
     @Override
     public List<NameIdDTO> getCatPatients(CatDetail catDetail) {
         List<NameIdDTO> patients= catDetailService.getCatPatients(catDetail);
-        
+        System.err.println("First Patient : "+patients.get(0).getName());
         return patients;
     }
    
+    
 }

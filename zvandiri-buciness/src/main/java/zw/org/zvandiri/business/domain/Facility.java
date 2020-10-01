@@ -15,13 +15,15 @@
  */
 package zw.org.zvandiri.business.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
-import org.codehaus.jackson.annotate.JsonIgnore;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity;import javax.persistence.FetchType;
+ import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
@@ -30,7 +32,8 @@ import javax.persistence.Transient;
  *
  * @author Judge Muzinda
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity 
+@JsonIgnoreProperties(value= {"patients"}, ignoreUnknown = true)
 public class Facility extends BaseName {
 
     @ManyToOne
@@ -38,7 +41,7 @@ public class Facility extends BaseName {
     @Transient
     private Province province;
     @JsonIgnore
-    @OneToMany(mappedBy = "primaryClinic", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "primaryClinic", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Patient> patients = new ArrayList<>();
 
     public Facility() {

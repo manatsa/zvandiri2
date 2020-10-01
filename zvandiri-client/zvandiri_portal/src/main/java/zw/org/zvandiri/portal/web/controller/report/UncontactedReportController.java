@@ -1,5 +1,6 @@
 package zw.org.zvandiri.portal.web.controller.report;
 
+import java.util.ArrayList;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
@@ -53,6 +54,8 @@ public class UncontactedReportController extends BaseController {
     
     @Resource
     UserService userService;
+    
+    List<Patient> patients=new ArrayList<>();
 
     public String setUpModel(ModelMap model, SearchDTO item, boolean post) {
         item = getUserLevelObjectState(item);
@@ -66,8 +69,9 @@ public class UncontactedReportController extends BaseController {
             }
         }
         if (post) {
+            patients = patientReportService.getUncontactedClients(item);
             model.addAttribute("excelExport", "/report/uncontacted/export/excel" + item.getQueryString(item.getInstance(item)));
-            model.addAttribute("items", contactReportService.get(item.getInstance(item)));
+            model.addAttribute("items", patients);
         }
         model.addAttribute("item", item.getInstance(item));
         return "report/uncontactedClients";
@@ -80,13 +84,16 @@ public class UncontactedReportController extends BaseController {
 
     @RequestMapping(value = "/range", method = RequestMethod.POST)
     public String getUncontactedClients(HttpServletResponse response,ModelMap model, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
-       
-        String name = DateUtil.getFriendlyFileName("Uncontacted_Clients_Report");
-        forceDownLoadDatabase(uncontactedPatients(item), name, response);
-        return setUpModel(model, item, true);
+       return setUpModel(model, item, true);
     }
 
 
+     @RequestMapping(value = "/export/excel", method = RequestMethod.GET)
+    public void getExcelExport(HttpServletResponse response, SearchDTO item) {
+        String name = DateUtil.getFriendlyFileName("Uncontacted_Clients_Report");
+        forceDownLoadDatabase(uncontactedPatients(item), name, response);
+    }
+    
     public Workbook uncontactedPatients(SearchDTO dto) {
         Workbook workbook = new XSSFWorkbook();
         CellStyle cellStyle = workbook.createCellStyle();
@@ -96,43 +103,45 @@ public class UncontactedReportController extends BaseController {
         // add contact assessments
         Sheet uncontactedClientsDetails = workbook.createSheet("Uncontacted Clients");
         int assessmentRowNum = 0;
-        Row assessmentHeader = uncontactedClientsDetails.createRow(assessmentRowNum++);
+        Row uncontactedRow = uncontactedClientsDetails.createRow(assessmentRowNum++);
         int assessmentCellNum = 0;
         for (String title : DatabaseHeader.UNCONTACTED_CLIENTS_HEADER) {
-            Cell cell = assessmentHeader.createCell(assessmentCellNum++);
+            Cell cell = uncontactedRow.createCell(assessmentCellNum++);
             cell.setCellValue(title);
         }
 
-        
-        List<Patient> patients = patientReportService.getUncontactedClients(dto);
-        
-
-        
 
         for (Patient patient : patients) {
 
                     int count = 0;
-                    assessmentHeader = uncontactedClientsDetails.createRow(assessmentRowNum++);
-                    Cell id = assessmentHeader.createCell(count);
-                    id.setCellValue(patient.getPatientNumber());
-                    Cell patientName = assessmentHeader.createCell(++count);
+                    uncontactedRow = uncontactedClientsDetails.createRow(assessmentRowNum++);
+                    
+                    Cell patientName = uncontactedRow.createCell(count++);
                     patientName.setCellValue(patient.getName());
-                    Cell dateOfBirth = assessmentHeader.createCell(++count);
+                    
+                    Cell dateOfBirth = uncontactedRow.createCell(count++);
                     dateOfBirth.setCellValue(patient.getDateOfBirth());
                     dateOfBirth.setCellStyle(cellStyle);
-                    Cell age = assessmentHeader.createCell(++count);
+                    
+                    Cell age = uncontactedRow.createCell(count++);
                     age.setCellValue(patient.getAge());
-                    Cell sex = assessmentHeader.createCell(++count);
+                    
+                    Cell sex = uncontactedRow.createCell(count++);
                     sex.setCellValue(patient.getGender().getName());
-                    Cell province = assessmentHeader.createCell(++count);
-                    //province.setCellValue(patient.getPrimaryClinic().getDistrict().getProvince().getName());
-                    Cell district = assessmentHeader.createCell(++count);
-                    district.setCellValue(patient.getPrimaryClinic().getDistrict().getName());
-                    Cell primaryClinic = assessmentHeader.createCell(++count);
-                    primaryClinic.setCellValue(patient.getPrimaryClinic().getName());
-
-
-
+                    
+                    Cell address=uncontactedRow.createCell(count++);
+                    address.setCellValue(patient.getAddress());
+                    
+                    Cell phone=uncontactedRow.createCell(count++);
+                    phone.setCellValue(patient.getMobileNumber()==null?"":patient.getMobileNumber());
+                    Cell province = uncontactedRow.createCell(count++);
+                    province.setCellValue(patient.getPrimaryClinic().getDistrict().getProvince().getName());
+                    Cell district = uncontactedRow.createCell(count++);
+                    district.setCellValue(patient.getPrimaryClinic().getDistrict().getName()==null?"":patient.getPrimaryClinic().getDistrict().getName());
+                    Cell primaryClinic = uncontactedRow.createCell(count++);
+                    primaryClinic.setCellValue(patient.getPrimaryClinic().getName()==null?"":patient.getPrimaryClinic().getName());
+                   
+                   
             }
 
         return workbook;

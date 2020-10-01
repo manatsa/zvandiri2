@@ -130,14 +130,14 @@ public class CatDetailServiceImpl implements CatDetailService {
     @Override
     public List<NameIdDTO> getCatPatients(CatDetail catDetail) {
         List<NameIdDTO> patients = new ArrayList<>();
-//        List<Patient> ogPatients=catDetailRepo.findByPrimaryClinicAndAndDeletedIsFalseAndActiveIsTrue(catDetail.getPrimaryClinic());
-//        
-//        for(Patient patient : ogPatients ){
-//            if(!patient.getDeleted() && patient.getActive()){
-//                LOGGER.error("*************************************Patient : "+patient.getDeleted());
-//                patients.add(new NameIdDTO(patient.getName(), patient.getId(), patient.getDateOfBirth(), patient.getGender(), patient.getStatus(), patient.getActive()));
-//            }
-//        }
+        List<Patient> ogPatients=catDetailRepo.getFacilityPatients(catDetail.getPrimaryClinic().getName(),true,false);
+        
+        for(Patient patient : ogPatients ){
+            if(!patient.getDeleted() && patient.getActive()){
+                LOGGER.error("*************************************Patient : "+patient.getDeleted());
+                patients.add(new NameIdDTO(patient.getName(), patient.getId(), patient.getDateOfBirth(), patient.getGender(), patient.getStatus(), patient.getActive()));
+            }
+        }
         return patients;
     }
 

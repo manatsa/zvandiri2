@@ -37,10 +37,13 @@ public interface CatDetailRepo extends AbstractRepo<CatDetail, String> {
     @Query("from CatDetail c left join fetch c.patient left join fetch c.primaryClinic where c.id=:id")
     public CatDetail findById(@Param("id") String id);
     
-    /*@Query("from Patient p left join fetch p.education left join fetch p.educationLevel " +
-            "left join fetch p.referer left join fetch p.primaryClinic left join fetch p.supportGroup " +
-            "where p.deleted=false and p.primaryClinic =:primaryClinic and p <> :patient order by p.lastName, p.firstName, p.middleName ASC")*/
-    public List<Patient> findByPrimaryClinicAndDeletedIsFalseAndPatientEquals(@Param("primaryClinic") Facility primaryClinic, @Param("patient") Patient patient);
+//    /*@Query("from Patient p left join fetch p.education left join fetch p.educationLevel " +
+//            "left join fetch p.referer left join fetch p.primaryClinic left join fetch p.supportGroup " +
+//            "where p.deleted=false and p.primaryClinic =:primaryClinic and p <> :patient order by p.lastName, p.firstName, p.middleName ASC")*/
+//    public List<Patient> findByPrimaryClinicAndDeletedIsFalseAndPatientEquals(@Param("primaryClinic") Facility primaryClinic, @Param("patient") Patient patient);
+    
+    @Query("from Patients p left join fetch p.primaryClinic where p.primaryClinic=:facility and p.deleted=:deleted and p.active=:active")
+    public List<Patient> getFacilityPatients(@Param("facility") String primaryClinic, @Param("deleted") boolean active, @Param("active") boolean deleted);
     
    
 }

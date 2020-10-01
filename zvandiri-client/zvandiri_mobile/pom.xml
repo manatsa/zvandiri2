@@ -92,7 +92,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>zvandiri-mobile-test</finalName>
+        <finalName>zvandiri-mobile</finalName>
     </build>
 
 </project>

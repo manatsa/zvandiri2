@@ -51,7 +51,7 @@ public class InvestigationTest extends TestResult {
 
     public String getViralLoadSuppressionStatus() {
         if (testType.equals(TestType.VIRAL_LOAD)) {
-            return (getResult() != null && getResult() >= 1000) ? "Suppressed" : "Unsuppressed";
+            return (getResult() != null && getResult() < 1000) ? "Suppressed" : "Unsuppressed";
         }
         return null;
     }

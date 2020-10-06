@@ -29,8 +29,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import org.codehaus.jackson.annotate.JsonBackReference;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import zw.org.zvandiri.business.domain.util.Gender;
@@ -71,6 +73,7 @@ public class GenericPatient extends BaseEntity {
     private Date dateJoined;
     @ManyToOne
     private Referer referer;
+    
     @ManyToOne
     private Facility primaryClinic;
     @ManyToOne

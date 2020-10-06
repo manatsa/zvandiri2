@@ -10,8 +10,10 @@ import java.util.Set;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity; 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -43,28 +45,28 @@ public class MentalHealthScreening extends BaseEntity {
     private MentalHealthScreeningType screening;
     @Enumerated
     private YesNo risk;
-    @ElementCollection(targetClass = IdentifiedRisk.class)
+    @ElementCollection(targetClass = IdentifiedRisk.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "mental_health_screening_risk",
             joinColumns = @JoinColumn(name = "screening_id"))
     @Column(name = "risk_id")
     private Set<IdentifiedRisk> identifiedRisks;
     @Enumerated
     private YesNo support;
-    @ElementCollection(targetClass = Support.class)
+    @ElementCollection(targetClass = Support.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "mental_health_screening_support",
             joinColumns = @JoinColumn(name = "screening_id"))
     @Column(name = "support_id")
     private Set<Support> supports;
     @Enumerated
     private YesNo referral;
-    @ElementCollection(targetClass = zw.org.zvandiri.business.domain.util.Referral.class)
+    @ElementCollection(targetClass = zw.org.zvandiri.business.domain.util.Referral.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "mental_health_screening_referral",
             joinColumns = @JoinColumn(name = "screening_id"))
     @Column(name = "referral_id")
     private Set<zw.org.zvandiri.business.domain.util.Referral> referrals;
     @Enumerated
     private YesNo diagnosis;
-    @ElementCollection(targetClass = Diagnosis.class)
+    @ElementCollection(targetClass = Diagnosis.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "mental_health_screening_diagnosis",
             joinColumns = @JoinColumn(name = "screening_id"))
     @Column(name = "diagnosis_id")
@@ -72,7 +74,7 @@ public class MentalHealthScreening extends BaseEntity {
     private String otherDiagnosis;
     @Enumerated
     private YesNo intervention;
-    @ElementCollection(targetClass = Intervention.class)
+    @ElementCollection(targetClass = Intervention.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "mental_health_screening_intervention",
             joinColumns = @JoinColumn(name = "screening_id"))
     @Column(name = "intervention_id")

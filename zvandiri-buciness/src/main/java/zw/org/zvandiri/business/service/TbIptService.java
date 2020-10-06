@@ -5,9 +5,11 @@
  */
 package zw.org.zvandiri.business.service;
 
+import java.util.List;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.TbIpt;
 import zw.org.zvandiri.business.domain.util.TbIdentificationOutcome;
+import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 /**
  *
@@ -16,5 +18,7 @@ import zw.org.zvandiri.business.domain.util.TbIdentificationOutcome;
 public interface TbIptService extends GenericPatientHistoryService<TbIpt>{
     
     public boolean existsOnTbTreatment(Patient patient, TbIdentificationOutcome yesNo);
+    
+    public List<TbIpt> get(SearchDTO dto);
     
 }

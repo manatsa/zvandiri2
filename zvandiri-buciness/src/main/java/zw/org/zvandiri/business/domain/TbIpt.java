@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -36,7 +37,7 @@ public class TbIpt extends BaseEntity {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateScreened;
-    @ElementCollection(targetClass = TbSymptom.class)
+    @ElementCollection(targetClass = TbSymptom.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "tb_symptom",
             joinColumns = @JoinColumn(name = "tb_id"))
     @Column(name = "symptom_id")

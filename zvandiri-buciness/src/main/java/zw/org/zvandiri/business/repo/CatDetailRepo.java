@@ -42,7 +42,7 @@ public interface CatDetailRepo extends AbstractRepo<CatDetail, String> {
 //            "where p.deleted=false and p.primaryClinic =:primaryClinic and p <> :patient order by p.lastName, p.firstName, p.middleName ASC")*/
 //    public List<Patient> findByPrimaryClinicAndDeletedIsFalseAndPatientEquals(@Param("primaryClinic") Facility primaryClinic, @Param("patient") Patient patient);
     
-    @Query("from Patients p left join fetch p.primaryClinic where p.primaryClinic=:facility and p.deleted=:deleted and p.active=:active")
+    @Query("from Patient p left join fetch p.primaryClinic where p.primaryClinic=:facility and p.deleted=:deleted and p.active=:active")
     public List<Patient> getFacilityPatients(@Param("facility") String primaryClinic, @Param("deleted") boolean active, @Param("active") boolean deleted);
     
    

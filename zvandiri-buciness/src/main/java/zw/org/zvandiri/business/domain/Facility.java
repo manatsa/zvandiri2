@@ -15,7 +15,6 @@
  */
 package zw.org.zvandiri.business.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 
 import java.util.HashSet;
@@ -27,6 +26,9 @@ import javax.persistence.Entity;import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 /**
  *
@@ -34,6 +36,7 @@ import javax.persistence.Transient;
  */
 @Entity 
 @JsonIgnoreProperties(value= {"patients"}, ignoreUnknown = true)
+
 public class Facility extends BaseName {
 
     @ManyToOne

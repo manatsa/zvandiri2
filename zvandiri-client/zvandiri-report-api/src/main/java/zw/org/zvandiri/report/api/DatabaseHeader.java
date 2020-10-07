@@ -110,7 +110,7 @@ public interface DatabaseHeader {
 
     public final String [] TB_IPT_HEADER = {
             "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "Screened for TB",
-            "Date Screened", "TB Symptoms", "Indentified with TB", "TB Identification Outcome", "Date Started Treatment",
+            "Date Screened", "Indentified with TB", "TB Identification Outcome", "Date Started Treatment",
             "Referral for Sputum", "TB Treatment Outcome", "Referred for IPT", "On IPT", "Date Started IPT"
     };
 

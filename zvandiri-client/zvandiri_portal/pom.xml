@@ -49,6 +49,6 @@
         </dependency>
     </dependencies>   
     <build>
-        <finalName>zvandiri-test</finalName>
+        <finalName>zvandiri</finalName>
     </build>
 </project>

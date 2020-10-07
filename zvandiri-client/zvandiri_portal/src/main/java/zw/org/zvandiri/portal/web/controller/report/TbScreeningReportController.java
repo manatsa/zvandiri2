@@ -43,6 +43,10 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
+import zw.org.zvandiri.business.service.DistrictService;
+import zw.org.zvandiri.business.service.FacilityService;
+import zw.org.zvandiri.business.service.SupportGroupService;
+import zw.org.zvandiri.business.service.TbIptService;
 
 /**
  *
@@ -58,39 +62,72 @@ public class TbScreeningReportController extends BaseController{
     private TbScreeningReportReportService reportService;
     @Resource
     private ProvinceService provinceService;
+    
     @Resource
-    private PeriodService periodService;
+    private DistrictService districtService;
+    
+    @Resource
+    private FacilityService facilityService;
+    
+    @Resource
+    private SupportGroupService supportGroupService;
+    
+    @Resource
+    TbIptService tbIptService;
+    
+     List<TbIpt> tbIpts=new ArrayList<>();
+    
+//    @Resource
+//    private PeriodService periodService;
 
-    public void setUpModel(ModelMap model, SearchDTO item) {
+    public void setUpModel(ModelMap model, SearchDTO item, boolean post) {
         item = getUserLevelObjectState(item);
+        System.err.println("***********************************************************************************************************\n"+item);
         model.addAttribute("pageTitle", APP_PREFIX + "TB Screening Report");
         model.addAttribute("provinces", provinceService.getAll());
-        model.addAttribute("periods", periodService.getActivePeriods());
+//        model.addAttribute("periods", periodService.getActivePeriods());
         model.addAttribute("item", item.getInstance(item));
         model.addAttribute("excelExport", "/report/tb-screening/screening/export/excel" + item.getQueryString(item.getInstance(item)));
-        model.addAttribute("items", reportService.getDefaultReport(item.getInstance(item)));
+        
+         if (item.getProvince() != null) {
+            model.addAttribute("districts", districtService.getDistrictByProvince(item.getProvince()));
+            if (item.getDistrict() != null) {
+                model.addAttribute("facilities", facilityService.getOptByDistrict(item.getDistrict()));
+                model.addAttribute("supportGroups", supportGroupService.getByDistrict(item.getDistrict()));
+            }
+        }
+
+
+        if (post) {
+            model.addAttribute("excelExport", "/report/tb-screening/screening/export/excel" + item.getQueryString(item.getInstance(item)));
+             model.addAttribute("items", tbIpts);
+        }
+        
+       
+        
     }
 
     @RequestMapping(value = "/screening", method = RequestMethod.GET)
     public String getReportIndex(ModelMap model) {
-        setUpModel(model, new SearchDTO());
-        return "report/tbScreeningReport";
+        setUpModel(model, new SearchDTO(), false);
+        return "report/tbScreenReport";
     }
 
     @RequestMapping(value = "/screening", method = RequestMethod.POST)
     public String getReportResult(ModelMap model, @ModelAttribute("item") SearchDTO item) {
-        setUpModel(model, item);
-        return "report/tbScreeningReport";
+        tbIpts = tbIptService.get(item);
+        setUpModel(model, item, true);
+        return "report/tbScreenReport";
     }
 
     @RequestMapping(value = "/screening/export/excel", method = RequestMethod.GET)
     public void getExcelExportHealthCenter(HttpServletResponse response, SearchDTO item) {
-        String name = DateUtil.getFriendlyFileName("TB Screening Report");
-        forceDownLoadXLSX(createTBIPTWorkbook(),"TBScreening", response);
+        String name = DateUtil.getFriendlyFileName("TB_Screening_Report");
+        forceDownLoadXLSX(createTBIPTWorkbook(item),name, response);
     }
 
 
-    public XSSFWorkbook createTBIPTWorkbook() {
+    public XSSFWorkbook createTBIPTWorkbook(SearchDTO dto) {
 
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFCellStyle cellStyle = workbook.createCellStyle();
@@ -98,7 +135,7 @@ public class TbScreeningReportController extends BaseController{
         cellStyle.setDataFormat(
                 createHelper.createDataFormat().getFormat("dd/MM/yyyy"));
 
-        List<TbIpt> tbIpts = new ArrayList<>();
+       
 
         // tb Ipt here
         XSSFSheet tbIptDetails = workbook.createSheet("Patient_TBIPT");
@@ -140,9 +177,6 @@ public class TbScreeningReportController extends BaseController{
             } else {
                 dateScreened.setCellValue("");
             }
-            XSSFCell tbSymptoms = tbIptRow.createCell(++count);
-            tbSymptoms.setCellValue((tbIpt.getTbSymptoms() != null && tbIpt.getTbSymptoms().isEmpty())
-                    ? tbIpt.getTbSymptoms().toString() : "");
             XSSFCell identifiedWithTb = tbIptRow.createCell(++count);
             identifiedWithTb.setCellValue(tbIpt.getIdentifiedWithTb() != null ? tbIpt.getIdentifiedWithTb().getName() : "");
             XSSFCell tbIdentificationOutcome = tbIptRow.createCell(++count);

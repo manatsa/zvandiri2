@@ -116,7 +116,8 @@ public class MentalHealthScreeningServiceImpl implements MentalHealthScreeningSe
     
     @Override
     public List<MentalHealthScreening> get(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("Select Distinct m from MentalHealthScreening m left join fetch m.patient p left join fetch m.identifiedRisks ");
+        System.err.println("******************************************************************\n"+dto);
+        StringBuilder builder = new StringBuilder("Select Distinct m from MentalHealthScreening m left join fetch m.patient p ");
         int position = 0;
 
         if (dto.getSearch(dto)) {
@@ -168,13 +169,18 @@ public class MentalHealthScreeningServiceImpl implements MentalHealthScreeningSe
             }
             
         }
-        System.err.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n"+builder.toString());
+        
         if(position > 0)
         {
             builder.append(" order by m.dateScreened DESC, p.lastName ASC, p.firstName ASC, p.middleName ASC, p.dateModified DESC, p.dateCreated DESC");
         }else{
-          builder.append(" 1 " );  
+          builder.append(" m.dateCreated is not null " );  
         }
+        
+         System.err.println("******************************************************************\n"+dto);
+        
+        System.err.println(position+" : ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n"+builder.toString());;
+        
         TypedQuery<MentalHealthScreening> query = entityManager.createQuery(builder.toString(), MentalHealthScreening.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());

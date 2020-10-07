@@ -94,20 +94,21 @@ abstract public class BaseController implements IAppTitle {
     
     public SearchDTO getUserLevelObjectState(SearchDTO dto){
         User user = getUserName();
+        //System.err.println("+++++++++++++++++++++++++++++++++++++++++User++++++++++++++++++++++++++++++++++++++++++++++++\n"+user);
         if (user.getUserLevel() == null){
             return dto.getInstance(dto);
         }
         else if (user.getUserLevel().equals(UserLevel.PROVINCE)){
-            //System.err.println("*********************** User Level: Province");
+            System.err.println("*********************** User Level: Province");
             dto.setProvince(user.getProvince());
         } else if (user.getUserLevel().equals(UserLevel.DISTRICT)){
             //System.err.println("*********************** User Level: District, and is "+user.getDistrict());
             dto.setDistrict(user.getDistrict());
         }else{
-            //System.err.println("*********************** User Level: Other");
+            System.err.println("*********************** User Level: Other");
         }
          
-       //System.err.println("*********************** User : "+user.toString()+"\t Dis");
+       //System.err.println("*********************** dto : "+dto.toString());
         return dto;
     }
     
@@ -167,7 +168,7 @@ abstract public class BaseController implements IAppTitle {
         try(ServletOutputStream myOut = response.getOutputStream();) {
             //Write the workbook in file system
             response.setContentType("application/vnd.ms-excel");
-            response.setHeader("Content-Disposition", "filename=" + name + ".xls");
+            response.setHeader("Content-Disposition", "filename=" + name + ".xlsx");
             workbook.write(myOut);
             myOut.flush();
             myOut.close();

@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="zvandiri-test.war">
+    <root id="archive" name="zvandiri.war">
       <element id="artifact" artifact-name="zvandiri_portal:war exploded" />
     </root>
   </artifact>

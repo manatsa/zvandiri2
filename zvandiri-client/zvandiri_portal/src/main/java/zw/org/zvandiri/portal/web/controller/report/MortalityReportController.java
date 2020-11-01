@@ -15,17 +15,14 @@
  */
 package zw.org.zvandiri.portal.web.controller.report;
 
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.xssf.usermodel.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import zw.org.zvandiri.business.domain.MentalHealthScreening;
 import zw.org.zvandiri.business.domain.Mortality;
-import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.domain.TbIpt;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
@@ -33,12 +30,10 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.report.api.DatabaseHeader;
 import zw.org.zvandiri.report.api.service.DetailedReportService;
-import zw.org.zvandiri.report.api.service.OfficeExportService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -120,96 +115,96 @@ public class MortalityReportController extends BaseController {
 
 
 
-    public Workbook createMortalityWorkbook(SearchDTO dto) {
-        Workbook workbook = new XSSFWorkbook();
-        CellStyle cellStyle = workbook.createCellStyle();
+    public XSSFWorkbook createMortalityWorkbook(SearchDTO dto) {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFCellStyle XSSFCellStyle = workbook.createCellStyle();
         CreationHelper createHelper = workbook.getCreationHelper();
-        cellStyle.setDataFormat(
+        XSSFCellStyle.setDataFormat(
                 createHelper.createDataFormat().getFormat("dd/MM/yyyy"));
 
         List<Mortality> mortalitys=mortalityService.get(dto);
 
-        Sheet mortalityDetails = workbook.createSheet("Patient_Mortality");
+        XSSFSheet mortalityDetails = workbook.createSheet("Patient_Mortality");
         int mortalityRowNum = 0;
-        Row mortalityRow = mortalityDetails.createRow(mortalityRowNum++);
-        int mortalityCellNum = 0;
+        XSSFRow mortalityRow = mortalityDetails.createRow(mortalityRowNum++);
+        int mortalityXSSFCellNum = 0;
         for (String title : DatabaseHeader.MORTALITY_HEADER) {
-            Cell cell = mortalityRow.createCell(mortalityCellNum++);
-            cell.setCellValue(title);
+            XSSFCell XSSFCell = mortalityRow.createCell(mortalityXSSFCellNum++);
+            XSSFCell.setCellValue(title);
         }
 
         for (Mortality mortality : mortalitys) {
             int count = 0;
             mortalityRow = mortalityDetails.createRow(mortalityRowNum++);
-            Cell id = mortalityRow.createCell(count);
+            XSSFCell id = mortalityRow.createCell(count);
             id.setCellValue(mortality.getPatient().getPatientNumber());
-            Cell patientName = mortalityRow.createCell(++count);
+            XSSFCell patientName = mortalityRow.createCell(++count);
             patientName.setCellValue(mortality.getPatient().getName());
-            Cell dateOfBirth = mortalityRow.createCell(++count);
+            XSSFCell dateOfBirth = mortalityRow.createCell(++count);
             dateOfBirth.setCellValue(mortality.getPatient().getDateOfBirth());
-            dateOfBirth.setCellStyle(cellStyle);
-            Cell age = mortalityRow.createCell(++count);
+            dateOfBirth.setCellStyle(XSSFCellStyle);
+            XSSFCell age = mortalityRow.createCell(++count);
             age.setCellValue(mortality.getPatient().getAge());
-            Cell sex = mortalityRow.createCell(++count);
+            XSSFCell sex = mortalityRow.createCell(++count);
             sex.setCellValue(mortality.getPatient().getGender().getName());
-            Cell province = mortalityRow.createCell(++count);
+            XSSFCell province = mortalityRow.createCell(++count);
             province.setCellValue(mortality.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
-            Cell district = mortalityRow.createCell(++count);
+            XSSFCell district = mortalityRow.createCell(++count);
             district.setCellValue(mortality.getPatient().getPrimaryClinic().getDistrict().getName());
-            Cell primaryClinic = mortalityRow.createCell(++count);
+            XSSFCell primaryClinic = mortalityRow.createCell(++count);
             primaryClinic.setCellValue(mortality.getPatient().getPrimaryClinic().getName());
 
-            Cell dateOfDeath = mortalityRow.createCell(++count);
+            XSSFCell dateOfDeath = mortalityRow.createCell(++count);
             if (mortality.getDateOfDeath() != null) {
                 dateOfDeath.setCellValue(mortality.getDateOfDeath());
-                dateOfDeath.setCellStyle(cellStyle);
+                dateOfDeath.setCellStyle(XSSFCellStyle);
             } else {
                 dateOfDeath.setCellValue("");
             }
-            Cell causeOfDeath = mortalityRow.createCell(++count);
+            XSSFCell causeOfDeath = mortalityRow.createCell(++count);
             causeOfDeath.setCellValue(mortality.getCauseOfDeath() != null ? mortality.getCauseOfDeath().getName() : "");
-            Cell causeOfDeathDetails = mortalityRow.createCell(++count);
+            XSSFCell causeOfDeathDetails = mortalityRow.createCell(++count);
             causeOfDeathDetails.setCellValue(mortality.getCauseOfDeathDetails());
-            Cell receivingEnhancedCare = mortalityRow.createCell(++count);
+            XSSFCell receivingEnhancedCare = mortalityRow.createCell(++count);
             receivingEnhancedCare.setCellValue(mortality.getReceivingEnhancedCare() != null ? mortality.getReceivingEnhancedCare().getName() : "");
-            Cell datePutOnEnhancedCare = mortalityRow.createCell(++count);
+            XSSFCell datePutOnEnhancedCare = mortalityRow.createCell(++count);
             if (mortality.getDatePutOnEnhancedCare() != null) {
                 datePutOnEnhancedCare.setCellValue(mortality.getDatePutOnEnhancedCare());
-                datePutOnEnhancedCare.setCellStyle(cellStyle);
+                datePutOnEnhancedCare.setCellStyle(XSSFCellStyle);
             } else {
                 datePutOnEnhancedCare.setCellValue("");
             }
-            Cell caseBackground = mortalityRow.createCell(++count);
+            XSSFCell caseBackground = mortalityRow.createCell(++count);
             caseBackground.setCellValue(mortality.getCaseBackground());
-            Cell careProvided = mortalityRow.createCell(++count);
+            XSSFCell careProvided = mortalityRow.createCell(++count);
             careProvided.setCellValue(mortality.getCareProvided());
-            Cell home = mortalityRow.createCell(++count);
+            XSSFCell home = mortalityRow.createCell(++count);
             home.setCellValue(mortality.getHome());
 
-            Cell beneficiary = mortalityRow.createCell(++count);
+            XSSFCell beneficiary = mortalityRow.createCell(++count);
             beneficiary.setCellValue(mortality.getBeneficiary());
-            Cell facility = mortalityRow.createCell(++count);
+            XSSFCell facility = mortalityRow.createCell(++count);
             facility.setCellValue(mortality.getFacility());
-            Cell cats = mortalityRow.createCell(++count);
+            XSSFCell cats = mortalityRow.createCell(++count);
             cats.setCellValue(mortality.getCats());
-            Cell zm = mortalityRow.createCell(++count);
+            XSSFCell zm = mortalityRow.createCell(++count);
             zm.setCellValue(mortality.getZm());
-            Cell other = mortalityRow.createCell(++count);
+            XSSFCell other = mortalityRow.createCell(++count);
             other.setCellValue(mortality.getOther());
-            Cell contactWithZM = mortalityRow.createCell(++count);
+            XSSFCell contactWithZM = mortalityRow.createCell(++count);
             contactWithZM.setCellValue(mortality.getContactWithZM() != null ? mortality.getContactWithZM().getName() : "");
-            Cell dateOfContactWithZim = mortalityRow.createCell(++count);
+            XSSFCell dateOfContactWithZim = mortalityRow.createCell(++count);
             if (mortality.getDateOfContactWithZim() != null) {
                 dateOfContactWithZim.setCellValue(mortality.getDateOfContactWithZim());
-                dateOfContactWithZim.setCellStyle(cellStyle);
+                dateOfContactWithZim.setCellStyle(XSSFCellStyle);
             } else {
                 dateOfContactWithZim.setCellValue("");
             }
-            Cell descriptionOfCase = mortalityRow.createCell(++count);
+            XSSFCell descriptionOfCase = mortalityRow.createCell(++count);
             descriptionOfCase.setCellValue(mortality.getDescriptionOfCase());
-            Cell learningPoints = mortalityRow.createCell(++count);
+            XSSFCell learningPoints = mortalityRow.createCell(++count);
             learningPoints.setCellValue(mortality.getLearningPoints());
-            Cell actionPlan = mortalityRow.createCell(++count);
+            XSSFCell actionPlan = mortalityRow.createCell(++count);
             actionPlan.setCellValue(mortality.getActionPlan());
 
         }

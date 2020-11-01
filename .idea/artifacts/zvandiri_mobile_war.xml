@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="zvandiri-mobile-test.war">
+    <root id="archive" name="zvandiri-mobile.war">
       <element id="artifact" artifact-name="zvandiri_mobile:war exploded" />
     </root>
   </artifact>

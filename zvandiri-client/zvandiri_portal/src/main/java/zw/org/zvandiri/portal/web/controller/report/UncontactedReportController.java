@@ -94,8 +94,8 @@ public class UncontactedReportController extends BaseController {
         forceDownLoadDatabase(uncontactedPatients(item), name, response);
     }
     
-    public Workbook uncontactedPatients(SearchDTO dto) {
-        Workbook workbook = new XSSFWorkbook();
+    public XSSFWorkbook uncontactedPatients(SearchDTO dto) {
+        XSSFWorkbook workbook = new XSSFWorkbook();
         CellStyle cellStyle = workbook.createCellStyle();
         CreationHelper createHelper = workbook.getCreationHelper();
         cellStyle.setDataFormat(

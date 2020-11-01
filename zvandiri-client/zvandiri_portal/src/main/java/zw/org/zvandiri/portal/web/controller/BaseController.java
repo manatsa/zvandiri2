@@ -25,7 +25,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -179,7 +178,7 @@ abstract public class BaseController implements IAppTitle {
 
 
     @ResponseBody
-    public void forceDownLoadDatabase(Workbook workbook, String name, HttpServletResponse response) {
+    public void forceDownLoadDatabase(XSSFWorkbook workbook, String name, HttpServletResponse response) {
 
             //Write the workbook in file system
             response.setContentType("application/vnd.ms-excel");

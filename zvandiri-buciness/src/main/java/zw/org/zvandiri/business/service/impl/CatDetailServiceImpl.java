@@ -130,7 +130,7 @@ public class CatDetailServiceImpl implements CatDetailService {
     @Override
     public List<NameIdDTO> getCatPatients(CatDetail catDetail) {
         List<NameIdDTO> patients = new ArrayList<>();
-        List<Patient> ogPatients=catDetailRepo.getFacilityPatients(catDetail.getPrimaryClinic().getName(),true,false);
+        List<Patient> ogPatients=catDetailRepo.getFacilityPatients(catDetail.getPrimaryClinic(),true,false);
         
         for(Patient patient : ogPatients ){
             if(!patient.getDeleted() && patient.getActive()){

@@ -1,7 +1,7 @@
 package zw.org.zvandiri.portal.web.controller.report;
 
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.xssf.usermodel.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -84,20 +84,20 @@ public class MorbidityReportController extends BaseController {
     }
 
 
-    public Workbook morbidityPatients(String name, SearchDTO dto) {
-        Workbook workbook = new XSSFWorkbook();
-        CellStyle cellStyle = workbook.createCellStyle();
+    public XSSFWorkbook morbidityPatients(String name, SearchDTO dto) {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFCellStyle XSSFCellStyle = workbook.createCellStyle();
         CreationHelper createHelper = workbook.getCreationHelper();
-        cellStyle.setDataFormat(
+        XSSFCellStyle.setDataFormat(
                 createHelper.createDataFormat().getFormat("dd/MM/yyyy"));
         // add contact assessments
-        Sheet assessmentDetails = workbook.createSheet("Morbidity");
+        XSSFSheet assessmentDetails = workbook.createSheet("Morbidity");
         int assessmentRowNum = 0;
-        Row assessmentHeader = assessmentDetails.createRow(assessmentRowNum++);
-        int assessmentCellNum = 0;
+        XSSFRow assessmentHeader = assessmentDetails.createRow(assessmentRowNum++);
+        int assessmentXSSFCellNum = 0;
         for (String title : DatabaseHeader.ASSESSMENT_HEADER) {
-            Cell cell = assessmentHeader.createCell(assessmentCellNum++);
-            cell.setCellValue(title);
+            XSSFCell XSSFCell = assessmentHeader.createCell(assessmentXSSFCellNum++);
+            XSSFCell.setCellValue(title);
         }
 
         List<Patient> patients = detailedPatientReportService.get(dto.getInstance(dto));
@@ -117,31 +117,31 @@ public class MorbidityReportController extends BaseController {
                 for (Assessment item : contact.getClinicalAssessments()) {
                     int count = 0;
                     assessmentHeader = assessmentDetails.createRow(assessmentRowNum++);
-                    Cell id = assessmentHeader.createCell(count);
+                    XSSFCell id = assessmentHeader.createCell(count);
                     id.setCellValue(contact.getPatient().getPatientNumber());
-                    Cell patientName = assessmentHeader.createCell(++count);
+                    XSSFCell patientName = assessmentHeader.createCell(++count);
                     patientName.setCellValue(contact.getPatient().getName());
-                    Cell dateOfBirth = assessmentHeader.createCell(++count);
+                    XSSFCell dateOfBirth = assessmentHeader.createCell(++count);
                     dateOfBirth.setCellValue(contact.getPatient().getDateOfBirth());
-                    dateOfBirth.setCellStyle(cellStyle);
-                    Cell age = assessmentHeader.createCell(++count);
+                    dateOfBirth.setCellStyle(XSSFCellStyle);
+                    XSSFCell age = assessmentHeader.createCell(++count);
                     age.setCellValue(contact.getPatient().getAge());
-                    Cell sex = assessmentHeader.createCell(++count);
+                    XSSFCell sex = assessmentHeader.createCell(++count);
                     sex.setCellValue(contact.getPatient().getGender().getName());
-                    Cell province = assessmentHeader.createCell(++count);
+                    XSSFCell province = assessmentHeader.createCell(++count);
                     province.setCellValue(contact.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
-                    Cell district = assessmentHeader.createCell(++count);
+                    XSSFCell district = assessmentHeader.createCell(++count);
                     district.setCellValue(contact.getPatient().getPrimaryClinic().getDistrict().getName());
-                    Cell primaryClinic = assessmentHeader.createCell(++count);
+                    XSSFCell primaryClinic = assessmentHeader.createCell(++count);
                     primaryClinic.setCellValue(contact.getPatient().getPrimaryClinic().getName());
-                    Cell contactDate = assessmentHeader.createCell(++count);
+                    XSSFCell contactDate = assessmentHeader.createCell(++count);
                     contactDate.setCellValue(contact.getContactDate());
-                    contactDate.setCellStyle(cellStyle);
-                    Cell careLevel = assessmentHeader.createCell(++count);
+                    contactDate.setCellStyle(XSSFCellStyle);
+                    XSSFCell careLevel = assessmentHeader.createCell(++count);
                     careLevel.setCellValue(contact.getCareLevel().getName());
-                    Cell assessmentType = assessmentHeader.createCell(++count);
+                    XSSFCell assessmentType = assessmentHeader.createCell(++count);
                     assessmentType.setCellValue(item.getContactAssessment().getName());
-                    Cell assessment = assessmentHeader.createCell(++count);
+                    XSSFCell assessment = assessmentHeader.createCell(++count);
                     assessment.setCellValue(item.toString());
                 }
                 //}else{

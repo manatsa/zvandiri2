@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>zvandiri_portal</module>
-        <module>zvandiri-report-api</module>
+
         <module>zvandiri_mobile</module>
   </modules>
     <dependencies>
@@ -60,11 +60,11 @@
             <!--<type>jar</type>-->
         <!--</dependency>-->
 
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>3.17</version>
-        </dependency>
+            <version>4.1.2</version>
+        </dependency>-->
         <dependency>
             <groupId>org.codehaus.jettison</groupId>
             <artifactId>jettison</artifactId>

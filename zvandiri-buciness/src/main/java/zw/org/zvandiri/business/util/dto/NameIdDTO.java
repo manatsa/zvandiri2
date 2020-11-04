@@ -33,6 +33,7 @@ public class NameIdDTO implements Serializable {
     private Gender gender;
     private PatientChangeEvent status;
     private Boolean active;
+    private String primaryClinicId;
 
     public NameIdDTO() {
     }
@@ -42,13 +43,14 @@ public class NameIdDTO implements Serializable {
         this.id = id;
     }
 
-    public NameIdDTO(String name, String id, Date dateOfBirth, Gender gender, PatientChangeEvent status, Boolean active) {
+    public NameIdDTO(String name, String id, Date dateOfBirth, Gender gender, PatientChangeEvent status, Boolean active, String facilityId) {
         this.name = name;
         this.id = id;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.status = status;
         this.active = active;
+        this.primaryClinicId=facilityId;
     }
     
     public String getName() {
@@ -98,5 +100,12 @@ public class NameIdDTO implements Serializable {
     public void setActive(Boolean active) {
         this.active = active;
     }
-    
+
+    public String getPrimaryClinicId() {
+        return primaryClinicId;
+    }
+
+    public void setPrimaryClinicId(String primaryClinicId) {
+        this.primaryClinicId = primaryClinicId;
+    }
 }

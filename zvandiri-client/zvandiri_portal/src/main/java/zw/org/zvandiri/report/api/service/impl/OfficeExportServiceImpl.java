@@ -395,13 +395,10 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     XSSFCell assessment = assessmentHeader.createCell(++count);
                     assessment.setCellValue(item.toString());
                 }
-                //}else{
-                //System.err.println("Contact without assessment :"+contact.getPatient().getFirstName()+" "+contact.getPatient().getLastName());
-                //}
-//            if (assessmentXSSFRowNum >= 65535) {
-//                break;
-//            }
+
             }
+
+
             // add referrals
             XSSFSheet referralDetails = workbook.createSheet("Patient_Referral");
             int referralXSSFRowNum = 0;

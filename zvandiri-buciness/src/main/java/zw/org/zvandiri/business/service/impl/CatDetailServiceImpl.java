@@ -135,7 +135,7 @@ public class CatDetailServiceImpl implements CatDetailService {
         for(Patient patient : ogPatients ){
             if(!patient.getDeleted() && patient.getActive()){
                 LOGGER.error("*************************************Patient : "+patient.getDeleted());
-                patients.add(new NameIdDTO(patient.getName(), patient.getId(), patient.getDateOfBirth(), patient.getGender(), patient.getStatus(), patient.getActive()));
+                patients.add(new NameIdDTO(patient.getName(), patient.getId(), patient.getDateOfBirth(), patient.getGender(), patient.getStatus(), patient.getActive(), patient.getPrimaryClinic().getId()));
             }
         }
         return patients;

@@ -13,6 +13,7 @@
                         <th>Name</th>
                         <th>Age</th>
                         <th>Gender</th>
+                        <th>IsCATS</th>
                         <th>Region</th>
                         <th>District</th>
                         <th>Primary Clinic</th>
@@ -31,6 +32,7 @@
                         <th>Name</th>
                         <th>Age</th>
                         <th>Gender</th>
+                        <th>IsCATS</th>
                         <th>Region</th>
                         <th>District</th>
                         <th>Primary Clinic</th>
@@ -50,6 +52,7 @@
                                 <td>${item.patient.name}</td>
                                 <td>${item.patient.age}</td>
                                 <td>${item.patient.gender.name}</td>
+                                <td>${item.patient.cat.name}</td>
                                 <td>${item.patient.primaryClinic.district.province.name}</td>
                                 <td>${item.patient.primaryClinic.district.name}</td>
                                 <td>${item.patient.primaryClinic.name}</td>

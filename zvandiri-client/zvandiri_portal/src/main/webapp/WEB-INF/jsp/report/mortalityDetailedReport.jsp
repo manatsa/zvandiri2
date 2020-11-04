@@ -12,10 +12,11 @@
                         <thead>
                         <th>Name</th>
                         <th>Age</th>
-                        <th>OI/ ART Number</th>
-                        <th>Date of Birth</th>
+<%--                        <th>OI/ ART Number</th>--%>
+<%--                        <th>Date of Birth</th>--%>
                         <th>Gender</th>
-                        <th>Region</th>
+                        <th>IsCATS</th>
+<%--                        <th>Region</th>--%>
                         <th>District</th>
                         <th>Primary Clinic</th>
                         <th>Date Of Death</th>
@@ -30,10 +31,11 @@
                         <tfoot>
                         <th>Name</th>
                         <th>Age</th>
-                        <th>OI/ ART Number</th>
-                        <th>Date of Birth</th>
+<%--                        <th>OI/ ART Number</th>--%>
+<%--                        <th>Date of Birth</th>--%>
                         <th>Gender</th>
-                        <th>Region</th>
+                        <th>IsCATS</th>
+<%--                        <th>Region</th>--%>
                         <th>District</th>
                         <th>Primary Clinic</th>
                         <th>Date Of Death</th>
@@ -50,10 +52,12 @@
                             <tr>
                                 <td>${item.patient.name}</td>
                                 <td>${item.patient.age}</td>
-                                <td>${item.patient.oINumber}</td>
-                                <td><spring:eval expression="item.patient.dateOfBirth" /></td>
+
+<%--                                <td>${item.patient.oINumber}</td>--%>
+<%--                                <td><spring:eval expression="item.patient.dateOfBirth" /></td>--%>
                                 <td>${item.patient.gender.name}</td>
-                                <td>${item.patient.primaryClinic.district.province.name}</td>
+                                <td>${item.patient.cat.name}</td>
+<%--                                <td>${item.patient.primaryClinic.district.province.name}</td>--%>
                                 <td>${item.patient.primaryClinic.district.name}</td>
                                 <td>${item.patient.primaryClinic.name}</td>
                                 <td><spring:eval expression="item.dateOfDeath" /></td>

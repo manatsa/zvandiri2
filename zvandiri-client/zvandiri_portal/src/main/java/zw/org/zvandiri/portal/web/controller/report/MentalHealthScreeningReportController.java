@@ -70,7 +70,7 @@ public class MentalHealthScreeningReportController extends BaseController {
 
 
         if (post) {
-            JOptionPane.showMessageDialog(null, item2.toString());
+            //JOptionPane.showMessageDialog(null, item2.toString());
         System.err.println("+++++++++++++++++++++"+item2+"*********************************************************");
             model.addAttribute("excelExport", "/report/mental-health/export/excel" + item.getQueryString(item.getInstance(item)));
             model.addAttribute("items", mentalHealthScreenings);
@@ -82,6 +82,7 @@ public class MentalHealthScreeningReportController extends BaseController {
 
     @RequestMapping(value = "/range", method = RequestMethod.GET)
     public String getMentalRangeIndex(ModelMap model, SearchDTO dto) {
+        dto = getUserLevelObjectState(dto);
         model.addAttribute("pageTitle", APP_PREFIX + "Mental Health  Report");
         Boolean post = Boolean.TRUE;
         if (dto.getStatus() != null && dto.getStatus().equals(PatientChangeEvent.ACTIVE) && (dto.getMaxViralLoad() == null && dto.getMinCd4Count() == null)) {
@@ -95,7 +96,7 @@ public class MentalHealthScreeningReportController extends BaseController {
 
     @RequestMapping(value = {"/range"}, method = RequestMethod.POST)
     public String getMentalRangeIndexPost(ModelMap model, @ModelAttribute("item") @Valid SearchDTO item) {
-        
+        item = getUserLevelObjectState(item);
         mentalHealthScreenings=mentalHealthScreeningService.get(item);
         //System.err.println("+++++++++++++++++++++"+item+"*********************************************************");
         model.addAttribute("pageTitle", APP_PREFIX + "Mental Health  Report");

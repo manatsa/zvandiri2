@@ -54,7 +54,7 @@ public class MorbidityReportController extends BaseController {
 
     public String setUpModel(ModelMap model, SearchDTO item, boolean post) {
         item = getUserLevelObjectState(item);
-        model.addAttribute("pageTitle", APP_PREFIX + "Mortality Report");
+        model.addAttribute("pageTitle", APP_PREFIX + "Morbidity Report");
         model.addAttribute("provinces", provinceService.getAll());
         if (item.getProvince() != null) {
             model.addAttribute("districts", districtService.getDistrictByProvince(item.getProvince()));
@@ -144,12 +144,7 @@ public class MorbidityReportController extends BaseController {
                     XSSFCell assessment = assessmentHeader.createCell(++count);
                     assessment.setCellValue(item.toString());
                 }
-                //}else{
-                //System.err.println("Contact without assessment :"+contact.getPatient().getFirstName()+" "+contact.getPatient().getLastName());
-                //}
-//            if (assessmentRowNum >= 65535) {
-//                break;
-//            }
+
             }
 
         }

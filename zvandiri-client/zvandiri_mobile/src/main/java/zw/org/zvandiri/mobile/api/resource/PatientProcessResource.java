@@ -80,7 +80,7 @@ public class PatientProcessResource {
     @Path("/cats-patients")
     public List<NameIdDTO> getCatPatients(@QueryParam("email") String email) {
 
-         CatDetail catDetail=catDetailService.getByEmail(email);
+        CatDetail catDetail=catDetailService.getByEmail(email);
         List<NameIdDTO> patients;
         patients = patientService.getCatPatients(catDetail);
        

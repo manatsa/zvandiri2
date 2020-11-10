@@ -48,10 +48,7 @@ public class MentalHealthScreeningReportController extends BaseController {
     private FacilityService facilityService;
     @Resource
     private PeriodService periodService;
-    @Resource
-    MentalHealthScreeningService screeningService;
-    @Resource
-    private PatientReportService patientReportService;
+
     
     List<MentalHealthScreening> mentalHealthScreenings=new ArrayList<>();
 
@@ -71,7 +68,7 @@ public class MentalHealthScreeningReportController extends BaseController {
 
         if (post) {
             //JOptionPane.showMessageDialog(null, item2.toString());
-        System.err.println("+++++++++++++++++++++"+item2+"*********************************************************");
+        //System.err.println("+++++++++++++++++++++"+item2+"*********************************************************");
             model.addAttribute("excelExport", "/report/mental-health/export/excel" + item.getQueryString(item.getInstance(item)));
             model.addAttribute("items", mentalHealthScreenings);
         }
@@ -148,6 +145,8 @@ public class MentalHealthScreeningReportController extends BaseController {
             age.setCellValue(mentalHealthScreening.getPatient().getAge());
             XSSFCell sex = mentalHealthScreeningRow.createCell(++count);
             sex.setCellValue(mentalHealthScreening.getPatient().getGender().getName());
+            XSSFCell cat = mentalHealthScreeningRow.createCell(++count);
+            cat.setCellValue(mentalHealthScreening.getPatient().getCat()!=null?mentalHealthScreening.getPatient().getCat().getName():"");
             XSSFCell province = mentalHealthScreeningRow.createCell(++count);
             province.setCellValue(mentalHealthScreening.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
             XSSFCell district = mentalHealthScreeningRow.createCell(++count);

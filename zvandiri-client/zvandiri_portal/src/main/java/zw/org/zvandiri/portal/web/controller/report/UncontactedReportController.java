@@ -25,7 +25,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/report/uncontacted/")
+@RequestMapping("/report/uncontacted")
 public class UncontactedReportController extends BaseController {
 
     @Resource
@@ -34,26 +34,13 @@ public class UncontactedReportController extends BaseController {
     private DistrictService districtService;
     @Resource
     private FacilityService facilityService;
-    @Resource
-    private ContactReportService contactReportService;
-    @Resource
-    private OfficeExportService officeExportService;
-    @Resource
-    private DetailedReportService detailedReportService;
 
-    @Resource
-    private DetailedPatientReportService detailedPatientReportService;
-    @Resource
-    private MortalityService mortalityService;
+
 
     @Resource
     PatientReportService patientReportService;
 
-    @Resource
-    private ContactRepo contactService;
-    
-    @Resource
-    UserService userService;
+
     
     List<Patient> patients=new ArrayList<>();
 
@@ -128,12 +115,20 @@ public class UncontactedReportController extends BaseController {
                     
                     Cell sex = uncontactedRow.createCell(count++);
                     sex.setCellValue(patient.getGender().getName());
-                    
+
+                    Cell cat = uncontactedRow.createCell(count++);
+                    cat.setCellValue(patient.getCat()!=null?patient.getCat().getName():"");
+
                     Cell address=uncontactedRow.createCell(count++);
                     address.setCellValue(patient.getAddress());
+
+                    Cell address1=uncontactedRow.createCell(count++);
+                    address1.setCellValue(patient.getAddress1());
                     
                     Cell phone=uncontactedRow.createCell(count++);
                     phone.setCellValue(patient.getMobileNumber()==null?"":patient.getMobileNumber());
+                    Cell phone1=uncontactedRow.createCell(count++);
+                    phone1.setCellValue(patient.getSecondaryMobileNumber()==null?"":patient.getSecondaryMobileNumber());
                     Cell province = uncontactedRow.createCell(count++);
                     province.setCellValue(patient.getPrimaryClinic().getDistrict().getProvince().getName());
                     Cell district = uncontactedRow.createCell(count++);

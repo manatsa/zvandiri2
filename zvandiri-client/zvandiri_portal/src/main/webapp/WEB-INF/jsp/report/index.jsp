@@ -96,7 +96,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <a href="${page}/report/tb-screening/screening">TB Screening Report</a>
+                                    <a href="${page}/report/tb-screening/screening">TB Screening/IPT  Report</a>
                                     <td><a href="${page}/report/test-results/index.htm?type=cd4-count">CD4 Count Results Report</a></td>
                                 </td>
                             </tr>

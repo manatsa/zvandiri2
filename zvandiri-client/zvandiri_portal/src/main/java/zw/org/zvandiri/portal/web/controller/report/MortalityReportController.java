@@ -15,6 +15,7 @@
  */
 package zw.org.zvandiri.portal.web.controller.report;
 
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.stereotype.Controller;
@@ -44,8 +45,7 @@ import java.util.List;
 @RequestMapping("/report/mortality")
 public class MortalityReportController extends BaseController {
 
-    @Resource
-    private DetailedReportService detailedReportService;
+
     @Resource
     private ProvinceService provinceService;
     @Resource
@@ -58,8 +58,7 @@ public class MortalityReportController extends BaseController {
     private PeriodService periodService;
     @Resource
     MortalityService mortalityService;
-    @Resource
-    private PatientReportService patientReportService;
+
 
     public void setUpModel(ModelMap model, SearchDTO item, Boolean post, Boolean hei) {
         item = getUserLevelObjectState(item);
@@ -98,7 +97,7 @@ public class MortalityReportController extends BaseController {
 
     @RequestMapping(value = {"/range"}, method = RequestMethod.POST)
     public String getMortalityRangeIndexPost(ModelMap model, @ModelAttribute("item") @Valid SearchDTO item) {
-        System.err.println("************************************************Now checking mortalities ++++++++++++++++++++++++++++++++");
+        //System.err.println("************************************************Now checking mortalities ++++++++++++++++++++++++++++++++");
         model.addAttribute("pageTitle", APP_PREFIX + "Mortality Detailed Report");
         setUpModel(model, item, Boolean.TRUE, Boolean.FALSE);
         return "report/mortalityDetailedReport";
@@ -147,6 +146,8 @@ public class MortalityReportController extends BaseController {
             age.setCellValue(mortality.getPatient().getAge());
             XSSFCell sex = mortalityRow.createCell(++count);
             sex.setCellValue(mortality.getPatient().getGender().getName());
+            Cell cat = mortalityRow.createCell(++count);
+            cat.setCellValue(mortality.getPatient().getCat()!=null?mortality.getPatient().getCat().getName():"");
             XSSFCell province = mortalityRow.createCell(++count);
             province.setCellValue(mortality.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
             XSSFCell district = mortalityRow.createCell(++count);

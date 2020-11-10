@@ -26,7 +26,8 @@
                         <th>Date Put On Enhanced Care</th>
                         <th>Case Background</th>
                         <th>Care Provided</th>
-                        <th>Home</th>
+                        <th>Learning Points</th>
+                        <th>Action Plan</th>
                         </thead>
                         <tfoot>
                         <th>Name</th>
@@ -45,7 +46,8 @@
                         <th>Date Put On Enhanced Care</th>
                         <th>Case Background</th>
                         <th>Care Provided</th>
-                        <th>Home</th>
+                        <th>Learning Points</th>
+                        <th>Action Plan</th>
                         </tfoot>
                         <tbody>
                         <c:forEach var="item" items="${items}">
@@ -67,7 +69,8 @@
                                 <td><spring:eval expression="item.datePutOnEnhancedCare" /></td>
                                 <td>${item.caseBackground}</td>
                                 <td>${item.careProvided}</td>
-                                <td>${item.home}</td>
+                                <td>${item.learningPoints}</td>
+                                <td>${item.actionPlan}</td>
                             </tr>
                         </c:forEach>
                         </tbody>

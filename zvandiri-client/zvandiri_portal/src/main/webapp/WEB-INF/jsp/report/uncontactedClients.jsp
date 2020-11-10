@@ -28,7 +28,9 @@
                         <th>Gender</th>
                         <td>IsCATS</td>
                         <td>Address</td>
+                        <td>Address 2</td>
                         <td>Mobile Number</td>
+                        <td>Secondary Number</td>
                         <th>Region</th>
                         <th>District</th>
                         <th>Primary Clinic</th>
@@ -40,9 +42,11 @@
                                 <td><spring:eval expression="item.dateOfBirth" /></td>
                                 <td>${item.age}</td>
                                 <td>${item.gender.name}</td>
-                                <td>${item.patient.cat.name}</td>
+                                <td>${item.cat.name}</td>
                                 <td>${item.address}</td>
+                                <td>${item.address1}</td>
                                 <td>${item.mobileNumber}</td>
+                                <td>${item.secondaryMobileNumber}</td>
                                 <td>${item.primaryClinic.district.province.name}</td>
                                 <td>${item.primaryClinic.district.name}</td>
                                 <td>${item.primaryClinic.name}</td>

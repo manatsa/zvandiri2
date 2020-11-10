@@ -13,6 +13,7 @@ import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.repo.ContactRepo;
 import zw.org.zvandiri.business.service.*;
+import zw.org.zvandiri.business.util.ContactInnerJoin;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
@@ -21,8 +22,10 @@ import zw.org.zvandiri.report.api.service.DetailedReportService;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
 
 import javax.annotation.Resource;
+import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -50,7 +53,9 @@ public class MorbidityReportController extends BaseController {
     private MortalityService mortalityService;
 
     @Resource
-    private ContactRepo contactService;
+    private ContactRepo contactRepo;
+
+    List<Contact> contacts=new ArrayList<>();
 
     public String setUpModel(ModelMap model, SearchDTO item, boolean post) {
         item = getUserLevelObjectState(item);
@@ -64,7 +69,9 @@ public class MorbidityReportController extends BaseController {
         }
         if (post) {
             model.addAttribute("excelExport", "/report/morbidity/export/excel" + item.getQueryString(item.getInstance(item)));
-            model.addAttribute("items", contactReportService.get(item.getInstance(item)));
+            System.err.println("*********************************************"+item.toString());
+            contacts=contactReportService.get(item.getInstance(item));
+            model.addAttribute("items",contacts );
         }
         model.addAttribute("item", item.getInstance(item));
         return "report/morbidityDetailedReport";
@@ -77,12 +84,14 @@ public class MorbidityReportController extends BaseController {
 
     @RequestMapping(value = "/range", method = RequestMethod.POST)
     public String getReferralReportIndex(HttpServletResponse response,ModelMap model, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
-
-        String name = DateUtil.getFriendlyFileName("Detailed_Morbidity_Report");
-        forceDownLoadDatabase(morbidityPatients(name, item), name, response);
         return setUpModel(model, item, true);
     }
 
+    @RequestMapping(value="", method = RequestMethod.GET)
+    public void downloadAll(HttpServletResponse response, @ModelAttribute("item") @Valid SearchDTO item){
+        String name = DateUtil.getFriendlyFileName("Detailed_Morbidity_Report");
+        forceDownLoadDatabase(morbidityPatients(name, item), name, response);
+    }
 
     public XSSFWorkbook morbidityPatients(String name, SearchDTO dto) {
         XSSFWorkbook workbook = new XSSFWorkbook();

@@ -19,8 +19,10 @@
 						<th>District</th>
 						<th>Primary Clinic</th>
 						<th>Support Group</th>
-						<th>Referrer</th>
-						<th>Date Deceased</th>
+						<th>Contact Date</th>
+						<th>Care Level</th>
+						<th>Assess Type</th>
+						<th>Assessment</th>
 						</thead>
 						<tfoot>
 						<th>Name</th>
@@ -32,23 +34,33 @@
 						<th>District</th>
 						<th>Primary Clinic</th>
 						<th>Support Group</th>
-						<th>Referrer</th>
-						<th>Date Deceased</th>
+						<th>Contact Date</th>
+						<th>Care Level</th>
+						<th>Assess Type</th>
+						<th>Assessment</th>
 						</tfoot>
 						<tbody>
 						<c:forEach var="item" items="${items}">
 							<tr>
-								<td>${item.name}</td>
-								<td>${item.oINumber}</td>
-								<td>${item.age}</td>
-								<td><spring:eval expression="item.dateOfBirth" /></td>
-								<td>${item.gender.name}</td>
-								<td>${item.primaryClinic.district.province.name}</td>
-								<td>${item.primaryClinic.district.name}</td>
-								<td>${item.primaryClinic.name}</td>
-								<td>${item.supportGroup.name}</td>
-								<td>${item.referer.name}</td>
-								<th>${item.dateModified}</th>
+								<td>${item.patient.name}</td>
+								<td>${item.patient.oINumber}</td>
+								<td>${item.patient.age}</td>
+								<td><spring:eval expression="item.patient.dateOfBirth" /></td>
+								<td>${item.patient.gender.name}</td>
+								<td>${item.patient.primaryClinic.district.province.name}</td>
+								<td>${item.patient.primaryClinic.district.name}</td>
+								<td>${item.patient.primaryClinic.name}</td>
+								<td>${item.patient.supportGroup.name}</td>
+								<td><spring:eval expression="item.contactDate" /></td>
+								<td>${item.careLevel.name}</td>
+								<c:if test="${item.clinicalAssessments.size() > 0}">
+									<c:forEach items="${item.clinicalAssessments}" var="itemz">
+										<td>${itemz.contactAssessment.name}</td>
+										<td>${itemz}</td>
+									</c:forEach>
+
+								</c:if>
+
 							</tr>
 						</c:forEach>
 						</tbody>

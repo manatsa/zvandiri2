@@ -59,11 +59,11 @@ public interface DatabaseHeader {
     };
 
     public final String [] ASSESSMENT_HEADER = {
-            "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic"
+            "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic","Contact Date", "Care Level","Assessment Type","Assessment"
     };
 
     public final String [] UNCONTACTED_CLIENTS_HEADER = {
-             "Client Name","Date of Birth", "Age", "Gender", "Address", "Mobile Number", "Region", "District","Primary Clinic"
+             "Client Name","Date of Birth", "Age", "Gender","IsCATS", "Address","Secondary Address", "Mobile Number", "Second Mobile Number", "Region", "District","Primary Clinic"
     };
 
     public final String [] SOCIAL_HISTORY_HEADER = {
@@ -102,20 +102,20 @@ public interface DatabaseHeader {
     };
 
     public final String [] MORTALITY_HEADER = {
-            "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "Date Of Death",
+            "UIC", "Client Name","Date of Birth", "Age", "Gender","IsCATS", "Region", "District","Primary Clinic", "Date Of Death",
             "Cause of Death", "Cause of Death Details", "Received Enhanced Care", "Date Put On Enhanced Care", "Case Background",
             "Care Provided", "Home", "Beneficiary", "Facility", "CATS", "ZMs", "Other", "Contact with ZMs", "Date of Contact with ZMs",
             "Description of Case", "Learning Points", "Action Plan"
     };
 
     public final String [] TB_IPT_HEADER = {
-            "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "Screened for TB",
+            "UIC", "Client Name","Date of Birth", "Age", "Gender","IsCATS", "Region", "District","Primary Clinic", "Screened for TB",
             "Date Screened", "Indentified with TB", "TB Identification Outcome", "Date Started Treatment",
             "Referral for Sputum", "TB Treatment Outcome", "Referred for IPT", "On IPT", "Date Started IPT"
     };
 
     public final String [] MENTAL_HEALTH_SCREENING_HEADER = {
-            "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "Screened For Mental Health", "Date Screened",
+            "UIC", "Client Name","Date of Birth", "Age", "Gender", "IsCATS", "Region", "District","Primary Clinic", "Screened For Mental Health", "Date Screened",
             "Mental health Screening Type", "Risk", "Identified Risks", "Received Support", "Support Received", "Referral",
             "Referrals Received", "Diagnosis", "Diagnosis Done", "Other Diagnosis", "Intervention", "Interventions", "Other Interventions"
     };

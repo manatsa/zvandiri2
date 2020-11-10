@@ -56,10 +56,7 @@ import zw.org.zvandiri.business.service.TbIptService;
 @RequestMapping("/report/tb-screening")
 public class TbScreeningReportController extends BaseController{
     
-    @Resource
-    private OfficeExportService officeExportService;
-    @Resource
-    private TbScreeningReportReportService reportService;
+
     @Resource
     private ProvinceService provinceService;
     
@@ -82,7 +79,7 @@ public class TbScreeningReportController extends BaseController{
 
     public void setUpModel(ModelMap model, SearchDTO item, boolean post) {
         item = getUserLevelObjectState(item);
-        System.err.println("***********************************************************************************************************\n"+item);
+        //System.err.println("***********************************************************************************************************\n"+item);
         model.addAttribute("pageTitle", APP_PREFIX + "TB Screening Report");
         model.addAttribute("provinces", provinceService.getAll());
 //        model.addAttribute("periods", periodService.getActivePeriods());
@@ -161,6 +158,8 @@ public class TbScreeningReportController extends BaseController{
             age.setCellValue(tbIpt.getPatient().getAge());
             XSSFCell sex = tbIptRow.createCell(++count);
             sex.setCellValue(tbIpt.getPatient().getGender().getName());
+            Cell cat = tbIptRow.createCell(++count);
+            cat.setCellValue(tbIpt.getPatient().getCat()!=null?tbIpt.getPatient().getCat().getName():"");
             XSSFCell province = tbIptRow.createCell(++count);
             province.setCellValue(tbIpt.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
             XSSFCell district = tbIptRow.createCell(++count);

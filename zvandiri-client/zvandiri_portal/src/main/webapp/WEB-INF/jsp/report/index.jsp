@@ -108,9 +108,12 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <a href="${page}/report/uncontacted/range.htm">Uncontacted Clients Report</a>
+                                    <a href="${page}/report/uncontacted/range.htm">Uncontacted Clients Report</a></td>
                                 <td><a href="${page}/report/mental-health/range.htm">Mental Health Screening Report</a></td>
-                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="${page}/report/unique/contacted/range.htm">Unique Contacted Clients Report</a></td>
+<%--                            <td><a href="${page}/report/mental-health/range.htm">Mental Health Screening Report</a></td>--%>
                             </tr>
 
 

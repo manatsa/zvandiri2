@@ -42,6 +42,88 @@ public class ContactReportServiceImpl implements ContactReportService {
     private EntityManager entityManager;
     
     @Override
+    public List<Patient> getUnique(SearchDTO dto) {
+//        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p " +
+//                "inner join facility f on p.primary_clinic=f.id" +
+//                "inner join district d on f.district=f.id" +
+//                "inner join province pr on d.province=pr.id where p.id in " +
+//                " (select distinct contact c inner join patient pp on c.patient=pp.id " +
+//                "inner join facility ff on pp.primary_clinic=ff.id " +
+//                "inner join district dd on ff.district=dd.id " +
+//                "inner join province ppr on dd.province=ppr.id where c.id is not null ");
+
+        StringBuilder builder=new StringBuilder("select distinct p from Contact c left join  c.patient as p " +
+                "");
+        int position = 0;
+
+        if (dto.getSearch(dto)) {
+            builder.append(" where ");
+            if (dto.getProvince() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic.district.province=:province");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district.province=:province");
+                }
+            }
+            if (dto.getDistrict() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic.district=:district");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district=:district");
+                }
+            }
+            if (dto.getPrimaryClinic() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic=:primaryClinic");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic=:primaryClinic");
+                }
+            }
+
+
+            if (dto.getStartDate() != null && dto.getEndDate() != null) {
+
+                if (position == 0) {
+                    builder.append(" (c.contactDate between :startDate and :endDate)");
+                    position++;
+                } else {
+                    builder.append(" and (c.contact_date between :startDate and :endDate)");
+                }
+
+            }
+
+
+        }
+
+        builder.append(" )");
+        builder.append(" Order By p.first_name, p.last_name DESC");
+        Query query = entityManager.createQuery(builder.toString(), Patient.class);
+
+        if (dto.getProvince() != null) {
+            query.setParameter("province", dto.getProvince());
+        }
+        if (dto.getDistrict() != null) {
+            query.setParameter("district", dto.getDistrict());
+        }
+        if (dto.getPrimaryClinic() != null) {
+            query.setParameter("primaryClinic", dto.getPrimaryClinic());
+        }
+
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+            query.setParameter("startDate", dto.getStartDate());
+            query.setParameter("endDate", dto.getEndDate());
+        }
+
+        List<Patient> patients=query.getResultList();
+        return patients;
+    }
+
+
+
+    @Override
     public List<Contact> get(SearchDTO dto) {
         StringBuilder builder = new StringBuilder("Select Distinct c from Contact c "+ ContactInnerJoin.CONTACT_INNER_JOIN);
         int position = 0;

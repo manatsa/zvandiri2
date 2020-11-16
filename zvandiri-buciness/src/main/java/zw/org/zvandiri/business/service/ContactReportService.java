@@ -17,7 +17,6 @@ package zw.org.zvandiri.business.service;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
@@ -27,7 +26,9 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
  * @author Judge Muzinda
  */
 public interface ContactReportService {
-    
+
+    List<Patient> getUnique(SearchDTO dto);
+
     public List<Contact> get(SearchDTO dto);
 
     public  List<Contact> getContactListByPatient(Patient patient, SearchDTO dto);

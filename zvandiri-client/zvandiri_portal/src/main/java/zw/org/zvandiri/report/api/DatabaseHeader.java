@@ -29,6 +29,14 @@ public interface DatabaseHeader {
             "HIV Status Known", "Patient Status", "Date Status Changed"
     };
 
+    public final String [] UNIQUE_PATIENT_HEADER = {
+            "UIC","Name", "OI/ Art Number", "Date of Birth", "Age", "Date Joined", "Gender", "Address", "Mobile Number",
+            "Consent To M-Health","Education", "Highest Education",
+            "Refer", "Region", "District","Primary Clinic", "Support Group", "Date Tested","HIV Disclosure Location",
+            "Has Disability", "IS CATS", "Is In Young Mum Group", "HIV Transmission Mode",
+            "HIV Status Known", "Patient Status", "Date Status Changed"
+    };
+
     public final String [] DEPENDANT_HEADER = {
             "UIC", "Client Name","Clinet Date of Birth", "Client Age", "Client Gender", "Name", "Region", "District","Primary Clinic", "Gender", "Date Of Birth", "HIV Status"
     };
@@ -65,6 +73,11 @@ public interface DatabaseHeader {
     public final String [] UNCONTACTED_CLIENTS_HEADER = {
              "Client Name","Date of Birth", "Age", "Gender","IsCATS", "Address","Secondary Address", "Mobile Number", "Second Mobile Number", "Region", "District","Primary Clinic"
     };
+
+    public final String [] UNIQUE_CONTACTED_CLIENTS_HEADER = {
+            "OI/ART Number","First Name","Last Name", "Age", "Gender","Mobile Number", "Second Mobile Number","Address","Secondary Address", "IsCATS",  "Region", "District","Primary Clinic"
+    };
+
 
     public final String [] SOCIAL_HISTORY_HEADER = {
             "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "Live With", "Relationship", "Abused", "Disclosed Abuse",

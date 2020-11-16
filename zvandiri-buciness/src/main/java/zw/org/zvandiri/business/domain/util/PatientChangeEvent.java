@@ -26,7 +26,7 @@ import zw.org.zvandiri.business.util.StringUtils;
 public enum PatientChangeEvent {
 
     DECEASED(1), LOST_TO_FOLOWUP(2), GRADUATED(3), CHANGE_LOCATION(4), OPT_OUT(5), ACTIVE(6), REINSTATED(7), 
-    HIGHLY_EXPOSED_TO_POSITIVE(8);
+    HIGHLY_EXPOSED_TO_POSITIVE(8), OTHER(9);
 
     private final Integer code;
 

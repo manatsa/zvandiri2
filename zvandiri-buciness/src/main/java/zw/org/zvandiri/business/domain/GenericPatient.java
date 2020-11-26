@@ -150,8 +150,8 @@ public class GenericPatient extends BaseEntity {
     private Set<SubstanceItem> substanceItems = new HashSet<>();
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<Family> familys = new HashSet<>();
-   /* @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
-    private Set<Contact> contacts = new HashSet<>();*/
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
+    private Set<Contact> contacts = new HashSet<>();
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<EidTest> eidTests = new HashSet<>();
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
@@ -588,13 +588,13 @@ public class GenericPatient extends BaseEntity {
         this.status = status;
     }
 
-    public List<Contact> getContacts(Patient patient) {
-        return contactRepo.findByPatient(patient);
+    public Set<Contact> getContacts() {
+        return contacts;
     }
 
-//    public void setContacts(Set<Contact> contacts) {
-//        this.contacts = contacts;
-//    }
+    public void setContacts(Set<Contact> contacts) {
+        this.contacts = contacts;
+    }
 
     public Date getStatusChangeDate() {
         return statusChangeDate;

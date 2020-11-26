@@ -30,7 +30,7 @@ import zw.org.zvandiri.business.domain.util.UserType;
  * @author Judge Muzinda
  */
 @Entity @JsonIgnoreProperties(ignoreUnknown = true)
-@Table(name = "LOGINS")
+@Table(name = "user")
 
 public class User extends BaseEntity {
 

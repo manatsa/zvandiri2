@@ -236,7 +236,7 @@ public class PatientServiceImpl implements PatientService {
         for (EidTest item : patientToBeMerged.getEidTests()) {
             patient.add(item, patient);
         }
-        for (Contact item : patientToBeMerged.getContacts(patientToBeMerged)) {
+        for (Contact item : patientToBeMerged.getContacts()) {
             patient.add(item, patient);
         }
         for (Family item : patientToBeMerged.getFamilys()) {

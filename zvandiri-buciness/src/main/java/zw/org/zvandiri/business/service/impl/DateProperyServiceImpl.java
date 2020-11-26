@@ -48,9 +48,7 @@ public class DateProperyServiceImpl implements DatePropertyService {
         Settings setting = settingsService.getItem();
         Calendar startYear = Calendar.getInstance();
         Calendar endYear = Calendar.getInstance();
-        startYear.setTime(
-                DateUtil.getDateFromAge(
-                        setting.getHeuMotherMaxAge()));
+        startYear.setTime(zDateUtil.getDateFromAge(setting.getHeuMotherMaxAge()));
         endYear.setTime(DateUtil.getEndDate(setting.getPatientMinAge()));
         return startYear.get(Calendar.YEAR) + ":" + endYear.get(Calendar.YEAR);
     }

@@ -91,7 +91,10 @@ public class PatientServiceImpl implements PatientService {
         if (t.getId() == null) {
             throw new IllegalStateException("Item to be deleted is in an inconsistent state");
         }
-        patientRepo.delete(t);
+        t.setDeleted(Boolean.TRUE);
+        t.setStatus(PatientChangeEvent.OTHER);
+        t.setActive(Boolean.FALSE);
+        patientRepo.save(t);
     }
 
     @Override
@@ -233,7 +236,7 @@ public class PatientServiceImpl implements PatientService {
         for (EidTest item : patientToBeMerged.getEidTests()) {
             patient.add(item, patient);
         }
-        for (Contact item : patientToBeMerged.getContacts()) {
+        for (Contact item : patientToBeMerged.getContacts(patientToBeMerged)) {
             patient.add(item, patient);
         }
         for (Family item : patientToBeMerged.getFamilys()) {

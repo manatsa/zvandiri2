@@ -17,8 +17,10 @@ package zw.org.zvandiri.business.domain;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Resource;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Enumerated;
@@ -40,6 +42,7 @@ import zw.org.zvandiri.business.domain.util.HIVDisclosureLocation;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.domain.util.TransmissionMode;
 import zw.org.zvandiri.business.domain.util.YesNo;
+import zw.org.zvandiri.business.repo.ContactRepo;
 import zw.org.zvandiri.business.util.StringUtils;
 
 /**
@@ -147,8 +150,8 @@ public class GenericPatient extends BaseEntity {
     private Set<SubstanceItem> substanceItems = new HashSet<>();
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<Family> familys = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
-    private Set<Contact> contacts = new HashSet<>();
+   /* @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
+    private Set<Contact> contacts = new HashSet<>();*/
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<EidTest> eidTests = new HashSet<>();
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
@@ -172,6 +175,10 @@ public class GenericPatient extends BaseEntity {
     private String oINumber;
     @Column(unique = true)
     private String patientNumber;
+
+    @Transient
+    @Resource
+    ContactRepo contactRepo;
 
     public String getFirstName() {
         return StringUtils.toCamelCase2(firstName);
@@ -581,13 +588,13 @@ public class GenericPatient extends BaseEntity {
         this.status = status;
     }
 
-    public Set<Contact> getContacts() {
-        return contacts;
+    public List<Contact> getContacts(Patient patient) {
+        return contactRepo.findByPatient(patient);
     }
 
-    public void setContacts(Set<Contact> contacts) {
-        this.contacts = contacts;
-    }
+//    public void setContacts(Set<Contact> contacts) {
+//        this.contacts = contacts;
+//    }
 
     public Date getStatusChangeDate() {
         return statusChangeDate;
@@ -771,7 +778,7 @@ public class GenericPatient extends BaseEntity {
     }
 
     public void add(Contact item, Patient patient) {
-        contacts.add(item);
+        //contacts.add(item);
         item.setPatient(patient);
     }
 

@@ -112,6 +112,7 @@ public class TbScreeningReportController extends BaseController{
 
     @RequestMapping(value = "/screening", method = RequestMethod.POST)
     public String getReportResult(ModelMap model, @ModelAttribute("item") SearchDTO item) {
+        item = getUserLevelObjectState(item);
         tbIpts = tbIptService.get(item);
         setUpModel(model, item, true);
         return "report/tbScreenReport";

@@ -110,7 +110,7 @@ public interface DatabaseHeader {
     };
 
     public final String [] ARV_HISTORY_HEADER = {
-            "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "ARV Medicine",
+            "UIC", "Client Name","Date of Birth", "Age", "Gender","IsCats","isYMM", "Region", "District","Primary Clinic", "ARV Medicine",
             "Start Date", "End Date"
     };
 

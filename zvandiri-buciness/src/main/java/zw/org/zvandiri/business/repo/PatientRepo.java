@@ -86,7 +86,7 @@ public interface PatientRepo extends AbstractRepo<Patient, String> {
     @Query("Select Distinct p from Patient p "+PatientInnerJoin.PATIENT_FULL_ASSOC_FETCH+" where p.id=:id")
     public Patient getPatient(@Param("id") String id);
     
-    public int countByPatientNumberNotNull();z
+    public int countByPatientNumberNotNull();
 
 
     @Query(value = "" +

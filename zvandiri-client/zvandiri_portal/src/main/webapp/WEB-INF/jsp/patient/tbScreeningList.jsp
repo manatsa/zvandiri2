@@ -67,7 +67,7 @@
                                     <td>&nbsp;</td>
                                     <td>
                                         <a href="${page}/patient/tb-screening/item.form?id=${tbScreen.id}">Edit</a> | 
-                                        <c:if test="${canEdit}"><a href="${page}/patient/tb-screening/item.delete?id=${tbScreen.id}">Delete</a></c:if>
+<%--                                        <c:if test="${canEdit}"><a href="${page}/patient/tb-screening/item.delete?id=${tbScreen.id}">Delete</a></c:if>--%>
                                         </td>
                                     </tr>
                                 </table>            

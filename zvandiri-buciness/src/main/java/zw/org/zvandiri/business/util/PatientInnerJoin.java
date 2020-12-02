@@ -22,7 +22,9 @@ package zw.org.zvandiri.business.util;
 public interface PatientInnerJoin {
  
     public final String PATIENT_INNER_JOIN = "left join fetch p.disabilityCategorys left join fetch p.education left join fetch p.educationLevel left join fetch p.referer left join fetch p.primaryClinic left join fetch p.supportGroup left join fetch p.relationship left join fetch p.mobileOwnerRelation left join fetch p.secondaryMobileownerRelation left join fetch p.createdBy left join fetch p.modifiedBy";
-    
+
+    public final String SIMMPLE_PATIENT_INNER_JOIN = " left join fetch p.primaryClinic left join fetch p.supportGroup  left join fetch p.createdBy left join fetch p.modifiedBy";
+
     public final String PATIENT_CHILD_INNER_JOIN = "left join fetch c.patient.disabilityCategorys left join fetch c.patient.education left join fetch c.patient.educationLevel left join fetch c.patient.referer left join fetch c.patient.primaryClinic left join fetch c.patient.supportGroup left join fetch c.patient.relationship left join fetch c.patient.mobileOwnerRelation left join fetch c.patient.secondaryMobileownerRelation left join fetch c.patient.createdBy left join fetch c.patient.modifiedBy";
     
     public final String PATIENT_FULL_ASSOC_FETCH = "left join fetch p.disabilityCategorys left join fetch p.dependents left join fetch p.medicalHists left join fetch p.chronicInfectionItems left join fetch p.hivConInfectionItems left join fetch p.arvHists left join fetch p.mentalHealthItems left join fetch p.srhHists left join fetch p.obstercHists left join fetch p.socialHists left join fetch p.substanceItems left join fetch p.familys left join fetch p.investigationTests left join fetch p.contacts left join fetch p.eidTests left join fetch p.referrals left join fetch p.tbIpts left join fetch p.mortalitys left join fetch p.mentalHealthScreenings";

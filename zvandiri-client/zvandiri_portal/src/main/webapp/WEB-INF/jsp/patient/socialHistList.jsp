@@ -74,7 +74,7 @@
                                     <td>&nbsp;</td>
                                     <td>
                                         <a href="${page}/beneficiary/socialhist/item.form?itemId=${socialHist.id}">Edit</a> | 
-                                        <c:if test="${canEdit}"><a href="${page}/beneficiary/socialhist/item.delete?itemId=${socialHist.id}">Delete</a></c:if>
+<%--                                        <c:if test="${canEdit}"><a href="${page}/beneficiary/socialhist/item.delete?itemId=${socialHist.id}">Delete</a></c:if>--%>
                                         </td>
                                     </tr>
                                 </table>            

@@ -44,7 +44,7 @@
                                             <td>${sub.typeAmount}</td>
                                             <td>
                                                 <a href="${page}/beneficiary/substance/item.form?itemId=${sub.id}">Edit</a> |
-                                                <a href="${page}/beneficiary/substance/item.delete?id=${sub.id}">Delete</a>
+<%--                                                <a href="${page}/beneficiary/substance/item.delete?id=${sub.id}">Delete</a>--%>
                                             </td>
                                         </tr>
                                     </c:forEach>

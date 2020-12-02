@@ -56,7 +56,6 @@ public class UncontactedReportController extends BaseController {
             }
         }
         if (post) {
-            patients = patientReportService.getUncontactedClients(item);
             model.addAttribute("excelExport", "/report/uncontacted/export/excel" + item.getQueryString(item.getInstance(item)));
             model.addAttribute("items", patients);
         }
@@ -71,7 +70,9 @@ public class UncontactedReportController extends BaseController {
 
     @RequestMapping(value = "/range", method = RequestMethod.POST)
     public String getUncontactedClients(HttpServletResponse response,ModelMap model, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
-       return setUpModel(model, item, true);
+        item = getUserLevelObjectState(item);
+        patients = patientReportService.getUncontactedClients(item);
+        return setUpModel(model, item, true);
     }
 
 

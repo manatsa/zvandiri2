@@ -100,7 +100,7 @@
                     duplicateDetails += "<tr><th>Region :</th><td>" + data[i].region + "</td></tr>";
                     duplicateDetails += "<tr><th>District :</th><td>" + data[i].district + "</td></tr>";
                     duplicateDetails += "<tr><th>Primary Clinic :</th><td>" + data[i].primaryFacility + "</td></tr>";
-                    duplicateDetails += "<tr><th>&nbsp;</th><td>" + mergeLink + "&nbsp;" + deleteLink + "</td></tr>";
+                    duplicateDetails += "<tr><th>&nbsp;</th><td>" + mergeLink +  "</td></tr>";
                 }
                 duplicateDetails += "</table>";
                 console.log(duplicateDetails);

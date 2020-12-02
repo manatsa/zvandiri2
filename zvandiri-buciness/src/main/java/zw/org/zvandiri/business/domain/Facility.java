@@ -44,7 +44,7 @@ public class Facility extends BaseName {
     @Transient
     private Province province;
     @JsonIgnore
-    @OneToMany(mappedBy = "primaryClinic", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "primaryClinic", cascade = CascadeType.REMOVE)
     private List<Patient> patients = new ArrayList<>();
 
     public Facility() {

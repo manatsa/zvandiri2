@@ -42,7 +42,7 @@
                                             <td>${infection.currentStatus.name}</td>
                                             <td>
                                                 <a href="item.form?itemId=${infection.id}">Edit</a> |
-                                                <c:if test="${canEdit}"><a href="item.delete?id=${infection.id}">Delete</a></c:if>
+<%--                                                <c:if test="${canEdit}"><a href="item.delete?id=${infection.id}">Delete</a></c:if>--%>
                                             </td>
                                         </tr>
                                     </c:forEach>

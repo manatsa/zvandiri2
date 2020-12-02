@@ -50,7 +50,7 @@
                                     <td>${item.district.name}</td>
                                     <td>
                                         <a href="item.form?id=${item.id}">Edit</a> | 
-                                        <c:if test="${canEdit}"><a href="item.delete?id=${item.id}">Delete</a></c:if>
+<%--                                        <c:if test="${canEdit}"><a href="item.delete?id=${item.id}">Delete</a></c:if>--%>
                                     </td>
                                 </tr>
                             </c:forEach>

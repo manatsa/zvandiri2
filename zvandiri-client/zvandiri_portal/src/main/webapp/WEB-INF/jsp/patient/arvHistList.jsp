@@ -42,7 +42,7 @@
                                             <td>
                                                 <a href="${page}/patient/arv-adverse-effects/item.list?id=${arvHist.id}">Adverse Effects</a> | 
                                                 <a href="item.form?itemId=${arvHist.id}">Edit</a> |
-                                                <c:if test="${canEdit}"><a href="item.delete?id=${arvHist.id}">Delete</a></c:if>
+<%--                                                <c:if test="${canEdit}"><a href="item.delete?id=${arvHist.id}">Delete</a></c:if>--%>
                                             </td>
                                         </tr>
                                     </c:forEach>

@@ -56,7 +56,7 @@
                                     <td>&nbsp;</td>
                                     <td>
                                         <a href="${page}/beneficiary/srh/item.form?itemId=${srhHist.id}">Edit</a> | 
-                                        <c:if test="${canEdit}"><a href="${page}/beneficiary/srh/item.delete?id=${srhHist.id}">Delete</a></c:if>
+<%--                                        <c:if test="${canEdit}"><a href="${page}/beneficiary/srh/item.delete?id=${srhHist.id}">Delete</a></c:if>--%>
                                     </td>
                                 </tr>
                             </table>            

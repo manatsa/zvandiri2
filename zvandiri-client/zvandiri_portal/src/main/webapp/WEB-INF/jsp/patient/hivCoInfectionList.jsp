@@ -39,7 +39,7 @@
                                             <td>${hiv.resolution}</td>
                                             <td>
                                                 <a href="item.form?itemId=${hiv.id}">Edit</a> |
-                                                <c:if test="${canEdit}"><a href="item.delete?id=${hiv.id}">Delete</a></c:if>
+<%--                                                <c:if test="${canEdit}"><a href="item.delete?id=${hiv.id}">Delete</a></c:if>--%>
                                             </td>
                                         </tr>
                                     </c:forEach>

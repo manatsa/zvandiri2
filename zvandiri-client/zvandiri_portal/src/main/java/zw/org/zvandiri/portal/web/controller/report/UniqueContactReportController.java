@@ -89,6 +89,7 @@ public class UniqueContactReportController extends BaseController {
 
     @RequestMapping(value = "/range", method = RequestMethod.POST)
     public String getReferralReportIndex(ModelMap model, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
+        item = getUserLevelObjectState(item);
         patients=contactReportService.getUnique(item);
         model.addAttribute("items", patients);
         return setUpModel(model, item, true);

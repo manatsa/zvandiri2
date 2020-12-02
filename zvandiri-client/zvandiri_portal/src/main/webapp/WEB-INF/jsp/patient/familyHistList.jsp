@@ -36,7 +36,7 @@
                                     <td>&nbsp;</td>
                                     <td>
                                         <a href="${page}/beneficiary/familyhist/item.form?itemId=${family.id}">Edit</a> | 
-                                        <a href="${page}/beneficiary/familyhist/item.delete?id=${family.id}">Delete</a>
+<%--                                        <a href="${page}/beneficiary/familyhist/item.delete?id=${family.id}">Delete</a>--%>
                                     </td>
                                 </tr>
                             </table>            

@@ -40,7 +40,7 @@
                                             <td>${eff.source.name}</td>
                                             <td>
                                                 <a href="item.form?itemId=${eff.id}">Edit</a> |
-                                                <c:if test="${canEdit}"><a href="item.delete?id=${eff.id}">Delete</a></c:if>
+<%--                                                <c:if test="${canEdit}"><a href="item.delete?id=${eff.id}">Delete</a></c:if>--%>
                                             </td>
                                         </tr>
                                     </c:forEach>

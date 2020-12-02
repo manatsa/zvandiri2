@@ -26,7 +26,7 @@
                                     <td>
                                         <a href="<c:url value="/admin/managepassword.htm?id=${user.id}"/>">Change Password | </a>
                                         <a href="<c:url value="/admin/changeprivileges.htm?id=${user.id}"/>">Edit Privileges</a> | 
-                                        <a href="<c:url value="/admin/user/user.delete?id=${user.id}"/>">Delete</a>
+<%--                                        <a href="<c:url value="/admin/user/user.delete?id=${user.id}"/>">Delete</a>--%>
                                     </td>
                                 </tr>
                             </c:forEach>

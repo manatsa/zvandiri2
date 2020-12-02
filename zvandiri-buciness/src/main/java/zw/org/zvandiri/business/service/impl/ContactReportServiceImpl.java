@@ -90,7 +90,7 @@ public class ContactReportServiceImpl implements ContactReportService {
                     builder.append(" (c.contactDate between :startDate and :endDate)");
                     position++;
                 } else {
-                    builder.append(" and (c.contact_date between :startDate and :endDate)");
+                    builder.append(" and (c.contactDate between :startDate and :endDate)");
                 }
 
             }

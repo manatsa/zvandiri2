@@ -42,7 +42,7 @@
                                             <td>
                                                 <a href="item.view?itemId=${item.id}">View</a> |
                                                 <a href="item.form?itemId=${item.id}">Edit</a> |
-                                                <c:if test="${canEdit}"><a href="item.delete?id=${item.id}">Delete</a></c:if>
+<%--                                                <c:if test="${canEdit}"><a href="item.delete?id=${item.id}">Delete</a></c:if>--%>
                                             </td>
                                         </tr>
                                     </c:forEach>

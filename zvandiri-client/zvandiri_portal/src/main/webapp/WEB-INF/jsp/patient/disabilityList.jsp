@@ -40,7 +40,7 @@
                                             <td><spring:eval expression="disability.dateScreened"/></td>
                                             <td>
                                                 <a href="${page}/beneficiary/disability/item.form?itemId=${disability.id}">Edit</a> |
-                                                <c:if test="${canEdit}"><a href="${page}/beneficiary/disability/item.delete?id=${disability.id}">Delete</a></c:if>
+<%--                                                <c:if test="${canEdit}"><a href="${page}/beneficiary/disability/item.delete?id=${disability.id}">Delete</a></c:if>--%>
                                             </td>
                                         </tr>
                                     </c:forEach>

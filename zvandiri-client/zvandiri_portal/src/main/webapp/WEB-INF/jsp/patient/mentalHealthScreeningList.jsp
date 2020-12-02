@@ -47,7 +47,7 @@
                                             <td>${mental.intervention}</td>
                                             <td>
                                                 <a href="${page}/beneficiary/mental-health-screening/item.form?itemId=${mental.id}">Edit</a> |
-                                                <c:if test="${canEdit}"><a href="${page}/beneficiary/mental-health-screening/item.delete?id=${mental.id}">Delete</a></c:if>
+<%--                                                <c:if test="${canEdit}"><a href="${page}/beneficiary/mental-health-screening/item.delete?id=${mental.id}">Delete</a></c:if>--%>
                                             </td>
                                         </tr>
                                     </c:forEach>

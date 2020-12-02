@@ -21,7 +21,7 @@
                                     <th>Reason</th>
                                     <th>&nbsp;</th>
                                 </tr>
-                            </thead>
+                            </thead>0776677617
                             <tbody>
                                 <c:forEach var="contact" items="${contacts}">
                                     <tr>
@@ -33,7 +33,7 @@
                                         <td>${contact.reason.name}</td>
                                         <td>
                                             <a href="${page}/beneficiary/contact/item.form?id=${contact.id}">Edit</a> |
-                                            <a href="${page}/beneficiary/contact/item.delete?id=${contact.id}">Delete</a>
+<%--                                            <a href="${page}/beneficiary/contact/item.delete?id=${contact.id}">Delete</a>--%>
                                         </td>
                                     </tr>
                                 </c:forEach>

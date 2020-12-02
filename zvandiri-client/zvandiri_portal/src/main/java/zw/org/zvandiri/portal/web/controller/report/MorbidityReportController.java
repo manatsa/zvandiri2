@@ -115,7 +115,7 @@ public class MorbidityReportController extends BaseController {
         for (Patient patient : patients) {
 
             Set<Contact> contacts = new HashSet<>();
-            contacts.addAll(patient.getContacts(patient));
+            contacts.addAll(patient.getContacts());
 
             for (Contact contact : contacts) {
                 //if (!contact.getClinicalAssessments().isEmpty() || !contact.getNonClinicalAssessments().isEmpty()) {

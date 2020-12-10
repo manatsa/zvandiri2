@@ -88,7 +88,7 @@ public class ArvHistoryController extends BaseController {
         return setUpModel(model, item, true);
     }
 
-    @RequestMapping(value="", method = RequestMethod.GET)
+    @RequestMapping(value="/export/excel", method = RequestMethod.GET)
     public void downloadAll(HttpServletResponse response, @ModelAttribute("item") @Valid SearchDTO item){
         String name = DateUtil.getFriendlyFileName("Detailed_ARVHist_Report");
         forceDownLoadDatabase(getARVHistoryWorkbook(item), name, response);
@@ -130,7 +130,7 @@ public class ArvHistoryController extends BaseController {
                 XSSFCell cat = arvHistXSSFRow.createCell(++count);
                 cat.setCellValue(arvHist.getPatient().getCat().getName());
                 XSSFCell ymm = arvHistXSSFRow.createCell(++count);
-                ymm.setCellValue(arvHist.getPatient().getYoungMumGroup().getName());
+                ymm.setCellValue((arvHist.getPatient().getYoungMumGroup()!=null)?arvHist.getPatient().getYoungMumGroup().getName():"");
 
                 XSSFCell province = arvHistXSSFRow.createCell(++count);
                 province.setCellValue(arvHist.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());

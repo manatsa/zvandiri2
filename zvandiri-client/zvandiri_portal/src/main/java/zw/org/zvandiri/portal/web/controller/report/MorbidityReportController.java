@@ -87,11 +87,11 @@ public class MorbidityReportController extends BaseController {
         return setUpModel(model, item, true);
     }
 
-    @RequestMapping(value="", method = RequestMethod.GET)
-    public void downloadAll(HttpServletResponse response, @ModelAttribute("item") @Valid SearchDTO item){
-        String name = DateUtil.getFriendlyFileName("Detailed_Morbidity_Report");
-        forceDownLoadDatabase(morbidityPatients(name, item), name, response);
-    }
+//    @RequestMapping(value="/export/excel", method = RequestMethod.GET)
+//    public void downloadAll(HttpServletResponse response, @ModelAttribute("item") @Valid SearchDTO item){
+//        String name = DateUtil.getFriendlyFileName("Detailed_Morbidity_Report");
+//        forceDownLoadDatabase(morbidityPatients(name, item), name, response);
+//    }
 
     public XSSFWorkbook morbidityPatients(String name, SearchDTO dto) {
         XSSFWorkbook workbook = new XSSFWorkbook();

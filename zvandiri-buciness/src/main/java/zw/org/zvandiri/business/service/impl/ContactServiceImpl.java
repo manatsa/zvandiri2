@@ -117,7 +117,8 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public List<Contact> findByReferredPersonAndOpen(User referredPerson) {
-        return contactRepo.findByReferredPersonAndOpenOrderByContactDateDesc(referredPerson, Boolean.FALSE);
+        //return contactRepo.findByReferredPersonAndOpenOrderByContactDateDesc(referredPerson, Boolean.FALSE);
+        return null;
     }
 
     @Override

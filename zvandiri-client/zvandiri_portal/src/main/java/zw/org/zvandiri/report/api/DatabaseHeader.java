@@ -128,8 +128,12 @@ public interface DatabaseHeader {
     };
 
     public final String [] MENTAL_HEALTH_SCREENING_HEADER = {
-            "UIC", "Client Name","Date of Birth", "Age", "Gender", "IsCATS", "Region", "District","Primary Clinic", "Screened For Mental Health", "Date Screened",
+            "Client Name","Date of Birth", "Age", "Gender", "IsCATS", "Region", "District","Primary Clinic", "Screened For Mental Health", "Date Screened",
             "Mental health Screening Type", "Risk", "Identified Risks", "Received Support", "Support Received", "Referral",
             "Referrals Received", "Diagnosis", "Diagnosis Done", "Other Diagnosis", "Intervention", "Interventions", "Other Interventions"
+    };
+    String[] VLS_CLIENTS_HEADER = {
+            "Client Name","Date of Birth", "Age", "Gender","Test Result","Test Type","Suppression Status","Date Taken","IsCATS","IsYMM",
+            "Address","Mobile Phone","Referrer","Region", "District","Primary Clinic"
     };
 }

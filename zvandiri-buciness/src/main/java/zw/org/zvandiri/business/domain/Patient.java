@@ -47,7 +47,12 @@ public class Patient extends GenericPatient {
     @Transient
     private District supportGroupDistrict;
     @Transient
+    //@Formula("(select (TIMESTAMPDIFF(YEAR,date_of_birth,CURDATE())) as age from patient p where p.id = ? )")
     private int age = 0;
+
+//    @Formula("(select (TIMESTAMPDIFF(YEAR,date_of_birth,CURDATE())) as age from patient p where p.id = id)")
+//    private int currentAge = 0;
+
     @Transient
     private String name;
     @Formula("(Select c.id From cat_detail c where c.patient = id)")

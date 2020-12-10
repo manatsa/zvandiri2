@@ -1,13 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="zvandiri_portal:war exploded">
-    <output-path>$PROJECT_DIR$/zvandiri-client/zvandiri_portal/target/zvandiri</output-path>
-    <properties id="maven-jee-properties">
-      <options>
-        <exploded>true</exploded>
-        <module>zvandiri_portal</module>
-        <packaging>war</packaging>
-      </options>
-    </properties>
+  <artifact type="exploded-war" name="zvandiri:war exploded">
+    <output-path>$PROJECT_DIR$/classes/artifacts/zvandiri_war_exploded</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -44,9 +37,6 @@
           <element id="library" level="project" name="Maven: jfree:jfreechart:1.0.12" />
           <element id="library" level="project" name="Maven: jfree:jcommon:1.0.15" />
           <element id="library" level="project" name="Maven: net.sf.opencsv:opencsv:2.3" />
-          <element id="archive" name="zvandiri-business-1.0.0.0.jar">
-            <element id="module-output" name="zvandiri-business" />
-          </element>
           <element id="library" level="project" name="Maven: org.springframework:spring-context-support:4.0.6.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:4.0.6.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-orm:4.0.6.RELEASE" />
@@ -59,13 +49,6 @@
           <element id="library" level="project" name="Maven: javax.validation:validation-api:1.0.0.GA" />
           <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.0" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.18" />
-          <element id="library" level="project" name="Maven: com.oracle.database.jdbc:ojdbc8:12.2.0.1" />
-          <element id="library" level="project" name="Maven: com.oracle.database.jdbc:ucp:12.2.0.1" />
-          <element id="library" level="project" name="Maven: com.oracle.database.security:oraclepki:12.2.0.1" />
-          <element id="library" level="project" name="Maven: com.oracle.database.security:osdt_cert:12.2.0.1" />
-          <element id="library" level="project" name="Maven: com.oracle.database.security:osdt_core:12.2.0.1" />
-          <element id="library" level="project" name="Maven: com.oracle.database.ha:simplefan:12.2.0.1" />
-          <element id="library" level="project" name="Maven: com.oracle.database.ha:ons:12.2.0.1" />
           <element id="library" level="project" name="Maven: com.jolbox:bonecp:0.7.1.RELEASE" />
           <element id="library" level="project" name="Maven: com.google.guava:guava:r08" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:3.2.4.RELEASE" />
@@ -107,9 +90,6 @@
           <element id="library" level="project" name="Maven: javax.mail:mail:1.4.3" />
           <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
         </element>
-      </element>
-      <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/target/zvandiri/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="zvandiri_portal/web/Web" />
     </root>

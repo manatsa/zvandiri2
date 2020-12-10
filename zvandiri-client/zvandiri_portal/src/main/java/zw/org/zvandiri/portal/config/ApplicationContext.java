@@ -36,7 +36,7 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan(basePackages = {"zw.org.zvandiri.portal.web.*", "zw.org.zvandiri.business.service.impl",
     "zw.org.zvandiri.report.api.service.impl"})
 @ImportResource(value = {"classpath:applicationContext.xml", "classpath:securityContext.xml"})
-@PropertySource("classpath:zw.org.zvandiri.business.resources.application.properties")
+@PropertySource("classpath:application.properties")
 @Import(PeriodConfig.class)
 @EnableScheduling
 @EnableJpaRepositories(basePackages = "zw.org.zvandiri.business.repo")

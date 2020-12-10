@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="zvandiri:war exploded" />
-      <artifact name="zvandiri_mobile:war" />
+      <artifact name="zvandiri_portal:war" />
     </artifacts-to-build>
-  </component>
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="NONE" />
   </component>
   <component name="BranchesTreeState">
     <expand>
@@ -28,37 +24,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29967e23-4f38-4cc3-a9f6-cc5946956d26" name="Default Changelist" comment="With ArvHistory Report yet to be tested">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/zvandiri.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/zvandiri_mobile_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/zvandiri_mobile_war_exploded.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/zvandiri_portal_war.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/zvandiri_portal_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/zvandiri_war_exploded.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/zvandiriwar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_oracle_database_ha_ons_12_2_0_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_oracle_database_ha_simplefan_12_2_0_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_oracle_database_jdbc_ojdbc8_12_2_0_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_oracle_database_jdbc_ucp_12_2_0_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_oracle_database_security_oraclepki_12_2_0_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_oracle_database_security_osdt_cert_12_2_0_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_oracle_database_security_osdt_core_12_2_0_1.xml" beforeDir="false" />
+    <list default="true" id="29967e23-4f38-4cc3-a9f6-cc5946956d26" name="Default Changelist" comment="ArvHist Finished but problem with deployment.">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/zvandiri_portal_war.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/zvandiri_portal_war_exploded.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/domain/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/domain/Patient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/PatientReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/PatientReportService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/ContactServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/ContactServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/PatientReportServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/PatientReportServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/zvandiri-business.iml" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/zvandiri-business.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri-client.iml" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri-client.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_mobile/zvandiri_mobile.iml" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_mobile/zvandiri_mobile.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/config/ApplicationContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/config/ApplicationContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/BaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/BaseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/report/ArvHistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/report/ArvHistoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/report/LaboratoryTestResultsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/report/LaboratoryTestResultsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/report/MorbidityReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/report/MorbidityReportController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/report/api/DatabaseHeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/report/api/DatabaseHeader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/report/laboratoryDetailedReport.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/report/laboratoryDetailedReport.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/zvandiri_portal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/zvandiri_portal.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,12 +73,12 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/zvandiri-buciness/src/main/resources/zw/org/zvandiri/business/resources" />
+    <property name="last_opened_file_path" value="$USER_HOME$/OneDrive/Documents/Development/Employees" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Facets" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.applicationServers" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -116,7 +86,6 @@
       <recent name="zw.org.zvandiri.business.repo" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\manat\IdeaProjects\zvandiri\zvandiri-buciness\src\main\resources\zw\org\zvandiri\business\resources" />
       <recent name="C:\Users\manat\IdeaProjects\zvandiri\zvandiri-client\zvandiri_portal\src\main\webapp\WEB-INF\jsp\report" />
     </key>
   </component>
@@ -125,14 +94,9 @@
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/zvandiri/" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
-        <artifact name="zvandiri:war exploded">
+        <artifact name="zvandiri_portal:war">
           <settings>
             <option name="CONTEXT_PATH" value="/zvandiri" />
-          </settings>
-        </artifact>
-        <artifact name="zvandiri_mobile:war">
-          <settings>
-            <option name="CONTEXT_PATH" value="/zvandiri-mobile" />
           </settings>
         </artifact>
       </deployment>
@@ -195,8 +159,8 @@
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
-          <artifact name="zvandiri_mobile:war" />
-          <artifact name="zvandiri:war exploded" />
+          <artifact name="zvandiri:war" />
+          <artifact name="zvandiri_portal:war" />
         </option>
       </method>
     </configuration>
@@ -303,26 +267,8 @@
       <workItem from="1606224370906" duration="1406000" />
       <workItem from="1606315794992" duration="1142000" />
       <workItem from="1606398914372" duration="1449000" />
-      <workItem from="1606410941920" duration="12839000" />
-      <workItem from="1606454343017" duration="4243000" />
-      <workItem from="1606582402725" duration="4718000" />
-      <workItem from="1606635533370" duration="5977000" />
-      <workItem from="1606670438157" duration="4063000" />
-      <workItem from="1606720133924" duration="5331000" />
-      <workItem from="1606729278781" duration="8570000" />
-      <workItem from="1606896454063" duration="1414000" />
-      <workItem from="1606911452992" duration="4639000" />
-      <workItem from="1606978890430" duration="2598000" />
-      <workItem from="1606986198560" duration="2214000" />
-      <workItem from="1607058049106" duration="1628000" />
-      <workItem from="1607062650988" duration="1889000" />
-      <workItem from="1607334264701" duration="3823000" />
-      <workItem from="1607353510922" duration="2559000" />
-      <workItem from="1607405731022" duration="4996000" />
-      <workItem from="1607500171049" duration="20038000" />
-      <workItem from="1607576614383" duration="8922000" />
-      <workItem from="1607597310356" duration="2151000" />
-      <workItem from="1607605234902" duration="3190000" />
+      <workItem from="1606410941920" duration="12011000" />
+      <workItem from="1607624476764" duration="987000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed ClassNotFoundException for Workbook/XSSFWorkbook. Now works in both Netbeans and Intellij.&#10;&#10;Yet to finish off MentalHealthScreening Report">
       <created>1604265588046</created>
@@ -352,28 +298,7 @@
       <option name="project" value="LOCAL" />
       <updated>1605536361573</updated>
     </task>
-    <task id="LOCAL-00005" summary="Now on oracle">
-      <created>1606426620710</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1606426620710</updated>
-    </task>
-    <task id="LOCAL-00006" summary="After Oracle">
-      <created>1606427028647</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1606427028647</updated>
-    </task>
-    <task id="LOCAL-00007" summary="With ArvHistory Report yet to be tested">
-      <created>1606921409312</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1606921409312</updated>
-    </task>
-    <option name="localTasksCounter" value="8" />
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -398,19 +323,17 @@
     <MESSAGE value="Addedd Morbidity Report but yet to be tested." />
     <MESSAGE value="Addedd Morbidity Report and Unique Contacted Clients Report but yet to be tested." />
     <MESSAGE value="Now on oracle" />
-    <MESSAGE value="After Oracle" />
-    <MESSAGE value="With ArvHistory Report yet to be tested" />
-    <option name="LAST_COMMIT_MESSAGE" value="With ArvHistory Report yet to be tested" />
+    <option name="LAST_COMMIT_MESSAGE" value="Now on oracle" />
   </component>
   <component name="WindowStateProjectService">
     <state x="547" y="310" key="#Tomcat_Server" timestamp="1604244198854">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="547" y="310" key="#Tomcat_Server/0.0.1536.864@0.0.1536.864" timestamp="1604244198854" />
-    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607608107531">
+    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607624827859">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1607608107531" />
+    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1607624827859" />
     <state x="574" y="116" key="#com.intellij.ide.util.MemberChooser" timestamp="1604562088402">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -419,62 +342,62 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="599" y="143" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.0.1536.864@0.0.1536.864" timestamp="1604249899840" />
-    <state x="510" y="301" width="532" height="267" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1607502988633">
+    <state x="510" y="301" width="515" height="267" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1604495226689">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="510" y="301" width="532" height="267" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.864@0.0.1536.864" timestamp="1607502988633" />
-    <state x="548" y="173" key="FileChooserDialogImpl" timestamp="1607609004798">
+    <state x="510" y="301" width="515" height="267" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.864@0.0.1536.864" timestamp="1604495226689" />
+    <state x="548" y="173" key="FileChooserDialogImpl" timestamp="1606065894254">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="548" y="173" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1607609004798" />
-    <state width="1372" height="382" key="GridCell.Tab.0.bottom" timestamp="1607609197944">
+    <state x="548" y="173" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1606065894254" />
+    <state width="1372" height="409" key="GridCell.Tab.0.bottom" timestamp="1607625439540">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="382" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1607609197944" />
-    <state width="1372" height="382" key="GridCell.Tab.0.center" timestamp="1607609197944">
+    <state width="1372" height="409" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1607625439540" />
+    <state width="1372" height="409" key="GridCell.Tab.0.center" timestamp="1607625439540">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="382" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1607609197944" />
-    <state width="1372" height="382" key="GridCell.Tab.0.left" timestamp="1607609197944">
+    <state width="1372" height="409" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1607625439540" />
+    <state width="1372" height="409" key="GridCell.Tab.0.left" timestamp="1607625439540">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="382" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1607609197944" />
-    <state width="1372" height="382" key="GridCell.Tab.0.right" timestamp="1607609197944">
+    <state width="1372" height="409" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1607625439540" />
+    <state width="1372" height="409" key="GridCell.Tab.0.right" timestamp="1607625439540">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="382" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1607609197944" />
-    <state width="1372" height="382" key="GridCell.Tab.1.bottom" timestamp="1607609193744">
+    <state width="1372" height="409" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1607625439540" />
+    <state width="1372" height="409" key="GridCell.Tab.1.bottom" timestamp="1607625439540">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="382" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1607609193744" />
-    <state width="1372" height="382" key="GridCell.Tab.1.center" timestamp="1607609193744">
+    <state width="1372" height="409" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1607625439540" />
+    <state width="1372" height="409" key="GridCell.Tab.1.center" timestamp="1607625439540">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="382" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1607609193744" />
-    <state width="1372" height="382" key="GridCell.Tab.1.left" timestamp="1607609193743">
+    <state width="1372" height="409" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1607625439540" />
+    <state width="1372" height="409" key="GridCell.Tab.1.left" timestamp="1607625439540">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="382" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1607609193743" />
-    <state width="1372" height="382" key="GridCell.Tab.1.right" timestamp="1607609193744">
+    <state width="1372" height="409" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1607625439540" />
+    <state width="1372" height="409" key="GridCell.Tab.1.right" timestamp="1607625439540">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="382" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1607609193744" />
-    <state width="1372" height="382" key="GridCell.Tab.2.bottom" timestamp="1607609193744">
+    <state width="1372" height="409" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1607625439540" />
+    <state width="1372" height="409" key="GridCell.Tab.2.bottom" timestamp="1607625439540">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="382" key="GridCell.Tab.2.bottom/0.0.1536.864@0.0.1536.864" timestamp="1607609193744" />
-    <state width="1372" height="382" key="GridCell.Tab.2.center" timestamp="1607609193744">
+    <state width="1372" height="409" key="GridCell.Tab.2.bottom/0.0.1536.864@0.0.1536.864" timestamp="1607625439540" />
+    <state width="1372" height="409" key="GridCell.Tab.2.center" timestamp="1607625439540">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="382" key="GridCell.Tab.2.center/0.0.1536.864@0.0.1536.864" timestamp="1607609193744" />
-    <state width="1372" height="382" key="GridCell.Tab.2.left" timestamp="1607609193744">
+    <state width="1372" height="409" key="GridCell.Tab.2.center/0.0.1536.864@0.0.1536.864" timestamp="1607625439540" />
+    <state width="1372" height="409" key="GridCell.Tab.2.left" timestamp="1607625439540">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="382" key="GridCell.Tab.2.left/0.0.1536.864@0.0.1536.864" timestamp="1607609193744" />
-    <state width="1372" height="382" key="GridCell.Tab.2.right" timestamp="1607609193744">
+    <state width="1372" height="409" key="GridCell.Tab.2.left/0.0.1536.864@0.0.1536.864" timestamp="1607625439540" />
+    <state width="1372" height="409" key="GridCell.Tab.2.right" timestamp="1607625439540">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="382" key="GridCell.Tab.2.right/0.0.1536.864@0.0.1536.864" timestamp="1607609193744" />
+    <state width="1372" height="409" key="GridCell.Tab.2.right/0.0.1536.864@0.0.1536.864" timestamp="1607625439540" />
     <state width="1297" height="570" key="GridCell.Tab.3.bottom" timestamp="1604909967581">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -511,18 +434,26 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="299" y="87" key="Maven.ArtifactSearchDialog/0.0.1536.864@0.0.1536.864" timestamp="1604261504005" />
-    <state x="249" y="7" key="SettingsEditor" timestamp="1607609010611">
+    <state x="147" y="69" key="MergeDialog" timestamp="1607624741415">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="249" y="7" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1607609010611" />
-    <state x="361" y="152" key="Vcs.Push.Dialog.v2" timestamp="1606921416477">
+    <state x="147" y="69" key="MergeDialog/0.0.1536.864@0.0.1536.864" timestamp="1607624741415" />
+    <state x="249" y="7" key="SettingsEditor" timestamp="1607624716687">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="361" y="152" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1606921416477" />
-    <state x="84" y="18" width="1232" height="801" key="find.popup" timestamp="1606899655282">
+    <state x="249" y="7" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1607624716687" />
+    <state x="361" y="152" key="Vcs.Push.Dialog.v2" timestamp="1605536369426">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="84" y="18" width="1232" height="801" key="find.popup/0.0.1536.864@0.0.1536.864" timestamp="1606899655282" />
+    <state x="361" y="152" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1605536369426" />
+    <state x="478" y="31" width="758" height="801" key="find.popup" timestamp="1606402582695">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="478" y="31" width="758" height="801" key="find.popup/0.0.1536.864@0.0.1536.864" timestamp="1606402582695" />
+    <state x="516" y="145" key="git4idea.branch.GitSmartOperationDialog" timestamp="1607624732472">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="516" y="145" key="git4idea.branch.GitSmartOperationDialog/0.0.1536.864@0.0.1536.864" timestamp="1607624732472" />
     <state x="569" y="334" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1604499385914">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -531,14 +462,6 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="209" y="53" key="new project wizard/0.0.1536.864@0.0.1536.864" timestamp="1604255683783" />
-    <state x="425" y="197" key="run.anything.popup" timestamp="1607514656580">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="425" y="197" key="run.anything.popup/0.0.1536.864@0.0.1536.864" timestamp="1607514656580" />
-    <state x="368" y="115" key="spring file set editor" timestamp="1607609006777">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="368" y="115" key="spring file set editor/0.0.1536.864@0.0.1536.864" timestamp="1607609006777" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -546,7 +469,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/BaseController.java</url>
           <line>196</line>
-          <properties class="zw.org.zvandiri.portal.web.controller.BaseController" method="setViralLoad">
+          <properties class="zw.org.zvandiri.portal.web.controller.BaseController">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="1" />

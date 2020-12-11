@@ -173,7 +173,7 @@ public class LaboratoryTestResultsController extends BaseController {
             phone.setCellValue(test.getPatient().getMobileNumber()==null?"":test.getPatient().getMobileNumber());
 
             Cell referer=resultsRow.createCell(count++);
-            referer.setCellValue(test.getPatient().getRefererName());
+            referer.setCellValue(test.getPatient().getRefererName()!=null?test.getPatient().getRefererName():"");
 
             Cell province = resultsRow.createCell(count++);
             province.setCellValue(test.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());

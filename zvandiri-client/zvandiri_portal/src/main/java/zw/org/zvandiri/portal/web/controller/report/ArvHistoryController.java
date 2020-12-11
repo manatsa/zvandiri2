@@ -128,7 +128,7 @@ public class ArvHistoryController extends BaseController {
                 sex.setCellValue(arvHist.getPatient().getGender().getName());
 
                 XSSFCell cat = arvHistXSSFRow.createCell(++count);
-                cat.setCellValue(arvHist.getPatient().getCat().getName());
+                cat.setCellValue(arvHist.getPatient().getCat()!=null?arvHist.getPatient().getCat().getName():"");
                 XSSFCell ymm = arvHistXSSFRow.createCell(++count);
                 ymm.setCellValue((arvHist.getPatient().getYoungMumGroup()!=null)?arvHist.getPatient().getYoungMumGroup().getName():"");
 

@@ -99,7 +99,7 @@ public class Cd4CountController extends BaseController {
     public String deleteItem(@Valid ItemDeleteDTO dto) {
         InvestigationTest item = investigationTestService.get(dto.getId());
         Patient patient = item.getPatient();
-        investigationTestService.delete(item);
+        //investigationTestService.delete(item);
         return "redirect:../dashboard/profile.htm?type=2&id=" + patient.getId();
     }
 }

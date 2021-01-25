@@ -118,7 +118,7 @@ public class HivConinfectionController extends BaseController {
     public String deleteItem(@Valid ItemDeleteDTO dto) {
         HivConInfectionItem item = hivConInfectionItemService.get(dto.getId());
         Patient patient = item.getPatient();
-        hivConInfectionItemService.delete(item);
+        //hivConInfectionItemService.delete(item);
         return "redirect:item.list?type=2&id=" + patient.getId();
     }
 }

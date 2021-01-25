@@ -133,7 +133,7 @@ public class MedicalHistController extends BaseController {
     public String deleteItem(@Valid ItemDeleteDTO dto) {
         MedicalHist item = medicalHistService.get(dto.getId());
         Patient patient = item.getPatient();
-        medicalHistService.delete(item);
+        //medicalHistService.delete(item);
         return "redirect:item.list?type=2&id=" + patient.getId();
     }
 }

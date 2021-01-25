@@ -138,7 +138,7 @@ public class SocialHistoryController extends BaseController {
     public String deleteItem(@Valid ItemDeleteDTO dto) {
         SocialHist item = socialHistService.get(dto.getId());
         Patient patient = item.getPatient();
-        socialHistService.delete(item);
+        //socialHistService.delete(item);
         return "redirect:item.list?type=2&id=" + patient.getId();
     }
 }

@@ -133,7 +133,7 @@ public class SrhController extends BaseController {
     public String deleteItem(@Valid ItemDeleteDTO dto) {
         SrhHist item = srhHistService.get(dto.getId());
         Patient patient = item.getPatient();
-        srhHistService.delete(item);
+        //srhHistService.delete(item);
         return "redirect:item.list?type=2&id=" + patient.getId();
     }
 }

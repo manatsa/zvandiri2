@@ -97,7 +97,7 @@ public class StableController extends BaseController {
 
     @RequestMapping(value = "item.delete", method = RequestMethod.POST)
     public String deleteItem(@Valid ItemDeleteDTO dto) {
-        stableService.delete(stableService.get(dto.getId()));
+        //stableService.delete(stableService.get(dto.getId()));
         return "redirect:item.list?type=2";
     }
 }

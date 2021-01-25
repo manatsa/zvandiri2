@@ -143,7 +143,7 @@ public class TbScreeningController extends BaseController {
     public String delete(@Valid ItemDeleteDTO dto) {
         TbIpt item = service.get(dto.getId());
         Patient patient = item.getPatient();
-        service.delete(item);
+        //service.delete(item);
         return "redirect:item.list?type=2&id=" + patient.getId();
     }
     

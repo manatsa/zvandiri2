@@ -143,7 +143,7 @@ public class UserController extends BaseController{
     
     @RequestMapping(value = "item.delete", method = RequestMethod.POST)
     public String deleteUser(@Valid ItemDeleteDTO dto){
-        userService.delete(userService.get(dto.getId()));
+        //userService.delete(userService.get(dto.getId()));
         return "redirect:user.list?type=2";
     }
 }

@@ -35,7 +35,7 @@ import org.codehaus.jackson.annotate.JsonManagedReference;
  * @author Judge Muzinda
  */
 @Entity 
-@JsonIgnoreProperties(value= {"patients"}, ignoreUnknown = true)
+@JsonIgnoreProperties(value= {"patients"})
 
 public class Facility extends BaseName {
 
@@ -43,9 +43,9 @@ public class Facility extends BaseName {
     private District district;
     @Transient
     private Province province;
-    @JsonIgnore
-    @OneToMany(mappedBy = "primaryClinic", cascade = CascadeType.REMOVE)
-    private List<Patient> patients = new ArrayList<>();
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "primaryClinic", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+//    private List<Patient> patients = new ArrayList<>();
 
     public Facility() {
     }
@@ -70,18 +70,18 @@ public class Facility extends BaseName {
         this.province = province;
     }
 
-    public List<Patient> getPatients() {
-        return patients;
-    }
-
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
-    }
+//    public List<Patient> getPatients() {
+//        return patients;
+//    }
+//
+//    public void setPatients(List<Patient> patients) {
+//        this.patients = patients;
+//    }
     
     
-    public List<Patient> getCatPatients()
-    {
-        return patients;
-    }
+//    public List<Patient> getCatPatients()
+//    {
+//        return patients;
+//    }
     
 }

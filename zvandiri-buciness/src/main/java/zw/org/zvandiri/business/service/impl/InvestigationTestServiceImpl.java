@@ -18,15 +18,21 @@ package zw.org.zvandiri.business.service.impl;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.InvestigationTest;
+import zw.org.zvandiri.business.domain.Mortality;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.repo.InvestigationTestRepo;
 import zw.org.zvandiri.business.service.InvestigationTestService;
 import zw.org.zvandiri.business.service.UserService;
+import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.UUIDGen;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
@@ -42,6 +48,9 @@ public class InvestigationTestServiceImpl implements InvestigationTestService {
     private InvestigationTestRepo investigationTestRepo;
     @Resource
     private UserService userService;
+
+    @PersistenceContext
+    EntityManager entityManager;
 
     @Override
     public List<InvestigationTest> getAll() {
@@ -92,10 +101,6 @@ public class InvestigationTestServiceImpl implements InvestigationTestService {
         return investigationTestRepo.findByPatientAndTestType(patient, testType);
     }
 
-    @Override
-    public List<InvestigationTest> get(SearchDTO dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public InvestigationTest getLatestTestByTestType(Patient patient, TestType testType) {
@@ -104,5 +109,119 @@ public class InvestigationTestServiceImpl implements InvestigationTestService {
         }
         return null;
     }
+
+    @Override
+    public List<InvestigationTest> get(SearchDTO dto) {
+        //dto.setStatus(null);
+        StringBuilder builder = new StringBuilder("Select Distinct i from InvestigationTest i left join fetch i.patient p ");
+        int position = 0;
+
+        if (dto.getSearch(dto)) {
+            builder.append(" where ");
+            if (dto.getProvince() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic.district.province=:province");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district.province=:province");
+                }
+            }
+            if (dto.getDistrict() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic.district=:district");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district=:district");
+                }
+            }
+            if (dto.getPrimaryClinic() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic=:primaryClinic");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic=:primaryClinic");
+                }
+            }
+            if (dto.getSupportGroup() != null) {
+                if (position == 0) {
+                    builder.append("p.supportGroup=:supportGroup");
+                    position++;
+                } else {
+                    builder.append(" and p.supportGroup=:supportGroup");
+                }
+            }
+            if (dto.getGender() != null) {
+                if (position == 0) {
+                    builder.append("p.gender=:gender");
+                    position++;
+                } else {
+                    builder.append(" and p.gender=:gender");
+                }
+            }
+
+
+            if (dto.getStatuses() == null || dto.getStatuses().isEmpty()) {
+                if (dto.getStatus() != null) {
+                    if (position == 0) {
+                        builder.append("p.status=:status");
+                        position++;
+                    } else {
+                        builder.append(" and p.status=:status");
+                    }
+                }
+            }
+
+            if (dto.getStartDate() != null && dto.getEndDate() != null) {
+                if (position == 0) {
+                    builder.append(" i.dateTaken ");
+                    builder.append(" between :startDate and :endDate");
+                    position++;
+                } else {
+                    builder.append(" and i.dateTaken");
+                    builder.append(" between :startDate and :endDate)");
+                }
+            }
+
+        }
+        builder.append(" order by i.dateTaken DESC");
+        TypedQuery<InvestigationTest> query = entityManager.createQuery(builder.toString(), InvestigationTest.class);
+        if (dto.getProvince() != null) {
+            query.setParameter("province", dto.getProvince());
+        }
+        if (dto.getDistrict() != null) {
+            query.setParameter("district", dto.getDistrict());
+        }
+        if (dto.getPrimaryClinic() != null) {
+            query.setParameter("primaryClinic", dto.getPrimaryClinic());
+        }
+        if (dto.getSupportGroup() != null) {
+            query.setParameter("supportGroup", dto.getSupportGroup());
+        }
+        if (dto.getGender() != null) {
+            query.setParameter("gender", dto.getGender());
+        }
+//        if (dto.getAgeGroup() != null) {
+//            query.setParameter("start", DateUtil.getDateFromAge(dto.getAgeGroup().getEnd()));
+//            query.setParameter("end", DateUtil.getEndDate(dto.getAgeGroup().getStart()));
+//        }
+//        if (dto.getPeriod() != null) {
+//            query.setParameter("period", dto.getPeriod());
+//        }
+        if (dto.getStatus() != null) {
+            query.setParameter("status", dto.getStatus());
+        }
+//        if (dto.getHei() != null) {
+//            query.setParameter("hei", dto.getHei());
+//        }
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+            query.setParameter("startDate", dto.getStartDate());
+            query.setParameter("endDate", dto.getEndDate());
+        }
+//        if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
+//            query.setParameter("statuses", dto.getStatuses());
+//        }
+        return query.getResultList();
+    }
+
     
 }

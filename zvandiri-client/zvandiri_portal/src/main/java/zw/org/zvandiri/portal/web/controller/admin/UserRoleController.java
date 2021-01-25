@@ -96,7 +96,7 @@ public class UserRoleController extends BaseController {
 
     @RequestMapping(value = "item.delete", method = RequestMethod.POST)
     public String deleteUserRole(@Valid ItemDeleteDTO dto) {
-        userRoleService.delete(userRoleService.get(dto.getId()));
+        //userRoleService.delete(userRoleService.get(dto.getId()));
         return "redirect:userRole.list?type=2";
     }
 }

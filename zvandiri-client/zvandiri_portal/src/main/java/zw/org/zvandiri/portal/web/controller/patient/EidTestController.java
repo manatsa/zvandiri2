@@ -97,7 +97,7 @@ public class EidTestController extends BaseController {
     public String deleteItem(@Valid ItemDeleteDTO dto) {
         EidTest item = eidTestService.get(dto.getId());
         Patient patient = item.getPatient();
-        eidTestService.delete(item);
+        //eidTestService.delete(item);
         return "redirect:../dashboard/profile.htm?type=2&id=" + patient.getId();
     }
 }

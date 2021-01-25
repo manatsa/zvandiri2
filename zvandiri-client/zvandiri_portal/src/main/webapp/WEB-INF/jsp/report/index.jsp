@@ -115,6 +115,10 @@
                                 <td><a href="${page}/report/unique/contacted/range.htm">Unique Contacted Clients Report</a></td>
                             <td><a href="${page}/report/arvhist/range.htm">ARV_History Report</a></td>
                             </tr>
+                            <tr>
+                                <td><a href="${page}/report/invalid-vls/range.htm">Invalid VLs Report</a></td>
+                                <td><a href="${page}/report/arvhist/range.htm"></a></td>
+                            </tr>
 
 
                             <tr>

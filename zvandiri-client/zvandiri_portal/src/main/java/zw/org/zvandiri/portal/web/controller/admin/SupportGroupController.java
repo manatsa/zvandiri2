@@ -108,7 +108,7 @@ public class SupportGroupController extends BaseController {
 
     @RequestMapping(value = "item.delete", method = RequestMethod.POST)
     public String deleteItem(@Valid ItemDeleteDTO dto) {
-        supportGroupService.delete(supportGroupService.get(dto.getId()));
+        //supportGroupService.delete(supportGroupService.get(dto.getId()));
         return "redirect:item.list?type=2";
     }
 }

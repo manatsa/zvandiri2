@@ -107,7 +107,7 @@ public class ArvAdverseEffectsController extends BaseController {
     public String deleteItem(@Valid ItemDeleteDTO dto) {
         ArvAdverseEffect item = arvAdverseEffectService.get(dto.getId());
         ArvHist arvHist = item.getArvHist();
-        arvAdverseEffectService.delete(item);
+        //arvAdverseEffectService.delete(item);
         return "redirect:item.list?type=2&id=" + arvHist.getId();
     }
 }

@@ -125,7 +125,7 @@ public class ReferralController extends BaseController {
     public String deleteItem(@Valid ItemDeleteDTO dto) {
         Referral item = referralService.get(dto.getId());
         Patient patient = item.getPatient();
-        referralService.delete(item);
+        //referralService.delete(item);
         return "redirect:item.list?type=2&id=" + patient.getId();
     }
 }

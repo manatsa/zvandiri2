@@ -119,7 +119,7 @@ public class ARVHistController extends BaseController {
     public String deleteItem(@Valid ItemDeleteDTO dto) {
         ArvHist item = arvHistService.get(dto.getId());
         Patient patient = item.getPatient();
-        arvHistService.delete(item);
+        //arvHistService.delete(item);
         return "redirect:item.list?type=2&id=" + patient.getId();
     }
 }

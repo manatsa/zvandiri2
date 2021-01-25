@@ -192,7 +192,7 @@ public class PatientController extends BaseController {
     @RequestMapping(value = "item.delete", method = RequestMethod.POST)
     public String deleteItem(@Valid ItemDeleteDTO dto) {
         Patient item = patientService.get(dto.getId());
-        patientService.delete(item);
+        //patientService.delete(item);
         return "redirect:index.htm?type=2";
     }
 }

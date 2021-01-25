@@ -35,4 +35,6 @@ public interface InvestigationTestRepo extends AbstractRepo<InvestigationTest, S
     
     @Query("from InvestigationTest c left join fetch c.patient where c.id=:id")
     public InvestigationTest findById(@Param("id") String id);
+
+
 }

@@ -117,7 +117,7 @@ public class SubstanceItemController extends BaseController {
     public String deleteItem(@Valid ItemDeleteDTO dto) {
         SubstanceItem item = substanceItemService.get(dto.getId());
         Patient patient = item.getPatient();
-        substanceItemService.delete(item);
+        //substanceItemService.delete(item);
         return "redirect:item.list?type=2&id=" + patient.getId();
     }
 

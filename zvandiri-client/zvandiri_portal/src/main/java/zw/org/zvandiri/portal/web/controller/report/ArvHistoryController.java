@@ -170,7 +170,7 @@ public class ArvHistoryController extends BaseController {
             builder.append(" where ");
             if (dto.getProvince() != null) {
                 if (position == 0) {
-                    builder.append("p.primaryClinic.district.province=:province");
+                    builder.append(" p.primaryClinic.district.province=:province");
                     position++;
                 } else {
                     builder.append(" and p.primaryClinic.district.province=:province");
@@ -178,7 +178,7 @@ public class ArvHistoryController extends BaseController {
             }
             if (dto.getDistrict() != null) {
                 if (position == 0) {
-                    builder.append("p.primaryClinic.district=:district");
+                    builder.append(" p.primaryClinic.district=:district");
                     position++;
                 } else {
                     builder.append(" and p.primaryClinic.district=:district");
@@ -186,7 +186,7 @@ public class ArvHistoryController extends BaseController {
             }
             if (dto.getPrimaryClinic() != null) {
                 if (position == 0) {
-                    builder.append("p.primaryClinic=:primaryClinic");
+                    builder.append(" p.primaryClinic=:primaryClinic");
                     position++;
                 } else {
                     builder.append(" and p.primaryClinic=:primaryClinic");
@@ -208,8 +208,9 @@ public class ArvHistoryController extends BaseController {
 
         }
 
-        builder.append(" )");
-        //builder.append(" Order By p.first_name, p.last_name DESC");
+//        builder.append(" )");
+        //builder.append(" Order By p.firstName, p.lastName DESC");
+        System.out.println("****************************************** "+builder.toString());
         Query query = entityManager.createQuery(builder.toString(), ArvHist.class);
 
         if (dto.getProvince() != null) {

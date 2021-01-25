@@ -97,7 +97,7 @@ public class MentalHealthController extends BaseController {
 
     @RequestMapping(value = "item.delete", method = RequestMethod.POST)
     public String deleteItem(@Valid ItemDeleteDTO dto) {
-        mentalHealthService.delete(mentalHealthService.get(dto.getId()));
+        //mentalHealthService.delete(mentalHealthService.get(dto.getId()));
         return "redirect:item.list?type=2";
     }
 }

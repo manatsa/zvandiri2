@@ -117,7 +117,7 @@ public class FamilyHistoryController extends BaseController {
     public String deleteItem(@Valid ItemDeleteDTO dto) {
         Family item = familyService.get(dto.getId());
         Patient patient = item.getPatient();
-        familyService.delete(item);
+        //familyService.delete(item);
         return "redirect:item.list?type=2&id=" + patient.getId();
     }
 }

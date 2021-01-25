@@ -185,7 +185,7 @@ public class MentalHealthScreeningController extends BaseController{
     public String deleteItem(@Valid ItemDeleteDTO dto) {
         MentalHealthScreening item = service.get(dto.getId());
         Patient patient = item.getPatient();
-        service.delete(item);
+        //service.delete(item);
         return "redirect:item.list?type=2&id=" + patient.getId();
     }
     

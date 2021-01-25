@@ -98,7 +98,7 @@ public class ServiceOfferedController extends BaseController {
 
     @RequestMapping(value = "item.delete", method = RequestMethod.POST)
     public String deleteItem(@Valid ItemDeleteDTO dto) {
-        serviceOfferedService.delete(serviceOfferedService.get(dto.getId()));
+        //serviceOfferedService.delete(serviceOfferedService.get(dto.getId()));
         return "redirect:item.list?type=2";
     }
 }

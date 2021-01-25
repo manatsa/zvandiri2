@@ -97,7 +97,7 @@ public class SubstanceController extends BaseController {
 
     @RequestMapping(value = "item.delete", method = RequestMethod.POST)
     public String deleteItem(@Valid ItemDeleteDTO dto) {
-        substanceService.delete(substanceService.get(dto.getId()));
+        //substanceService.delete(substanceService.get(dto.getId()));
         return "redirect:item.list?type=2";
     }
 }

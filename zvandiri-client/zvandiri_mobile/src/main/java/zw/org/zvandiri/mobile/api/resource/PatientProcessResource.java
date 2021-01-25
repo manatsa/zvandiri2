@@ -35,21 +35,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
-import zw.org.zvandiri.business.domain.CatDetail;
-import zw.org.zvandiri.business.domain.Contact;
-import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.domain.PatientDisability;
-import zw.org.zvandiri.business.domain.Referral;
+import zw.org.zvandiri.business.domain.*;
 import zw.org.zvandiri.business.domain.util.FollowUp;
 import zw.org.zvandiri.business.domain.util.Gender;
 import zw.org.zvandiri.business.domain.util.Reason;
 import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.repo.PatientRepo;
-import zw.org.zvandiri.business.service.CatDetailService;
-import zw.org.zvandiri.business.service.ContactService;
-import zw.org.zvandiri.business.service.PatientService;
-import zw.org.zvandiri.business.service.ReferralService;
-import zw.org.zvandiri.business.service.UserService;
+import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.NameIdDTO;
 
@@ -73,6 +65,8 @@ public class PatientProcessResource {
     PatientRepo patientRepo;
     @Resource
     private ReferralService referralService;
+    @Resource
+    private TbIptService tbIptService;
     @Resource
     private UserService userService;
 
@@ -151,6 +145,21 @@ public class PatientProcessResource {
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         response.put("message", "Patient created sucessfully");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @POST
+    @Path("/add-tb-screening")
+    public ResponseEntity<Map<String, Object>> addTBScreening(TbIpt tbIpt) {
+        Map<String, Object> response =new HashMap<>();
+
+        try {
+            tbIptService.save(tbIpt);
+        } catch (Exception e) {
+            response.put("message", "System error occurred saving referral");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        response.put("message", "TB Screening item saved sucessfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

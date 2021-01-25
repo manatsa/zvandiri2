@@ -19,8 +19,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.xssf.usermodel.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import zw.org.zvandiri.business.domain.InvestigationTest;
 import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.TbIpt;
 import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.service.DistrictService;
 import zw.org.zvandiri.business.service.FacilityService;
@@ -60,7 +61,8 @@ public class LaboratoryTestResultsController extends BaseController {
     private FacilityService facilityService;
     @Resource
     private PatientReportService patientReportService;
-    List<InvestigationTest> results=new ArrayList<>();
+
+    List<Patient> tests=new ArrayList<>();
 
     public String setUpModel(ModelMap model, SearchDTO item, String type, boolean post) {
         item = getUserLevelObjectState(item);
@@ -81,7 +83,7 @@ public class LaboratoryTestResultsController extends BaseController {
         }
         model.addAttribute("excelExport", "/report/test-results/export/excel" + item.getQueryString(item.getInstance(item)));
         if (post) {
-            model.addAttribute("items", results);
+            model.addAttribute("items", tests);
         }
         model.addAttribute("item", item.getInstance(item));
         return "report/laboratoryDetailedReport";
@@ -97,97 +99,92 @@ public class LaboratoryTestResultsController extends BaseController {
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_ZM') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
     public String getReferralReportIndex(ModelMap model, @RequestParam String type, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
         item = getUserLevelObjectState(item);
-        results=patientReportService.getPatientLabResultList(item.getInstance(item));
+        tests=patientReportService.getPatientLabResultsList(item.getInstance(item));
         return setUpModel(model, item, type, true);
     }
 
 
+
     @RequestMapping(value = "/export/excel", method = RequestMethod.GET)
-    public void getExcelExport(HttpServletResponse response, SearchDTO item) {
-        String name = DateUtil.getFriendlyFileName("Clients_Lab_Results_Report");
-        forceDownLoadDatabase(clientLabResults(item), name, response);
+    public void getExcelExportHealthCenter(HttpServletResponse response, SearchDTO item) {
+        String name = DateUtil.getFriendlyFileName("VL_CD4_Count_Report");
+        forceDownLoadXLSX(createVLCD4Workbook(item),name, response);
     }
 
-    public XSSFWorkbook clientLabResults(SearchDTO dto) {
+
+    public XSSFWorkbook createVLCD4Workbook(SearchDTO dto) {
+
         XSSFWorkbook workbook = new XSSFWorkbook();
-        CellStyle cellStyle = workbook.createCellStyle();
-        CreationHelper createHelper = workbook.getCreationHelper();
+        XSSFCellStyle cellStyle = workbook.createCellStyle();
+        XSSFCreationHelper createHelper = workbook.getCreationHelper();
         cellStyle.setDataFormat(
                 createHelper.createDataFormat().getFormat("dd/MM/yyyy"));
-        // add contact assessments
-        Sheet labResults = workbook.createSheet("Lab Results");
-        int assessmentRowNum = 0;
-        Row resultsRow = labResults.createRow(assessmentRowNum++);
-        int assessmentCellNum = 0;
-        for (String title : DatabaseHeader.VLS_CLIENTS_HEADER) {
-            Cell cell = resultsRow.createCell(assessmentCellNum++);
+
+
+
+        // tb Ipt here
+        XSSFSheet tbIptDetails = workbook.createSheet("VL_CD4_Count");
+        int testRowNum = 0;
+        XSSFRow testRow = tbIptDetails.createRow(testRowNum++);
+        int tbIptCellNum = 0;
+        String[] headers={"UAC","Name","Date of Birth","Age","Viral Load","CD4 Count","Gender","IsCATS","IsYMM","Province","District","Facility","Mobile Number","Referrer"};
+        for (String title : headers) {
+            XSSFCell cell = testRow.createCell(tbIptCellNum++);
             cell.setCellValue(title);
         }
 
-
-        for (InvestigationTest test : results) {
-
+        for (Patient test : tests) {
             int count = 0;
-            resultsRow = labResults.createRow(assessmentRowNum++);
+            testRow = tbIptDetails.createRow(testRowNum++);
+            XSSFCell id = testRow.createCell(count);
+            id.setCellValue(test.getPatientNumber());
 
-            Cell patientName = resultsRow.createCell(count++);
-            patientName.setCellValue(test.getPatient().getName());
+            XSSFCell patientName = testRow.createCell(++count);
+            patientName.setCellValue(test.getName());
 
-            Cell dateOfBirth = resultsRow.createCell(count++);
-            dateOfBirth.setCellValue(test.getPatient().getDateOfBirth());
+            XSSFCell dateOfBirth = testRow.createCell(++count);
+            dateOfBirth.setCellValue(test.getDateOfBirth());
             dateOfBirth.setCellStyle(cellStyle);
 
-            Cell age = resultsRow.createCell(count++);
-            age.setCellValue(test.getPatient().getAge());
+            XSSFCell age = testRow.createCell(++count);
+            age.setCellValue(test.getAge());
 
-            Cell sex = resultsRow.createCell(count++);
-            sex.setCellValue(test.getPatient().getGender().getName());
+            XSSFCell vl = testRow.createCell(++count);
+            vl.setCellValue(test.getViralLoad());
 
-            Cell TestResult = resultsRow.createCell(count++);
-            TestResult.setCellValue(test.getResult()!=null? test.getResult().toString():"");
+            XSSFCell cd4 = testRow.createCell(++count);
+            cd4.setCellValue(test.getCd4Count());
 
-            Cell TestType = resultsRow.createCell(count++);
-            TestType.setCellValue(test.getTestType().getName());
+            XSSFCell sex = testRow.createCell(++count);
+            sex.setCellValue(test.getGender().getName());
 
-            Cell suppression = resultsRow.createCell(count++);
-            suppression.setCellValue(test.getViralLoadSuppressionStatus());
+            Cell cat = testRow.createCell(++count);
+            cat.setCellValue(test.getCat()!=null?test.getCat().getName():"");
 
-            Cell dateTaken = resultsRow.createCell(count++);
-            if (test.getDateTaken() != null) {
-                dateTaken.setCellValue(test.getDateTaken());
-                dateTaken.setCellStyle(cellStyle);
-            } else {
-                dateTaken.setCellValue("");
-            }
+            Cell ymm = testRow.createCell(++count);
+            ymm.setCellValue(test.getYoungMumGroup()!=null?test.getYoungMumGroup().getName():"");
 
-            Cell cat = resultsRow.createCell(count++);
-            cat.setCellValue(test.getPatient().getCat()!=null?test.getPatient().getCat().getName():"");
+            XSSFCell province = testRow.createCell(++count);
+            province.setCellValue(test.getPrimaryClinic().getDistrict().getProvince().getName());
 
-            Cell ymm = resultsRow.createCell(count++);
-            ymm.setCellValue(test.getPatient().getYoungMumGroup()!=null?test.getPatient().getYoungMumGroup().getName():"");
+            XSSFCell district = testRow.createCell(++count);
+            district.setCellValue(test.getPrimaryClinic().getDistrict().getName());
+            
+            XSSFCell primaryClinic = testRow.createCell(++count);
+            primaryClinic.setCellValue(test.getPrimaryClinic().getName());
 
-            Cell address=resultsRow.createCell(count++);
-            address.setCellValue(test.getPatient().getAddress());
+            XSSFCell phone = testRow.createCell(++count);
+            phone.setCellValue(test.getMobileNumber());
 
-            Cell phone=resultsRow.createCell(count++);
-            phone.setCellValue(test.getPatient().getMobileNumber()==null?"":test.getPatient().getMobileNumber());
-
-            Cell referer=resultsRow.createCell(count++);
-            referer.setCellValue(test.getPatient().getRefererName()!=null?test.getPatient().getRefererName():"");
-
-            Cell province = resultsRow.createCell(count++);
-            province.setCellValue(test.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
-            Cell district = resultsRow.createCell(count++);
-            district.setCellValue(test.getPatient().getPrimaryClinic().getDistrict().getName()==null?"":test.getPatient().getPrimaryClinic().getDistrict().getName());
-            Cell primaryClinic = resultsRow.createCell(count++);
-            primaryClinic.setCellValue(test.getPatient().getPrimaryClinic().getName()==null?"":test.getPatient().getPrimaryClinic().getName());
-
-
+            XSSFCell referrer = testRow.createCell(++count);
+            referrer.setCellValue(test.getReferer().getName());
 
         }
 
         return workbook;
     }
+
+
 
 
 }

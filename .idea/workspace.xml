@@ -30,62 +30,11 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29967e23-4f38-4cc3-a9f6-cc5946956d26" name="Default Changelist" comment="ArvHist Finished and  Redone VL report afresh, ready for testing after attending to NullPointerException during export.">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_protobuf_protobuf_java_3_11_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_javax_activation_api_1_2_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/report/InvalidVLController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/report/invalidVLDetailedReport.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/zvandiri_mobile_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/zvandiri_mobile_war_exploded.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/zvandiri_portal_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/zvandiri_portal_war_exploded.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/zvandiri_war_exploded.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_2_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_stream_stax_api_1_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_18.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_22.xml" afterDir="false" />
+    <list default="true" id="29967e23-4f38-4cc3-a9f6-cc5946956d26" name="Default Changelist" comment="All Deletions have been blocked.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/domain/Facility.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/domain/Facility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/InvestigationTestRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/InvestigationTestRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/InvestigationTestServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/InvestigationTestServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/zvandiri-business.iml" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/zvandiri-business.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri-client.iml" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri-client.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_mobile/src/main/java/zw/org/zvandiri/mobile/api/resource/PatientProcessResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_mobile/src/main/java/zw/org/zvandiri/mobile/api/resource/PatientProcessResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_mobile/zvandiri_mobile.iml" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_mobile/zvandiri_mobile.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/admin/MentalHealthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/admin/MentalHealthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/admin/PositionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/admin/PositionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/admin/ServiceOfferedController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/admin/ServiceOfferedController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/admin/ServicesReferredController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/admin/ServicesReferredController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/admin/StableController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/admin/StableController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/admin/SubstanceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/admin/SubstanceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/admin/SupportGroupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/admin/SupportGroupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/admin/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/admin/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/admin/UserRoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/admin/UserRoleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/ARVHistController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/ARVHistController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/ArvAdverseEffectsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/ArvAdverseEffectsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/Cd4CountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/Cd4CountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/ChronicInfectionItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/ChronicInfectionItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/ContactController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/ContactController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/DisabilityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/DisabilityController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/EidTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/EidTestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/FamilyHistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/FamilyHistoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/HIVSelfTestingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/HIVSelfTestingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/HivConinfectionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/HivConinfectionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/MedicalHistController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/MedicalHistController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/MentalHealthItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/MentalHealthItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/MentalHealthScreeningController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/MentalHealthScreeningController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/ObstetricController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/ObstetricController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/PatientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/PatientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/ReferralController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/ReferralController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/SocialHistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/SocialHistoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/SrhController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/SrhController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/SubstanceItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/SubstanceItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/TbScreeningController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/TbScreeningController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/ViralLoadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/ViralLoadController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/report/ArvHistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/report/ArvHistoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/admin/assessmentForm.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/admin/assessmentForm.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/admin/assessmentList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/admin/assessmentList.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/report/LaboratoryTestResultsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/report/LaboratoryTestResultsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/report/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/report/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/zvandiri_portal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/zvandiri_portal.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/report/laboratoryDetailedReport.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/report/laboratoryDetailedReport.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +52,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="0f676712de0b703c1e8beb96cdad903898a08773" />
+        <entry key="$PROJECT_DIR$" value="6aeeabb5bff4bb09adc7b97ed166cbb109bd6c3b" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -330,7 +279,7 @@
       <workItem from="1608818282766" duration="10141000" />
       <workItem from="1609686232250" duration="591000" />
       <workItem from="1609882409895" duration="385000" />
-      <workItem from="1611575881677" duration="2231000" />
+      <workItem from="1611575881677" duration="9962000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed ClassNotFoundException for Workbook/XSSFWorkbook. Now works in both Netbeans and Intellij.&#10;&#10;Yet to finish off MentalHealthScreening Report">
       <created>1604265588046</created>
@@ -360,7 +309,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605536361573</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="All Deletions have been blocked.">
+      <created>1611581790430</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1611581790430</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -397,7 +353,8 @@
     <MESSAGE value="Addedd Morbidity Report but yet to be tested." />
     <MESSAGE value="Addedd Morbidity Report and Unique Contacted Clients Report but yet to be tested." />
     <MESSAGE value="Now on oracle" />
-    <option name="LAST_COMMIT_MESSAGE" value="Now on oracle" />
+    <MESSAGE value="All Deletions have been blocked." />
+    <option name="LAST_COMMIT_MESSAGE" value="All Deletions have been blocked." />
   </component>
   <component name="WindowStateProjectService">
     <state x="547" y="310" key="#Tomcat_Server" timestamp="1604244198854">
@@ -424,54 +381,54 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="548" y="173" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1609882597520" />
-    <state width="1372" height="228" key="GridCell.Tab.0.bottom" timestamp="1608912224964">
+    <state width="1372" height="319" key="GridCell.Tab.0.bottom" timestamp="1611603277110">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="228" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1608912224964" />
-    <state width="1372" height="228" key="GridCell.Tab.0.center" timestamp="1608912224964">
+    <state width="1372" height="319" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1611603277110" />
+    <state width="1372" height="319" key="GridCell.Tab.0.center" timestamp="1611603277110">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="228" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1608912224964" />
-    <state width="1372" height="228" key="GridCell.Tab.0.left" timestamp="1608912224964">
+    <state width="1372" height="319" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1611603277110" />
+    <state width="1372" height="319" key="GridCell.Tab.0.left" timestamp="1611603277110">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="228" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1608912224964" />
-    <state width="1372" height="228" key="GridCell.Tab.0.right" timestamp="1608912224964">
+    <state width="1372" height="319" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1611603277110" />
+    <state width="1372" height="319" key="GridCell.Tab.0.right" timestamp="1611603277110">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="228" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1608912224964" />
-    <state width="1372" height="228" key="GridCell.Tab.1.bottom" timestamp="1608912224964">
+    <state width="1372" height="319" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1611603277110" />
+    <state width="1372" height="319" key="GridCell.Tab.1.bottom" timestamp="1611603277041">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="228" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1608912224964" />
-    <state width="1372" height="228" key="GridCell.Tab.1.center" timestamp="1608912224964">
+    <state width="1372" height="319" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1611603277041" />
+    <state width="1372" height="319" key="GridCell.Tab.1.center" timestamp="1611603277041">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="228" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1608912224964" />
-    <state width="1372" height="228" key="GridCell.Tab.1.left" timestamp="1608912224964">
+    <state width="1372" height="319" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1611603277041" />
+    <state width="1372" height="319" key="GridCell.Tab.1.left" timestamp="1611603277041">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="228" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1608912224964" />
-    <state width="1372" height="228" key="GridCell.Tab.1.right" timestamp="1608912224964">
+    <state width="1372" height="319" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1611603277041" />
+    <state width="1372" height="319" key="GridCell.Tab.1.right" timestamp="1611603277041">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="228" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1608912224964" />
-    <state width="1372" height="228" key="GridCell.Tab.2.bottom" timestamp="1608912224965">
+    <state width="1372" height="319" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1611603277041" />
+    <state width="1372" height="319" key="GridCell.Tab.2.bottom" timestamp="1611603277041">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="228" key="GridCell.Tab.2.bottom/0.0.1536.864@0.0.1536.864" timestamp="1608912224965" />
-    <state width="1372" height="228" key="GridCell.Tab.2.center" timestamp="1608912224965">
+    <state width="1372" height="319" key="GridCell.Tab.2.bottom/0.0.1536.864@0.0.1536.864" timestamp="1611603277041" />
+    <state width="1372" height="319" key="GridCell.Tab.2.center" timestamp="1611603277041">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="228" key="GridCell.Tab.2.center/0.0.1536.864@0.0.1536.864" timestamp="1608912224965" />
-    <state width="1372" height="228" key="GridCell.Tab.2.left" timestamp="1608912224965">
+    <state width="1372" height="319" key="GridCell.Tab.2.center/0.0.1536.864@0.0.1536.864" timestamp="1611603277041" />
+    <state width="1372" height="319" key="GridCell.Tab.2.left" timestamp="1611603277041">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="228" key="GridCell.Tab.2.left/0.0.1536.864@0.0.1536.864" timestamp="1608912224965" />
-    <state width="1372" height="228" key="GridCell.Tab.2.right" timestamp="1608912224965">
+    <state width="1372" height="319" key="GridCell.Tab.2.left/0.0.1536.864@0.0.1536.864" timestamp="1611603277041" />
+    <state width="1372" height="319" key="GridCell.Tab.2.right" timestamp="1611603277041">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="228" key="GridCell.Tab.2.right/0.0.1536.864@0.0.1536.864" timestamp="1608912224965" />
+    <state width="1372" height="319" key="GridCell.Tab.2.right/0.0.1536.864@0.0.1536.864" timestamp="1611603277041" />
     <state width="1297" height="570" key="GridCell.Tab.3.bottom" timestamp="1604909967581">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -516,14 +473,14 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="249" y="7" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1607624716687" />
-    <state x="361" y="152" key="Vcs.Push.Dialog.v2" timestamp="1605536369426">
+    <state x="361" y="274" key="Vcs.Push.Dialog.v2" timestamp="1611582147538">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="361" y="152" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1605536369426" />
-    <state x="478" y="31" width="758" height="801" key="find.popup" timestamp="1611581173855">
+    <state x="361" y="274" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1611582147538" />
+    <state x="478" y="31" width="758" height="801" key="find.popup" timestamp="1611600320431">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="478" y="31" width="758" height="801" key="find.popup/0.0.1536.864@0.0.1536.864" timestamp="1611581173855" />
+    <state x="478" y="31" width="758" height="801" key="find.popup/0.0.1536.864@0.0.1536.864" timestamp="1611600320431" />
     <state x="516" y="145" key="git4idea.branch.GitSmartOperationDialog" timestamp="1607624732472">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

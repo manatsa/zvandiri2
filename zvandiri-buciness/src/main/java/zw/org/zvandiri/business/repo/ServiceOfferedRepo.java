@@ -16,6 +16,6 @@ import zw.org.zvandiri.business.domain.ServiceOffered;
  */
 public interface ServiceOfferedRepo  extends AbstractNameDescRepo<ServiceOffered, String> {
     
-    @Query("from ServiceOffered e left join fetch e.createdBy left join fetch e.modifiedBy where e.active=:active Order By e.name ASC")
+    @Query("from ServiceOffered e left join fetch e.createdBy left join fetch e.modifiedBy where e.active=:active")
     public List<ServiceOffered> getOptAll(@Param("active") Boolean active);
 }

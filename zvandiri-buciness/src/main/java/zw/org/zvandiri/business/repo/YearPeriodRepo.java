@@ -27,7 +27,7 @@ import zw.org.zvandiri.business.domain.YearPeriod;
  */
 public interface YearPeriodRepo extends AbstractRepo<YearPeriod, String> {
 
-    @Query("from YearPeriod y where y.active=:active order by y.startDate DESC")
+    @Query("from YearPeriod y where y.active=:active ")
     public List<YearPeriod> getOptAll(@Param("active") Boolean active);
 
     @Query("from YearPeriod y where y.startDate=:startDate and y.endDate=:endDate")

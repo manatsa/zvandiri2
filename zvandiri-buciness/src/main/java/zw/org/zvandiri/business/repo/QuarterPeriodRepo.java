@@ -27,7 +27,7 @@ import zw.org.zvandiri.business.domain.QuarterPeriod;
  */
 public interface QuarterPeriodRepo extends AbstractRepo<QuarterPeriod, String> {
     
-    @Query("from QuarterPeriod q where q.active=:active order by q.startDate DESC")
+    @Query("from QuarterPeriod q where q.active=:active")
     public List<QuarterPeriod> getOptAll(@Param("active") Boolean active);
 
     @Query("from QuarterPeriod q where q.startDate=:startDate and q.endDate=:endDate")

@@ -1,5 +1,6 @@
 package zw.org.zvandiri.business.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
@@ -97,5 +98,15 @@ public class DistrictServiceImpl implements DistrictService {
     @Override
     public District getByNameAndProvince(String name, Province province) {
         return districtRepo.getByNameAndProvince(name, province);
+    }
+
+    @Override
+    public List<District> getDistrictsByProvinces(List<Province> provinces) {
+        List<District> districts=new ArrayList<>();
+        for(Province province: provinces)
+        {
+            districts.addAll(districtRepo.getOptByProvince(province));
+        }
+        return districts;
     }
 }

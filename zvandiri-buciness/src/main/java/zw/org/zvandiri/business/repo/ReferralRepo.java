@@ -15,8 +15,12 @@
  */
 package zw.org.zvandiri.business.repo;
 
+import java.util.Date;
 import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import zw.org.zvandiri.business.domain.InvestigationTest;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.Referral;
 
@@ -27,4 +31,8 @@ import zw.org.zvandiri.business.domain.Referral;
 public interface ReferralRepo extends AbstractRepo<Referral, String> {
     
     public List<Referral> findByPatient(@Param("patient") Patient patient);
+
+    @Query("from Referral c left join fetch c.patient where c.patient=:patient and (c.dateCreated between :start_date and :end_date)")
+    public List<Referral> findByPatientAndDateCreated(@Param("patient") Patient patient, @Param("start_date") Date start_date, @Param("end_date") Date end_date);
+
 }

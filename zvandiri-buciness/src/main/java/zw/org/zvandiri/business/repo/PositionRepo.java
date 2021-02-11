@@ -26,6 +26,6 @@ import zw.org.zvandiri.business.domain.Position;
  */
 public interface PositionRepo extends AbstractNameDescRepo<Position, String> {
     
-    @Query("from Position p left join fetch p.createdBy left join fetch p.modifiedBy where p.active=:active Order By p.name ASC")
+    @Query("from Position p left join fetch p.createdBy left join fetch p.modifiedBy where p.active=:active")
     public List<Position> getOptAll(@Param("active") Boolean active);
 }

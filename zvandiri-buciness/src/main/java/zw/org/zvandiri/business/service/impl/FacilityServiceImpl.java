@@ -15,6 +15,7 @@
  */
 package zw.org.zvandiri.business.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
@@ -110,8 +111,19 @@ public class FacilityServiceImpl implements FacilityService {
     }
 
     @Override
-    public List<Facility> getOptByDistrict(District district) {
+    public List<Facility> getOptByDistrict(List<District> districts) {
 
+        List<Facility> facilities=new ArrayList<>();
+        for(District district: districts)
+        {
+            facilities.addAll(facilityRepo.getOptByDistrict(district));
+        }
+        return facilities;
+    }
+
+
+    @Override
+    public List<Facility> getOptByDistrict(District district) {
         return facilityRepo.getOptByDistrict(district);
     }
 

@@ -6,6 +6,7 @@
         <a href="${page}/beneficiary/obstetric/item.list?id=${patient.id}">Obstetric History</a><br/><br/>
     </c:if>
     <a href="${page}/beneficiary/mental-health/item.list?id=${patient.id}">Mental Health History</a><br/><br/>
+    <a href="${page}/patient/tb-screening/item.list?id=${patient.id}">TB Screening History</a><br/><br/>
     <a href="${page}/beneficiary/substance/item.list?id=${patient.id}">Substance Use History</a><br/><br/>
     <a href="${page}/beneficiary/arv-hist/item.list?id=${patient.id}">ARV History</a><br/><br/>
     <a href="${page}/beneficiary/chronic-infection/item.list?id=${patient.id}">Opportunistic Infections History</a><br/><br/>

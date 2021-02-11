@@ -125,7 +125,7 @@ public class TbScreeningController extends BaseController {
         }
         getPatientStatus(item, model);
         setViralLoad(model, item);
-        model.addAttribute("tbScreen", service.getByPatient(item));
+        model.addAttribute("items", service.getByPatients(item));
         return "patient/tbScreeningList";
     }
 

@@ -31,7 +31,7 @@ public interface PeriodRepo extends CrudRepository<Period, String> {
     @Override
     public List<Period> findAll();
 
-    @Query("from Period r where r.active=:active order by r.startDate DESC")
+    @Query("from Period r where r.active=:active")
     public List<Period> getOptAll(@Param("active") Boolean active);
 
     @Query("from Period r where r.startDate=:startDate and r.endDate=:endDate")

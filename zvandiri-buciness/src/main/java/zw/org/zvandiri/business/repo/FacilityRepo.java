@@ -28,10 +28,10 @@ import zw.org.zvandiri.business.domain.Province;
  */
 public interface FacilityRepo extends AbstractNameDescRepo<Facility, String> {
 
-    @Query("from Facility f left join fetch f.district left join fetch f.createdBy left join fetch f.modifiedBy where f.active=:active Order By f.name ASC")
+    @Query("from Facility f left join fetch f.district left join fetch f.createdBy left join fetch f.modifiedBy where f.active=:active")
     public List<Facility> getOptAll(@Param("active") Boolean active);
 
-    @Query("from Facility f left join fetch f.district where f.district=:district Order By f.name ASC")
+    @Query("from Facility f left join fetch f.district where f.district=:district")
     public List<Facility> getOptByDistrict(@Param("district") District district);
 
     @Query("from Facility f left join fetch f.district where f.name=:name and f.district=:district")

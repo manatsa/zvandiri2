@@ -28,9 +28,9 @@ import zw.org.zvandiri.business.domain.Patient;
  */
 public interface MentalHealthItemRepo extends AbstractRepo<MentalHealthItem, String> {
     
-    @Query("from MentalHealthItem m left join fetch m.patient left join fetch m.mentalHealth left join fetch m.modifiedBy left join fetch m.createdBy where m.patient=:patient order by m.mentalHealth.name ASC")
+    @Query("from MentalHealthItem m left join fetch m.patient left join fetch m.mentalHealth left join fetch m.modifiedBy left join fetch m.createdBy where m.patient=:patient")
     public List<MentalHealthItem> findByPatient(@Param("patient") Patient patient);
     
-    @Query("from MentalHealthItem m left join fetch m.patient left join fetch m.mentalHealth left join fetch m.modifiedBy left join fetch m.createdBy where m.patient=:patient and m.mentalHealth=:mentalHealth order by m.mentalHealth.name ASC")
+    @Query("from MentalHealthItem m left join fetch m.patient left join fetch m.mentalHealth left join fetch m.modifiedBy left join fetch m.createdBy where m.patient=:patient and m.mentalHealth=:mentalHealth")
     public MentalHealthItem findByPatientAndMentalHealth(@Param("patient") Patient patient,@Param("mentalHealth") MentalHealth mentalHealth);
 }

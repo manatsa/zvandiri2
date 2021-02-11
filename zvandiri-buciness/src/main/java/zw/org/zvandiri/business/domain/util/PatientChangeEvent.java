@@ -66,6 +66,7 @@ public enum PatientChangeEvent {
         items.add(GRADUATED);
         items.add(OPT_OUT);
         items.add(REINSTATED);
+        items.add(OTHER);
         return items;
     }
 }

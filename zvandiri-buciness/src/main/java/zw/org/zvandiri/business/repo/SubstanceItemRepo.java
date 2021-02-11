@@ -28,9 +28,9 @@ import zw.org.zvandiri.business.domain.SubstanceItem;
  */
 public interface SubstanceItemRepo extends AbstractRepo<SubstanceItem, String> {
     
-    @Query("from SubstanceItem s left join fetch s.patient left join fetch s.substance left join fetch s.modifiedBy left join fetch s.createdBy where s.patient=:patient order by s.substance.name ASC")
+    @Query("from SubstanceItem s left join fetch s.patient left join fetch s.substance left join fetch s.modifiedBy left join fetch s.createdBy where s.patient=:patient")
     public List<SubstanceItem> findByPatient(@Param("patient") Patient patient);
     
-    @Query("from SubstanceItem s left join fetch s.patient left join fetch s.substance left join fetch s.modifiedBy left join fetch s.createdBy where s.patient=:patient and s.substance=:substance order by s.substance.name ASC")
+    @Query("from SubstanceItem s left join fetch s.patient left join fetch s.substance left join fetch s.modifiedBy left join fetch s.createdBy where s.patient=:patient and s.substance=:substance")
     public SubstanceItem findByPatientAndSubstance(@Param("patient") Patient patient, @Param("substance") Substance substance);
 }

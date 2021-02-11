@@ -16,7 +16,9 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
  * @author tasu
  */
 public interface TbIptService extends GenericPatientHistoryService<TbIpt>{
-    
+
+    List<TbIpt> getByPatients(Patient patient);
+
     public boolean existsOnTbTreatment(Patient patient, TbIdentificationOutcome yesNo);
     
     public List<TbIpt> get(SearchDTO dto);

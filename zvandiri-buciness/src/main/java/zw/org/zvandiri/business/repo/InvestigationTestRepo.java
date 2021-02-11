@@ -15,6 +15,7 @@
  */
 package zw.org.zvandiri.business.repo;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -30,9 +31,13 @@ import zw.org.zvandiri.business.domain.util.TestType;
  */
 public interface InvestigationTestRepo extends AbstractRepo<InvestigationTest, String> {
     
-    @Query("from InvestigationTest c left join fetch c.patient where c.patient=:patient and c.testType=:testType order By c.dateTaken DESC")
+    @Query("from InvestigationTest c left join fetch c.patient where c.patient=:patient and c.testType=:testType ")
     public List<InvestigationTest> findByPatientAndTestType(@Param("patient") Patient patient, @Param("testType") TestType testType);
-    
+
+    @Query("from InvestigationTest c left join fetch c.patient where c.patient=:patient and (c.dateCreated between :start_date and :end_date)")
+    public List<InvestigationTest> findByPatientAnAndDateCreated(@Param("patient") Patient patient, @Param("start_date")Date start_date, @Param("end_date") Date end_date);
+
+
     @Query("from InvestigationTest c left join fetch c.patient where c.id=:id")
     public InvestigationTest findById(@Param("id") String id);
 

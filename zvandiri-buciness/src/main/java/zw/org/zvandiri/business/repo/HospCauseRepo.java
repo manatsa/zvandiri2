@@ -26,6 +26,6 @@ import zw.org.zvandiri.business.domain.HospCause;
  */
 public interface HospCauseRepo extends AbstractNameDescRepo<HospCause, String> {
     
-    @Query("from HospCause h left join fetch h.createdBy left join fetch h.modifiedBy where h.active=:active Order By h.name ASC")
+    @Query("from HospCause h left join fetch h.createdBy left join fetch h.modifiedBy where h.active=:active")
     public List<HospCause> getOptAll(@Param("active") Boolean active);
 }

@@ -99,7 +99,7 @@ public class ContactReportServiceImpl implements ContactReportService {
         }
 
         builder.append(" )");
-        builder.append(" Order By p.first_name, p.last_name DESC");
+        //builder.append(" Order By p.first_name, p.last_name DESC");
         Query query = entityManager.createQuery(builder.toString(), Patient.class);
 
         if (dto.getProvince() != null) {
@@ -187,10 +187,10 @@ public class ContactReportServiceImpl implements ContactReportService {
             }
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
                 if (position == 0) {
-                    builder.append("c.contactDate between :startDate and :endDate");
+                    builder.append("c.dateCreated between :startDate and :endDate");
                     position++;
                 } else {
-                    builder.append(" and (c.contactDate between :startDate and :endDate)");
+                    builder.append(" and (c.dateCreated between :startDate and :endDate)");
                 }
             }
             if(dto.getCareLevel() != null){
@@ -210,7 +210,7 @@ public class ContactReportServiceImpl implements ContactReportService {
                 }
             }
         }
-        builder.append(" Order By c.contactDate DESC");
+        // builder.append(" Order By c.contactDate DESC");
         Query query = entityManager.createQuery(builder.toString(), Contact.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());
@@ -335,7 +335,7 @@ public class ContactReportServiceImpl implements ContactReportService {
                     }
                 }
             }
-            builder.append(" Order By c.contactDate DESC");
+            // builder.append(" Order By c.contactDate DESC");
             Query query = entityManager.createQuery(builder.toString(), Contact.class);
             if (dto.getProvince() != null) {
                 query.setParameter("province", dto.getProvince());

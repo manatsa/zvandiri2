@@ -35,6 +35,7 @@ import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.UUIDGen;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
+import zw.org.zvandiri.business.util.dto.SearchDTOMultiple;
 
 /**
  *
@@ -111,35 +112,35 @@ public class InvestigationTestServiceImpl implements InvestigationTestService {
     }
 
     @Override
-    public List<InvestigationTest> get(SearchDTO dto) {
+    public List<InvestigationTest> getMultiple(SearchDTOMultiple dto) {
         //dto.setStatus(null);
         StringBuilder builder = new StringBuilder("Select Distinct i from InvestigationTest i left join fetch i.patient p ");
         int position = 0;
 
         if (dto.getSearch(dto)) {
             builder.append(" where ");
-            if (dto.getProvince() != null) {
+            if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
                 if (position == 0) {
-                    builder.append("p.primaryClinic.district.province=:province");
+                    builder.append("p.primaryClinic.district.province in :provinces");
                     position++;
                 } else {
-                    builder.append(" and p.primaryClinic.district.province=:province");
+                    builder.append(" and p.primaryClinic.district.province in :provinces");
                 }
             }
-            if (dto.getDistrict() != null) {
+            if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
                 if (position == 0) {
-                    builder.append("p.primaryClinic.district=:district");
+                    builder.append("p.primaryClinic.district in :districts");
                     position++;
                 } else {
-                    builder.append(" and p.primaryClinic.district=:district");
+                    builder.append(" and p.primaryClinic.district in :districts");
                 }
             }
-            if (dto.getPrimaryClinic() != null) {
+            if (dto.getPrimaryClinics() != null && !dto.getPrimaryClinics().isEmpty()) {
                 if (position == 0) {
-                    builder.append("p.primaryClinic=:primaryClinic");
+                    builder.append("p.primaryClinic in :primaryClinics");
                     position++;
                 } else {
-                    builder.append(" and p.primaryClinic=:primaryClinic");
+                    builder.append(" and p.primaryClinic in :primaryClinics");
                 }
             }
             if (dto.getSupportGroup() != null) {
@@ -173,17 +174,120 @@ public class InvestigationTestServiceImpl implements InvestigationTestService {
 
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
                 if (position == 0) {
-                    builder.append(" i.dateTaken ");
+                    builder.append(" i.dateCreated ");
                     builder.append(" between :startDate and :endDate");
                     position++;
                 } else {
-                    builder.append(" and i.dateTaken");
+                    builder.append(" and i.dateCreated");
                     builder.append(" between :startDate and :endDate)");
                 }
             }
 
         }
-        builder.append(" order by i.dateTaken DESC");
+        //builder.append(" order by i.dateCreated DESC");
+        TypedQuery<InvestigationTest> query = entityManager.createQuery(builder.toString(), InvestigationTest.class);
+        if (dto.getProvinces() != null) {
+            query.setParameter("provinces", dto.getProvinces());
+        }
+        if (dto.getDistricts() != null) {
+            query.setParameter("districts", dto.getDistricts());
+        }
+        if (dto.getPrimaryClinics() != null) {
+            query.setParameter("primaryClinics", dto.getPrimaryClinics());
+        }
+        if (dto.getSupportGroup() != null) {
+            query.setParameter("supportGroup", dto.getSupportGroup());
+        }
+        if (dto.getGender() != null) {
+            query.setParameter("gender", dto.getGender());
+        }
+
+        if (dto.getStatus() != null) {
+            query.setParameter("status", dto.getStatus());
+        }
+
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+            query.setParameter("startDate", dto.getStartDate());
+            query.setParameter("endDate", dto.getEndDate());
+        }
+
+        return query.getResultList();
+    }
+
+    @Override
+    public List<InvestigationTest> get(SearchDTO dto) {
+        //dto.setStatus(null);
+        StringBuilder builder = new StringBuilder("Select Distinct i from InvestigationTest i left join fetch i.patient p ");
+        int position = 0;
+
+        if (dto.getSearch(dto)) {
+            builder.append(" where ");
+            if (dto.getProvince() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic.district.province=:province");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district.province=:province");
+                }
+            }
+            if (dto.getDistrict() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic.district=:district");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district=:district");
+                }
+            }
+            if (dto.getPrimaryClinic() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic=:primaryClinic");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic=:primaryClinics");
+                }
+            }
+            if (dto.getSupportGroup() != null) {
+                if (position == 0) {
+                    builder.append("p.supportGroup=:supportGroup");
+                    position++;
+                } else {
+                    builder.append(" and p.supportGroup=:supportGroup");
+                }
+            }
+            if (dto.getGender() != null) {
+                if (position == 0) {
+                    builder.append("p.gender=:gender");
+                    position++;
+                } else {
+                    builder.append(" and p.gender=:gender");
+                }
+            }
+
+
+            if (dto.getStatuses() == null || dto.getStatuses().isEmpty()) {
+                if (dto.getStatus() != null) {
+                    if (position == 0) {
+                        builder.append("p.status=:status");
+                        position++;
+                    } else {
+                        builder.append(" and p.status=:status");
+                    }
+                }
+            }
+
+            if (dto.getStartDate() != null && dto.getEndDate() != null) {
+                if (position == 0) {
+                    builder.append(" i.dateCreated ");
+                    builder.append(" between :startDate and :endDate");
+                    position++;
+                } else {
+                    builder.append(" and i.dateCreated");
+                    builder.append(" between :startDate and :endDate)");
+                }
+            }
+
+        }
+        //builder.append(" order by i.dateCreated DESC");
         TypedQuery<InvestigationTest> query = entityManager.createQuery(builder.toString(), InvestigationTest.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());
@@ -200,26 +304,16 @@ public class InvestigationTestServiceImpl implements InvestigationTestService {
         if (dto.getGender() != null) {
             query.setParameter("gender", dto.getGender());
         }
-//        if (dto.getAgeGroup() != null) {
-//            query.setParameter("start", DateUtil.getDateFromAge(dto.getAgeGroup().getEnd()));
-//            query.setParameter("end", DateUtil.getEndDate(dto.getAgeGroup().getStart()));
-//        }
-//        if (dto.getPeriod() != null) {
-//            query.setParameter("period", dto.getPeriod());
-//        }
+
         if (dto.getStatus() != null) {
             query.setParameter("status", dto.getStatus());
         }
-//        if (dto.getHei() != null) {
-//            query.setParameter("hei", dto.getHei());
-//        }
+
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             query.setParameter("startDate", dto.getStartDate());
             query.setParameter("endDate", dto.getEndDate());
         }
-//        if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
-//            query.setParameter("statuses", dto.getStatuses());
-//        }
+
         return query.getResultList();
     }
 

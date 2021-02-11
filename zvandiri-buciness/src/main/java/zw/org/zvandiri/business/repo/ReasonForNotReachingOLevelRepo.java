@@ -26,6 +26,6 @@ import zw.org.zvandiri.business.domain.ReasonForNotReachingOLevel;
  */
 public interface ReasonForNotReachingOLevelRepo extends AbstractNameDescRepo<ReasonForNotReachingOLevel, String> {
     
-    @Query("from ReasonForNotReachingOLevel r left join fetch r.createdBy left join fetch r.modifiedBy where r.active=:active Order By r.name ASC")
+    @Query("from ReasonForNotReachingOLevel r left join fetch r.createdBy left join fetch r.modifiedBy where r.active=:active")
     public List<ReasonForNotReachingOLevel> getOptAll(@Param("active") Boolean active);
 }

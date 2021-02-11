@@ -45,7 +45,7 @@ public interface ContactRepo extends AbstractRepo<Contact, String> {
     @Query("Select Distinct(c) from Contact c left join fetch c.patient left join fetch c.location left join fetch c.position left join fetch c.period left join fetch c.internalReferral left join fetch c.externalReferral left join fetch c.clinicalAssessments left join fetch c.nonClinicalAssessments left join fetch c.actionTaken left join fetch c.stables left join fetch c.enhanceds left join fetch c.parent left join fetch c.referredPerson")
     public List<Contact> findByAllContacts();
     
-    @Query("Select Distinct(c) from Contact c left join fetch c.createdBy left join fetch c.patient left join fetch c.location left join fetch c.position left join fetch c.period left join fetch c.internalReferral left join fetch c.externalReferral left join fetch c.clinicalAssessments left join fetch c.nonClinicalAssessments left join fetch c.actionTaken left join fetch c.stables left join fetch c.enhanceds left join fetch c.parent left join fetch c.referredPerson where c.referredPerson=:referredPerson and c.open=:open order by c.contactDate DESC")
+    @Query("Select Distinct(c) from Contact c left join fetch c.createdBy left join fetch c.patient left join fetch c.location left join fetch c.position left join fetch c.period left join fetch c.internalReferral left join fetch c.externalReferral left join fetch c.clinicalAssessments left join fetch c.nonClinicalAssessments left join fetch c.actionTaken left join fetch c.stables left join fetch c.enhanceds left join fetch c.parent left join fetch c.referredPerson where c.referredPerson=:referredPerson and c.open=:open")
     public List<Contact> findByReferredPersonAndOpenOrderByContactDateDesc(@Param("referredPerson") User referredPerson, @Param("open") Boolean open);
     
     public List<Contact> findTop1ByPatientOrderByContactDateDesc(Patient patient);
@@ -53,9 +53,9 @@ public interface ContactRepo extends AbstractRepo<Contact, String> {
     @Query("select c from Contact c join c.clinicalAssessments d  where d = ?1")
     Set<Contact> findDeviceByClinicalAssessments(Contact contact);
 
-    @Query(value = "select c.* from zvandiri.contact c inner join zvandiri.contact_clinical_assessment cs" +
-            "on cs.contact_id=c.id inner join zvandiri.assessment a on cs.assessment_id=a.id " +
-            "where a.name='Unwell' " +
-            "and c.contact_date between :startDate and :endDate", nativeQuery = true)
-    List<Contact> findUnwellClients(@Param("startDate") Date startDate, @Param("endDate") Date endDate );
+//    @Query(value = "select c.* from zvandiri.contact c inner join zvandiri.contact_clinical_assessment cs" +
+//            "on cs.contact_id=c.id inner join zvandiri.assessment a on cs.assessment_id=a.id " +
+//            "where a.name='Unwell' " +
+//            "and c.contact_date between :startDate and :endDate", nativeQuery = true)
+//    List<Contact> findUnwellClients(@Param("startDate") Date startDate, @Param("endDate") Date endDate );
 }

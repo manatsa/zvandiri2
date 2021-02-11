@@ -16,12 +16,14 @@
 package zw.org.zvandiri.business.service.impl;
 
 import java.util.Date;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import zw.org.zvandiri.business.domain.ArvHist;
 import zw.org.zvandiri.business.domain.util.DateRangeItem;
 import zw.org.zvandiri.business.repo.ArvHistRepo;
 import zw.org.zvandiri.business.service.ArvHistReportService;
@@ -40,6 +42,98 @@ public class ArvHistReportServiceImpl implements ArvHistReportService {
     private EntityManager entityManager;
     @Resource
     private ArvHistRepo arvHistRepo;
+
+
+    @Override
+    public List<ArvHist> getDto(SearchDTO dto) {
+        StringBuilder builder = new StringBuilder("Select Distinct a from ArvHist a left join fetch a.patient p");
+        int position = 0;
+        builder.append(" where ");
+        if (dto.getProvince() != null) {
+            if (position == 0) {
+                builder.append("p.primaryClinic.district.province=:province");
+                position++;
+            } else {
+                builder.append(" and p.primaryClinic.district.province=:province");
+            }
+        }
+        if (dto.getDistrict() != null) {
+            if (position == 0) {
+                builder.append("p.primaryClinic.district=:district");
+                position++;
+            } else {
+                builder.append(" and p.primaryClinic.district=:district");
+            }
+        }
+        if (dto.getPrimaryClinic() != null) {
+            if (position == 0) {
+                builder.append("p.primaryClinic=:primaryClinic");
+                position++;
+            } else {
+                builder.append(" and p.primaryClinic=:primaryClinic");
+            }
+        }
+        if (dto.getAgeGroup() != null) {
+            if (position == 0) {
+                builder.append("p.dateOfBirth between :start and :end");
+                position++;
+            } else {
+                builder.append(" and p.dateOfBirth between :start and :end");
+            }
+        }
+        if (dto.getGender() != null) {
+            if (position == 0) {
+                builder.append("p.gender=:gender");
+                position++;
+            } else {
+                builder.append(" and p.gender=:gender");
+            }
+        }
+        if (dto.getStatus() != null) {
+            if (position == 0) {
+                builder.append("p.status=:status");
+                position++;
+            } else {
+                builder.append(" and p.status=:status");
+            }
+        }
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+            if (position == 0) {
+                builder.append("a.dateCreated between :startDate and :endDate");
+                position++;
+            } else {
+                builder.append(" and (a.dateCreated between :startDate and :endDate)");
+            }
+        }
+        if (position == 0) {
+            builder.append("a.active=:active");
+            position++;
+        } else {
+            builder.append(" and a.active=:active");
+        }
+        TypedQuery query = entityManager.createQuery(builder.toString(), ArvHist.class);
+        if (dto.getProvince() != null) {
+            query.setParameter("province", dto.getProvince());
+        }
+        if (dto.getDistrict() != null) {
+            query.setParameter("district", dto.getDistrict());
+        }
+        if (dto.getGender() != null) {
+            query.setParameter("gender", dto.getGender());
+        }
+        if (dto.getAgeGroup() != null) {
+            query.setParameter("start", DateUtil.getDateFromAge(dto.getAgeGroup().getEnd()));
+            query.setParameter("end", DateUtil.getEndDate(dto.getAgeGroup().getStart()));
+        }
+        if (dto.getStatus() != null) {
+            query.setParameter("status", dto.getStatus());
+        }
+        if (dto.getPrimaryClinic() != null) {
+            query.setParameter("primaryClinic", dto.getPrimaryClinic());
+        }
+        query.setParameter("active", Boolean.TRUE);
+        return query.getResultList();
+    }
 
     @Override
     public Long getNewlyInitiatedOnART(SearchDTO dto) {

@@ -27,7 +27,7 @@ import zw.org.zvandiri.business.domain.HalfYearPeriod;
  */
 public interface HalfYearPeriodRepo extends AbstractRepo<HalfYearPeriod, String> {
 
-    @Query("from HalfYearPeriod h where h.active=:active order by h.startDate DESC")
+    @Query("from HalfYearPeriod h where h.active=:active")
     public List<HalfYearPeriod> getOptAll(@Param("active") Boolean active);
 
     @Query("from HalfYearPeriod h where h.startDate=:startDate and h.endDate=:endDate")

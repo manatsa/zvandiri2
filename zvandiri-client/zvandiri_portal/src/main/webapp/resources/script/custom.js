@@ -25,6 +25,7 @@ $("#province").change(function () {
     $this = $(this);
     if ($this.val() === "")
         return;
+    console.log("Province Value"+$this.val())
     $("#supportGroup").html("--Select Item--");
     $("#primaryClinic").html("--Select Item--");
     $("#district").html("<option value=''>......... loading districts </option>");

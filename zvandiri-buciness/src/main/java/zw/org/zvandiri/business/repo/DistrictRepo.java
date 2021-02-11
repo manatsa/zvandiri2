@@ -30,10 +30,10 @@ public interface DistrictRepo extends AbstractNameDescRepo<District, String> {
     
     public List<District> findByProvince(Province province);
     
-    @Query("from District d left join fetch d.province left join fetch d.createdBy left join fetch d.modifiedBy where d.active=:active Order By d.name ASC")
+    @Query("from District d left join fetch d.province left join fetch d.createdBy left join fetch d.modifiedBy where d.active=:active")
     public List<District> getOptAll(@Param("active") Boolean active);
     
-    @Query("from District d left join fetch d.province where d.province=:province Order By d.name ASC")
+    @Query("from District d left join fetch d.province where d.province=:province")
     public List<District> getOptByProvince(@Param("province") Province province);
     
     @Query("from District d left join fetch d.province where d.name=:name and d.province=:province")

@@ -26,6 +26,6 @@ import zw.org.zvandiri.business.domain.Referer;
  */
 public interface RefererRepo extends AbstractNameDescRepo<Referer, String> {
     
-    @Query("from Referer r left join fetch r.createdBy left join fetch r.modifiedBy where r.active=:active Order By r.name ASC")
+    @Query("from Referer r left join fetch r.createdBy left join fetch r.modifiedBy where r.active=:active")
     public List<Referer> getOptAll(@Param("active") Boolean active);
 }

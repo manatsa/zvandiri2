@@ -26,6 +26,6 @@ import zw.org.zvandiri.business.domain.Education;
  */
 public interface EducationRepo extends AbstractNameDescRepo<Education, String> {
     
-    @Query("from Education e left join fetch e.createdBy left join fetch e.modifiedBy where e.active=:active Order By e.name ASC")
+    @Query("from Education e left join fetch e.createdBy left join fetch e.modifiedBy where e.active=:active")
     public List<Education> getOptAll(@Param("active") Boolean active);
 }

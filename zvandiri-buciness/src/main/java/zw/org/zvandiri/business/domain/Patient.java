@@ -16,6 +16,7 @@
 package zw.org.zvandiri.business.domain;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -75,6 +76,10 @@ public class Patient extends GenericPatient {
     private Integer cd4Count;
     @Formula("(Select concat(a1.name, ', ', a2.name, ', ', a3.name) From arv_hist a inner join arv_medicine a1 on a1.id=a.arv_medicine inner join arv_medicine a2 on a2.id=a.arv_medicine2 inner join arv_medicine a3 on a3.id=a.arv_medicine3 where a.patient = id order by a.start_date desc limit 0,1)")
     private String currentArvRegimen;
+
+    @Formula("(Select a.start_date from arv_hist a  where a.patient = id and a.start_date is not null order by a.start_date desc limit 0,1)")
+    Date dateStartedRegimen;
+
     @Formula("(Select p.severity From patient_disability p where p.patient = id order by p.date_screened desc limit 0,1)")
     private Integer disabilitySeverity;
     @Transient
@@ -159,6 +164,12 @@ public class Patient extends GenericPatient {
         return DateUtil.getStringFromDate(getDateJoined());
     }
 
+    public String getDateStartedRegimen() {
+        if (getDateRegimen() == null) {
+            return "";
+        }
+        return DateUtil.getStringFromDate(getDateRegimen());
+    }
     public Boolean getPatientStatus() {
         if (getStatus() == null || getStatus().equals(PatientChangeEvent.ACTIVE)) {
             return Boolean.TRUE;
@@ -219,12 +230,18 @@ public class Patient extends GenericPatient {
         return disabilitySeverity;
     }
 
+    public Date getDateRegimen(){
+        return this.dateStartedRegimen;
+    }
+
     public DisabilitySeverity getDisabilityStatus() {
         if (disabilitySeverity != null) {
             return DisabilitySeverity.get(disabilitySeverity + 1);
         }
         return null;
     }
+
+
 
     public String toString()
     {

@@ -20,9 +20,9 @@ public interface DisabilityRepo  extends AbstractRepo<PatientDisability, String>
     
     // disabilityCategory
     
-    @Query("from PatientDisability d left join fetch d.patient left join fetch d.disabilityCategory left join fetch d.modifiedBy left join fetch d.createdBy where d.patient=:patient order by d.disabilityCategory.name ASC")
+    @Query("from PatientDisability d left join fetch d.patient left join fetch d.disabilityCategory left join fetch d.modifiedBy left join fetch d.createdBy where d.patient=:patient")
     public List<PatientDisability> findByPatient(@Param("patient") Patient patient);
     
-    @Query("from PatientDisability d left join fetch d.patient left join fetch d.disabilityCategory left join fetch d.modifiedBy left join fetch d.createdBy where d.patient=:patient and d.disabilityCategory=:disabilityCategory order by d.disabilityCategory.name ASC")
+    @Query("from PatientDisability d left join fetch d.patient left join fetch d.disabilityCategory left join fetch d.modifiedBy left join fetch d.createdBy where d.patient=:patient and d.disabilityCategory=:disabilityCategory")
     public PatientDisability findByPatientAndDisabilityCategory(@Param("patient") Patient patient,@Param("disabilityCategory") DisabilityCategory disabilityCategory);   
 }

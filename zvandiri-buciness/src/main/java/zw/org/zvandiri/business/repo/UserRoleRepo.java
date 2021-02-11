@@ -34,7 +34,7 @@ public interface UserRoleRepo extends CrudRepository<UserRole, String> {
     @Override
     public List<UserRole> findAll();
     
-    @Query("from UserRole p "+IRepoConstant.USER_ROLE_CONSTANT+" where p.active=:active Order By p.name ASC")
+    @Query("from UserRole p "+IRepoConstant.USER_ROLE_CONSTANT+" where p.active=:active")
     public List<UserRole> getOptAll(@Param("active") Boolean active);
     
     @Query("from UserRole p "+IRepoConstant.USER_ROLE_CONSTANT+" where p.name=:name")

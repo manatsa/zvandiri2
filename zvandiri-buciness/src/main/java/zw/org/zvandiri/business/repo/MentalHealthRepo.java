@@ -26,6 +26,6 @@ import zw.org.zvandiri.business.domain.MentalHealth;
  */
 public interface MentalHealthRepo extends AbstractNameDescRepo<MentalHealth, String> {
  
-    @Query("from MentalHealth m left join fetch m.createdBy left join fetch m.modifiedBy where m.active=:active Order By m.name ASC")
+    @Query("from MentalHealth m left join fetch m.createdBy left join fetch m.modifiedBy where m.active=:active")
     public List<MentalHealth> getOptAll(@Param("active") Boolean active);
 }

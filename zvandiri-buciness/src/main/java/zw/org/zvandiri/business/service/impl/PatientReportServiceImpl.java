@@ -975,7 +975,7 @@ public class PatientReportServiceImpl implements PatientReportService {
                 builder.append(" and v.patient.status=:status");
             }
         }
-        builder.append(" order by v.dateTaken DESC");
+        //builder.append(" order by v.dateTaken DESC");
         TypedQuery query = entityManager.createQuery(builder.toString(), Long.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());
@@ -1121,10 +1121,10 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             if (position == 0) {
-                builder.append("v.dateTaken between :startDate and :endDate");
+                builder.append("v.dateCreated between :startDate and :endDate");
                 position++;
             } else {
-                builder.append(" and (v.dateTaken between :startDate and :endDate)");
+                builder.append(" and (v.dateCreated between :startDate and :endDate)");
             }
         }
         if (dto.getTestType() != null) {
@@ -1791,7 +1791,7 @@ public class PatientReportServiceImpl implements PatientReportService {
 
         }
 
-        builder.append(" order by p.lastName ASC");
+        //builder.append(" order by p.lastName ASC");
         TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());

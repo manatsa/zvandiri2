@@ -26,6 +26,6 @@ import zw.org.zvandiri.business.domain.ChronicInfection;
  */
 public interface ChronicInfectionRepo extends AbstractNameDescRepo<ChronicInfection, String> {
     
-    @Query("from ChronicInfection c left join fetch c.createdBy left join fetch c.modifiedBy where c.active=:active Order By c.name ASC")
+    @Query("from ChronicInfection c left join fetch c.createdBy left join fetch c.modifiedBy where c.active=:active")
     public List<ChronicInfection> getOptAll(@Param("active") Boolean active);
 }

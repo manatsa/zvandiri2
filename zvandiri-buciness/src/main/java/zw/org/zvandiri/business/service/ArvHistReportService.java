@@ -16,13 +16,19 @@
 
 package zw.org.zvandiri.business.service;
 
+import zw.org.zvandiri.business.domain.ArvHist;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
+
+import java.util.List;
 
 /**
  *
  * @author Tasunungurwa Muzinda
  */
 public interface ArvHistReportService {
+
+    List<ArvHist> getDto(SearchDTO dto);
+
     public Long getNewlyInitiatedOnART(SearchDTO dto);
     public Long getNumberCurrentlyOnART(SearchDTO dto);
     public Long getOnARTForGivenPeriod(SearchDTO dto);

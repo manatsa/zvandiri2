@@ -26,6 +26,6 @@ import zw.org.zvandiri.business.domain.Stable;
  */
 public interface StableRepo extends AbstractNameDescRepo<Stable, String> {
     
-    @Query("from Stable s left join fetch s.createdBy left join fetch s.modifiedBy where s.active=:active Order By s.name ASC")
+    @Query("from Stable s left join fetch s.createdBy left join fetch s.modifiedBy where s.active=:active")
     public List<Stable> getOptAll(@Param("active") Boolean active);
 }

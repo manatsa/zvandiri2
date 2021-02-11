@@ -27,7 +27,7 @@ import zw.org.zvandiri.business.domain.util.ContactAssessment;
  */
 public interface AssessmentRepo extends AbstractNameDescRepo<Assessment, String>  {
     
-    @Query("from Assessment a left join fetch a.createdBy left join fetch a.modifiedBy where a.active=:active Order By a.name ASC")
+    @Query("from Assessment a left join fetch a.createdBy left join fetch a.modifiedBy where a.active=:active")
     public List<Assessment> getOptAll(@Param("active") Boolean active);
     
     public List<Assessment> findByContactAssessmentOrderByNameAsc(ContactAssessment contactAssessment);

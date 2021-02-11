@@ -22,8 +22,8 @@ package zw.org.zvandiri.report.api;
 public interface DatabaseHeader {
 
     public final String [] PATIENT_HEADER = {
-            "UIC","Name", "OI/ Art Number", "Date of Birth", "Age", "Date Joined", "Gender", "Address", "Mobile Number",
-            "Consent To M-Health","Education", "Highest Education",
+            "UIC","Name", "OI/ Art Number", "Date of Birth", "Age", "Date Joined", "Gender","IsCATS", "IsYMM", "Address", "Mobile Number",
+            "Consent To M-Health","Education", "Highest Education","Drug Regimen","Date Started Regimen",
             "Refer", "Region", "District","Primary Clinic", "Support Group", "Date Tested","HIV Disclosure Location",
             "Has Disability", "IS CATS", "Is In Young Mum Group", "HIV Transmission Mode",
             "HIV Status Known", "Patient Status", "Date Status Changed"
@@ -50,7 +50,7 @@ public interface DatabaseHeader {
     };
 
     public final String [] MENTAL_HIST_HEADER = {
-            "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "Mental Health", "Past", "Current",
+            "UIC", "Client Name","Date of Birth", "Age", "Gender","IsCATS", "IsYMM", "Region", "District","Primary Clinic", "Mental Health", "Past", "Current",
             "Received Professional Help", "Professional Help Start Date",
             "Professional Help End Date", "Medication", "Psychiatric Hospitalization", "Description"
     };
@@ -61,7 +61,7 @@ public interface DatabaseHeader {
     };
 
     public final String [] CONTACT_HEADER = {
-            "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "Contact Date", "Care Level", "Location", "Position",
+            "UIC", "Client Name","Date of Birth", "Age","Gender","IsCATS", "IsYMM", "Region", "District","Primary Clinic", "Contact Date", "Care Level", "Location", "Position",
             "Reason", "Followup", "Subjective", "Objective", "Plan", "Action Taken",
             "Last Clinic Appointmet Date", "Attended Clinic Appointment", "Next Clinic Appointment", "Visit Outcome"
     };
@@ -105,7 +105,7 @@ public interface DatabaseHeader {
     };
 
     public final String [] CD4_COUNT_HEADER =  {
-            "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "Test Type", "Date Taken",
+            "UIC", "Client Name","Date of Birth", "Age", "Gender", "IsCATS","IsYMM","Region", "District","Primary Clinic", "Test Type", "Date Taken",
             "Count", "Source", "Next Lab Due","VLSuppressionStatus","Result Taken","TND","Record Source"
     };
 
@@ -115,20 +115,20 @@ public interface DatabaseHeader {
     };
 
     public final String [] MORTALITY_HEADER = {
-            "UIC", "Client Name","Date of Birth", "Age", "Gender","IsCATS", "Region", "District","Primary Clinic", "Date Of Death",
+            "UIC", "Client Name","Date of Birth", "Age", "Gender","IsCATS","IsYmm", "Region", "District","Primary Clinic", "Date Of Death",
             "Cause of Death", "Cause of Death Details", "Received Enhanced Care", "Date Put On Enhanced Care", "Case Background",
             "Care Provided", "Home", "Beneficiary", "Facility", "CATS", "ZMs", "Other", "Contact with ZMs", "Date of Contact with ZMs",
             "Description of Case", "Learning Points", "Action Plan"
     };
 
     public final String [] TB_IPT_HEADER = {
-            "UIC", "Client Name","Date of Birth", "Age", "Gender","IsCATS", "Region", "District","Primary Clinic", "Screened for TB",
+            "UIC", "Client Name","Date of Birth", "Age", "Gender","IsCATS", "IsYMM", "Region", "District","Primary Clinic", "Screened for TB",
             "Date Screened", "Indentified with TB", "TB Identification Outcome", "Date Started Treatment",
             "Referral for Sputum", "TB Treatment Outcome", "Referred for IPT", "On IPT", "Date Started IPT"
     };
 
     public final String [] MENTAL_HEALTH_SCREENING_HEADER = {
-            "Client Name","Date of Birth", "Age", "Gender", "IsCATS", "Region", "District","Primary Clinic", "Screened For Mental Health", "Date Screened",
+            "UIC","Client Name","Date of Birth", "Age", "Gender", "IsCATS", "IsYMM", "Region", "District","Primary Clinic", "Screened For Mental Health", "Date Screened",
             "Mental health Screening Type", "Risk", "Identified Risks", "Received Support", "Support Received", "Referral",
             "Referrals Received", "Diagnosis", "Diagnosis Done", "Other Diagnosis", "Intervention", "Interventions", "Other Interventions"
     };

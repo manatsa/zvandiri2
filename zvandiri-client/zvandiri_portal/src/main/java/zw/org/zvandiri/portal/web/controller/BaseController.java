@@ -19,6 +19,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -29,10 +30,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
-import zw.org.zvandiri.business.domain.Contact;
-import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.domain.Settings;
-import zw.org.zvandiri.business.domain.User;
+import zw.org.zvandiri.business.domain.*;
 import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.domain.util.UserLevel;
 import zw.org.zvandiri.business.service.ContactService;
@@ -41,6 +39,7 @@ import zw.org.zvandiri.business.service.InvestigationTestService;
 import zw.org.zvandiri.business.service.SettingsService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
+import zw.org.zvandiri.business.util.dto.SearchDTOMultiple;
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 
@@ -91,6 +90,30 @@ abstract public class BaseController implements IAppTitle {
 //        return contactService.findByReferredPersonAndOpen(getUserName());
 //    }
     
+    public SearchDTOMultiple getUserLevelObjectState(SearchDTOMultiple dto){
+        User user = getUserName();
+        //System.err.println("+++++++++++++++++++++++++++++++++++++++++User++++++++++++++++++++++++++++++++++++++++++++++++\n"+user);
+        if (user.getUserLevel() == null){
+            return dto.getInstance(dto);
+        }
+        else if (user.getUserLevel().equals(UserLevel.PROVINCE)){
+            System.err.println("*********************** User Level: Province");
+            List<Province> provinces=new ArrayList<>();
+            provinces.add(user.getProvince());
+            dto.setProvinces(provinces);
+        } else if (user.getUserLevel().equals(UserLevel.DISTRICT)){
+            //System.err.println("*********************** User Level: District, and is "+user.getDistrict());
+            List<District> districts=new ArrayList<>();
+            districts.add(user.getDistrict());
+            dto.setDistricts(districts);
+        }else{
+            System.err.println("*********************** User Level: Other");
+        }
+         
+       //System.err.println("*********************** dto : "+dto.toString());
+        return dto;
+    }
+
     public SearchDTO getUserLevelObjectState(SearchDTO dto){
         User user = getUserName();
         //System.err.println("+++++++++++++++++++++++++++++++++++++++++User++++++++++++++++++++++++++++++++++++++++++++++++\n"+user);
@@ -101,13 +124,12 @@ abstract public class BaseController implements IAppTitle {
             System.err.println("*********************** User Level: Province");
             dto.setProvince(user.getProvince());
         } else if (user.getUserLevel().equals(UserLevel.DISTRICT)){
-            //System.err.println("*********************** User Level: District, and is "+user.getDistrict());
             dto.setDistrict(user.getDistrict());
         }else{
             System.err.println("*********************** User Level: Other");
         }
-         
-       //System.err.println("*********************** dto : "+dto.toString());
+
+        //System.err.println("*********************** dto : "+dto.toString());
         return dto;
     }
     

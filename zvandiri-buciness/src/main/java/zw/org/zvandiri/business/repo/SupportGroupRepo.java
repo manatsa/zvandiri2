@@ -28,15 +28,15 @@ import zw.org.zvandiri.business.domain.SupportGroup;
  */
 public interface SupportGroupRepo extends AbstractNameDescRepo<SupportGroup, String> {
     
-    @Query("from SupportGroup s left join fetch s.district left join fetch s.createdBy left join fetch s.modifiedBy where s.active=:active Order By s.name ASC")
+    @Query("from SupportGroup s left join fetch s.district left join fetch s.createdBy left join fetch s.modifiedBy where s.active=:active")
     public List<SupportGroup> getOptAll(@Param("active") Boolean active);
     
     @Query("from SupportGroup s left join fetch s.district where s.name=:name and s.district=:district")
     public SupportGroup findByNameAndDistrict(@Param("name") String name, @Param("district") District district);
     
-    @Query("from SupportGroup s left join fetch s.district where (s.district=:district or s.district is null) and s.active=:active order by s.name ASC")
+    @Query("from SupportGroup s left join fetch s.district where (s.district=:district or s.district is null) and s.active=:active")
     public List<SupportGroup> findByDistrictAndActive(@Param("district") District district, @Param("active") Boolean active);
     
-    @Query("from SupportGroup s left join fetch s.district where s.district.province=:province and s.active=:active order by s.name ASC")
+    @Query("from SupportGroup s left join fetch s.district where s.district.province=:province and s.active=:active ")
     public List<SupportGroup> findByProvinceAndActive(@Param("province") Province province, @Param("active") Boolean active);
 }

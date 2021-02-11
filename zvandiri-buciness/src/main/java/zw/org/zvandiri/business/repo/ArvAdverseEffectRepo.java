@@ -28,6 +28,6 @@ import zw.org.zvandiri.business.domain.ArvHist;
  */
 public interface ArvAdverseEffectRepo extends AbstractRepo<ArvAdverseEffect, Serializable> {
  
-    @Query("from ArvAdverseEffect a left join fetch a.arvHist where a.arvHist=:arvHist Order by a.dateCommenced DESC")
+    @Query("from ArvAdverseEffect a left join fetch a.arvHist where a.arvHist=:arvHist ")
     public List<ArvAdverseEffect> findByArvHist(@Param("arvHist") ArvHist arvHist);
 }

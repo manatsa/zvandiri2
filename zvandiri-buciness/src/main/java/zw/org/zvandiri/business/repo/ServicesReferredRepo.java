@@ -27,10 +27,10 @@ import zw.org.zvandiri.business.domain.util.ReferalType;
  */
 public interface ServicesReferredRepo extends AbstractNameDescRepo<ServicesReferred, String> {
     
-    @Query("from ServicesReferred s left join fetch s.createdBy left join fetch s.modifiedBy where s.active=:active Order By s.name ASC")
+    @Query("from ServicesReferred s left join fetch s.createdBy left join fetch s.modifiedBy where s.active=:active")
     public List<ServicesReferred> getOptAll(@Param("active") Boolean active);
     
-    @Query("from ServicesReferred s left join fetch s.createdBy left join fetch s.modifiedBy where s.referalType=:referalType and s.active=:active Order By s.name ASC")
+    @Query("from ServicesReferred s left join fetch s.createdBy left join fetch s.modifiedBy where s.referalType=:referalType and s.active=:active")
     public List<ServicesReferred> getByType(@Param("referalType") ReferalType referalType ,@Param("active") Boolean active);
     
     public ServicesReferred findByNameAndReferalType(String name, ReferalType referalType);

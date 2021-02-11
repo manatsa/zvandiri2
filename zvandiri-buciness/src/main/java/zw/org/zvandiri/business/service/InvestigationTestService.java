@@ -21,6 +21,7 @@ import zw.org.zvandiri.business.domain.InvestigationTest;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
+import zw.org.zvandiri.business.util.dto.SearchDTOMultiple;
 
 /**
  *
@@ -30,7 +31,13 @@ public interface InvestigationTestService extends GenericService<InvestigationTe
     
 	public List<InvestigationTest> getByPatientAndTestType(Patient patient, TestType testType);
         
-        public List<InvestigationTest> get(SearchDTO dto);
+//        public List<InvestigationTest> get(SearchDTO dto);
         
         public InvestigationTest getLatestTestByTestType(Patient patient, TestType testType);
+
+    List<InvestigationTest> getMultiple(SearchDTOMultiple dto);
+
+//    List<InvestigationTest> get(SearchDTOMultiple dto);
+
+    List<InvestigationTest> get(SearchDTO dto);
 }

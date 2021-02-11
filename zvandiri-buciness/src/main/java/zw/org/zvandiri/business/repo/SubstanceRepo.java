@@ -26,6 +26,6 @@ import zw.org.zvandiri.business.domain.Substance;
  */
 public interface SubstanceRepo extends AbstractNameDescRepo<Substance, String> {
     
-    @Query("from Substance s left join fetch s.createdBy left join fetch s.modifiedBy where s.active=:active Order By s.name ASC")
+    @Query("from Substance s left join fetch s.createdBy left join fetch s.modifiedBy where s.active=:active")
     public List<Substance> getOptAll(@Param("active") Boolean active);
 }

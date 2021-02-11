@@ -22,10 +22,8 @@ import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.*;
-import zw.org.zvandiri.business.repo.ContactRepo;
-import zw.org.zvandiri.business.service.ContactReportService;
-import zw.org.zvandiri.business.service.DetailedPatientReportService;
-import zw.org.zvandiri.business.service.MortalityService;
+import zw.org.zvandiri.business.repo.*;
+import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.DatabaseHeader;
 import zw.org.zvandiri.report.api.GenericReportModel;
@@ -54,6 +52,37 @@ public class OfficeExportServiceImpl implements OfficeExportService {
     @Resource
     private ContactRepo contactService;
 
+    @Resource
+    private InvestigationTestRepo testRepo;
+
+    @Resource
+    ReferralRepo referralRepo;
+
+    @Resource
+    TbIptRepo tbIptRepo;
+
+    @Resource
+    ArvHistReportService arvHistService;
+
+    @Resource
+    MentalHealthScreeningRepo screeningRepo;
+
+    @Resource
+    TbIptService tbIptService;
+
+    @Resource
+    InvestigationTestService investigationTestService;
+
+    @Resource
+    MentalHealthScreeningService mentalHealthScreeningService;
+
+    @Resource
+    ReferalReportService referralService;
+
+
+
+
+
     @Override
     public XSSFWorkbook exportExcelFile(List<GenericReportModel> XSSFRows, String name) {
         XSSFWorkbook workbook = new XSSFWorkbook();
@@ -70,7 +99,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         return workbook;
     }
 
-
     @Override
     public XSSFWorkbook exportExcelXLSXFile(List<GenericReportModel> XSSFRows, String name) {
         XSSFWorkbook workbook = new XSSFWorkbook();
@@ -86,7 +114,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         }
         return workbook;
     }
-
 
     @Override
     public XWPFDocument exportWordFile(List<GenericReportModel> XSSFRows, String name) {
@@ -129,49 +156,54 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             dto2.setPrimaryClinic(dto.getPrimaryClinic());
 
             List<Patient> patients = detailedPatientReportService.get(dto2.getInstance(dto2));
-            Set<Referral> referrals = new HashSet<>();
-            Set<Contact> contacts = new HashSet<>();
+            List<Referral> referrals = referralService.get(dto2);
+            List<Contact> contacts = contactReportService.get(dto2);
             Set<Dependent> dependents = new HashSet<>();
-            Set<ChronicInfectionItem> chronicInfectionItems = new HashSet<>();
+            //Set<ChronicInfectionItem> chronicInfectionItems = new HashSet<>();
             Set<MentalHealthItem> mentalHealthItems = new HashSet<>();
             Set<ObstercHist> obstercHists = new HashSet<>();
             Set<SocialHist> socialHists = new HashSet<>();
             Set<SubstanceItem> substanceItems = new HashSet<>();
-            Set<InvestigationTest> investigationTests = new HashSet<>();
-            Set<ArvHist> arvHists = new HashSet<>();
-            Set<HivConInfectionItem> hivConInfectionItems = new HashSet<>();
-            Set<TbIpt> tbIpts = new HashSet<>();
-            Set<Mortality> mortalitys = new HashSet<>();
-            Set<MentalHealthScreening> mentalHealthScreenings = new HashSet<>();
+            List<InvestigationTest> investigationTests = investigationTestService.get(dto2);
+            List<ArvHist> arvHists = arvHistService.getDto(dto2);
+            //Set<HivConInfectionItem> hivConInfectionItems = new HashSet<>();
+            List<TbIpt> tbIpts = tbIptService.get(dto2);
+            List<Mortality> mortalitys = mortalityService.get(dto2);
+            List<MentalHealthScreening> mentalHealthScreenings = mentalHealthScreeningService.get(dto2);
             int numPatient = 0;
             for (Patient patient : patients) {
                 int count = 0;
 
-
-
 //            contacts.addAll(patient.getContacts());
                 if(dto.getStartDate()!=null && dto.getEndDate()!=null)
                 {
-                    System.err.println("################################################ Dates Selected from "+dto.getStartDate()+" to "+dto.getEndDate());
-                    contacts.addAll(contactService.findByPatientAndContactDate(patient,dto.getStartDate(),dto.getEndDate()));
+                    //System.err.println("################################################ Dates Selected from "+dto.getStartDate()+" to "+dto.getEndDate());
+                    //contacts.addAll(contactService.findByPatientAndContactDate(patient,dto.getStartDate(),dto.getEndDate()));
+                    //investigationTests.addAll(testRepo.findByPatientAnAndDateCreated(patient,dto.getStartDate(),dto.getEndDate()));
+                    //referrals.addAll(referralRepo.findByPatientAndDateCreated(patient,dto.getStartDate(),dto.getEndDate()));
+                    //tbIpts.addAll(tbIptRepo.findByPatientAndDateCreated(patient,dto.getStartDate(),dto.getEndDate()));
+                    //arvHists.addAll(arvHistRepo.findByPatientAndDateCreated(patient,dto.getStartDate(),dto.getEndDate()));
+                    //mentalHealthScreenings.addAll(screeningRepo.findByPatientAndDateCreated(patient,dto.getStartDate(),dto.getEndDate()));
+
                 }else{
-                    System.err.println("******************************** Dates Selected are nulls ");
-                    contacts.addAll(contactService.findByPatient(patient));
+                    //System.err.println("******************************** Dates Selected are nulls ");
+                    //contacts.addAll(contactService.findByPatient(patient));
+                    //investigationTests.addAll(patient.getInvestigationTests());
+                    //referrals.addAll(patient.getReferrals());
+                    //tbIpts.addAll(patient.getTbIpts());
+                    //arvHists.addAll(patient.getArvHists());
+
                 }
 
-                referrals.addAll(patient.getReferrals());
                 dependents.addAll(patient.getDependents());
-                chronicInfectionItems.addAll(patient.getChronicInfectionItems());
-                hivConInfectionItems.addAll(patient.getHivConInfectionItems());
-                mentalHealthItems.addAll(patient.getMentalHealthItems());
+                //chronicInfectionItems.addAll(patient.getChronicInfectionItems());
+                //hivConInfectionItems.addAll(patient.getHivConInfectionItems());
                 obstercHists.addAll(patient.getObstercHists());
                 socialHists.addAll(patient.getSocialHists());
                 substanceItems.addAll(patient.getSubstanceItems());
-                investigationTests.addAll(patient.getInvestigationTests());
-                arvHists.addAll(patient.getArvHists());
-                tbIpts.addAll(patient.getTbIpts());
-                mortalitys.addAll(mortalityService.get(dto));
-                mentalHealthScreenings.addAll(patient.getMentalHealthScreenings());
+                mentalHealthItems.addAll(patient.getMentalHealthItems());
+                //mortalitys.addAll(mortalityService.get(dto));
+                //mentalHealthScreenings.addAll(patient.getMentalHealthScreenings());
 
                 header = patientDetails.createRow(XSSFRowNum++);
                 XSSFCell id = header.createCell(count);
@@ -195,6 +227,15 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 dateJoined.setCellStyle(XSSFCellStyle);
                 XSSFCell gender = header.createCell(++count);
                 gender.setCellValue(patient.getGender().getName());
+
+                XSSFCell cats = header.createCell(++count);
+                cats.setCellValue(patient.getCat()!=null?
+                        patient.getCat().getName(): "");
+
+                XSSFCell ymm = header.createCell(++count);
+                ymm.setCellValue(patient.getYoungMumGroup()!=null?
+                        patient.getYoungMumGroup().getName(): "");
+
                 String addressDetails = patient.getAddress() != null ? patient.getAddress() : " "
                         + " , " + patient.getAddress1() != null ? patient.getAddress1() : "";
                 XSSFCell address = header.createCell(++count);
@@ -210,6 +251,18 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 XSSFCell highestEducation = header.createCell(++count);
                 highestEducation.setCellValue(patient.getEducationLevel() != null
                         ? patient.getEducationLevel().getName() : null);
+
+                XSSFCell regimen = header.createCell(++count);
+                regimen.setCellValue(patient.getCurrentArvRegimen());
+
+                XSSFCell dateRegimen = header.createCell(++count);
+                if (patient.getDateStartedRegimen() != null) {
+                    dateRegimen.setCellValue(patient.getDateStartedRegimen());
+                    dateRegimen.setCellStyle(XSSFCellStyle);
+                } else {
+                    dateRegimen.setCellValue("");
+                }
+
                 XSSFCell refer = header.createCell(++count);
                 refer.setCellValue(patient.getReferer() != null
                         ? patient.getReferer().getName() : null);
@@ -285,43 +338,69 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 contactHeader = contactDetails.createRow(contactXSSFRowNum++);
                 XSSFCell id = contactHeader.createCell(count);
                 id.setCellValue(contact.getPatient().getPatientNumber());
+
                 XSSFCell patientName = contactHeader.createCell(++count);
                 patientName.setCellValue(contact.getPatient().getName());
+
                 XSSFCell dateOfBirth = contactHeader.createCell(++count);
                 dateOfBirth.setCellValue(contact.getPatient().getDateOfBirth());
                 dateOfBirth.setCellStyle(XSSFCellStyle);
+
                 XSSFCell age = contactHeader.createCell(++count);
                 age.setCellValue(contact.getPatient().getAge());
+
                 XSSFCell sex = contactHeader.createCell(++count);
                 sex.setCellValue(contact.getPatient().getGender().getName());
+
+                XSSFCell cats = contactHeader.createCell(++count);
+                cats.setCellValue(contact.getPatient().getCat()!=null?
+                        contact.getPatient().getCat().getName(): "");
+
+                XSSFCell ymm = contactHeader.createCell(++count);
+                ymm.setCellValue(contact.getPatient().getYoungMumGroup()!=null?
+                        contact.getPatient().getYoungMumGroup().getName(): "");
+
                 XSSFCell province = contactHeader.createCell(++count);
                 province.setCellValue(contact.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+
                 XSSFCell district = contactHeader.createCell(++count);
                 district.setCellValue(contact.getPatient().getPrimaryClinic().getDistrict().getName());
+
                 XSSFCell primaryClinic = contactHeader.createCell(++count);
                 primaryClinic.setCellValue(contact.getPatient().getPrimaryClinic().getName());
+
                 XSSFCell contactDate = contactHeader.createCell(++count);
                 contactDate.setCellValue(contact.getContactDate());
                 contactDate.setCellStyle(XSSFCellStyle);
+
                 XSSFCell careLevel = contactHeader.createCell(++count);
                 careLevel.setCellValue(contact.getCareLevel().getName());
+
                 XSSFCell location = contactHeader.createCell(++count);
                 location.setCellValue(contact.getLocation() != null ? contact.getLocation().getName() : null);
+
                 XSSFCell position = contactHeader.createCell(++count);
                 position.setCellValue(
                         contact.getPosition() != null ? contact.getPosition().getName() : null);
+
                 XSSFCell reason = contactHeader.createCell(++count);
                 reason.setCellValue(contact.getReason() != null ? contact.getReason().getName() : null);
+
                 XSSFCell followUp = contactHeader.createCell(++count);
                 followUp.setCellValue(contact.getFollowUp() != null ? contact.getFollowUp().getName() : null);
+
                 XSSFCell subjective = contactHeader.createCell(++count);
                 subjective.setCellValue(contact.getSubjective());
+
                 XSSFCell objective = contactHeader.createCell(++count);
                 objective.setCellValue(contact.getObjective());
+
                 XSSFCell plan = contactHeader.createCell(++count);
                 plan.setCellValue(contact.getPlan());
+
                 XSSFCell actionTaken = contactHeader.createCell(++count);
                 actionTaken.setCellValue(contact.getActionTaken() != null ? contact.getActionTaken().getName() : null);
+
                 XSSFCell lastClinicAppointmentDate = contactHeader.createCell(++count);
                 if (contact.getLastClinicAppointmentDate() != null) {
                     lastClinicAppointmentDate.setCellValue(contact.getLastClinicAppointmentDate());
@@ -413,24 +492,33 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 referralXSSFRow = referralDetails.createRow(referralXSSFRowNum++);
                 XSSFCell id = referralXSSFRow.createCell(count);
                 id.setCellValue(referral.getPatient().getPatientNumber());
+
                 XSSFCell patientName = referralXSSFRow.createCell(++count);
                 patientName.setCellValue(referral.getPatient().getName());
+
                 XSSFCell dateOfBirth = referralXSSFRow.createCell(++count);
                 dateOfBirth.setCellValue(referral.getPatient().getDateOfBirth());
                 dateOfBirth.setCellStyle(XSSFCellStyle);
+
                 XSSFCell age = referralXSSFRow.createCell(++count);
                 age.setCellValue(referral.getPatient().getAge());
+
                 XSSFCell sex = referralXSSFRow.createCell(++count);
                 sex.setCellValue(referral.getPatient().getGender().getName());
+
                 XSSFCell province = referralXSSFRow.createCell(++count);
                 province.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+
                 XSSFCell district = referralXSSFRow.createCell(++count);
                 district.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getName());
+
                 XSSFCell primaryClinic = referralXSSFRow.createCell(++count);
                 primaryClinic.setCellValue(referral.getPatient().getPrimaryClinic().getName());
+
                 XSSFCell referralDate = referralXSSFRow.createCell(++count);
                 referralDate.setCellValue(referral.getReferralDate());
                 referralDate.setCellStyle(XSSFCellStyle);
+
                 XSSFCell expectedVisitDate = referralXSSFRow.createCell(++count);
                 if (referral.getExpectedVisitDate() != null) {
                     expectedVisitDate.setCellValue(referral.getExpectedVisitDate());
@@ -438,12 +526,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 } else {
                     expectedVisitDate.setCellValue("");
                 }
+
                 XSSFCell organisation = referralXSSFRow.createCell(++count);
                 organisation.setCellValue(referral.getOrganisation());
+
                 XSSFCell designation = referralXSSFRow.createCell(++count);
                 designation.setCellValue(referral.getDesignation());
+
                 XSSFCell attendingOfficer = referralXSSFRow.createCell(++count);
                 attendingOfficer.setCellValue(referral.getAttendingOfficer());
+
                 XSSFCell dateAttended = referralXSSFRow.createCell(++count);
                 if (referral.getDateAttended() != null) {
                     dateAttended.setCellValue(referral.getDateAttended());
@@ -451,20 +543,25 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 } else {
                     dateAttended.setCellValue("");
                 }
+
                 XSSFCell actionTaken = referralXSSFRow.createCell(++count);
                 actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
+
                 XSSFCell hivReq = referralXSSFRow.createCell(++count);
-                hivReq.setCellValue(!referral.getHivStiServicesReq().isEmpty()
-                        ? referral.getHivStiServicesReq().toString() : null);
+                hivReq.setCellValue(!referral.getHivStiServicesReq().isEmpty()? referral.getHivStiServicesReq().toString() : null);
+
                 XSSFCell hivRec = referralXSSFRow.createCell(++count);
                 hivRec.setCellValue(!referral.getHivStiServicesAvailed().isEmpty()
                         ? referral.getHivStiServicesAvailed().toString() : null);
+
                 XSSFCell oiReq = referralXSSFRow.createCell(++count);
                 oiReq.setCellValue(!referral.getOiArtReq().isEmpty()
                         ? referral.getOiArtReq().toString() : null);
+
                 XSSFCell oiRec = referralXSSFRow.createCell(++count);
                 oiRec.setCellValue(!referral.getOiArtAvailed().isEmpty()
                         ? referral.getOiArtAvailed().toString() : null);
+
                 XSSFCell srhReq = referralXSSFRow.createCell(++count);
                 srhReq.setCellValue(!referral.getSrhReq().isEmpty()
                         ? referral.getSrhReq().toString() : null);
@@ -1422,92 +1519,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 XSSFCell hivStatus = dependantXSSFRow.createCell(++count);
                 hivStatus.setCellValue(dependent.getHivStatus() != null ? dependent.getHivStatus().getName() : "");
             }
-            // add patient opportunistic infections
-            XSSFSheet opportunisticInfectionDetails = workbook.createSheet("Patient_Opportunistic_Infections");
-            int opportunisticInfectionXSSFRowNum = 0;
-            XSSFRow opportunisticInfectionXSSFRow = opportunisticInfectionDetails.createRow(opportunisticInfectionXSSFRowNum++);
-            int opportunisticInfectionXSSFCellNum = 0;
-            for (String title : DatabaseHeader.OPPORTUNISTIC_INFECTION_HEADER) {
-                XSSFCell XSSFCell = opportunisticInfectionXSSFRow.createCell(opportunisticInfectionXSSFCellNum++);
-                XSSFCell.setCellValue(title);
-            }
-            for (ChronicInfectionItem chronicInfectionItem : chronicInfectionItems) {
-                int count = 0;
-                opportunisticInfectionXSSFRow = opportunisticInfectionDetails.createRow(opportunisticInfectionXSSFRowNum++);
-                XSSFCell id = opportunisticInfectionXSSFRow.createCell(count);
-                id.setCellValue(chronicInfectionItem.getPatient().getPatientNumber());
-                XSSFCell patientName = opportunisticInfectionXSSFRow.createCell(++count);
-                XSSFCell dateOfBirth = opportunisticInfectionXSSFRow.createCell(++count);
-                dateOfBirth.setCellValue(chronicInfectionItem.getPatient().getDateOfBirth());
-                dateOfBirth.setCellStyle(XSSFCellStyle);
-                XSSFCell age = opportunisticInfectionXSSFRow.createCell(++count);
-                age.setCellValue(chronicInfectionItem.getPatient().getAge());
-                XSSFCell sex = opportunisticInfectionXSSFRow.createCell(++count);
-                sex.setCellValue(chronicInfectionItem.getPatient().getGender().getName());
-                XSSFCell province = opportunisticInfectionXSSFRow.createCell(++count);
-                province.setCellValue(chronicInfectionItem.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
-                XSSFCell district = opportunisticInfectionXSSFRow.createCell(++count);
-                district.setCellValue(chronicInfectionItem.getPatient().getPrimaryClinic().getDistrict().getName());
-                XSSFCell primaryClinic = opportunisticInfectionXSSFRow.createCell(++count);
-                primaryClinic.setCellValue(chronicInfectionItem.getPatient().getPrimaryClinic().getName());
-                patientName.setCellValue(chronicInfectionItem.getPatient().getName());
-                XSSFCell infection = opportunisticInfectionXSSFRow.createCell(++count);
-                infection.setCellValue(chronicInfectionItem.getChronicInfection().getName());
-                XSSFCell dateDiagnosed = opportunisticInfectionXSSFRow.createCell(++count);
-                if (chronicInfectionItem.getInfectionDate() != null) {
-                    dateDiagnosed.setCellValue(chronicInfectionItem.getInfectionDate());
-                    dateDiagnosed.setCellStyle(XSSFCellStyle);
-                } else {
-                    dateDiagnosed.setCellValue("");
-                }
-                XSSFCell medication = opportunisticInfectionXSSFRow.createCell(++count);
-                medication.setCellValue(chronicInfectionItem.getMedication());
-                XSSFCell currentStatus = opportunisticInfectionXSSFRow.createCell(++count);
-                currentStatus.setCellValue(chronicInfectionItem.getCurrentStatus() != null ? chronicInfectionItem.getCurrentStatus().getName() : "");
-            }
-            // add patient hiv-coinfections
-            XSSFSheet hivCoInfectionDetails = workbook.createSheet("Patient_HIV_CO_Infections");
-            int hivCoInfectionXSSFRowNum = 0;
-            XSSFRow hivCoInfectionXSSFRow = hivCoInfectionDetails.createRow(hivCoInfectionXSSFRowNum++);
-            int hivCoInfectionXSSFCellNum = 0;
-            for (String title : DatabaseHeader.HIV_CO_INFECTION_HEADER) {
-                XSSFCell XSSFCell = hivCoInfectionXSSFRow.createCell(hivCoInfectionXSSFCellNum++);
-                XSSFCell.setCellValue(title);
-            }
-            for (HivConInfectionItem hivConInfectionItem : hivConInfectionItems) {
-                int count = 0;
-                hivCoInfectionXSSFRow = hivCoInfectionDetails.createRow(hivCoInfectionXSSFRowNum++);
-                XSSFCell id = hivCoInfectionXSSFRow.createCell(count);
-                id.setCellValue(hivConInfectionItem.getPatient().getPatientNumber());
-                XSSFCell patientName = hivCoInfectionXSSFRow.createCell(++count);
-                patientName.setCellValue(hivConInfectionItem.getPatient().getName());
-                XSSFCell dateOfBirth = hivCoInfectionXSSFRow.createCell(++count);
-                dateOfBirth.setCellValue(hivConInfectionItem.getPatient().getDateOfBirth());
-                dateOfBirth.setCellStyle(XSSFCellStyle);
-                XSSFCell age = hivCoInfectionXSSFRow.createCell(++count);
-                age.setCellValue(hivConInfectionItem.getPatient().getAge());
-                XSSFCell sex = hivCoInfectionXSSFRow.createCell(++count);
-                sex.setCellValue(hivConInfectionItem.getPatient().getGender().getName());
-                XSSFCell province = hivCoInfectionXSSFRow.createCell(++count);
-                province.setCellValue(hivConInfectionItem.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
-                XSSFCell district = hivCoInfectionXSSFRow.createCell(++count);
-                district.setCellValue(hivConInfectionItem.getPatient().getPrimaryClinic().getDistrict().getName());
-                XSSFCell primaryClinic = hivCoInfectionXSSFRow.createCell(++count);
-                primaryClinic.setCellValue(hivConInfectionItem.getPatient().getPrimaryClinic().getName());
-                XSSFCell infection = hivCoInfectionXSSFRow.createCell(++count);
-                infection.setCellValue(hivConInfectionItem.getHivCoInfection().getName());
-                XSSFCell dateDiagnosed = hivCoInfectionXSSFRow.createCell(++count);
-                if (hivConInfectionItem.getInfectionDate() != null) {
-                    dateDiagnosed.setCellValue(hivConInfectionItem.getInfectionDate());
-                    dateDiagnosed.setCellStyle(XSSFCellStyle);
-                } else {
-                    dateDiagnosed.setCellValue("");
-                }
-                XSSFCell medication = hivCoInfectionXSSFRow.createCell(++count);
-                medication.setCellValue(hivConInfectionItem.getMedication());
-                XSSFCell resolution = hivCoInfectionXSSFRow.createCell(++count);
-                resolution.setCellValue(hivConInfectionItem.getResolution());
-            }
+
             // add patient mental health
             XSSFSheet mentalHealthDetails = workbook.createSheet("Patient_Mental_Health");
             int mentalHealthXSSFRowNum = 0;
@@ -1530,6 +1542,15 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 age.setCellValue(mentalHealthItem.getPatient().getAge());
                 XSSFCell sex = mentalHealthXSSFRow.createCell(++count);
                 sex.setCellValue(mentalHealthItem.getPatient().getGender().getName());
+
+                XSSFCell cats = mentalHealthXSSFRow.createCell(++count);
+                cats.setCellValue(mentalHealthItem.getPatient().getCat()!=null?
+                        mentalHealthItem.getPatient().getCat().getName(): "");
+
+                XSSFCell ymm = mentalHealthXSSFRow.createCell(++count);
+                ymm.setCellValue(mentalHealthItem.getPatient().getYoungMumGroup()!=null?
+                        mentalHealthItem.getPatient().getYoungMumGroup().getName(): "");
+
                 patientName.setCellValue(mentalHealthItem.getPatient().getName());
                 XSSFCell province = mentalHealthXSSFRow.createCell(++count);
                 province.setCellValue(mentalHealthItem.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
@@ -1763,6 +1784,15 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 age.setCellValue(cd4Count.getPatient().getAge());
                 XSSFCell sex = cd4XSSFRow.createCell(++count);
                 sex.setCellValue(cd4Count.getPatient().getGender().getName());
+
+                XSSFCell cats = cd4XSSFRow.createCell(++count);
+                cats.setCellValue(cd4Count.getPatient().getCat()!=null?
+                        cd4Count.getPatient().getCat().getName(): "");
+
+                XSSFCell ymm = cd4XSSFRow.createCell(++count);
+                ymm.setCellValue(cd4Count.getPatient().getYoungMumGroup()!=null?
+                        cd4Count.getPatient().getYoungMumGroup().getName(): "");
+
                 XSSFCell province = cd4XSSFRow.createCell(++count);
                 province.setCellValue(cd4Count.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
                 XSSFCell district = cd4XSSFRow.createCell(++count);
@@ -1853,6 +1883,15 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 age.setCellValue(arvHist.getPatient().getAge());
                 XSSFCell sex = arvHistXSSFRow.createCell(++count);
                 sex.setCellValue(arvHist.getPatient().getGender().getName());
+
+                XSSFCell cats = arvHistXSSFRow.createCell(++count);
+                cats.setCellValue(arvHist.getPatient().getCat()!=null?
+                        arvHist.getPatient().getCat().getName(): "");
+
+                XSSFCell ymm = arvHistXSSFRow.createCell(++count);
+                ymm.setCellValue(arvHist.getPatient().getYoungMumGroup()!=null?
+                        arvHist.getPatient().getYoungMumGroup().getName(): "");
+
                 XSSFCell province = arvHistXSSFRow.createCell(++count);
                 province.setCellValue(arvHist.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
                 XSSFCell district = arvHistXSSFRow.createCell(++count);
@@ -1901,6 +1940,16 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 age.setCellValue(mortality.getPatient().getAge());
                 XSSFCell sex = mortalityXSSFRow.createCell(++count);
                 sex.setCellValue(mortality.getPatient().getGender().getName());
+
+                XSSFCell cats = mortalityXSSFRow.createCell(++count);
+                cats.setCellValue(mortality.getPatient().getCat()!=null?
+                        mortality.getPatient().getCat().getName(): "");
+
+                XSSFCell ymm = mortalityXSSFRow.createCell(++count);
+                ymm.setCellValue(mortality.getPatient().getYoungMumGroup()!=null?
+                        mortality.getPatient().getYoungMumGroup().getName(): "");
+
+
                 XSSFCell province = mortalityXSSFRow.createCell(++count);
                 province.setCellValue(mortality.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
                 XSSFCell district = mortalityXSSFRow.createCell(++count);
@@ -1939,8 +1988,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 beneficiary.setCellValue(mortality.getBeneficiary());
                 XSSFCell facility = mortalityXSSFRow.createCell(++count);
                 facility.setCellValue(mortality.getFacility());
-                XSSFCell cats = mortalityXSSFRow.createCell(++count);
-                cats.setCellValue(mortality.getCats());
                 XSSFCell zm = mortalityXSSFRow.createCell(++count);
                 zm.setCellValue(mortality.getZm());
                 XSSFCell other = mortalityXSSFRow.createCell(++count);
@@ -1978,19 +2025,34 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 tbIptXSSFRow = tbIptDetails.createRow(tbIptXSSFRowNum++);
                 XSSFCell id = tbIptXSSFRow.createCell(count);
                 id.setCellValue(tbIpt.getPatient().getPatientNumber());
+
                 XSSFCell patientName = tbIptXSSFRow.createCell(++count);
                 patientName.setCellValue(tbIpt.getPatient().getName());
+
                 XSSFCell dateOfBirth = tbIptXSSFRow.createCell(++count);
                 dateOfBirth.setCellValue(tbIpt.getPatient().getDateOfBirth());
                 dateOfBirth.setCellStyle(XSSFCellStyle);
+
                 XSSFCell age = tbIptXSSFRow.createCell(++count);
                 age.setCellValue(tbIpt.getPatient().getAge());
+
                 XSSFCell sex = tbIptXSSFRow.createCell(++count);
                 sex.setCellValue(tbIpt.getPatient().getGender().getName());
+
+                XSSFCell cats = tbIptXSSFRow.createCell(++count);
+                cats.setCellValue(tbIpt.getPatient().getCat()!=null?
+                        tbIpt.getPatient().getCat().getName(): "");
+
+                XSSFCell ymm = tbIptXSSFRow.createCell(++count);
+                ymm.setCellValue(tbIpt.getPatient().getYoungMumGroup()!=null?
+                        tbIpt.getPatient().getYoungMumGroup().getName(): "");
+
                 XSSFCell province = tbIptXSSFRow.createCell(++count);
                 province.setCellValue(tbIpt.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+
                 XSSFCell district = tbIptXSSFRow.createCell(++count);
                 district.setCellValue(tbIpt.getPatient().getPrimaryClinic().getDistrict().getName());
+
                 XSSFCell primaryClinic = tbIptXSSFRow.createCell(++count);
                 primaryClinic.setCellValue(tbIpt.getPatient().getPrimaryClinic().getName());
 
@@ -2003,11 +2065,14 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 } else {
                     dateScreened.setCellValue("");
                 }
-                XSSFCell tbSymptoms = tbIptXSSFRow.createCell(++count);
-                tbSymptoms.setCellValue((tbIpt.getTbSymptoms() != null && tbIpt.getTbSymptoms().isEmpty())
-                        ? tbIpt.getTbSymptoms().toString() : "");
+
                 XSSFCell identifiedWithTb = tbIptXSSFRow.createCell(++count);
                 identifiedWithTb.setCellValue(tbIpt.getIdentifiedWithTb() != null ? tbIpt.getIdentifiedWithTb().getName() : "");
+
+//                XSSFCell tbSymptoms = tbIptXSSFRow.createCell(++count);
+//                tbSymptoms.setCellValue((tbIpt.getTbSymptoms() != null && tbIpt.getTbSymptoms().isEmpty())
+//                        ? tbIpt.getTbSymptoms().toString() : "");
+
                 XSSFCell tbIdentificationOutcome = tbIptXSSFRow.createCell(++count);
                 tbIdentificationOutcome.setCellValue(tbIpt.getTbIdentificationOutcome() != null ? tbIpt.getTbIdentificationOutcome().getName() : "");
                 XSSFCell dateStartedTreatment = tbIptXSSFRow.createCell(++count);
@@ -2017,12 +2082,15 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 } else {
                     dateStartedTreatment.setCellValue("");
                 }
+
                 XSSFCell referralForSputum = tbIptXSSFRow.createCell(++count);
                 referralForSputum.setCellValue(tbIpt.getReferralForSputum());
                 XSSFCell tbTreatmentOutcome = tbIptXSSFRow.createCell(++count);
                 tbTreatmentOutcome.setCellValue(tbIpt.getTbTreatmentOutcome() != null ? tbIpt.getTbTreatmentOutcome().getName() : "");
+
                 XSSFCell referredForIpt = tbIptXSSFRow.createCell(++count);
                 referredForIpt.setCellValue(tbIpt.getReferredForIpt() != null ? tbIpt.getReferredForIpt().getName() : "");
+
                 XSSFCell onIpt = tbIptXSSFRow.createCell(++count);
                 onIpt.setCellValue(tbIpt.getOnIpt() != null ? tbIpt.getOnIpt().getName() : "");
                 XSSFCell dateStartedIpt = tbIptXSSFRow.createCell(++count);
@@ -2049,25 +2117,41 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 mentalHealthScreeningXSSFRow = mentalHealthScreeningDetails.createRow(mentalHealthScreeningXSSFRowNum++);
                 XSSFCell id = mentalHealthScreeningXSSFRow.createCell(count);
                 id.setCellValue(mentalHealthScreening.getPatient().getPatientNumber());
+
                 XSSFCell patientName = mentalHealthScreeningXSSFRow.createCell(++count);
                 patientName.setCellValue(mentalHealthScreening.getPatient().getName());
+
                 XSSFCell dateOfBirth = mentalHealthScreeningXSSFRow.createCell(++count);
                 dateOfBirth.setCellValue(mentalHealthScreening.getPatient().getDateOfBirth());
                 dateOfBirth.setCellStyle(XSSFCellStyle);
+
                 XSSFCell age = mentalHealthScreeningXSSFRow.createCell(++count);
                 age.setCellValue(mentalHealthScreening.getPatient().getAge());
+
                 XSSFCell sex = mentalHealthScreeningXSSFRow.createCell(++count);
                 sex.setCellValue(mentalHealthScreening.getPatient().getGender().getName());
+
+                XSSFCell cats = mentalHealthScreeningXSSFRow.createCell(++count);
+                cats.setCellValue(mentalHealthScreening.getPatient().getCat()!=null?
+                        mentalHealthScreening.getPatient().getCat().getName(): "");
+
+                XSSFCell ymm = mentalHealthScreeningXSSFRow.createCell(++count);
+                ymm.setCellValue(mentalHealthScreening.getPatient().getYoungMumGroup()!=null?
+                        mentalHealthScreening.getPatient().getYoungMumGroup().getName(): "");
+
                 XSSFCell province = mentalHealthScreeningXSSFRow.createCell(++count);
                 province.setCellValue(mentalHealthScreening.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+
                 XSSFCell district = mentalHealthScreeningXSSFRow.createCell(++count);
                 district.setCellValue(mentalHealthScreening.getPatient().getPrimaryClinic().getDistrict().getName());
+
                 XSSFCell primaryClinic = mentalHealthScreeningXSSFRow.createCell(++count);
                 primaryClinic.setCellValue(mentalHealthScreening.getPatient().getPrimaryClinic().getName());
 
                 XSSFCell screenedForMentalHealth = mentalHealthScreeningXSSFRow.createCell(++count);
                 screenedForMentalHealth.setCellValue(mentalHealthScreening.getScreenedForMentalHealth() != null
                         ? mentalHealthScreening.getScreenedForMentalHealth().getName() : "");
+
                 XSSFCell dateScreened = mentalHealthScreeningXSSFRow.createCell(++count);
                 if (mentalHealthScreening.getDateScreened() != null) {
                     dateScreened.setCellValue(mentalHealthScreening.getDateScreened());
@@ -2075,39 +2159,52 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 } else {
                     dateScreened.setCellValue("");
                 }
+
                 XSSFCell screening = mentalHealthScreeningXSSFRow.createCell(++count);
                 screening.setCellValue(mentalHealthScreening.getScreening() != null ? mentalHealthScreening.getScreening().getName() : "");
+
                 XSSFCell risk = mentalHealthScreeningXSSFRow.createCell(++count);
                 risk.setCellValue(mentalHealthScreening.getRisk() != null ? mentalHealthScreening.getRisk().getName() : "");
+
                 XSSFCell identifiedRisks = mentalHealthScreeningXSSFRow.createCell(++count);
                 identifiedRisks.setCellValue((mentalHealthScreening.getIdentifiedRisks() != null && !mentalHealthScreening.getIdentifiedRisks().isEmpty())
                         ? mentalHealthScreening.getIdentifiedRisks().toString() : "");
+
                 XSSFCell support = mentalHealthScreeningXSSFRow.createCell(++count);
                 support.setCellValue(mentalHealthScreening.getSupport() != null
                         ? mentalHealthScreening.getSupport().getName() : "");
+
                 XSSFCell supports = mentalHealthScreeningXSSFRow.createCell(++count);
                 supports.setCellValue((mentalHealthScreening.getSupports() != null && !mentalHealthScreening.getSupports().isEmpty())
                         ? mentalHealthScreening.getSupports().toString() : "");
+
                 XSSFCell referral = mentalHealthScreeningXSSFRow.createCell(++count);
                 referral.setCellValue(mentalHealthScreening.getReferral() != null
                         ? mentalHealthScreening.getReferral().getName() : "");
+
                 XSSFCell referrals1 = mentalHealthScreeningXSSFRow.createCell(++count);
                 referrals1.setCellValue((mentalHealthScreening.getReferrals() != null && !mentalHealthScreening.getReferrals().isEmpty())
                         ? mentalHealthScreening.getReferrals().toString() : "");
+
                 XSSFCell diagnosis = mentalHealthScreeningXSSFRow.createCell(++count);
                 diagnosis.setCellValue(mentalHealthScreening.getDiagnosis() != null
                         ? mentalHealthScreening.getDiagnosis().getName() : "");
+
                 XSSFCell diagnoses = mentalHealthScreeningXSSFRow.createCell(++count);
                 diagnoses.setCellValue((mentalHealthScreening.getDiagnoses() != null && !mentalHealthScreening.getDiagnoses().isEmpty())
                         ? mentalHealthScreening.getDiagnoses().toString() : "");
+
                 XSSFCell otherDiagnosis = mentalHealthScreeningXSSFRow.createCell(++count);
                 otherDiagnosis.setCellValue(mentalHealthScreening.getOtherDiagnosis());
+
                 XSSFCell intervention = mentalHealthScreeningXSSFRow.createCell(++count);
                 intervention.setCellValue(mentalHealthScreening.getIntervention() != null
                         ? mentalHealthScreening.getIntervention().getName() : "");
+
                 XSSFCell interventions = mentalHealthScreeningXSSFRow.createCell(++count);
                 interventions.setCellValue((mentalHealthScreening.getInterventions() != null && !mentalHealthScreening.getInterventions().isEmpty())
                         ? mentalHealthScreening.getInterventions().toString() : "");
+
                 XSSFCell otherIntervention = mentalHealthScreeningXSSFRow.createCell(++count);
                 otherIntervention.setCellValue(mentalHealthScreening.getOtherIntervention());
             }

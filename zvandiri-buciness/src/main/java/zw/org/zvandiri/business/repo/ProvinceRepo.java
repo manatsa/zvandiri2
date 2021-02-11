@@ -27,7 +27,7 @@ import zw.org.zvandiri.business.domain.Province;
  */
 public interface ProvinceRepo extends AbstractNameDescRepo<Province, String> {
     
-    @Query("from Province p left join fetch p.createdBy left join fetch p.modifiedBy where p.active=:active Order By p.name ASC")
+    @Query("from Province p left join fetch p.createdBy left join fetch p.modifiedBy where p.active=:active")
     public List<Province> getOptAll(@Param("active") Boolean active);
     
     @Query("from Province p where p.name=:name")

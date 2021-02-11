@@ -33,10 +33,7 @@ import zw.org.zvandiri.business.domain.InvestigationTest;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.TbIpt;
 import zw.org.zvandiri.business.domain.util.TestType;
-import zw.org.zvandiri.business.service.DistrictService;
-import zw.org.zvandiri.business.service.FacilityService;
-import zw.org.zvandiri.business.service.PatientReportService;
-import zw.org.zvandiri.business.service.ProvinceService;
+import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
@@ -60,7 +57,9 @@ public class LaboratoryTestResultsController extends BaseController {
     @Resource
     private FacilityService facilityService;
     @Resource
-    private PatientReportService patientReportService;
+    InvestigationTestService investigationTestService;
+
+    List<InvestigationTest> investigationTests=new ArrayList<>();
 
     List<Patient> tests=new ArrayList<>();
 
@@ -70,7 +69,7 @@ public class LaboratoryTestResultsController extends BaseController {
         model.addAttribute("provinces", provinceService.getAll());
         if (item.getProvince() != null) {
             model.addAttribute("districts", districtService.getDistrictByProvince(item.getProvince()));
-            if (item.getDistrict() != null) {
+            if (item.getDistrict()!=null) {
                 model.addAttribute("facilities", facilityService.getOptByDistrict(item.getDistrict()));
             }
         }
@@ -81,9 +80,9 @@ public class LaboratoryTestResultsController extends BaseController {
             item.setMinCd4Count(2000000);
             item.setTestType(TestType.CD4_COUNT);
         }
-        model.addAttribute("excelExport", "/report/test-results/export/excel" + item.getQueryString(item.getInstance(item)));
+        model.addAttribute("excelExport", "/report/test-results/export/excel");
         if (post) {
-            model.addAttribute("items", tests);
+            model.addAttribute("items", investigationTests);
         }
         model.addAttribute("item", item.getInstance(item));
         return "report/laboratoryDetailedReport";
@@ -99,7 +98,8 @@ public class LaboratoryTestResultsController extends BaseController {
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_ZM') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
     public String getReferralReportIndex(ModelMap model, @RequestParam String type, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
         item = getUserLevelObjectState(item);
-        tests=patientReportService.getPatientLabResultsList(item.getInstance(item));
+         investigationTests= investigationTestService.get(item.getInstance(item));
+         System.err.println("List Size : "+investigationTests.size());
         return setUpModel(model, item, type, true);
     }
 
@@ -115,9 +115,9 @@ public class LaboratoryTestResultsController extends BaseController {
     public XSSFWorkbook createVLCD4Workbook(SearchDTO dto) {
 
         XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFCellStyle cellStyle = workbook.createCellStyle();
+        XSSFCellStyle XSSFCellStyle = workbook.createCellStyle();
         XSSFCreationHelper createHelper = workbook.getCreationHelper();
-        cellStyle.setDataFormat(
+        XSSFCellStyle.setDataFormat(
                 createHelper.createDataFormat().getFormat("dd/MM/yyyy"));
 
 
@@ -125,63 +125,99 @@ public class LaboratoryTestResultsController extends BaseController {
         // tb Ipt here
         XSSFSheet tbIptDetails = workbook.createSheet("VL_CD4_Count");
         int testRowNum = 0;
-        XSSFRow testRow = tbIptDetails.createRow(testRowNum++);
+        XSSFRow cd4XSSFRow = tbIptDetails.createRow(testRowNum++);
         int tbIptCellNum = 0;
-        String[] headers={"UAC","Name","Date of Birth","Age","Viral Load","CD4 Count","Gender","IsCATS","IsYMM","Province","District","Facility","Mobile Number","Referrer"};
+        String[] headers={"UIC", "Client Name","Date of Birth", "Age", "Gender", "IsCATS","IsYMM","Region", "District","Primary Clinic", "Test Type", "Date Taken",
+                "Result", "Source", "Next Lab Due","VLSuppressionStatus","Result Taken","TND","Record Source"};
         for (String title : headers) {
-            XSSFCell cell = testRow.createCell(tbIptCellNum++);
+            XSSFCell cell = cd4XSSFRow.createCell(tbIptCellNum++);
             cell.setCellValue(title);
         }
 
-        for (Patient test : tests) {
+        for (InvestigationTest cd4Count : investigationTests) {
             int count = 0;
-            testRow = tbIptDetails.createRow(testRowNum++);
-            XSSFCell id = testRow.createCell(count);
-            id.setCellValue(test.getPatientNumber());
+            cd4XSSFRow = tbIptDetails.createRow(testRowNum++);
+            XSSFCell id = cd4XSSFRow.createCell(count);
+            id.setCellValue(cd4Count.getPatient().getPatientNumber());
+            XSSFCell patientName = cd4XSSFRow.createCell(++count);
+            patientName.setCellValue(cd4Count.getPatient().getName());
+            XSSFCell dateOfBirth = cd4XSSFRow.createCell(++count);
+            dateOfBirth.setCellValue(cd4Count.getPatient().getDateOfBirth());
+            dateOfBirth.setCellStyle(XSSFCellStyle);
+            XSSFCell age = cd4XSSFRow.createCell(++count);
+            age.setCellValue(cd4Count.getPatient().getAge());
+            XSSFCell sex = cd4XSSFRow.createCell(++count);
+            sex.setCellValue(cd4Count.getPatient().getGender().getName());
 
-            XSSFCell patientName = testRow.createCell(++count);
-            patientName.setCellValue(test.getName());
+            XSSFCell cats = cd4XSSFRow.createCell(++count);
+            cats.setCellValue(cd4Count.getPatient().getCat() != null ?
+                    cd4Count.getPatient().getCat().getName() : "");
 
-            XSSFCell dateOfBirth = testRow.createCell(++count);
-            dateOfBirth.setCellValue(test.getDateOfBirth());
-            dateOfBirth.setCellStyle(cellStyle);
+            XSSFCell ymm = cd4XSSFRow.createCell(++count);
+            ymm.setCellValue(cd4Count.getPatient().getYoungMumGroup() != null ?
+                    cd4Count.getPatient().getYoungMumGroup().getName() : "");
 
-            XSSFCell age = testRow.createCell(++count);
-            age.setCellValue(test.getAge());
+            XSSFCell province = cd4XSSFRow.createCell(++count);
+            province.setCellValue(cd4Count.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+            XSSFCell district = cd4XSSFRow.createCell(++count);
+            district.setCellValue(cd4Count.getPatient().getPrimaryClinic().getDistrict().getName());
+            XSSFCell primaryClinic = cd4XSSFRow.createCell(++count);
+            primaryClinic.setCellValue(cd4Count.getPatient().getPrimaryClinic().getName());
+            XSSFCell testType = cd4XSSFRow.createCell(++count);
+            testType.setCellValue(cd4Count.getTestType().getName());
+            XSSFCell dateTaken = cd4XSSFRow.createCell(++count);
+            if (cd4Count.getDateTaken() != null) {
+                dateTaken.setCellValue(cd4Count.getDateTaken());
+                dateTaken.setCellStyle(XSSFCellStyle);
+            } else {
+                dateTaken.setCellValue("");
+            }
+            XSSFCell cd4Load = cd4XSSFRow.createCell(++count);
+            cd4Load.setCellValue(cd4Count.getResult() != null ? cd4Count.getResult() : 0);
+            XSSFCell source = cd4XSSFRow.createCell(++count);
+            source.setCellValue(cd4Count.getSource() != null ? cd4Count.getSource().getName() : "");
+            XSSFCell nextLabDate = cd4XSSFRow.createCell(++count);
+            if (cd4Count.getNextTestDate() != null) {
+                nextLabDate.setCellValue(cd4Count.getNextTestDate());
+                nextLabDate.setCellStyle(XSSFCellStyle);
+            } else {
+                nextLabDate.setCellValue("");
+            }
+            XSSFCell suppressionStatus = cd4XSSFRow.createCell(++count);
+            if (cd4Count.getViralLoadSuppressionStatus() != null) {
+                suppressionStatus.setCellValue(cd4Count.getViralLoadSuppressionStatus());
+                suppressionStatus.setCellStyle(XSSFCellStyle);
+            } else {
+                suppressionStatus.setCellValue("");
+            }
 
-            XSSFCell vl = testRow.createCell(++count);
-            vl.setCellValue(test.getViralLoad());
+            XSSFCell resultsTaken = cd4XSSFRow.createCell(++count);
+            if (cd4Count.getResultTaken() != null) {
+                resultsTaken.setCellValue(cd4Count.getResultTaken().getName());
+                resultsTaken.setCellStyle(XSSFCellStyle);
+            } else {
+                resultsTaken.setCellValue("");
+            }
 
-            XSSFCell cd4 = testRow.createCell(++count);
-            cd4.setCellValue(test.getCd4Count());
+            XSSFCell tnd = cd4XSSFRow.createCell(++count);
+            if (cd4Count.getTnd() != null) {
+                tnd.setCellValue(cd4Count.getTnd());
+                tnd.setCellStyle(XSSFCellStyle);
+            } else {
+                tnd.setCellValue("");
+            }
 
-            XSSFCell sex = testRow.createCell(++count);
-            sex.setCellValue(test.getGender().getName());
-
-            Cell cat = testRow.createCell(++count);
-            cat.setCellValue(test.getCat()!=null?test.getCat().getName():"");
-
-            Cell ymm = testRow.createCell(++count);
-            ymm.setCellValue(test.getYoungMumGroup()!=null?test.getYoungMumGroup().getName():"");
-
-            XSSFCell province = testRow.createCell(++count);
-            province.setCellValue(test.getPrimaryClinic().getDistrict().getProvince().getName());
-
-            XSSFCell district = testRow.createCell(++count);
-            district.setCellValue(test.getPrimaryClinic().getDistrict().getName());
-            
-            XSSFCell primaryClinic = testRow.createCell(++count);
-            primaryClinic.setCellValue(test.getPrimaryClinic().getName());
-
-            XSSFCell phone = testRow.createCell(++count);
-            phone.setCellValue(test.getMobileNumber());
-
-            XSSFCell referrer = testRow.createCell(++count);
-            referrer.setCellValue(test.getReferer().getName());
+            XSSFCell recordSource = cd4XSSFRow.createCell(++count);
+            if (cd4Count.getRecordSource() != null) {
+                recordSource.setCellValue(cd4Count.getRecordSource().getName());
+                recordSource.setCellStyle(XSSFCellStyle);
+            } else {
+                recordSource.setCellValue("");
+            }
 
         }
 
-        return workbook;
+            return workbook;
     }
 
 

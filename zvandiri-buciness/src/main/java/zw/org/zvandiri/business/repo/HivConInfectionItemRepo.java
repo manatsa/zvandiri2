@@ -28,9 +28,9 @@ import zw.org.zvandiri.business.domain.Patient;
  */
 public interface HivConInfectionItemRepo extends AbstractRepo<HivConInfectionItem, String> {
     
-    @Query("from HivConInfectionItem h left join fetch h.patient left join fetch h.hivCoInfection left join fetch h.modifiedBy left join fetch h.createdBy where h.patient=:patient order by h.hivCoInfection.name ASC")
+    @Query("from HivConInfectionItem h left join fetch h.patient left join fetch h.hivCoInfection left join fetch h.modifiedBy left join fetch h.createdBy where h.patient=:patient")
     public List<HivConInfectionItem> findByPatient(@Param("patient") Patient patient);
     
-    @Query("from HivConInfectionItem h left join fetch h.patient left join fetch h.hivCoInfection left join fetch h.modifiedBy left join fetch h.createdBy where h.patient=:patient and h.hivCoInfection=:hivCoInfection order by h.hivCoInfection.name ASC")
+    @Query("from HivConInfectionItem h left join fetch h.patient left join fetch h.hivCoInfection left join fetch h.modifiedBy left join fetch h.createdBy where h.patient=:patient and h.hivCoInfection=:hivCoInfection")
     public HivConInfectionItem findByPatientAndHivCoInfection(@Param("patient") Patient patient, @Param("hivCoInfection") HivCoInfection hivCoInfection);
 }

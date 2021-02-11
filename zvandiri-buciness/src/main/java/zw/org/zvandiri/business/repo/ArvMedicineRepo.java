@@ -26,6 +26,6 @@ import zw.org.zvandiri.business.domain.ArvMedicine;
  */
 public interface ArvMedicineRepo extends AbstractNameDescRepo<ArvMedicine, String> {
     
-    @Query("from ArvMedicine a left join fetch a.createdBy left join fetch a.modifiedBy where a.active=:active Order By a.name ASC")
+    @Query("from ArvMedicine a left join fetch a.createdBy left join fetch a.modifiedBy where a.active=:active")
     public List<ArvMedicine> getOptAll(@Param("active") Boolean active);
 }

@@ -20,61 +20,48 @@
                 <br/>
                 <div class="row">
                     <div class="col-lg-12">
-                        <b class="titleHeader">TB Screening Detail</b><hr/>
-                        <c:if test="${tbScreen != null}">
-                            <table class="table-condensed" width="100%">
+                        <b class="titleHeader">TB Screening Details</b><hr/>
+                        <c:if test="${canEdit}"><a href="${page}/patient/tb-screening/item.form?patientId=${patient.id}">Add TB Screening </a></c:if>
+                        <div class="table-responsive">
+                            <table class="itemList" class="display" cellspacing="0">
+                                <thead>
                                 <tr>
-                                    <th>Screened For Tb</th>
-                                    <td>${tbScreen.screenedForTb}</td>
-                                </tr>
-                                <tr>
+                                    <th>Screened For TB</th>
                                     <th>Date Screened</th>
-                                    <td>${tbScreen.dateScreened}</td>
-                                </tr>
-                                <tr>
-                                    <th>Presence with signs or symptoms of TB</th>
-                                    <td>${tbScreen.tbSymptoms}</td>
-                                </tr>
-                                <tr>
-                                    <th>Identified with TB</th>
-                                    <td>${tbScreen.identifiedWithTb}</td>
-                                </tr>
-                                <tr>
-                                    <th>Action Taken</th>
-                                    <td>${tbScreen.tbIdentificationOutcome}</td>
-                                </tr>
-                                <tr>
+                                    <th>TB Sysmptoms</th>
+                                    <th>Identified With TB</th>
                                     <th>Date Started Treatment</th>
-                                    <td>${tbScreen.dateStartedTreatment}</td>
-                                </tr>
-                                <tr>
-                                    <th>Outcome</th>
-                                    <td>${tbScreen.tbTreatmentOutcome}</td>
-                                </tr>
-                                <tr>
+                                    <th>Treatment Outcome</th>
                                     <th>Referred For IPT</th>
-                                    <td>${tbScreen.referredForIpt}</td>
-                                </tr>
-                                <tr>
                                     <th>On IPT</th>
-                                    <td>${tbScreen.onIpt}</td>
+                                    <th>Date Started IPT</th>
+                                    <th>Date Created</th>
+                                    <th>&nbsp;</th>
                                 </tr>
-                                <tr>
-                                    <th>Date Started On IPT</th>
-                                    <td>${tbScreen.dateStartedIpt}</td>
-                                </tr>
-                                <tr>
-                                    <td>&nbsp;</td>
-                                    <td>
-                                        <a href="${page}/patient/tb-screening/item.form?id=${tbScreen.id}">Edit</a> | 
-<%--                                        <c:if test="${canEdit}"><a href="${page}/patient/tb-screening/item.delete?id=${tbScreen.id}">Delete</a></c:if>--%>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="item" items="${items}">
+                                    <tr>
+                                        <td>${item.screenedForTb.name}</td>
+                                        <td><spring:eval expression="item.dateScreened"/></td>
+                                        <td>${item.getSymptoms()}</td>
+                                        <td>${item.identifiedWithTb.name}</td>
+                                        <td><spring:eval expression="item.dateStartedTreatment"/></td>
+                                        <td>${item.tbTreatmentOutcome.name}</td>
+                                        <td>${item.referredForIpt.name}</td>
+                                        <td>${item.onIpt.name}</td>
+                                        <td><spring:eval expression="item.dateStartedIpt"/></td>
+                                        <td><spring:eval expression="item.dateCreated"/></td>
+                                        <td>
+                                            <a href="${page}/patient/tb-screening/item.form?id=${item.id}">Edit</a>
+                                                <%--                                                <c:if test="${canEdit}"><a href="item.delete?id=${infection.id}">Delete</a></c:if>--%>
                                         </td>
                                     </tr>
-                                </table>            
-                        </c:if>
-                        <c:if test="${tbScreen == null}">
-                            <c:if test="${canEdit}"><a href="${page}/patient/tb-screening/item.form?patientId=${patient.id}">Add TB Screening </a></c:if>
-                        </c:if>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
                 </div>
             </div>

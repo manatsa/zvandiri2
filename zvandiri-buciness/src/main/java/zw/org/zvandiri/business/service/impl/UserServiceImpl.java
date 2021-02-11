@@ -198,7 +198,7 @@ public class UserServiceImpl implements UserService {
                 builder.append(" and :userRoles member of u.userRoles");
             }
         }
-        builder.append(" order by u.lastName, u.firstName ASC");
+        //builder.append(" order by u.lastName, u.firstName ASC");
         TypedQuery<User> query = entityManager.createQuery(builder.toString(), User.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());

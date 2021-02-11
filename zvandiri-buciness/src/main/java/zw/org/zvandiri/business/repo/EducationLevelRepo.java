@@ -26,6 +26,6 @@ import zw.org.zvandiri.business.domain.EducationLevel;
  */
 public interface EducationLevelRepo extends AbstractNameDescRepo<EducationLevel, String> {
     
-    @Query("from EducationLevel e left join fetch e.createdBy left join fetch e.modifiedBy where e.active=:active Order By e.name ASC")
+    @Query("from EducationLevel e left join fetch e.createdBy left join fetch e.modifiedBy where e.active=:active")
     public List<EducationLevel> getOptAll(@Param("active") Boolean active);
 }

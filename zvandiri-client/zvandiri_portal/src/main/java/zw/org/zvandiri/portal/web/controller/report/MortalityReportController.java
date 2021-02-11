@@ -35,6 +35,7 @@ import zw.org.zvandiri.report.api.service.DetailedReportService;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,6 +60,7 @@ public class MortalityReportController extends BaseController {
     @Resource
     MortalityService mortalityService;
 
+    List<Mortality> mortalitys=new ArrayList<>();
 
     public void setUpModel(ModelMap model, SearchDTO item, Boolean post, Boolean hei) {
         item = getUserLevelObjectState(item);
@@ -99,7 +101,10 @@ public class MortalityReportController extends BaseController {
     public String getMortalityRangeIndexPost(ModelMap model, @ModelAttribute("item") @Valid SearchDTO item) {
         //System.err.println("************************************************Now checking mortalities ++++++++++++++++++++++++++++++++");
         model.addAttribute("pageTitle", APP_PREFIX + "Mortality Detailed Report");
+
         setUpModel(model, item, Boolean.TRUE, Boolean.FALSE);
+        item=getUserLevelObjectState(item);
+        mortalitys=mortalityService.get(item);
         return "report/mortalityDetailedReport";
     }
 
@@ -121,7 +126,7 @@ public class MortalityReportController extends BaseController {
         XSSFCellStyle.setDataFormat(
                 createHelper.createDataFormat().getFormat("dd/MM/yyyy"));
 
-        List<Mortality> mortalitys=mortalityService.get(dto);
+
 
         XSSFSheet mortalityDetails = workbook.createSheet("Patient_Mortality");
         int mortalityRowNum = 0;

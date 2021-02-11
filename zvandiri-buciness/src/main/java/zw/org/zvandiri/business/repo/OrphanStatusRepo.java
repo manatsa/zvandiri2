@@ -26,6 +26,6 @@ import zw.org.zvandiri.business.domain.OrphanStatus;
  */
 public interface OrphanStatusRepo extends AbstractNameDescRepo<OrphanStatus, String> {
     
-    @Query("from OrphanStatus o left join fetch o.createdBy left join fetch o.modifiedBy where o.active=:active Order By o.name ASC")
+    @Query("from OrphanStatus o left join fetch o.createdBy left join fetch o.modifiedBy where o.active=:active")
     public List<OrphanStatus> getOptAll(@Param("active") Boolean active);
 }

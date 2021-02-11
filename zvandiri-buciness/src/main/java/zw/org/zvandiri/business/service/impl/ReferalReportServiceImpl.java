@@ -112,10 +112,10 @@ public class ReferalReportServiceImpl implements ReferalReportService {
             }
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
                 if (position == 0) {
-                    builder.append("r.referralDate between :startDate and :endDate");
+                    builder.append("r.dateCreated between :startDate and :endDate");
                     position++;
                 } else {
-                    builder.append(" and (r.referralDate between :startDate and :endDate)");
+                    builder.append(" and (r.dateCreated between :startDate and :endDate)");
                 }
             }
             if (dto.getStatus()!= null) {
@@ -127,7 +127,7 @@ public class ReferalReportServiceImpl implements ReferalReportService {
                 }
             }
         }
-        builder.append(" order by r.referralDate DESC");
+        // builder.append(" order by r.referralDate DESC");
         Query query = entityManager.createQuery(builder.toString(), Referral.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());

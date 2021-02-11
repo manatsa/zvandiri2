@@ -116,7 +116,7 @@ public class MentalHealthScreeningServiceImpl implements MentalHealthScreeningSe
     
     @Override
     public List<MentalHealthScreening> get(SearchDTO dto) {
-        System.err.println("******************************************************************\n"+dto);
+        //System.err.println("******************************************************************\n"+dto);
         StringBuilder builder = new StringBuilder("Select Distinct m from MentalHealthScreening m left join fetch m.patient p ");
         int position = 0;
 
@@ -159,11 +159,11 @@ public class MentalHealthScreeningServiceImpl implements MentalHealthScreeningSe
             
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
                 if (position == 0) {
-                    builder.append(" m.dateScreened ");
+                    builder.append(" m.dateCreated ");
                     builder.append(" between :startDate and :endDate");
                     position++;
                 } else {
-                    builder.append(" and m.dateScreened");
+                    builder.append(" and m.dateCreated");
                     builder.append(" between :startDate and :endDate)");
                 }
             }
@@ -172,15 +172,14 @@ public class MentalHealthScreeningServiceImpl implements MentalHealthScreeningSe
         
         if(position > 0)
         {
-            builder.append(" order by m.dateScreened DESC, p.lastName ASC, p.firstName ASC, p.middleName ASC, p.dateModified DESC, p.dateCreated DESC");
-        }else{
+            //builder.append(" order by m.dateScreened DESC, p.lastName ASC, p.firstName ASC, p.middleName ASC, p.dateModified DESC, p.dateCreated DESC");
+        }
+        else{
           builder.append(" m.dateCreated is not null " );  
         }
-        
-         System.err.println("******************************************************************\n"+dto);
-        
-        System.err.println(position+" : ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n"+builder.toString());;
-        
+
+        //System.err.println("++++++++++++++++++++++++++++++++\n "+builder+" \n+++++++++++++++++++++++++++++++++++++");
+
         TypedQuery<MentalHealthScreening> query = entityManager.createQuery(builder.toString(), MentalHealthScreening.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());
@@ -199,8 +198,11 @@ public class MentalHealthScreeningServiceImpl implements MentalHealthScreeningSe
             query.setParameter("startDate", dto.getStartDate());
             query.setParameter("endDate", dto.getEndDate());
         }
-       
-        return query.getResultList();
+
+
+       List<MentalHealthScreening> screenings= query.getResultList();
+        System.err.println("Query Results Empty :"+screenings.isEmpty());
+        return screenings;
     }
     
 }

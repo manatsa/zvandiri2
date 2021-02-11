@@ -26,6 +26,6 @@ import zw.org.zvandiri.business.domain.HivCoInfection;
  */
 public interface HivCoInfectionRepo extends AbstractNameDescRepo<HivCoInfection, String> {
     
-    @Query("from HivCoInfection h left join fetch h.createdBy left join fetch h.modifiedBy where h.active=:active Order By h.name ASC")
+    @Query("from HivCoInfection h left join fetch h.createdBy left join fetch h.modifiedBy where h.active=:active")
     public List<HivCoInfection> getOptAll(@Param("active") Boolean active);
 }

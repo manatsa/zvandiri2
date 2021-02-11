@@ -104,8 +104,13 @@ public class TbIptServiceImpl implements TbIptService{
     }
 
     @Override
-    public TbIpt getByPatient(Patient patient) {
+    public List<TbIpt> getByPatients(Patient patient) {
         return repo.findByPatient(patient);
+    }
+
+    @Override
+    public TbIpt getByPatient(Patient patient) {
+        return null;// repo.findByPatient(patient);
     }
 
     @Override
@@ -202,7 +207,7 @@ public class TbIptServiceImpl implements TbIptService{
                     builder.append(" between :startDate and :endDate");
                     position++;
                 } else {
-                    builder.append(" and t.dateScreened");
+                    builder.append(" and t.dateCreated");
                     builder.append(" between :startDate and :endDate)");
                 }
             }
@@ -215,7 +220,7 @@ public class TbIptServiceImpl implements TbIptService{
                 }
             }
         }
-        builder.append(" order by t.dateScreened DESC, p.lastName ASC, p.firstName ASC, p.middleName ASC, p.dateModified DESC, p.dateCreated DESC");
+        //builder.append(" order by t.dateScreened DESC, p.lastName ASC, p.firstName ASC, p.middleName ASC, p.dateModified DESC, p.dateCreated DESC");
         TypedQuery<TbIpt> query = entityManager.createQuery(builder.toString(), TbIpt.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());

@@ -15,11 +15,13 @@
  */
 package zw.org.zvandiri.business.repo;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import zw.org.zvandiri.business.domain.ArvHist;
 import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.TbIpt;
 
 /**
  *
@@ -27,10 +29,14 @@ import zw.org.zvandiri.business.domain.Patient;
  */
 public interface ArvHistRepo extends AbstractRepo<ArvHist, String> {
  
-    @Query("from ArvHist a left join fetch a.patient left join fetch a.modifiedBy left join fetch a.createdBy where a.patient=:patient order by a.dateCreated DESC")
+    @Query("from ArvHist a left join fetch a.patient left join fetch a.modifiedBy left join fetch a.createdBy where a.patient=:patient")
     public List<ArvHist> findByPatient(@Param("patient") Patient patient);
     
     @Query("Select count(Distinct a.patient.id) from ArvHist a")
     @Override
     public long count();
+
+    @Query("from ArvHist c left join fetch c.patient where c.patient=:patient and (c.dateCreated between :start_date and :end_date)")
+    public List<ArvHist> findByPatientAndDateCreated(@Param("patient") Patient patient, @Param("start_date") Date start_date, @Param("end_date") Date end_date);
+
 }

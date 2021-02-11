@@ -30,4 +30,6 @@ public interface DistrictService extends GenericService<District> {
     public List<District> getDistrictByProvince(Province province);
     
     public District getByNameAndProvince(String name, Province province);
+
+    List<District> getDistrictsByProvinces(List<Province> provinces);
 }

@@ -26,6 +26,6 @@ import zw.org.zvandiri.business.domain.Relationship;
  */
 public interface RelationshipRepo extends AbstractNameDescRepo<Relationship, String> {
     
-    @Query("from Relationship r left join fetch r.createdBy left join fetch r.modifiedBy where r.active=:active Order By r.name ASC")
+    @Query("from Relationship r left join fetch r.createdBy left join fetch r.modifiedBy where r.active=:active")
     public List<Relationship> getOptAll(@Param("active") Boolean active);
 }

@@ -27,6 +27,6 @@ import zw.org.zvandiri.business.domain.LabTask;
  */
 public interface LabTaskRepo extends AbstractNameDescRepo<LabTask, String>{
     
-    @Query("from LabTask a left join fetch a.createdBy left join fetch a.modifiedBy where a.active=:active Order By a.name ASC")
+    @Query("from LabTask a left join fetch a.createdBy left join fetch a.modifiedBy where a.active=:active")
     public List<LabTask> getOptAll(@Param("active") Boolean active);
 }

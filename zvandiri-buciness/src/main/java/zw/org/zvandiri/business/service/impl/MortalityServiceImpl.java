@@ -215,7 +215,7 @@ public class MortalityServiceImpl implements MortalityService{
                 }
             }
         }
-        builder.append(" order by m.dateOfDeath DESC, p.lastName ASC, p.firstName ASC, p.middleName ASC, p.dateModified DESC, p.dateCreated DESC");
+        //builder.append(" order by m.dateOfDeath DESC, p.lastName ASC, p.firstName ASC, p.middleName ASC, p.dateModified DESC, p.dateCreated DESC");
         TypedQuery<Mortality> query = entityManager.createQuery(builder.toString(), Mortality.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());

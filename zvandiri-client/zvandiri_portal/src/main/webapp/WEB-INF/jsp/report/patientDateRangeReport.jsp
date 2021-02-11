@@ -14,10 +14,12 @@
 							<th>OI/ ART Number</th>
 							<th>Age</th>
 							<th>Date of Birth</th>
+							<th>Date Joined</th>
 							<th>Gender</th>
 							<th>Mode of Transmission</th>
 							<th>Disability Status</th>
 							<th>Current Drug Regimen</th>
+							<th>Date Started Regimen</th>
 							<th>Region</th>
 							<th>District</th>
 							<th>Primary Clinic</th>
@@ -29,10 +31,12 @@
 							<th>OI/ ART Number</th>
 							<th>Age</th>
 							<th>Date of Birth</th>
+							<th>Date Joined</th>
 							<th>Gender</th>
 							<th>Mode of Transmission</th>
 							<th>Disability Status</th>
 							<th>Current Drug Regimen</th>
+							<th>Date Started Regimen</th>
 							<th>Region</th>
 							<th>District</th>
 							<th>Primary Clinic</th>
@@ -46,10 +50,12 @@
 									<td>${item.oINumber}</td>
 									<td>${item.age}</td>
 									<td><spring:eval expression="item.dateOfBirth" /></td>
+									<td><spring:eval expression="item.dateJoined" /></td>
 									<td>${item.gender.name}</td>
 									<td>${item.transmissionMode.name}</td>
 									<td>${item.disabilityStatus}</td>
 									<td>${item.currentArvRegimen}</td>
+									<td><spring:eval expression="item.dateStartedRegimen" /></td>
 									<td>${item.primaryClinic.district.province.name}</td>
 									<td>${item.primaryClinic.district.name}</td>
 									<td>${item.primaryClinic.name}</td>

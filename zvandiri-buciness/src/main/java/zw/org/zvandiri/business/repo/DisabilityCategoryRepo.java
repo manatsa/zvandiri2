@@ -26,6 +26,6 @@ import zw.org.zvandiri.business.domain.DisabilityCategory;
  */
 public interface DisabilityCategoryRepo extends AbstractNameDescRepo<DisabilityCategory, String> {
     
-    @Query("from DisabilityCategory d left join fetch d.createdBy left join fetch d.modifiedBy where d.active=:active Order By d.name ASC")
+    @Query("from DisabilityCategory d left join fetch d.createdBy left join fetch d.modifiedBy where d.active=:active ")
     public List<DisabilityCategory> getOptAll(@Param("active") Boolean active);
 }

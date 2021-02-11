@@ -31,10 +31,91 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29967e23-4f38-4cc3-a9f6-cc5946956d26" name="Default Changelist" comment="All Deletions have been blocked.">
+      <change afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/util/dto/SearchDTOMultiple.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/domain/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/domain/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/domain/TbIpt.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/domain/TbIpt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/domain/util/PatientChangeEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/domain/util/PatientChangeEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ActionTakenRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ActionTakenRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ArvAdverseEffectRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ArvAdverseEffectRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ArvHistRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ArvHistRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ArvMedicineRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ArvMedicineRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/AssessmentRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/AssessmentRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ChronicInfectionRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ChronicInfectionRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ContactRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ContactRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/DisabilityCategoryRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/DisabilityCategoryRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/DisabilityRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/DisabilityRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/DistrictRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/DistrictRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/EducationLevelRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/EducationLevelRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/EducationRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/EducationRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/EnhancedRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/EnhancedRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ExternalReferralRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ExternalReferralRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/FacilityRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/FacilityRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/HalfYearPeriodRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/HalfYearPeriodRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/HivCoInfectionRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/HivCoInfectionRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/HivConInfectionItemRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/HivConInfectionItemRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/HospCauseRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/HospCauseRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/InternalReferralRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/InternalReferralRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/InvestigationTestRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/InvestigationTestRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/LabTaskRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/LabTaskRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/LocationRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/LocationRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/MedicalHistRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/MedicalHistRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/MentalHealthItemRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/MentalHealthItemRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/MentalHealthRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/MentalHealthRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/MentalHealthScreeningRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/MentalHealthScreeningRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/OrphanStatusRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/OrphanStatusRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/PatientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/PatientRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/PeriodRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/PeriodRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/PositionRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/PositionRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ProvinceRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ProvinceRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/QuarterPeriodRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/QuarterPeriodRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ReasonForNotReachingOLevelRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ReasonForNotReachingOLevelRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/RefererRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/RefererRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ReferralRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ReferralRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/RelationshipRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/RelationshipRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ServiceOfferedRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ServiceOfferedRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ServicesReferredRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/ServicesReferredRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/StableRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/StableRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/SubstanceItemRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/SubstanceItemRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/SubstanceRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/SubstanceRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/SupportGroupRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/SupportGroupRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/TbIptRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/TbIptRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/UserRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/UserRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/UserRoleRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/UserRoleRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/YearPeriodRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/repo/YearPeriodRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/ArvHistReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/ArvHistReportService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/DistrictService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/DistrictService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/FacilityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/FacilityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/InvestigationTestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/InvestigationTestService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/TbIptService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/TbIptService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/ArvHistReportServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/ArvHistReportServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/ContactReportServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/ContactReportServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/DetailedPatientReportServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/DetailedPatientReportServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/DistrictServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/DistrictServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/FacilityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/FacilityServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/InvestigationTestServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/InvestigationTestServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/MentalHealthScreeningServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/MentalHealthScreeningServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/MorbidityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/MorbidityServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/MortalityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/MortalityServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/PatientReportServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/PatientReportServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/ReferalReportServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/ReferalReportServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/TbIptServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/TbIptServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-buciness/src/main/java/zw/org/zvandiri/business/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/BaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/BaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/TbScreeningController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/patient/TbScreeningController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/report/DetailedReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/report/DetailedReportController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/report/LaboratoryTestResultsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/report/LaboratoryTestResultsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/report/MortalityReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/report/MortalityReportController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/report/api/DatabaseHeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/report/api/DatabaseHeader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/report/api/service/impl/DetailedReportServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/report/api/service/impl/DetailedReportServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/report/api/service/impl/OfficeExportServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/report/api/service/impl/OfficeExportServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/patient/tbScreeningList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/patient/tbScreeningList.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/report/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/report/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/report/laboratoryDetailedReport.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/report/laboratoryDetailedReport.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/report/patientDateRangeReport.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/report/patientDateRangeReport.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/template/dashboard/patientHistory.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/template/dashboard/patientHistory.jspf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/template/searchFragment.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/WEB-INF/jsp/template/searchFragment.jspf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/resources/script/custom.js" beforeDir="false" afterPath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/webapp/resources/script/custom.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,8 +125,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -79,7 +160,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../Portables/Development/ReactTutorial/lesson1" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../Portables/zvandiri" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
@@ -88,6 +169,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="zw.org.zvandiri.business.util.dto" />
       <recent name="zw.org.zvandiri.portal.web.controller.report" />
       <recent name="zw.org.zvandiri.business.repo" />
     </key>
@@ -279,7 +361,20 @@
       <workItem from="1608818282766" duration="10141000" />
       <workItem from="1609686232250" duration="591000" />
       <workItem from="1609882409895" duration="385000" />
-      <workItem from="1611575881677" duration="9962000" />
+      <workItem from="1611575881677" duration="10593000" />
+      <workItem from="1611650141787" duration="16940000" />
+      <workItem from="1611756300398" duration="911000" />
+      <workItem from="1611760267448" duration="1400000" />
+      <workItem from="1612077285231" duration="1624000" />
+      <workItem from="1612098337931" duration="4183000" />
+      <workItem from="1612197997419" duration="1088000" />
+      <workItem from="1612297397753" duration="1533000" />
+      <workItem from="1612370404468" duration="1389000" />
+      <workItem from="1612375296409" duration="56000" />
+      <workItem from="1612422634930" duration="8704000" />
+      <workItem from="1612762402666" duration="25275000" />
+      <workItem from="1612943851881" duration="20823000" />
+      <workItem from="1613038388886" duration="8090000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed ClassNotFoundException for Workbook/XSSFWorkbook. Now works in both Netbeans and Intellij.&#10;&#10;Yet to finish off MentalHealthScreening Report">
       <created>1604265588046</created>
@@ -316,7 +411,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611581790430</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="All Deletions have been blocked.">
+      <created>1611607571844</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1611607571844</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -328,6 +430,11 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
@@ -357,10 +464,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="All Deletions have been blocked." />
   </component>
   <component name="WindowStateProjectService">
-    <state x="547" y="310" key="#Tomcat_Server" timestamp="1604244198854">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="547" y="310" key="#Tomcat_Server/0.0.1536.864@0.0.1536.864" timestamp="1604244198854" />
     <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607624827859">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -369,66 +472,62 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="574" y="116" key="#com.intellij.ide.util.MemberChooser/0.0.1536.864@0.0.1536.864" timestamp="1604562088402" />
-    <state x="599" y="143" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1604249899840">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="599" y="143" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.0.1536.864@0.0.1536.864" timestamp="1604249899840" />
     <state x="510" y="301" width="515" height="267" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1604495226689">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="510" y="301" width="515" height="267" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.864@0.0.1536.864" timestamp="1604495226689" />
-    <state x="548" y="173" key="FileChooserDialogImpl" timestamp="1609882597520">
+    <state x="548" y="173" key="FileChooserDialogImpl" timestamp="1611757960341">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="548" y="173" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1609882597520" />
-    <state width="1372" height="319" key="GridCell.Tab.0.bottom" timestamp="1611603277110">
+    <state x="548" y="173" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1611757960341" />
+    <state width="1372" height="224" key="GridCell.Tab.0.bottom" timestamp="1613053359553">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="319" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1611603277110" />
-    <state width="1372" height="319" key="GridCell.Tab.0.center" timestamp="1611603277110">
+    <state width="1372" height="224" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1613053359553" />
+    <state width="1372" height="224" key="GridCell.Tab.0.center" timestamp="1613053359553">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="319" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1611603277110" />
-    <state width="1372" height="319" key="GridCell.Tab.0.left" timestamp="1611603277110">
+    <state width="1372" height="224" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1613053359553" />
+    <state width="1372" height="224" key="GridCell.Tab.0.left" timestamp="1613053359553">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="319" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1611603277110" />
-    <state width="1372" height="319" key="GridCell.Tab.0.right" timestamp="1611603277110">
+    <state width="1372" height="224" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1613053359553" />
+    <state width="1372" height="224" key="GridCell.Tab.0.right" timestamp="1613053359553">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="319" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1611603277110" />
-    <state width="1372" height="319" key="GridCell.Tab.1.bottom" timestamp="1611603277041">
+    <state width="1372" height="224" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1613053359553" />
+    <state width="1372" height="224" key="GridCell.Tab.1.bottom" timestamp="1613053359468">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="319" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1611603277041" />
-    <state width="1372" height="319" key="GridCell.Tab.1.center" timestamp="1611603277041">
+    <state width="1372" height="224" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1613053359468" />
+    <state width="1372" height="224" key="GridCell.Tab.1.center" timestamp="1613053359468">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="319" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1611603277041" />
-    <state width="1372" height="319" key="GridCell.Tab.1.left" timestamp="1611603277041">
+    <state width="1372" height="224" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1613053359468" />
+    <state width="1372" height="224" key="GridCell.Tab.1.left" timestamp="1613053359467">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="319" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1611603277041" />
-    <state width="1372" height="319" key="GridCell.Tab.1.right" timestamp="1611603277041">
+    <state width="1372" height="224" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1613053359467" />
+    <state width="1372" height="224" key="GridCell.Tab.1.right" timestamp="1613053359468">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="319" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1611603277041" />
-    <state width="1372" height="319" key="GridCell.Tab.2.bottom" timestamp="1611603277041">
+    <state width="1372" height="224" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1613053359468" />
+    <state width="1372" height="224" key="GridCell.Tab.2.bottom" timestamp="1613053359468">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="319" key="GridCell.Tab.2.bottom/0.0.1536.864@0.0.1536.864" timestamp="1611603277041" />
-    <state width="1372" height="319" key="GridCell.Tab.2.center" timestamp="1611603277041">
+    <state width="1372" height="224" key="GridCell.Tab.2.bottom/0.0.1536.864@0.0.1536.864" timestamp="1613053359468" />
+    <state width="1372" height="224" key="GridCell.Tab.2.center" timestamp="1613053359468">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="319" key="GridCell.Tab.2.center/0.0.1536.864@0.0.1536.864" timestamp="1611603277041" />
-    <state width="1372" height="319" key="GridCell.Tab.2.left" timestamp="1611603277041">
+    <state width="1372" height="224" key="GridCell.Tab.2.center/0.0.1536.864@0.0.1536.864" timestamp="1613053359468" />
+    <state width="1372" height="224" key="GridCell.Tab.2.left" timestamp="1613053359468">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="319" key="GridCell.Tab.2.left/0.0.1536.864@0.0.1536.864" timestamp="1611603277041" />
-    <state width="1372" height="319" key="GridCell.Tab.2.right" timestamp="1611603277041">
+    <state width="1372" height="224" key="GridCell.Tab.2.left/0.0.1536.864@0.0.1536.864" timestamp="1613053359468" />
+    <state width="1372" height="224" key="GridCell.Tab.2.right" timestamp="1613053359468">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1372" height="319" key="GridCell.Tab.2.right/0.0.1536.864@0.0.1536.864" timestamp="1611603277041" />
+    <state width="1372" height="224" key="GridCell.Tab.2.right/0.0.1536.864@0.0.1536.864" timestamp="1613053359468" />
     <state width="1297" height="570" key="GridCell.Tab.3.bottom" timestamp="1604909967581">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -461,10 +560,6 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1297" height="570" key="GridCell.Tab.4.right/0.0.1536.864@0.0.1536.864" timestamp="1604908629378" />
-    <state x="299" y="87" key="Maven.ArtifactSearchDialog" timestamp="1604261504005">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="299" y="87" key="Maven.ArtifactSearchDialog/0.0.1536.864@0.0.1536.864" timestamp="1604261504005" />
     <state x="147" y="69" key="MergeDialog" timestamp="1607624741415">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -473,34 +568,34 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="249" y="7" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1607624716687" />
-    <state x="361" y="274" key="Vcs.Push.Dialog.v2" timestamp="1611582147538">
+    <state x="361" y="274" key="Vcs.Push.Dialog.v2" timestamp="1611650406925">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="361" y="274" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1611582147538" />
-    <state x="478" y="31" width="758" height="801" key="find.popup" timestamp="1611600320431">
+    <state x="361" y="274" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1611650406925" />
+    <state x="478" y="31" width="758" height="801" key="find.popup" timestamp="1612987388564">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="478" y="31" width="758" height="801" key="find.popup/0.0.1536.864@0.0.1536.864" timestamp="1611600320431" />
+    <state x="478" y="31" width="758" height="801" key="find.popup/0.0.1536.864@0.0.1536.864" timestamp="1612987388564" />
     <state x="516" y="145" key="git4idea.branch.GitSmartOperationDialog" timestamp="1607624732472">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="516" y="145" key="git4idea.branch.GitSmartOperationDialog/0.0.1536.864@0.0.1536.864" timestamp="1607624732472" />
-    <state x="569" y="334" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1604499385914">
+    <state x="569" y="334" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1612429389512">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="569" y="334" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1536.864@0.0.1536.864" timestamp="1604499385914" />
-    <state x="209" y="53" key="new project wizard" timestamp="1608912217209">
+    <state x="569" y="334" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1536.864@0.0.1536.864" timestamp="1612429389512" />
+    <state x="209" y="53" key="new project wizard" timestamp="1612374432404">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="209" y="53" key="new project wizard/0.0.1536.864@0.0.1536.864" timestamp="1608912217209" />
+    <state x="209" y="53" key="new project wizard/0.0.1536.864@0.0.1536.864" timestamp="1612374432404" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/zvandiri-client/zvandiri_portal/src/main/java/zw/org/zvandiri/portal/web/controller/BaseController.java</url>
-          <line>196</line>
-          <properties class="zw.org.zvandiri.portal.web.controller.BaseController">
+          <line>218</line>
+          <properties class="zw.org.zvandiri.portal.web.controller.BaseController" method="setViralLoad">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="1" />

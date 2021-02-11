@@ -44,7 +44,7 @@ public class DetailedReportServiceImpl implements DetailedReportService {
 
     @Override
     public List<GenericReportModel> getDefaultReport(SearchDTO dto) {
-        String[] headers = {"Name", "Age", "Date of Birth", "Gender", "Date Joined", "Viral Load", "CD4 Count",
+        String[] headers = {"Name", "Age", "Date of Birth", "Date Joined", "Gender",  "Viral Load", "CD4 Count",
             "Province", "District", "Primary Clinic", "Support Group", "Mobile Number", "Referer"};
         List<GenericReportModel> items = new ArrayList<>();
         items.add(new GenericReportModel(Arrays.asList(headers)));
@@ -53,8 +53,8 @@ public class DetailedReportServiceImpl implements DetailedReportService {
                 item.getName(),
                 item.getAge() + "",
                 DateUtil.getStringFromDate(item.getDateOfBirth()),
-                item.getGender().getName(),
                 item.getDateJoin(),
+                item.getGender().getName(),
                 item.getViralLoad() != null ? item.getViralLoad() + "" : "",
                 item.getCd4Count() != null ? item.getCd4Count() + "" : "",
                 item.getPrimaryClinic().getDistrict().getProvince().getName(),
@@ -71,8 +71,8 @@ public class DetailedReportServiceImpl implements DetailedReportService {
 
     @Override
     public List<GenericReportModel> get(List<Patient> patients) {
-        String[] headers = {"Name", "OI/ ART Number", "Age", "Date of Birth", "Gender", "Mode of Transimission", "Disability Status",
-            "Current Drug Regimen", "Region", "District", "Primary Clinic", "Support Group", "Referer"};
+        String[] headers = {"Name", "OI/ ART Number", "Age", "Date of Birth","Date Joined", "Gender", "Mode of Transimission", "Disability Status",
+            "Current Drug Regimen","Date Started Regimen", "Region", "District", "Primary Clinic", "Support Group", "Referer"};
 
         List<GenericReportModel> items = new ArrayList<>();
         items.add(new GenericReportModel(Arrays.asList(headers)));
@@ -82,10 +82,12 @@ public class DetailedReportServiceImpl implements DetailedReportService {
                 item.getoINumber(),
                 item.getAge() + "",
                 DateUtil.getStringFromDate(item.getDateOfBirth()),
+                    item.getDateJoin(),
                 item.getGender().getName(),
                 item.getTransmissionMode() != null ? item.getTransmissionMode().getName() : "",
                 item.getDisabilityStatus() != null ? item.getDisabilityStatus().getName() : "",
                 item.getCurrentArvRegimen(),
+                item.getDateStartedRegimen(),
                 item.getPrimaryClinic().getDistrict().getProvince().getName(),
                 item.getPrimaryClinic().getDistrict().getName(),
                 item.getPrimaryClinic().getName(),

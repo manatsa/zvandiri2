@@ -7,16 +7,9 @@ package zw.org.zvandiri.business.domain;
 
 import java.util.Date;
 import java.util.Set;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
 import org.springframework.format.annotation.DateTimeFormat;
 import zw.org.zvandiri.business.domain.util.TbIdentificationOutcome;
 import zw.org.zvandiri.business.domain.util.TbSymptom;
@@ -60,6 +53,10 @@ public class TbIpt extends BaseEntity {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateStartedIpt;
+
+    @Transient
+    String symptoms;
+
 
     public TbIpt() {
     }

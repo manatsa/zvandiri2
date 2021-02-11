@@ -103,7 +103,7 @@ public class MorbidityServiceImpl implements MorbidityService {
                 }
             }
         }
-        builder.append(" Order By c.contactDate DESC");
+        //builder.append(" Order By c.contactDate DESC");
         Query query = entityManager.createQuery(builder.toString(), Contact.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());

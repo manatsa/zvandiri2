@@ -27,6 +27,6 @@ import zw.org.zvandiri.business.domain.Patient;
  */
 public interface MedicalHistRepo extends AbstractRepo<MedicalHist, String> {
     
-    @Query("from MedicalHist m left join fetch m.patient left join fetch m.modifiedBy left join fetch m.createdBy where m.patient=:patient Order by m.hospWhen DESC")
+    @Query("from MedicalHist m left join fetch m.patient left join fetch m.modifiedBy left join fetch m.createdBy where m.patient=:patient")
     public List<MedicalHist> findByPatient(@Param("patient") Patient patient);
 }

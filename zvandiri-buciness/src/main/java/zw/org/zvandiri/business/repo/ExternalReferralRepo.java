@@ -26,6 +26,6 @@ import zw.org.zvandiri.business.domain.ExternalReferral;
  */
 public interface ExternalReferralRepo extends AbstractNameDescRepo<ExternalReferral, String> {
  
-    @Query("from ExternalReferral e left join fetch e.createdBy left join fetch e.modifiedBy where e.active=:active Order By e.name ASC")
+    @Query("from ExternalReferral e left join fetch e.createdBy left join fetch e.modifiedBy where e.active=:active")
     public List<ExternalReferral> getOptAll(@Param("active") Boolean active);
 }

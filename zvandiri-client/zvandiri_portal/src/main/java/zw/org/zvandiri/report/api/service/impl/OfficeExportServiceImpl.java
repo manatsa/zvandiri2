@@ -2023,6 +2023,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             for (TbIpt tbIpt : tbIpts) {
                 int count = 0;
                 tbIptXSSFRow = tbIptDetails.createRow(tbIptXSSFRowNum++);
+
                 XSSFCell id = tbIptXSSFRow.createCell(count);
                 id.setCellValue(tbIpt.getPatient().getPatientNumber());
 
@@ -2058,6 +2059,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
 
                 XSSFCell screenedForTb = tbIptXSSFRow.createCell(++count);
                 screenedForTb.setCellValue(tbIpt.getScreenedForTb() != null ? tbIpt.getScreenedForTb().getName() : "");
+
                 XSSFCell dateScreened = tbIptXSSFRow.createCell(++count);
                 if (tbIpt.getDateScreened() != null) {
                     dateScreened.setCellValue(tbIpt.getDateScreened());
@@ -2075,6 +2077,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
 
                 XSSFCell tbIdentificationOutcome = tbIptXSSFRow.createCell(++count);
                 tbIdentificationOutcome.setCellValue(tbIpt.getTbIdentificationOutcome() != null ? tbIpt.getTbIdentificationOutcome().getName() : "");
+
                 XSSFCell dateStartedTreatment = tbIptXSSFRow.createCell(++count);
                 if (tbIpt.getDateStartedTreatment() != null) {
                     dateStartedTreatment.setCellValue(tbIpt.getDateStartedTreatment());
@@ -2085,6 +2088,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
 
                 XSSFCell referralForSputum = tbIptXSSFRow.createCell(++count);
                 referralForSputum.setCellValue(tbIpt.getReferralForSputum());
+
                 XSSFCell tbTreatmentOutcome = tbIptXSSFRow.createCell(++count);
                 tbTreatmentOutcome.setCellValue(tbIpt.getTbTreatmentOutcome() != null ? tbIpt.getTbTreatmentOutcome().getName() : "");
 
@@ -2093,6 +2097,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
 
                 XSSFCell onIpt = tbIptXSSFRow.createCell(++count);
                 onIpt.setCellValue(tbIpt.getOnIpt() != null ? tbIpt.getOnIpt().getName() : "");
+
                 XSSFCell dateStartedIpt = tbIptXSSFRow.createCell(++count);
                 if (tbIpt.getDateStartedTreatment() != null) {
                     dateStartedIpt.setCellValue(tbIpt.getDateStartedTreatment());
@@ -2100,6 +2105,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 } else {
                     dateStartedIpt.setCellValue("");
                 }
+
             }
 
             // mental health screening

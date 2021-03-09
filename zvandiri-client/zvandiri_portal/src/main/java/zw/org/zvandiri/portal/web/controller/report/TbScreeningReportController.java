@@ -148,23 +148,35 @@ public class TbScreeningReportController extends BaseController{
         for (TbIpt tbIpt : tbIpts) {
             int count = 0;
             tbIptRow = tbIptDetails.createRow(tbIptRowNum++);
+
             XSSFCell id = tbIptRow.createCell(count);
             id.setCellValue(tbIpt.getPatient().getPatientNumber());
+
             XSSFCell patientName = tbIptRow.createCell(++count);
             patientName.setCellValue(tbIpt.getPatient().getName());
+
             XSSFCell dateOfBirth = tbIptRow.createCell(++count);
             dateOfBirth.setCellValue(tbIpt.getPatient().getDateOfBirth());
             dateOfBirth.setCellStyle(cellStyle);
+
             XSSFCell age = tbIptRow.createCell(++count);
             age.setCellValue(tbIpt.getPatient().getAge());
+
             XSSFCell sex = tbIptRow.createCell(++count);
             sex.setCellValue(tbIpt.getPatient().getGender().getName());
-            Cell cat = tbIptRow.createCell(++count);
+
+            XSSFCell cat = tbIptRow.createCell(++count);
             cat.setCellValue(tbIpt.getPatient().getCat()!=null?tbIpt.getPatient().getCat().getName():"");
+
+            XSSFCell ymm = tbIptRow.createCell(++count);
+            ymm.setCellValue(tbIpt.getPatient().getYoungMumGroup()!=null?tbIpt.getPatient().getYoungMumGroup().getName():"");
+
             XSSFCell province = tbIptRow.createCell(++count);
             province.setCellValue(tbIpt.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+
             XSSFCell district = tbIptRow.createCell(++count);
             district.setCellValue(tbIpt.getPatient().getPrimaryClinic().getDistrict().getName());
+
             XSSFCell primaryClinic = tbIptRow.createCell(++count);
             primaryClinic.setCellValue(tbIpt.getPatient().getPrimaryClinic().getName());
 
